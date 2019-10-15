@@ -10,10 +10,7 @@ enum OBJ_NAME
 	OBJ_PER_DECISION,
 	OBJ_TIME,
 	OBJ_ENEMY,
-	OBJ_OBJECT,
-	OBJ_TITLE,
-	OBJ_CLEAR,
-	OBJ_OVER,
+	OBJ_OBJECT
 };
 //------------------------------------------------
 
@@ -52,25 +49,40 @@ struct UserData
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------
-
+#include "BaseStatus.h"
 
 //------------------------------------------------
 
 //ゲームシーンオブジェクトヘッダ------------------
+//主人公
+#include "ObjHero.h"
+
+//主人公用攻撃
+//エネミー
+//中ボス
+//ボス
+//エネミー・中ボス・ボス用攻撃
+//死亡エフェクト
+#include "ObjBlood_splash.h"
+
+//ステージ
+
+//タイトル
+//ゲームオーバー
+//クリア
+//メニュー
+//ベース設定
 #include "GameHead.h"
-#include "ObjTitle.h"
-#include "ObjClear.h"
-#include "ObjOver.h"
+
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------
-#include "SceneTitle.h"
-#include "SceneClear.h"
-#include "SceneOver.h"
-//#include "SceneMain.h"
+//ステージ
+#include "SceneStage.h"
+
 //-----------------------------------------------
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
-#define SET_GAME_START  CSceneOver 
+#define SET_GAME_START  CSceneStage 
 //-----------------------------------------------
