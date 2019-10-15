@@ -31,7 +31,7 @@ void CObjHero::Init()
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
 
-	m_ani_time = 0; //アニメーションフレーム動作間隔	
+	m_ani_time = 0; //アニメーションフレーム動作間隔aaa	
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
