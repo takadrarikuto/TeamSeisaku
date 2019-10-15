@@ -88,7 +88,7 @@ struct UserData
 
 //ゲームシーンクラスヘッダ------------------------
 //ステージ
-//#include "SceneStage.h"
+#include "SceneStage.h"
 
 //タイトル
 #include "SceneTitle.h"
