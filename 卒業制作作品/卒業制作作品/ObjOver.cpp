@@ -151,13 +151,13 @@ void CObjOver::Draw()
 	Font::StrDraw(L"ゲームオーバー", GAME_OVER_X, GAME_OVER_Y, GAME_OVER_FONT_SIZE, p);
 
 	if (choose == 0)
-		Font::StrDraw(L"◆やり直す", GAME_YES_X - 40, GAME_YES_Y, GAME_YES_FONT_SIZE, r);
+		Font::StrDraw(L"◆リトライ", GAME_YES_X , GAME_YES_Y, GAME_YES_FONT_SIZE, r);
 	else
-		Font::StrDraw(L"やり直す", GAME_YES_X, GAME_YES_Y, GAME_YES_FONT_SIZE, r);
+		Font::StrDraw(L"　リトライ", GAME_YES_X, GAME_YES_Y, GAME_YES_FONT_SIZE, r);
 
 	if (choose == 1)
-		Font::StrDraw(L"◆タイトルに戻る", GAME_NO_X - 40, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
+		Font::StrDraw(L"◆タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
 	else
-		Font::StrDraw(L"タイトルに戻る", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
+		Font::StrDraw(L"　タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
 
 }
