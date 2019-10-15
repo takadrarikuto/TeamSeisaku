@@ -10,7 +10,8 @@ enum OBJ_NAME
 	OBJ_PER_DECISION,
 	OBJ_TIME,
 	OBJ_ENEMY,
-	OBJ_OBJECT
+	OBJ_OBJECT,
+	OBJ_TITLE,
 };
 //------------------------------------------------
 
@@ -55,14 +56,16 @@ struct UserData
 
 //ゲームシーンオブジェクトヘッダ------------------
 #include "GameHead.h"
+#include "ObjTitle.h"
 
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------
+#include "SceneTitle.h"
 //#include "SceneMain.h"
 //-----------------------------------------------
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
-//#define SET_GAME_START  CSceneTitle 
+#define SET_GAME_START  CSceneTitle 
 //-----------------------------------------------
