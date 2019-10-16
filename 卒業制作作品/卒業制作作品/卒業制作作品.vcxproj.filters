@@ -40,6 +40,12 @@
     <Filter Include="ソース ファイル\操作説明">
       <UniqueIdentifier>{9ea7e497-2c78-4b21-9ee6-ab1c16e04a69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\血しぶき・爆発">
+      <UniqueIdentifier>{36c98480-9ff8-4111-a86a-180ec1a881c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\武器">
+      <UniqueIdentifier>{8f4b48fe-34b9-44e1-8c90-8bee9c01a689}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -144,6 +150,12 @@
     <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ソース ファイル\血しぶき・爆発</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGunAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -238,6 +250,10 @@
     </ClCompile>
     <ClCompile Include="ObjStage.cpp">
       <Filter>ソース ファイル\ステージメイン</Filter>
+      <Filter>ソース ファイル\血しぶき・爆発</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGunAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
