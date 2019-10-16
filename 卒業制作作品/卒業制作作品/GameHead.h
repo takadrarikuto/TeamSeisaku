@@ -10,6 +10,7 @@ enum OBJ_NAME
 	OBJ_PER_DECISION,
 	OBJ_TIME,
 	OBJ_ENEMY,
+	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
 	OBJ_TITLE,
 	OBJ_OP,
@@ -55,6 +56,7 @@ struct UserData
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------
+//ベースデータ
 #include "BaseStatus.h"
 
 //------------------------------------------------
@@ -125,5 +127,5 @@ struct UserData
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
-#define SET_GAME_START  CSceneOver 
+#define SET_GAME_START  CSceneStage
 //-----------------------------------------------

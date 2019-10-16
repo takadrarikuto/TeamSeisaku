@@ -168,6 +168,13 @@ void CObjHero::Action()
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
+	if (hp == 0)
+	{
+		//血しぶきオブジェクト作成
+		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_dst_size);
+		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);				
+	}
+
 	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
 	//	|| hit_h->CheckObjNameHit(OBJ_BOMB) != nullptr)
