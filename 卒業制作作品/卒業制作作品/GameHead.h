@@ -10,10 +10,13 @@ enum OBJ_NAME
 	OBJ_PER_DECISION,
 	OBJ_TIME,
 	OBJ_ENEMY,
+	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
 	OBJ_TITLE,
+	OBJ_OP,
 	OBJ_CLEAR,
 	OBJ_OVER,
+	OBJ_ED,
 };
 //------------------------------------------------
 
@@ -52,6 +55,7 @@ struct UserData
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------
+//ベースデータ
 #include "BaseStatus.h"
 
 //------------------------------------------------
@@ -73,11 +77,17 @@ struct UserData
 //タイトル
 #include "ObjTitle.h"
 
+//あらすじ
+#include "ObjOP.h"
+
 //ゲームオーバー
 #include "ObjOver.h"
 
 //クリア
 #include "ObjClear.h"
+
+//エンディング
+#include "ObjED.h"
 
 //メニュー
 
@@ -93,14 +103,21 @@ struct UserData
 //タイトル
 #include "SceneTitle.h"
 
+//あらすじ
+#include "SceneOP.h"
+
 //ゲームオーバー
 #include "SceneOver.h"
 
 //クリア
 #include "SceneClear.h"
+
+//エンディング
+#include "SceneED.h"
+
 //-----------------------------------------------
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
-#define SET_GAME_START  CSceneOver 
+#define SET_GAME_START  CSceneStage
 //-----------------------------------------------
