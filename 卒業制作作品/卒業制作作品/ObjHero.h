@@ -12,6 +12,9 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
+	
+	float GetX() { return m_x; }
+	float GetY() { return m_y; }
 
 private:
 	float m_x; //位置更新
@@ -19,6 +22,8 @@ private:
 	float m_vx; //移動ベクトル
 	float m_vy;
 	float m_v_max; //移動ベクトル最大値
+	float m_ga_vx_max; //武器攻撃移動ベクトル最大値
+	float m_ga_vy_max;
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム

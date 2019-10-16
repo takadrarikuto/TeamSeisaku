@@ -9,6 +9,7 @@ enum OBJ_NAME
 	OBJ_HERO,
 	OBJ_PER_DECISION,
 	OBJ_TIME,
+	OBJ_GUNATTACK,
 	OBJ_ENEMY,
 	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
@@ -65,6 +66,8 @@ struct UserData
 #include "ObjHero.h"
 
 //主人公用攻撃
+#include "ObjGunAttack.h"
+
 //エネミー
 //中ボス
 //ボス

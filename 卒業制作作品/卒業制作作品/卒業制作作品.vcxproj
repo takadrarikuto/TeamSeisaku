@@ -134,6 +134,7 @@
     <ClInclude Include="ObjBlood_splash.h" />
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="ObjED.h" />
+    <ClInclude Include="ObjGunAttack.h" />
     <ClInclude Include="ObjHero.h" />
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOver.h" />
@@ -163,6 +164,7 @@
     <ClCompile Include="ObjBlood_splash.cpp" />
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="ObjED.cpp" />
+    <ClCompile Include="ObjGunAttack.cpp" />
     <ClCompile Include="ObjHero.cpp" />
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOver.cpp" />
