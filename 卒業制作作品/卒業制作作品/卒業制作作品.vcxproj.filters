@@ -28,6 +28,12 @@
     <Filter Include="ソース ファイル\エンディング">
       <UniqueIdentifier>{42544898-61e6-4231-8e02-54d4a012f70b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン">
+      <UniqueIdentifier>{4b9c5a91-40dc-44e7-a48f-177687e4edc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\主人公関係">
+      <UniqueIdentifier>{48f9cf2b-4d0c-4263-a299-305236a142a3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -96,12 +102,6 @@
     <ClInclude Include="ObjBlood_splash.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ObjHero.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneStage.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -116,6 +116,12 @@
     </ClInclude>
     <ClInclude Include="ObjED.h">
       <Filter>ソース ファイル\エンディング</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjHero.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStage.h">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -179,12 +185,6 @@
     <ClCompile Include="ObjOver.cpp">
       <Filter>ソース ファイル\ゲームオーバー</Filter>
     </ClCompile>
-    <ClCompile Include="ObjHero.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="SceneStage.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="SceneOP.cpp">
       <Filter>ソース ファイル\あらすじ</Filter>
     </ClCompile>
@@ -196,6 +196,12 @@
     </ClCompile>
     <ClCompile Include="ObjED.cpp">
       <Filter>ソース ファイル\エンディング</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjHero.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStage.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

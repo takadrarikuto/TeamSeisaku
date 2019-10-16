@@ -28,7 +28,7 @@ void CObjOP::Action()
 void CObjOP::Draw()
 {
 	//描写カラー情報
-	float bl[4] = { 0.7f,0.7f,0.7f,1.0f };
+	float bl[4] = { 0.6f,0.6f,0.6f,1.0f };
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -36,14 +36,14 @@ void CObjOP::Draw()
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 1600.0f;
-	src.m_bottom = 909.0f;
+	src.m_right = 640.0f;
+	src.m_bottom = 490.0f;
 
 	//表示位置の設定
 	dst.m_top = 0.0f;
 	dst.m_left = 0.0f;
-	dst.m_right = 1600.0f;
-	dst.m_bottom = 920.0f;
+	dst.m_right = 800.0f;
+	dst.m_bottom = 600.0f;
 
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
 	Draw::Draw(3, &src, &dst, bl, 0.0f);

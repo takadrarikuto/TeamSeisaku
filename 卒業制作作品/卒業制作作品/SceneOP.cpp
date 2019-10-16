@@ -33,7 +33,7 @@ CSceneOP::~CSceneOP()
 void CSceneOP::InitScene()
 {
 	//出力させる文字のグラフィックを作成
-	//Draw::LoadImage(L"タイトル.png", 3, TEX_SIZE_1024);
+	Draw::LoadImage(L"SCP354タイトル.png", 3, TEX_SIZE_1024);
 
 	//オブジェクト作成
 	CObjOP* back = new CObjOP();
