@@ -99,8 +99,10 @@ void CObjTitle::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneOP());
+			Scene::SetScene(new CSceneOP());
+
+			//デバッグテスト用
+			//Scene::SetScene(new CSceneStage());
 			//Scene::SetScene(new CSceneClear());
 		}
 	}
@@ -112,7 +114,7 @@ void CObjTitle::Draw()
 {
 	//描写カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
-	float bl[4] = { 0.6f,0.6f,0.6f,1.0f, };
+	float bl[4] = { 0.8f,0.8f,0.8f,1.0f, };
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
