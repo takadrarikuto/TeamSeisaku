@@ -26,12 +26,12 @@ void CObjClear::Action()
 {
 	Save::Seve();//UserDataの情報フォルダ「UserData」を作成する;
 
+	//Enterキーで決定
 	if (Input::GetVKey(VK_RETURN) == true)
 	{
 		if (m_key_flag == true)
 		{
 			m_andf = true;
-			//g_map_chenge = 0;//マップ変更
 			//g_hero_max_hp = 0;
 			//Audio::Start(1);
 			m_key_flag = false;
@@ -42,6 +42,7 @@ void CObjClear::Action()
 		m_key_flag = true;
 	}
 
+	//タイトルに戻る処理
 	if (m_andf == true)
 	{
 		m_and -= 0.03f;

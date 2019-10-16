@@ -15,6 +15,7 @@ enum OBJ_NAME
 	OBJ_OBJECT,
 	OBJ_TITLE,
 	OBJ_OP,
+	OBJ_OPERATION,
 	OBJ_CLEAR,
 	OBJ_OVER,
 	OBJ_ED,
@@ -83,6 +84,9 @@ struct UserData
 //あらすじ
 #include "ObjOP.h"
 
+//操作説明
+#include "ObjOperation.h"
+
 //ゲームオーバー
 #include "ObjOver.h"
 
@@ -93,6 +97,7 @@ struct UserData
 #include "ObjED.h"
 
 //メニュー
+#include "ObjMenu.h"
 
 //ベース設定
 #include "GameHead.h"
@@ -109,6 +114,9 @@ struct UserData
 //あらすじ
 #include "SceneOP.h"
 
+//操作説明
+#include "SceneOperation.h"
+
 //ゲームオーバー
 #include "SceneOver.h"
 
@@ -123,4 +131,7 @@ struct UserData
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 #define SET_GAME_START  CSceneStage
+
+//デバッグ用
+//#define SET_GAME_START  CSceneOver
 //-----------------------------------------------
