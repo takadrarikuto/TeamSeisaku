@@ -145,6 +145,12 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjStage.h">
+      <Filter>ソース ファイル\ステージメイン</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
       <Filter>ソース ファイル\血しぶき・爆発</Filter>
     </ClInclude>
     <ClInclude Include="ObjGunAttack.h">
@@ -240,6 +246,10 @@
       <Filter>ソース ファイル\操作説明</Filter>
     </ClCompile>
     <ClCompile Include="ObjBlood_splash.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
       <Filter>ソース ファイル\血しぶき・爆発</Filter>
     </ClCompile>
     <ClCompile Include="ObjGunAttack.cpp">

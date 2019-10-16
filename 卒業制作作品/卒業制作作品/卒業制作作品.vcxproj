@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{803EAFD3-D900-4BF7-A620-FC85270A91D5}</ProjectGuid>
     <RootNamespace>卒業制作作品</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -140,6 +140,7 @@
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
+    <ClInclude Include="ObjStage.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />
+    <ClCompile Include="ObjStage.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />

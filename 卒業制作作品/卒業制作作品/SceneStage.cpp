@@ -5,6 +5,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\SceneObjManager.h"
 #include "GameL\UserData.h"
+#include"GameL\DrawFont.h"
 #include "GameL\Audio.h"
 
 #include <time.h>
@@ -12,18 +13,24 @@
 #include "GameHead.h"
 #include "SceneStage.h"
 
+//コンストラクタ
 CSceneStage::CSceneStage()
 {
 
 }
 
+//テストラクタ
 CSceneStage::~CSceneStage()
 {
 
 }
 
+//初期化メソッド
 void CSceneStage::InitScene()
 {
+	//Font作成
+	//Font::SetStrTex(L"0123456789分秒");
+
 	//グラフィック読み込み
 	//Draw::LoadImage(L"宇宙空間1.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
@@ -65,6 +72,9 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
 	*/
 
+	//ステージオブジェクト作成
+	CObjStage* objm = new CObjStage();
+	Objs::InsertObj(objm, OBJ_STAGE, 120);
 }
 
 void CSceneStage::Scene()

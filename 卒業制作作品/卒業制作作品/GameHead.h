@@ -13,6 +13,7 @@ enum OBJ_NAME
 	OBJ_ENEMY,
 	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
+	OBJ_STAGE,
 	OBJ_TITLE,
 	OBJ_OP,
 	OBJ_OPERATION,
@@ -77,6 +78,7 @@ struct UserData
 #include "ObjBlood_splash.h"
 
 //ステージ
+#include "ObjStage.h"
 
 //タイトル
 #include "ObjTitle.h"
