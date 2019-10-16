@@ -34,6 +34,12 @@
     <Filter Include="ソース ファイル\ステージメイン\主人公関係">
       <UniqueIdentifier>{48f9cf2b-4d0c-4263-a299-305236a142a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\メニュー">
+      <UniqueIdentifier>{1914e407-20e9-42ce-a398-c638ebd21aa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\操作説明">
+      <UniqueIdentifier>{9ea7e497-2c78-4b21-9ee6-ab1c16e04a69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -123,6 +129,15 @@
     <ClInclude Include="SceneStage.h">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
+    <ClInclude Include="ObjMenu.h">
+      <Filter>ソース ファイル\ステージメイン\メニュー</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneOperation.h">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjOperation.h">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -202,6 +217,15 @@
     </ClCompile>
     <ClCompile Include="SceneStage.cpp">
       <Filter>ソース ファイル\ステージメイン</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMenu.cpp">
+      <Filter>ソース ファイル\ステージメイン\メニュー</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneOperation.cpp">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjOperation.cpp">
+      <Filter>ソース ファイル\操作説明</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

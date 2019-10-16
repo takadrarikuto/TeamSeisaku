@@ -2,38 +2,51 @@
 #include "GameL\DrawFont.h"
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
-#include "GameL\DrawTexture.h"
 #include"GameL\UserData.h"
-//#include"SceneMain.h"
 
 #include "GameHead.h"
-#include "ObjClear.h"
-#include "GameL\Audio.h"
+#include "ObjOperation.h"
+
+#include"GameL\DrawTexture.h"
+
+#include"GameL\Audio.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 //イニシャライズ
-void CObjClear::Init()
+void CObjOperation::Init()
 {
 	m_key_flag = false;
+	choose = 0;
+	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
+
+	//ゲーム実行して一回のみ
+	static bool init_point = false;
+	if (init_point == false)
+	{
+
+		//ロード
+		Save::Open();//同フォルダ「UserData」からデータ取得
+
+		init_point = true;
+	}
+
+	Save::Seve();//UserDataの情報フォルダ「UserData」を作成
 }
 
 //アクション
-void CObjClear::Action()
+void CObjOperation::Action()
 {
-	Save::Seve();//UserDataの情報フォルダ「UserData」を作成する;
-
 	//Enterキーで決定
 	if (Input::GetVKey(VK_RETURN) == true)
 	{
 		if (m_key_flag == true)
 		{
 			m_andf = true;
-			//g_hero_max_hp = 0;
-			//Audio::Start(1);
+			//Audio::Start(0);
 			m_key_flag = false;
 		}
 	}
@@ -42,7 +55,7 @@ void CObjClear::Action()
 		m_key_flag = true;
 	}
 
-	//タイトルに戻る処理
+	//ステージに移動
 	if (m_andf == true)
 	{
 		m_and -= 0.03f;
@@ -50,21 +63,16 @@ void CObjClear::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneTitle());
+			Scene::SetScene(new CSceneStage());
 		}
 	}
 }
-//ドロー
-void CObjClear::Draw()
 
+//ドロー
+void CObjOperation::Draw()
 {
 	//描写カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
-	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
-	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
-	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
-	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
-	float a[4] = { 1.0f,1.0f,1.0f,0.5f };
+	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -82,11 +90,9 @@ void CObjClear::Draw()
 	dst.m_bottom = 920.0f;
 
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
-	Draw::Draw(4, &src, &dst, c, 0.0f);
+	Draw::Draw(3, &src, &dst, c, 0.0f);
 
-	float p[4] = { 1,1,1,1 };
+	float b[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"ゲームクリア", 200, 200, 60, y);
-
-	Font::StrDraw(L"◆タイトルへ", 255, 375, 40, b);
+	Font::StrDraw(L"◆Enterでステージへ", 400, 500, 35, b);
 }
