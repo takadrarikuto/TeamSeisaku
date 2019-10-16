@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -133,10 +133,18 @@
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjBlood_splash.h" />
     <ClInclude Include="ObjClear.h" />
+    <ClInclude Include="ObjED.h" />
+    <ClInclude Include="ObjGunAttack.h" />
     <ClInclude Include="ObjHero.h" />
+    <ClInclude Include="ObjMenu.h" />
+    <ClInclude Include="ObjOP.h" />
+    <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneClear.h" />
+    <ClInclude Include="SceneED.h" />
+    <ClInclude Include="SceneOP.h" />
+    <ClInclude Include="SceneOperation.h" />
     <ClInclude Include="SceneOver.h" />
     <ClInclude Include="SceneStage.h" />
     <ClInclude Include="SceneTitle.h" />
@@ -156,11 +164,20 @@
     <ClCompile Include="GameL\UserData.cpp" />
     <ClCompile Include="GameL\WICTextureLoader.cpp" />
     <ClCompile Include="GameL\WinInputs.cpp" />
+    <ClCompile Include="ObjBlood_splash.cpp" />
     <ClCompile Include="ObjClear.cpp" />
+    <ClCompile Include="ObjED.cpp" />
+    <ClCompile Include="ObjGunAttack.cpp" />
     <ClCompile Include="ObjHero.cpp" />
+    <ClCompile Include="ObjMenu.cpp" />
+    <ClCompile Include="ObjOP.cpp" />
+    <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneClear.cpp" />
+    <ClCompile Include="SceneED.cpp" />
+    <ClCompile Include="SceneOP.cpp" />
+    <ClCompile Include="SceneOperation.cpp" />
     <ClCompile Include="SceneOver.cpp" />
     <ClCompile Include="SceneStage.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
