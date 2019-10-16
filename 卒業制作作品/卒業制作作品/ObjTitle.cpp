@@ -14,7 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//int g_map_chenge = 0;//マップ変更
 bool check = false;
 bool m_c = true;
 
@@ -45,25 +44,28 @@ void CObjTitle::Init()
 //アクション
 void CObjTitle::Action()
 {
+	//上キーで上に移動
 	if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 	{
 		--choose;
 		//Audio::Start(0);
 		m_time = 10;
 	}
+	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 	{
 		++choose;
 		//Audio::Start(0);
 		m_time = 10;
 	}
-
 	if (m_time > 0) {
 		m_time--;
 		if (m_time <= 0) {
 			m_time = 0;
 		}
 	}
+
+	//決定キーで決定
 	if (choose == 0)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
@@ -71,8 +73,6 @@ void CObjTitle::Action()
 			if (m_key_flag == true)
 			{
 				m_andf = true;
-				//g_px = 64.0f;
-				//g_py = 450.0f;
 				//Audio::Start(1);
 				m_key_flag = false;
 
@@ -84,6 +84,7 @@ void CObjTitle::Action()
 		}
 	}
 
+	//ゲーム終了処理
 	if (choose == 1)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
@@ -92,6 +93,7 @@ void CObjTitle::Action()
 		}
 	}
 
+	//あらすじシーンに移動
 	if (m_andf == true)
 	{
 		m_and -= 0.03f;

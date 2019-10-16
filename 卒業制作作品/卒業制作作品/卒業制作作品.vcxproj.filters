@@ -34,6 +34,18 @@
     <Filter Include="ソース ファイル\ステージメイン\主人公関係">
       <UniqueIdentifier>{48f9cf2b-4d0c-4263-a299-305236a142a3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\メニュー">
+      <UniqueIdentifier>{1914e407-20e9-42ce-a398-c638ebd21aa1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\操作説明">
+      <UniqueIdentifier>{9ea7e497-2c78-4b21-9ee6-ab1c16e04a69}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\血しぶき・爆発">
+      <UniqueIdentifier>{36c98480-9ff8-4111-a86a-180ec1a881c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\武器">
+      <UniqueIdentifier>{8f4b48fe-34b9-44e1-8c90-8bee9c01a689}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -99,9 +111,6 @@
     <ClInclude Include="ObjOver.h">
       <Filter>ソース ファイル\ゲームオーバー</Filter>
     </ClInclude>
-    <ClInclude Include="ObjBlood_splash.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -123,8 +132,23 @@
     <ClInclude Include="SceneStage.h">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
+    <ClInclude Include="ObjMenu.h">
+      <Filter>ソース ファイル\ステージメイン\メニュー</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneOperation.h">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjOperation.h">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClInclude>
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ソース ファイル\血しぶき・爆発</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGunAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -206,8 +230,20 @@
     <ClCompile Include="SceneStage.cpp">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClCompile>
+    <ClCompile Include="ObjMenu.cpp">
+      <Filter>ソース ファイル\ステージメイン\メニュー</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneOperation.cpp">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjOperation.cpp">
+      <Filter>ソース ファイル\操作説明</Filter>
+    </ClCompile>
     <ClCompile Include="ObjBlood_splash.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\血しぶき・爆発</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGunAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

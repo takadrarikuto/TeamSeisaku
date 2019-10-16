@@ -27,9 +27,10 @@ void CSceneStage::InitScene()
 	//グラフィック読み込み
 	//Draw::LoadImage(L"宇宙空間1.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
+	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 
-	//音楽情報読み込み
+	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	////バックミュージックスタート

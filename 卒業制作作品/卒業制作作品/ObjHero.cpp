@@ -30,6 +30,9 @@ void CObjHero::Init()
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
+	//武器攻撃移動ベクトル最大値
+	m_ga_vx_max = 5.0f;
+	m_ga_vy_max = 5.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
@@ -121,27 +124,51 @@ void CObjHero::Action()
 
 		//攻撃処理
 		//スペースキーを押すと弾を発射
-		//if (Input::GetVKey(VK_SPACE) == true)
-		//{
-		//	m_bt += 1;
-		//	if (m_bt == 1)
-		//	{
-		//		//バレットオブジェクト作成
-		//		CObjBullet* obj_b = new CObjBullet(m_x, m_y - m_dst_size, Bullet_speed);
-		//		Objs::InsertObj(obj_b, OBJ_BULLET, 2);
-
-		//		Attack_flg = true; //Attackフラグtrue
-		//	}
-		//	//攻撃間隔
-		//	else if (m_bt == 20)
-		//	{
-		//		m_bt = 0;
-		//	}
-		//}
-		//else
-		//{
-		//	m_bt = 0;
-		//}
+		if (Input::GetVKey(VK_SPACE) == true)
+		{
+			m_bt += 1;
+			if (m_bt == 1)
+			{
+				//上
+				if (m_UDani_frame == 0)
+				{
+					//バレットオブジェクト作成
+					CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y, 0, -m_ga_vy_max,0.0f);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+				}
+				//右
+				else if (m_UDani_frame == 2)
+				{
+					//バレットオブジェクト作成
+					CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y, m_ga_vx_max, 0,90.0f);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+				}
+				//下
+				else if (m_UDani_frame == 4)
+				{
+					//バレットオブジェクト作成
+					CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 16, m_y, 0, m_ga_vy_max,180.0f);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+				}
+				//左
+				else if (m_UDani_frame == 6)
+				{
+					//バレットオブジェクト作成
+					CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y, -m_ga_vx_max, 0,270.0f);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+				}
+				//Attack_flg = true; //Attackフラグtrue
+			}
+			//攻撃間隔
+			else if (m_bt == 30)
+			{
+				m_bt = 0;
+			}
+		}
+		else
+		{
+			m_bt = 0;
+		}
 
 	}
 

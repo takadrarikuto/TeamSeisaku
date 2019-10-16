@@ -72,7 +72,7 @@ void CObjOP::Draw()
 
 	if (Input::GetVKey(VK_RETURN) == true)
 	{
-		Scene::SetScene(new CSceneStage());
-		//Scene::SetScene(new CSceneOperation());
+		Scene::SetScene(new CSceneOperation());
+		//Scene::SetScene(new CSceneStage());
 	}
 }
