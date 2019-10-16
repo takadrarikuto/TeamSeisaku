@@ -33,7 +33,7 @@ CSceneOperation::~CSceneOperation()
 void CSceneOperation::InitScene()
 {
 	//出力させる文字のグラフィックを作成
-	//Draw::LoadImage(L"操作説明.png", 3, TEX_SIZE_1024);
+	Draw::LoadImage(L"操作説明.png", 3, TEX_SIZE_1024);
 
 	//オブジェクト作成
 	CObjOperation* ope = new CObjOperation();

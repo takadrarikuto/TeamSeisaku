@@ -80,14 +80,14 @@ void CObjOperation::Draw()
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 1600.0f;
-	src.m_bottom = 909.0f;
+	src.m_right = 800.0f;
+	src.m_bottom = 600.0f;
 
 	//表示位置の設定
 	dst.m_top = 0.0f;
 	dst.m_left = 0.0f;
-	dst.m_right = 1600.0f;
-	dst.m_bottom = 920.0f;
+	dst.m_right = 800.0f;
+	dst.m_bottom = 600.0f;
 
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
 	Draw::Draw(3, &src, &dst, c, 0.0f);
