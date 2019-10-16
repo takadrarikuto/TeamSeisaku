@@ -31,7 +31,7 @@ void CObjHero::Init()
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
 
-	m_ani_time = 0; //アニメーションフレーム動作間隔aaa	
+	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
@@ -167,6 +167,13 @@ void CObjHero::Action()
 	//HitBoxの内容を更新
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
+
+	if (hp == 0)
+	{
+		//血しぶきオブジェクト作成
+		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_dst_size);
+		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);				
+	}
 
 	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
