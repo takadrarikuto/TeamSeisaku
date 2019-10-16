@@ -139,6 +139,7 @@
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
+    <ClInclude Include="ObjStage.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />
+    <ClCompile Include="ObjStage.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />

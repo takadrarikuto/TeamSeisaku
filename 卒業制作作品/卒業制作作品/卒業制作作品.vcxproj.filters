@@ -105,9 +105,6 @@
     <ClInclude Include="ObjOver.h">
       <Filter>ソース ファイル\ゲームオーバー</Filter>
     </ClInclude>
-    <ClInclude Include="ObjBlood_splash.h">
-      <Filter>ソース ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -140,6 +137,12 @@
     </ClInclude>
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjStage.h">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +234,10 @@
       <Filter>ソース ファイル\操作説明</Filter>
     </ClCompile>
     <ClCompile Include="ObjBlood_splash.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
