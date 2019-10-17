@@ -13,15 +13,19 @@ using namespace GameL;
 //イニシャライズ
 void CObjTime::Init()
 {
-	m_time = 0;
+	m_time = 10850;
 	m_flag_time = true;
 }
 
 //アクション
 void CObjTime::Action()
 {
-	m_time = 120;
-	m_time--;
+	if (m_time > 0)
+	{
+		m_time--;
+	}
+	//m_time = 120;
+	
 }
 
 //ドロー
