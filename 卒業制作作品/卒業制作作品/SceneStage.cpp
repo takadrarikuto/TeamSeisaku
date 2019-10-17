@@ -5,6 +5,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\SceneObjManager.h"
 #include "GameL\UserData.h"
+#include"GameL\DrawFont.h"
 #include "GameL\Audio.h"
 
 #include <time.h>
@@ -12,24 +13,32 @@
 #include "GameHead.h"
 #include "SceneStage.h"
 
+//コンストラクタ
 CSceneStage::CSceneStage()
 {
 
 }
 
+//テストラクタ
 CSceneStage::~CSceneStage()
 {
 
 }
 
+//初期化メソッド
 void CSceneStage::InitScene()
 {
-	//グラフィック読み込み
-	//Draw::LoadImage(L"宇宙空間1.png", 0, TEX_SIZE_512);
-	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
-	Draw::LoadImage(L"血しぶき.png", 10, TEX_SIZE_512);
+	//Font作成
+	//Font::SetStrTex(L"0123456789分秒");
 
-	//音楽情報読み込み
+	//グラフィック読み込み
+	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
+	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
+	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
+	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
+	Draw::LoadImage(L"武器表示用", 11, TEX_SIZE_512);
+
+	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	////バックミュージックスタート
@@ -64,6 +73,9 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
 	*/
 
+	//ステージオブジェクト作成
+	CObjStage* objm = new CObjStage();
+	Objs::InsertObj(objm, OBJ_STAGE, 120);
 }
 
 void CSceneStage::Scene()
