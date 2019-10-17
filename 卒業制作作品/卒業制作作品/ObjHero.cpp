@@ -9,6 +9,12 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -59,21 +65,25 @@ void CObjHero::Init()
 //アクション
 void CObjHero::Action()
 {
-	////メニューを開く
-	//if (Input::GetVKey('M') == true)
-	//{
-	//	Menu_flg = true;
-	//	//メニューオブジェクト作成
-	//	CObjMenu* obj_m = new CObjMenu();
-	//	Objs::InsertObj(obj_m, OBJ_MENU, 5);
-	//}
+	//メニューを開く
+	if (m_key_flag_menu == true)
+	{
+		if (Input::GetVKey('R') == true)
+		{
+			Menu_flg = true;
+			m_key_flag_menu = false;
+			//メニューオブジェクト作成
+			CObjMenu* obj_m = new CObjMenu();
+			Objs::InsertObj(obj_m, OBJ_MENU, 5);
+		}
+	}
 
 	//移動停止
 	m_vx = 0.0f;
 	m_vy = 0.0f;
 
 	//メニューを開くと行動停止
-	//if (Menu_flg == false)
+	if (Menu_flg == false)
 	{
 		//移動処理
 		//'W'を押すと上に移動

@@ -20,6 +20,7 @@ enum OBJ_NAME
 	OBJ_CLEAR,
 	OBJ_OVER,
 	OBJ_ED,
+	OBJ_MENU,
 };
 //------------------------------------------------
 
@@ -100,6 +101,9 @@ struct UserData
 
 //メニュー
 #include "ObjMenu.h"
+
+//タイム
+#include "ObjTime.h"
 
 //ベース設定
 #include "GameHead.h"

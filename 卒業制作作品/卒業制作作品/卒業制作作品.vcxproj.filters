@@ -156,6 +156,9 @@
     <ClInclude Include="ObjGunAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClInclude>
+    <ClInclude Include="ObjTime.h">
+      <Filter>ソース ファイル\ステージメイン</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -248,12 +251,14 @@
     <ClCompile Include="ObjBlood_splash.cpp">
       <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
     </ClCompile>
-    <ClCompile Include="ObjStage.cpp">
-      <Filter>ソース ファイル\ステージメイン</Filter>
-      <Filter>ソース ファイル\血しぶき・爆発</Filter>
-    </ClCompile>
     <ClCompile Include="ObjGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTime.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
