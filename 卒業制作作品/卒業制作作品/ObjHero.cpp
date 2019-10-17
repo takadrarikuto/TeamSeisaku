@@ -40,6 +40,10 @@ void CObjHero::Init()
 
 	//攻撃頻度
 	m_bt = 0;
+	//武器切り替え
+	m_Weapon_switching = 0;
+	//武器切り替えフラグ
+	m_Weapon_switching_flg = false; 
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -121,6 +125,28 @@ void CObjHero::Action()
 		//位置更新
 		m_x += m_vx;
 		m_y += m_vy;
+
+		//武器切り替え処理
+		if (Input::GetVKey(VK_LEFT) == true && m_Weapon_switching > 0)
+		{
+			if (m_Weapon_switching_flg == true)
+			{
+				m_Weapon_switching -= 1;
+				m_Weapon_switching_flg = false;
+			}			
+		}
+		else if (Input::GetVKey(VK_RIGHT) == true && m_Weapon_switching < 6)
+		{
+			if (m_Weapon_switching_flg == true)
+			{
+				m_Weapon_switching += 1;
+				m_Weapon_switching_flg = false;
+			}			
+		}
+		else
+		{
+			m_Weapon_switching_flg = true;
+		}
 
 		//攻撃処理
 		//スペースキーを押すと弾を発射

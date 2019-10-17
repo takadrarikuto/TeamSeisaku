@@ -28,7 +28,9 @@ void CObjGunAttack::Init()
 {
 //初期化
 	//描画フレーム
-	m_ani_frame = 0;	
+	m_ani_frame = 0;
+	//上下描画フレーム
+	m_UDani_frame = 0;
 	//アニメーションフレーム動作間隔
 	m_ani_time = 0;		
 
@@ -42,12 +44,13 @@ void CObjGunAttack::Action()
 {
 	//アニメーションフレーム更新
 	m_ani_time++;
+
 	//メニューを開くと行動停止
 	//if (Menu_flg == false)
 	//{
-		//位置更新
-		m_gax += m_gavx;
-		m_gay += m_gavy;
+	//位置更新
+	m_gax += m_gavx;
+	m_gay += m_gavy;
 	//}
 
 	////SE処理
@@ -56,22 +59,52 @@ void CObjGunAttack::Action()
 	//	Audio::Start(1); //音楽スタート
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
-
-	if (m_ani_time > 6)
-	{
-		m_ani_time = 0;
-		m_ani_frame += 1;
-	}
-
-	if (m_ani_frame == 8)
-	{
-		m_ani_frame = 0;
-	}
+	
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
 	float hy = hero->GetY();
+	int WS = hero->GetWS();
+
+	//ショットガン以外の時
+	if (WS != 1)
+	{
+		//アニメーション処理
+		if (m_ani_time > 6)
+		{
+			m_ani_time = 0;
+			m_ani_frame += 1;
+		}
+
+		if (m_ani_frame == 8)
+		{
+			m_ani_frame = 0;
+		}
+	}
+	else if (WS == 1)
+	{
+		//アニメーション処理
+		if (m_ani_time > 6)
+		{
+			m_ani_time = 0;
+			m_ani_frame += 1;
+		}
+
+		if (m_ani_frame == 8)
+		{
+			m_ani_frame = 0;
+			//表示上下切り替え
+			if (m_UDani_frame == 0)
+			{
+				m_UDani_frame = 1;
+			}
+			else if (m_UDani_frame == 1)
+			{
+				m_UDani_frame = 0;
+			}
+		}
+	}
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -111,6 +144,9 @@ void CObjGunAttack::Action()
 //ドロー
 void CObjGunAttack::Draw()
 {
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	int WS = hero->GetWS();
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 
@@ -119,15 +155,43 @@ void CObjGunAttack::Draw()
 	{
 		0,1,2,3,4,5,6,7,
 	};
+	int UDAniData[2] =
+	{
+		0,1,
+	};
 
 	RECT_F src;
 	RECT_F dst;
 
-	//切り取り処理
-	src.m_top = 30.0f;
-	src.m_left = 0.0f + AniData[m_ani_frame] * 100;
-	src.m_right = 100.0f + AniData[m_ani_frame] * 100;
-	src.m_bottom = 70.0f;
+	//切り取り処理	
+	if (WS == 0 || WS == 2)
+	{
+		src.m_top = 30.0f;
+		src.m_left = 0.0f + AniData[m_ani_frame] * 100;
+		src.m_right = 100.0f + AniData[m_ani_frame] * 100;
+		src.m_bottom = 70.0f;
+	}
+	else if (WS == 1)
+	{
+		src.m_top = 120.0f + AniData[m_UDani_frame] * 70;
+		src.m_left = 0.0f + AniData[m_ani_frame] * 90;
+		src.m_right = 90.0f + AniData[m_ani_frame] * 90;
+		src.m_bottom = 190.0f + AniData[m_UDani_frame] * 70;
+	}
+	else if (WS == 3 || WS == 5)
+	{
+		src.m_top = 320.0f;
+		src.m_left = 0.0f + AniData[m_ani_frame] * 30;
+		src.m_right = 30.0f + AniData[m_ani_frame] * 30;
+		src.m_bottom = 370.0f;
+	}	
+	else if (WS == 4)
+	{
+		src.m_top = 410.0f;
+		src.m_left = 0.0f + AniData[m_ani_frame] * 30;
+		src.m_right = 30.0f + AniData[m_ani_frame] * 30;
+		src.m_bottom = 480.0f;
+	}
 
 	//描画処理
 	dst.m_top = 0.0f + m_gay;
