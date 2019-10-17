@@ -24,16 +24,18 @@ void CObjStage::Init()
 //アクション
 void CObjStage::Action()
 {
+	//武器切り替え変数取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	int WS = hero->GetWS();
+
+	//武器切り替え変数をアニメーションに同期
+	WS = m_ani_frame;
 
 }
 
 //ドロー
 void CObjStage::Draw()
 {
-
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	//hero_hp = hero->GetHP();	//主人公からHPの情報を取得
-
 	//モーション
 	int AniData[6] =
 	{
