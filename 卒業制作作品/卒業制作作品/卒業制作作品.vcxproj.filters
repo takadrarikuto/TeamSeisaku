@@ -156,6 +156,21 @@
     <ClInclude Include="ObjGunAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClInclude>
+    <ClInclude Include="ObjShotGunAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjARAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSniperRifleAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRocketLauncherAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRailGunAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
     <ClInclude Include="ObjTime.h">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
@@ -259,6 +274,21 @@
     </ClCompile>
     <ClCompile Include="ObjTime.cpp">
       <Filter>ソース ファイル\ステージメイン</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjShotGunAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjARAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSniperRifleAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRocketLauncherAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRailGunAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
