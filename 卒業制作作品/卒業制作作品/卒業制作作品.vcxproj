@@ -146,6 +146,7 @@
     <ClInclude Include="ObjShotGunAttack.h" />
     <ClInclude Include="ObjSniperRifleAttack.h" />
     <ClInclude Include="ObjStage.h" />
+    <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -185,6 +186,7 @@
     <ClCompile Include="ObjShotGunAttack.cpp" />
     <ClCompile Include="ObjSniperRifleAttack.cpp" />
     <ClCompile Include="ObjStage.cpp" />
+    <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />

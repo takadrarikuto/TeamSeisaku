@@ -13,6 +13,9 @@
 #include "GameHead.h"
 #include "SceneStage.h"
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CSceneStage::CSceneStage()
 {
@@ -75,7 +78,11 @@ void CSceneStage::InitScene()
 
 	//ステージオブジェクト作成
 	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 120);
+	Objs::InsertObj(objm, OBJ_STAGE, 1);
+
+	//タイムオブジェクト作成
+	CObjTime*objt = new CObjTime();
+	Objs::InsertObj(objt, OBJ_TIME, 11);
 }
 
 void CSceneStage::Scene()
@@ -95,8 +102,24 @@ void CSceneStage::Scene()
 	//}
 
 	//メニュー画面閲覧時行動停止処理
-	//if (Menu_flg == false)
+	if (Menu_flg == false)
 	{
+		//ボスを倒したら少し時間を空けてからシーン移動する
+		/*if (boss_count == 1)
+		{
+			Scene_time++;
+		}*/
+		if (Scene_time == 60)
+		{
+			//ボスカウント・シーンタイム初期化
+			//boss_count = 0;
+			Scene_time = 0;
+		}
+
+
+	//メニュー画面閲覧時行動停止処理
+	//if (Menu_flg == false)
+	//{
 		//各タイム増加
 		//e_time++;
 		//i_time++;
@@ -140,5 +163,4 @@ void CSceneStage::Scene()
 		//	i_time = 0;
 		//}
 	}
-
 }

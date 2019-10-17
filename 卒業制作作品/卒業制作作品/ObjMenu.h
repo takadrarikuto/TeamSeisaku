@@ -13,6 +13,8 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
+	void BackDraw(float top, float left, float right, float bottom, float c[]);
+
 private:
 	bool m_key_flag;//キーフラグ
 	int choose;

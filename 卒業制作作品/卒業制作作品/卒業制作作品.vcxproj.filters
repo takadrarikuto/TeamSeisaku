@@ -40,11 +40,11 @@
     <Filter Include="ソース ファイル\操作説明">
       <UniqueIdentifier>{9ea7e497-2c78-4b21-9ee6-ab1c16e04a69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\血しぶき・爆発">
+      <UniqueIdentifier>{36c98480-9ff8-4111-a86a-180ec1a881c9}</UniqueIdentifier>
+    </Filter>
     <Filter Include="ソース ファイル\ステージメイン\武器">
       <UniqueIdentifier>{8f4b48fe-34b9-44e1-8c90-8bee9c01a689}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ソース ファイル\ステージメイン\主人公関係\血しぶき・爆発">
-      <UniqueIdentifier>{36c98480-9ff8-4111-a86a-180ec1a881c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +144,9 @@
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClInclude>
     <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
@@ -168,8 +171,8 @@
     <ClInclude Include="ObjRailGunAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClInclude>
-    <ClInclude Include="ObjBlood_splash.h">
-      <Filter>ソース ファイル\ステージメイン\主人公関係\血しぶき・爆発</Filter>
+    <ClInclude Include="ObjTime.h">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -260,8 +263,17 @@
     <ClCompile Include="ObjOperation.cpp">
       <Filter>ソース ファイル\操作説明</Filter>
     </ClCompile>
+    <ClCompile Include="ObjBlood_splash.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClCompile>
     <ClCompile Include="ObjGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTime.cpp">
+      <Filter>ソース ファイル\ステージメイン</Filter>
     </ClCompile>
     <ClCompile Include="ObjShotGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
@@ -277,12 +289,6 @@
     </ClCompile>
     <ClCompile Include="ObjRailGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjStage.cpp">
-      <Filter>ソース ファイル\ステージメイン</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjBlood_splash.cpp">
-      <Filter>ソース ファイル\ステージメイン\主人公関係\血しぶき・爆発</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
