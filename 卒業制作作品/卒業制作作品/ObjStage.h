@@ -32,7 +32,7 @@ using namespace GameL;
 
 
 //オブジェクト：メニュー
-class CObjStage :public CObj
+class CObjStage :public CObj 
 {
 public:
 	CObjStage() {};
@@ -49,10 +49,6 @@ private:
 	int hero_hp;	//HP
 	int m_boss_hp;	//HP
 	int m_stage_time;	//ステージタイム
-
-	float m_y1; //位置情報　1枚目用
-	float m_y2; //位置情報　2枚目用
-	float m_vy; //移動ベクトル
 
 	int m_ani_frame;	//描画フレーム
 };
