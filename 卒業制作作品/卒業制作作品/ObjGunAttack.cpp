@@ -135,8 +135,8 @@ void CObjGunAttack::Draw()
 	//•Ší‚É‚æ‚èØ‚èæ‚èˆÊ’uA•`‰æ”ÍˆÍ‚ğ•Ï‚¦‚é
 	//Ø‚èæ‚èˆ—
 	src.m_top = 30.0f;
-	src.m_left = 0.0f + AniData[m_ani_frame] * 100;
-	src.m_right = 100.0f + AniData[m_ani_frame] * 100;
+	src.m_left = 0.0f + AniData[m_ani_frame] * 96;
+	src.m_right = 100.0f + AniData[m_ani_frame] * 96;
 	src.m_bottom = 70.0f;
 	//•`‰æˆ—
 	dst.m_top = 0.0f + m_gay;
