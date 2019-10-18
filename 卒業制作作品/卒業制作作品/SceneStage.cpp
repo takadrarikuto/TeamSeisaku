@@ -39,6 +39,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
+
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 
 	//音楽情報読み込み 
