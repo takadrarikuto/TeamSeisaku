@@ -29,7 +29,7 @@ void CObjStage::Action()
 	int WS = hero->GetWS();
 
 	//武器切り替え変数をアニメーションに同期
-	WS = m_ani_frame;
+	m_ani_frame = WS;
 
 }
 
@@ -59,17 +59,15 @@ void CObjStage::Draw()
 	src.m_bottom = 20.0f;
 
 	//表示位置の設定
-	dst.m_top = 0.0f;
-	dst.m_left = 48.0f;
-	dst.m_right = 80.0f;
-	dst.m_bottom = 36.0f;
+	dst.m_top = 10.0f;
+	dst.m_left = 289.0f;
+	dst.m_right = 349.0f;
+	dst.m_bottom = 60.0f;
 	Draw::Draw(11, &src, &dst, c, 0.0f);
 
 	//TIMEを表示
 	swprintf_s(TIME, L"TIME", m_stage_time, 15);
 	Font::StrDraw(TIME, 15, 4, 23, c);
-	swprintf_s(TIME, L"○○", m_stage_time, 15);
-	Font::StrDraw(TIME, GAME_TIME_POS_X, GAME_TIME_POS_Y, 25, c);
 
 	//HPを表示
 	swprintf_s(HP, L"HP:100/100", hero_hp, 15);
