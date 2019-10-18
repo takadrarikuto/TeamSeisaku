@@ -36,6 +36,9 @@ void CObjStage::Action()
 //ドロー
 void CObjStage::Draw()
 {
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+
 	//モーション
 	int AniData[6] =
 	{
@@ -67,12 +70,12 @@ void CObjStage::Draw()
 
 	//TIMEを表示
 	swprintf_s(TIME, L"TIME", m_stage_time, 15);
-	Font::StrDraw(TIME, 15, 4, 23, c);
-	swprintf_s(TIME, L"○○", m_stage_time, 15);
-	Font::StrDraw(TIME, GAME_TIME_POS_X, GAME_TIME_POS_Y, 25, c);
+	Font::StrDraw(TIME, 12, 2, 26, c);
+	/*swprintf_s(TIME, L"○○", m_stage_time, 15);
+	Font::StrDraw(TIME, GAME_TIME_POS_X, GAME_TIME_POS_Y, 25, c);*/
 
 	//HPを表示
-	swprintf_s(HP, L"HP:100/100", hero_hp, 15);
+	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
 	//武器使用可数を表示

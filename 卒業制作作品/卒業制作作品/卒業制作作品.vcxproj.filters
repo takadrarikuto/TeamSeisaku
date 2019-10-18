@@ -174,6 +174,12 @@
     <ClInclude Include="ObjTime.h">
       <Filter>ソース ファイル\ステージメイン</Filter>
     </ClInclude>
+    <ClInclude Include="ObjTopback.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBackground.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -289,6 +295,12 @@
     </ClCompile>
     <ClCompile Include="ObjRailGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTopback.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBackground.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //イニシャライズ
 void CObjTime::Init()
 {
@@ -20,12 +23,19 @@ void CObjTime::Init()
 //アクション
 void CObjTime::Action()
 {
-	if (m_time > 0)
+	if (Menu_flg == false)
 	{
-		m_time--;
+		if (m_time > 0)
+		{
+			m_time--;
+		}
 	}
+
+	
 	//m_time = 120;
 	
+
+
 }
 
 //ドロー
@@ -47,5 +57,5 @@ void CObjTime::Draw()
 	else
 		swprintf_s(str, L"%d:%d", minute, second);
 
-	Font::StrDraw(str, 16, 30, 22, c);
+	Font::StrDraw(str, 10, 30, 28, c);
 }

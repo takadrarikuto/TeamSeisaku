@@ -32,7 +32,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	hp = 100;
+	m_hero_hp = 100;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -448,7 +448,7 @@ void CObjHero::Action()
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
-	if (hp == 0)
+	if (m_hero_hp == 0)
 	{
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_dst_size);
@@ -499,6 +499,32 @@ void CObjHero::Action()
 	//	hp = 10;
 	//	//ポイントを獲得
 	//}
+
+	//スクロール
+	C0bjBackground * b = (C0bjBackground*)Objs::GetObj(OBJ_BACKGROUND);
+
+	//左右スクロールライン
+	if (m_x > 400)
+	{
+		m_x = 400;
+		b->SetScrollx(b->GetScrollx() - 3.0);
+	}
+	if (m_x < 400)
+	{
+		m_x = 400;
+		b->SetScrollx(b->GetScrollx() + 3.0);
+	}
+	//上下スクロールライン
+	if (m_y > 300)
+	{
+		m_y = 300;
+		b->SetScrolly(b->GetScrolly() - 3.0);
+	}
+	if (m_y < 300)
+	{
+		m_y = 300;
+		b->SetScrolly(b->GetScrolly() + 3.0);
+	}
 
 }
 
