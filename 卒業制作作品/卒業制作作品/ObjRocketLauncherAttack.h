@@ -3,11 +3,11 @@
 
 using namespace GameL;
 
-class CObjGunAttack :public CObj
+class CObjRocketLauncherAttack :public CObj
 {
 public:
-	CObjGunAttack(float x, float y,float vx, float vy,float r);
-	~CObjGunAttack() {};
+	CObjRocketLauncherAttack(float x, float y, float vx, float vy, float r);
+	~CObjRocketLauncherAttack() {};
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー

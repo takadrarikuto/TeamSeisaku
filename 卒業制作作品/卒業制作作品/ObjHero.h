@@ -32,6 +32,7 @@ private:
 	int m_LRani_frame;
 
 	int m_bt; //攻撃頻度
+	int m_bt_max; //攻撃頻度最大値
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 

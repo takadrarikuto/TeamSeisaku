@@ -22,7 +22,7 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{803EAFD3-D900-4BF7-A620-FC85270A91D5}</ProjectGuid>
     <RootNamespace>卒業制作作品</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,7 +41,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -131,6 +131,7 @@
     <ClInclude Include="GameL\WICTextureLoader.h" />
     <ClInclude Include="GameL\WinInputs.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="ObjARAttack.h" />
     <ClInclude Include="ObjBlood_splash.h" />
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="ObjED.h" />
@@ -140,7 +141,12 @@
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
+    <ClInclude Include="ObjRailGunAttack.h" />
+    <ClInclude Include="ObjRocketLauncherAttack.h" />
+    <ClInclude Include="ObjShotGunAttack.h" />
+    <ClInclude Include="ObjSniperRifleAttack.h" />
     <ClInclude Include="ObjStage.h" />
+    <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -165,6 +171,7 @@
     <ClCompile Include="GameL\UserData.cpp" />
     <ClCompile Include="GameL\WICTextureLoader.cpp" />
     <ClCompile Include="GameL\WinInputs.cpp" />
+    <ClCompile Include="ObjARAttack.cpp" />
     <ClCompile Include="ObjBlood_splash.cpp" />
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="ObjED.cpp" />
@@ -174,7 +181,12 @@
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />
+    <ClCompile Include="ObjRailGunAttack.cpp" />
+    <ClCompile Include="ObjRocketLauncherAttack.cpp" />
+    <ClCompile Include="ObjShotGunAttack.cpp" />
+    <ClCompile Include="ObjSniperRifleAttack.cpp" />
     <ClCompile Include="ObjStage.cpp" />
+    <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />
