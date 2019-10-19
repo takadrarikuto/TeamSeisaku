@@ -32,7 +32,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	hp = 100;
+	m_hero_hp = 100;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -139,21 +139,47 @@ void CObjHero::Action()
 		m_y += m_vy;
 
 		//武器切り替え処理
-		if (Input::GetVKey(VK_LEFT) == true && m_Weapon_switching > 0)
+		if (Input::GetVKey(VK_LEFT) == true)
 		{
-			if (m_Weapon_switching_flg == true)
+			if (m_Weapon_switching == 0)
 			{
-				m_Weapon_switching -= 1;
-				m_Weapon_switching_flg = false;
-			}			
+				if (m_Weapon_switching_flg == true)
+				{
+					m_Weapon_switching = 5;
+					m_Weapon_switching_flg = false;
+					m_bt = 0; //攻撃頻度初期化
+				}
+			}
+			else if(m_Weapon_switching > 0)
+			{
+				if (m_Weapon_switching_flg == true)
+				{
+					m_Weapon_switching -= 1;
+					m_Weapon_switching_flg = false;
+					m_bt = 0; //攻撃頻度初期化
+				}				
+			}					
 		}
-		else if (Input::GetVKey(VK_RIGHT) == true && m_Weapon_switching < 5)
+		else if (Input::GetVKey(VK_RIGHT) == true)
 		{
-			if (m_Weapon_switching_flg == true)
+			if (m_Weapon_switching == 5)
 			{
-				m_Weapon_switching += 1;
-				m_Weapon_switching_flg = false;
-			}			
+				if (m_Weapon_switching_flg == true)
+				{
+					m_Weapon_switching = 0;
+					m_Weapon_switching_flg = false;
+					m_bt = 0; //攻撃頻度初期化
+				}
+			}
+			else if (m_Weapon_switching < 5)
+			{
+				if (m_Weapon_switching_flg == true)
+				{
+					m_Weapon_switching += 1;
+					m_Weapon_switching_flg = false;
+					m_bt = 0; //攻撃頻度初期化
+				}
+			}									
 		}
 		else
 		{
@@ -308,7 +334,7 @@ void CObjHero::Action()
 					else if (m_UDani_frame == 2)
 					{
 						//スナイパーアタックオブジェクト作成
-						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x, m_y + 16, m_ga_vx_max, 0, 90.0f);
+						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x, m_y + 16, m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
 					//下
@@ -322,7 +348,7 @@ void CObjHero::Action()
 					else if (m_UDani_frame == 6)
 					{
 						//スナイパーアタックオブジェクト作成
-						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x, m_y + 16, -m_ga_vx_max, 0, 270.0f);
+						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x, m_y + 16, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
 					//Attack_flg = true; //Attackフラグtrue
@@ -350,7 +376,7 @@ void CObjHero::Action()
 					else if (m_UDani_frame == 2)
 					{
 						//ロケットランチャーアタックオブジェクト作成
-						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, m_ga_vx_max, 0, 90.0f);
+						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
 					}
 					//下
@@ -364,7 +390,7 @@ void CObjHero::Action()
 					else if (m_UDani_frame == 6)
 					{
 						//ロケットランチャーアタックオブジェクト作成
-						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 270.0f);
+						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
 					}
 					//Attack_flg = true; //Attackフラグtrue
@@ -392,7 +418,7 @@ void CObjHero::Action()
 					else if (m_UDani_frame == 2)
 					{
 						//レールガンアタックオブジェクト作成
-						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x, m_y + 16, m_ga_vx_max, 0, 90.0f);
+						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x, m_y + 16, m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
 					//下
@@ -406,7 +432,7 @@ void CObjHero::Action()
 					else if (m_UDani_frame == 6)
 					{
 						//レールガンアタックオブジェクト作成
-						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x, m_y + 16, -m_ga_vx_max, 0, 270.0f);
+						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x, m_y + 16, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
 					//Attack_flg = true; //Attackフラグtrue
@@ -448,7 +474,7 @@ void CObjHero::Action()
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
-	if (hp == 0)
+	if (m_hero_hp == 0)
 	{
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_dst_size);
@@ -499,6 +525,32 @@ void CObjHero::Action()
 	//	hp = 10;
 	//	//ポイントを獲得
 	//}
+
+	//スクロール
+	C0bjBackground * b = (C0bjBackground*)Objs::GetObj(OBJ_BACKGROUND);
+
+	//左右スクロールライン
+	if (m_x > 400)
+	{
+		m_x = 400;
+		b->SetScrollx(b->GetScrollx() - 3.0);
+	}
+	if (m_x < 400)
+	{
+		m_x = 400;
+		b->SetScrollx(b->GetScrollx() + 3.0);
+	}
+	//上下スクロールライン
+	if (m_y > 300)
+	{
+		m_y = 300;
+		b->SetScrolly(b->GetScrolly() - 3.0);
+	}
+	if (m_y < 300)
+	{
+		m_y = 300;
+		b->SetScrolly(b->GetScrolly() + 3.0);
+	}
 
 }
 
