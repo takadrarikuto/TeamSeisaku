@@ -39,5 +39,5 @@ void CObjTopback::Draw()
 	dst.m_left = 0.0f;
 	dst.m_right = 800.0f;
 	dst.m_bottom = 63.0f;
-	Draw::Draw(30, &src, &dst, c, 0.0f);
+	Draw::Draw(31, &src, &dst, c, 0.0f);
 }
