@@ -58,7 +58,7 @@ void CObjHero::Init()
 	//当たり判定サイズ
 	Hitbox_size = 64;
 	//爆発用描画サイズ
-	m_exp_dst_size = 64;
+	m_exp_blood_dst_size = 64;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 2);
@@ -91,28 +91,28 @@ void CObjHero::Action()
 		//'W'を押すと上に移動
 		if (Input::GetVKey('W') == true)
 		{
-			m_y -= m_v_max;
+			m_vy -= m_v_max;
 			m_UDani_frame = 0;
 			m_ani_time += 1;
 		}
 		//'S'を押すと下に移動
 		else if (Input::GetVKey('S') == true)
 		{
-			m_y += m_v_max;
+			m_vy += m_v_max;
 			m_UDani_frame = 4;
 			m_ani_time += 1;
 		}
 		//'A'を押すと左に移動
 		else if (Input::GetVKey('A') == true)
 		{
-			m_x -= m_v_max;
+			m_vx -= m_v_max;
 			m_UDani_frame = 6;
 			m_ani_time += 1;
 		}
 		//'D'を押すと右移動
 		else if (Input::GetVKey('D') == true)
 		{
-			m_x += m_v_max;
+			m_vx += m_v_max;
 			m_UDani_frame = 2;
 			m_ani_time += 1;
 		}
@@ -494,7 +494,7 @@ void CObjHero::Action()
 	if (m_hero_hp == 0)
 	{
 		//血しぶきオブジェクト作成
-		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_dst_size);
+		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);				
 	}
 

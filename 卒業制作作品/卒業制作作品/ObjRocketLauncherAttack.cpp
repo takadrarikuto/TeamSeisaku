@@ -35,6 +35,8 @@ void CObjRocketLauncherAttack::Init()
 	//íœ‹——£Å‘å’l
 	Distance_max = 5;
 
+	m_exp_blood_dst_size = 64.0f;
+
 	if (m_gar == 0 || m_gar == 180)
 	{
 		//“–‚½‚è”»’è—pHitBox‚ğì¬

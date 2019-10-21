@@ -84,6 +84,8 @@ struct UserData
 #include "ObjRailGunAttack.h"
 
 //エネミー
+#include "ObjZombieEnemy.h"
+
 //中ボス
 //ボス
 //エネミー・中ボス・ボス用攻撃
