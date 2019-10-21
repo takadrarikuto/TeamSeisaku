@@ -46,6 +46,9 @@
     <Filter Include="ソース ファイル\ステージメイン\武器">
       <UniqueIdentifier>{8f4b48fe-34b9-44e1-8c90-8bee9c01a689}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\ステージ">
+      <UniqueIdentifier>{8bb0248a-1e35-4dc3-812f-c6485172110b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -129,9 +132,6 @@
     <ClInclude Include="ObjHero.h">
       <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
     </ClInclude>
-    <ClInclude Include="SceneStage.h">
-      <Filter>ソース ファイル\ステージメイン</Filter>
-    </ClInclude>
     <ClInclude Include="ObjMenu.h">
       <Filter>ソース ファイル\ステージメイン\メニュー</Filter>
     </ClInclude>
@@ -145,10 +145,37 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
       <Filter>ソース ファイル\血しぶき・爆発</Filter>
     </ClInclude>
     <ClInclude Include="ObjGunAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjShotGunAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjARAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSniperRifleAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRocketLauncherAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRailGunAttack.h">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjStage.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTime.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStage.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -227,9 +254,6 @@
     <ClCompile Include="ObjHero.cpp">
       <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
     </ClCompile>
-    <ClCompile Include="SceneStage.cpp">
-      <Filter>ソース ファイル\ステージメイン</Filter>
-    </ClCompile>
     <ClCompile Include="ObjMenu.cpp">
       <Filter>ソース ファイル\ステージメイン\メニュー</Filter>
     </ClCompile>
@@ -240,10 +264,34 @@
       <Filter>ソース ファイル\操作説明</Filter>
     </ClCompile>
     <ClCompile Include="ObjBlood_splash.cpp">
-      <Filter>ソース ファイル\血しぶき・爆発</Filter>
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
     </ClCompile>
     <ClCompile Include="ObjGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjShotGunAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjARAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSniperRifleAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRocketLauncherAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRailGunAttack.cpp">
+      <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTime.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStage.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

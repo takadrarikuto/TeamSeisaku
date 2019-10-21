@@ -131,6 +131,7 @@
     <ClInclude Include="GameL\WICTextureLoader.h" />
     <ClInclude Include="GameL\WinInputs.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="ObjARAttack.h" />
     <ClInclude Include="ObjBlood_splash.h" />
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="ObjED.h" />
@@ -140,6 +141,12 @@
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
+    <ClInclude Include="ObjRailGunAttack.h" />
+    <ClInclude Include="ObjRocketLauncherAttack.h" />
+    <ClInclude Include="ObjShotGunAttack.h" />
+    <ClInclude Include="ObjSniperRifleAttack.h" />
+    <ClInclude Include="ObjStage.h" />
+    <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -164,6 +171,7 @@
     <ClCompile Include="GameL\UserData.cpp" />
     <ClCompile Include="GameL\WICTextureLoader.cpp" />
     <ClCompile Include="GameL\WinInputs.cpp" />
+    <ClCompile Include="ObjARAttack.cpp" />
     <ClCompile Include="ObjBlood_splash.cpp" />
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="ObjED.cpp" />
@@ -173,6 +181,12 @@
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />
+    <ClCompile Include="ObjRailGunAttack.cpp" />
+    <ClCompile Include="ObjRocketLauncherAttack.cpp" />
+    <ClCompile Include="ObjShotGunAttack.cpp" />
+    <ClCompile Include="ObjSniperRifleAttack.cpp" />
+    <ClCompile Include="ObjStage.cpp" />
+    <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />

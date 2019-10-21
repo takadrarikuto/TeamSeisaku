@@ -10,15 +10,22 @@ enum OBJ_NAME
 	OBJ_PER_DECISION,
 	OBJ_TIME,
 	OBJ_GUNATTACK,
+	OBJ_SHOTGUNATTACK,
+	OBJ_ARATTACK,
+	OBJ_SNIPERRIFLEATTACK,
+	OBJ_ROCKETLAUNCHERATTACK,
+	OBJ_RAILGUNATTACK,
 	OBJ_ENEMY,
 	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
+	OBJ_STAGE,
 	OBJ_TITLE,
 	OBJ_OP,
 	OBJ_OPERATION,
 	OBJ_CLEAR,
 	OBJ_OVER,
 	OBJ_ED,
+	OBJ_MENU,
 };
 //------------------------------------------------
 
@@ -68,6 +75,11 @@ struct UserData
 
 //主人公用攻撃
 #include "ObjGunAttack.h"
+#include "ObjShotGunAttack.h"
+#include "ObjARAttack.h"
+#include "ObjSniperRifleAttack.h"
+#include "ObjRocketLauncherAttack.h"
+#include "ObjRailGunAttack.h"
 
 //エネミー
 //中ボス
@@ -77,6 +89,7 @@ struct UserData
 #include "ObjBlood_splash.h"
 
 //ステージ
+#include "ObjStage.h"
 
 //タイトル
 #include "ObjTitle.h"
@@ -98,6 +111,9 @@ struct UserData
 
 //メニュー
 #include "ObjMenu.h"
+
+//タイム
+#include "ObjTime.h"
 
 //ベース設定
 #include "GameHead.h"
