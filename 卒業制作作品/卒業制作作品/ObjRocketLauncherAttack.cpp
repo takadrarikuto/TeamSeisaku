@@ -26,8 +26,8 @@ CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, f
 //イニシャライズ
 void CObjRocketLauncherAttack::Init()
 {
-	//初期化
-		//描画フレーム
+//初期化
+	//描画フレーム
 	m_ani_frame = 0;
 	//アニメーションフレーム動作間隔
 	m_ani_time = 0;
@@ -93,30 +93,30 @@ void CObjRocketLauncherAttack::Action()
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
 	if (m_gar == 0 || m_gar == 180)
 	{
-		hit_ga->SetPos(m_gax - 64.0f, m_gay); //当たり判定の位置更新
+		hit_ga->SetPos(m_gax, m_gay); //当たり判定の位置更新
 	}
 	else if (m_gar == 90 || m_gar == 270)
 	{
-		hit_ga->SetPos(m_gax - 16.0f, m_gay - 48.0f); //当たり判定の位置更新
+		hit_ga->SetPos(m_gax - 20.0f, m_gay + 19.0f); //当たり判定の位置更新
 	}
 
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * Distance_max || m_gax < 0.0f)
+	if (m_gax < hx - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax + 32 > hx + 64 * Distance_max || m_gax + 32 > 800.0f)
+	else if (m_gax> hx + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * Distance_max || m_gay < 0.0f)
+	if (m_gay < hy - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay + 32 > hy + 64 * Distance_max || m_gay + 32 > 600.0f)
+	else if (m_gay> hy + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -147,10 +147,10 @@ void CObjRocketLauncherAttack::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 400.0f;
-	src.m_left = 0.0f + AniData[m_ani_frame] * 30;
-	src.m_right = 30.0f + AniData[m_ani_frame] * 30;
-	src.m_bottom = 470.0f;
+	src.m_top = 200.0f;
+	src.m_left = 0.0f + AniData[m_ani_frame] * 32;
+	src.m_right = 28.0f + AniData[m_ani_frame] * 32;
+	src.m_bottom = 280.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_gay;
 	dst.m_left = 0.0f + m_gax;
