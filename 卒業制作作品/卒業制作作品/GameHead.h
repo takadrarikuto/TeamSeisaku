@@ -26,6 +26,8 @@ enum OBJ_NAME
 	OBJ_OVER,
 	OBJ_ED,
 	OBJ_MENU,
+	OBJ_TOPBACK,
+	OBJ_BACKGROUND,
 };
 //------------------------------------------------
 
@@ -114,6 +116,12 @@ struct UserData
 
 //タイム
 #include "ObjTime.h"
+
+//ステージ上部UI背景
+#include "ObjTopback.h"
+
+//背景
+#include "ObjBackground.h"
 
 //ベース設定
 #include "GameHead.h"

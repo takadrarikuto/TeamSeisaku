@@ -132,6 +132,7 @@
     <ClInclude Include="GameL\WinInputs.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="ObjARAttack.h" />
+    <ClInclude Include="ObjBackground.h" />
     <ClInclude Include="ObjBlood_splash.h" />
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="ObjED.h" />
@@ -148,6 +149,7 @@
     <ClInclude Include="ObjStage.h" />
     <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
+    <ClInclude Include="ObjTopback.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
     <ClInclude Include="SceneOP.h" />
@@ -172,6 +174,7 @@
     <ClCompile Include="GameL\WICTextureLoader.cpp" />
     <ClCompile Include="GameL\WinInputs.cpp" />
     <ClCompile Include="ObjARAttack.cpp" />
+    <ClCompile Include="ObjBackground.cpp" />
     <ClCompile Include="ObjBlood_splash.cpp" />
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="ObjED.cpp" />
@@ -188,6 +191,7 @@
     <ClCompile Include="ObjStage.cpp" />
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
+    <ClCompile Include="ObjTopback.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />
     <ClCompile Include="SceneOP.cpp" />

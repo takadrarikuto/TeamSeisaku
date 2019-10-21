@@ -113,7 +113,7 @@ void CObjGunAttack::Draw()
 	dst.m_top = 0.0f + m_gay;
 	dst.m_left = 0.0f + m_gax;
 	dst.m_right = 32.0f + m_gax;
-	dst.m_bottom = 32.0f + m_gay;	
+	dst.m_bottom = 32.0f + m_gay;
 	Draw::Draw(3, &src, &dst, c, m_gar);
 
 }

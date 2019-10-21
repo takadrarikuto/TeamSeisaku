@@ -149,9 +149,8 @@ void CObjMenu::Draw()
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)
 	{
-		
-		Font::StrDraw(L"武器一覧（仮）", 295, 200, 35, b);
 		BackDraw(100.0f, 50.0f, 750.0f, 570.0f, a);
+		Font::StrDraw(L"武器一覧（仮）", 295, 200, 35, b);
 		if (choose == 0)
 			Font::StrDraw(L"◆ゲームに戻る", 450, 425, 35, g);
 		else
