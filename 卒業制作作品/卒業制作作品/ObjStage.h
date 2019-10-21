@@ -32,7 +32,7 @@ using namespace GameL;
 
 
 //オブジェクト：メニュー
-class CObjStage :public CObj
+class CObjStage :public CObj 
 {
 public:
 	CObjStage() {};

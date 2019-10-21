@@ -13,6 +13,9 @@
 #include "GameHead.h"
 #include "SceneStage.h"
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CSceneStage::CSceneStage()
 {
@@ -32,10 +35,12 @@ void CSceneStage::InitScene()
 	//Font::SetStrTex(L"0123456789分秒");
 
 	//グラフィック読み込み
-	//Draw::LoadImage(L"宇宙空間1.png", 0, TEX_SIZE_512);
+	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
+	//Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
+	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
@@ -69,12 +74,24 @@ void CSceneStage::InitScene()
 	/*
 	//敵機オブジェクト作成
 	CObjEnemy* obj_e = new CObjEnemy();
-	Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
+	Objs::InsertObj(obj_e, OBJ_ENEMY, 2);
 	*/
+
+	//背景オブジェクト作成
+	C0bjBackground * back = new C0bjBackground();
+	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
+
+	//ステージ上部背景オブジェクト作成
+	CObjTopback* objtb = new CObjTopback();
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 3);
 
 	//ステージオブジェクト作成
 	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 120);
+	Objs::InsertObj(objm, OBJ_STAGE, 4);
+
+	//タイムオブジェクト作成
+	CObjTime*objt = new CObjTime();
+	Objs::InsertObj(objt, OBJ_TIME, 4);
 }
 
 void CSceneStage::Scene()
@@ -94,8 +111,24 @@ void CSceneStage::Scene()
 	//}
 
 	//メニュー画面閲覧時行動停止処理
-	//if (Menu_flg == false)
+	if (Menu_flg == false)
 	{
+		//ボスを倒したら少し時間を空けてからシーン移動する
+		/*if (boss_count == 1)
+		{
+			Scene_time++;
+		}*/
+		if (Scene_time == 60)
+		{
+			//ボスカウント・シーンタイム初期化
+			//boss_count = 0;
+			Scene_time = 0;
+		}
+
+
+	//メニュー画面閲覧時行動停止処理
+	//if (Menu_flg == false)
+	//{
 		//各タイム増加
 		//e_time++;
 		//i_time++;
@@ -139,5 +172,4 @@ void CSceneStage::Scene()
 		//	i_time = 0;
 		//}
 	}
-
 }

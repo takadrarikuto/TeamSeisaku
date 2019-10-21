@@ -15,21 +15,35 @@ using namespace GameL;
 //イニシャライズ
 void CObjStage::Init()
 {
+	//初期化
+	//描画フレーム
+	m_ani_frame = 0;
 
 }
 
 //アクション
 void CObjStage::Action()
 {
+	//武器切り替え変数取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	int WS = hero->GetWS();
+
+	//武器切り替え変数をアニメーションに同期
+	m_ani_frame = WS;
 
 }
 
 //ドロー
 void CObjStage::Draw()
 {
-
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	//hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+
+	//モーション
+	int AniData[6] =
+	{
+		0,1,2,3,4,5,
+	};
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 
@@ -41,34 +55,32 @@ void CObjStage::Draw()
 
 	//画面上部のメニュー画面
 
-	Draw::Draw(17, &src, &dst, c, 0.0f);
-
 	//切り取り位置の設定
 	src.m_top = 0.0f;
-	src.m_left = 0.0f;
-	src.m_right = 32.0f;
-	src.m_bottom = 32.0f;
+	src.m_left = 0.0f + AniData[m_ani_frame] * 60;
+	src.m_right = 60.0f + AniData[m_ani_frame] * 60;
+	src.m_bottom = 20.0f;
 
 	//表示位置の設定
-	dst.m_top = 0.0f;
-	dst.m_left = 48.0f;
-	dst.m_right = 80.0f;
-	dst.m_bottom = 36.0f;
-	//Draw::Draw(20, &src, &dst, c, 0.0f);
+	dst.m_top = 10.0f;
+	dst.m_left = 289.0f;
+	dst.m_right = 349.0f;
+	dst.m_bottom = 60.0f;
+	Draw::Draw(11, &src, &dst, c, 0.0f);
 
 	//TIMEを表示
 	swprintf_s(TIME, L"TIME", m_stage_time, 15);
-	Font::StrDraw(TIME, 15, 4, 23, c);
-	swprintf_s(TIME, L"○○", m_stage_time, 15);
-	Font::StrDraw(TIME, GAME_TIME_POS_X, GAME_TIME_POS_Y, 25, c);
+	Font::StrDraw(TIME, 12, 2, 26, c);
+	/*swprintf_s(TIME, L"○○", m_stage_time, 15);
+	Font::StrDraw(TIME, GAME_TIME_POS_X, GAME_TIME_POS_Y, 25, c);*/
 
 	//HPを表示
-	swprintf_s(HP, L"HP:100/100", hero_hp, 15);
+	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
 	//武器使用可数を表示
-	swprintf_s(HP, L"武器×10", hero_hp, 15);
-	Font::StrDraw(HP, 285, 15, 37, c);
+	swprintf_s(HP, L"×10", hero_hp, 15);
+	Font::StrDraw(HP, 359, 15, 37, c);
 
 	//その他表示
 	Font::StrDraw(L"武器切替：左右キー", 470, 13, 18, c);

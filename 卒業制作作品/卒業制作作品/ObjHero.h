@@ -16,6 +16,7 @@ public:
 	float GetX() { return m_x; }
 	float GetY() { return m_y; }
 	int GetWS() { return m_Weapon_switching; }
+	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 
 private:
 	float m_x; //位置更新
@@ -32,6 +33,7 @@ private:
 	int m_LRani_frame;
 
 	int m_bt; //攻撃頻度
+	int m_bt_max; //攻撃頻度最大値
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 
