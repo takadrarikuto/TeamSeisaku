@@ -21,6 +21,4 @@ private:
 
 	int Distance_max; //íœ‹——£Å‘å’l
 
-	int Distance_max; //íœ‹——£Å‘å’l
-
 };

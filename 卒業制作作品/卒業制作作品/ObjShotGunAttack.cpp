@@ -30,16 +30,8 @@ void CObjShotGunAttack::Init()
 	//削除距離最大値
 	Distance_max = 2;
 
-	if (m_gar == 0 || m_gar == 180)
-	{
-		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_gax, m_gay, 160, 64, ELEMENT_RED, OBJ_GUNATTACK, 3);
-	}
-	else if (m_gar == 90 || m_gar == 270)
-	{
-		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_gax, m_gay, 64, 160, ELEMENT_RED, OBJ_GUNATTACK, 3);
-	}
+	//当たり判定用HitBoxを作成
+	Hits::SetHitBox(this, m_gax, m_gay, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
 
 }
 
@@ -49,6 +41,22 @@ void CObjShotGunAttack::Action()
 	//メニューを開くと行動停止
 	//if (Menu_flg == false)
 	//{
+	//斜め移動修正処理
+	float r = 0.0f;
+	r = m_gavx * m_gavx + m_gavy * m_gavy;
+	r = sqrt(r); //ルートを求める
+
+	//斜めベクトルを求める
+	if (r == 0.0f)
+	{
+		; //0なら何もしない
+	}
+	else
+	{
+		m_gavx = 5.0f / r * m_gavx;
+		m_gavy = 5.0f / r * m_gavy;
+	}
+
 	//位置更新
 	m_gax += m_gavx;
 	m_gay += m_gavy;
@@ -69,32 +77,25 @@ void CObjShotGunAttack::Action()
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
-	if (m_gar == 0 || m_gar == 180)
-	{
-		hit_ga->SetPos(m_gax - 64.0f, m_gay ); //当たり判定の位置更新
-	}
-	else if (m_gar == 90 || m_gar == 270)
-	{
-		hit_ga->SetPos(m_gax - 16.0f, m_gay - 48.0f); //当たり判定の位置更新
-	}
+	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
 		
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * Distance_max || m_gax < 0.0f)
+	if (m_gax < hx - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax + 32 > hx + 64 * Distance_max || m_gax + 32 > 800.0f)
+	else if (m_gax> hx + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * Distance_max || m_gay < 0.0f)
+	if (m_gay < hy - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay + 32 > hy + 64 * Distance_max || m_gay + 32 > 600.0f)
+	else if (m_gay> hy + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

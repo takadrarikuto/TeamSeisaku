@@ -64,22 +64,22 @@ void CObjGunAttack::Action()
 	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
 
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * 3 || m_gax < 0.0f)
+	if (m_gax < hx - 64 * 3)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax + 32 > hx + 64 * 3 || m_gax + 32 > 800.0f)
+	else if (m_gax > hx + 64 * 3)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * 3 || m_gay < 0.0f)
+	if (m_gay < hy - 64 * 3)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay + 32 > hy + 64 * 3 || m_gay + 32 > 600.0f)
+	else if (m_gay > hy + 64 * 3)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
