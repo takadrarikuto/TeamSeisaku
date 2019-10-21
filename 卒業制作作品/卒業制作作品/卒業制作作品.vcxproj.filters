@@ -186,8 +186,11 @@
     <ClInclude Include="ObjTopback.h">
       <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClInclude>
-    <ClInclude Include="ObjZombieEnemy.h">
-      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    <ClInclude Include="SceneStage.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjStage.h">
+      <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -311,8 +314,11 @@
     <ClCompile Include="ObjTopback.cpp">
       <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClCompile>
-    <ClCompile Include="ObjZombieEnemy.cpp">
-      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStage.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

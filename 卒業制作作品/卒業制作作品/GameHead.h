@@ -159,5 +159,5 @@ struct UserData
 #define SET_GAME_START  CSceneStage
 
 //デバッグ用
-//#define SET_GAME_START  CSceneOver
+//#define SET_GAME_START  CSceneTitle
 //-----------------------------------------------

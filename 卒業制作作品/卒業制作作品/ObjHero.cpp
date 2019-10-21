@@ -546,27 +546,25 @@ void CObjHero::Action()
 	//スクロール
 	C0bjBackground * b = (C0bjBackground*)Objs::GetObj(OBJ_BACKGROUND);
 
-	//左右スクロールライン
-	if (m_x > 400)
+	//左のスクロールライン
+	{
+		m_x = 0;
+		b->SetScrollX(b->GetScrollX());
+	}
+	//右のスクロールライン
 	{
 		m_x = 400;
-		b->SetScrollx(b->GetScrollx() - 3.0);
+		b->SetScrollX(b->GetScrollX());
 	}
-	if (m_x < 400)
+	//上のスクロールライン
 	{
-		m_x = 400;
-		b->SetScrollx(b->GetScrollx() + 3.0);
+		m_y = 0;
+		b->SetScrollY(b->GetScrollY());
 	}
-	//上下スクロールライン
-	if (m_y > 300)
-	{
-		m_y = 300;
-		b->SetScrolly(b->GetScrolly() - 3.0);
-	}
-	if (m_y < 300)
+	//下のスクロールライン
 	{
 		m_y = 300;
-		b->SetScrolly(b->GetScrolly() + 3.0);
+		b->SetScrollY(b->GetScrollY());
 	}
 
 }
@@ -597,6 +595,4 @@ void CObjHero::Draw()
 	dst.m_right = m_dst_size + m_x;
 	dst.m_bottom = m_dst_size + m_y;
 	Draw::Draw(2, &src, &dst, c, 0.0f);
-	
-
 }

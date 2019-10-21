@@ -146,11 +146,56 @@ void CObjMenu::Draw()
 
 	wchar_t str[128];
 
+	RECT_F src;//描写元切り取り位置
+	RECT_F dst;//描写先表示位置
+
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)
 	{
 		BackDraw(100.0f, 50.0f, 750.0f, 570.0f, a);
-		Font::StrDraw(L"武器一覧（仮）", 295, 200, 35, b);
+		//Font::StrDraw(L"武器一覧（仮）", 295, 200, 35, b);
+
+		//切り取り位置の設定
+		src.m_top = 2.0f;
+		src.m_left = 20.0f;
+		src.m_right = 40.0f;
+		src.m_bottom = 18.0f;
+
+		//表示位置の設定
+		dst.m_top = 125.0f;
+		dst.m_left = 75.0f;
+		dst.m_right = 125.0f;
+		dst.m_bottom = 175.0f;
+		Draw::Draw(11, &src, &dst, c, 0.0f);
+
+
+		//切り取り位置の設定
+		src.m_top = 2.0f;
+		src.m_left = 68.0f;
+		src.m_right = 110.0f;
+		src.m_bottom = 18.0f;
+
+		//表示位置の設定
+		dst.m_top = 200.0f;
+		dst.m_left = 75.0f;
+		dst.m_right = 175.0f;
+		dst.m_bottom = 250.0f;
+		Draw::Draw(11, &src, &dst, c, 0.0f);
+
+
+		//切り取り位置の設定
+		src.m_top = 2.0f;
+		src.m_left = 127.0f;
+		src.m_right = 170.0f;
+		src.m_bottom = 18.0f;
+
+		//表示位置の設定
+		dst.m_top = 275.0f;
+		dst.m_left = 75.0f;
+		dst.m_right = 175.0f;
+		dst.m_bottom = 325.0f;
+		Draw::Draw(11, &src, &dst, c, 0.0f);
+
 		if (choose == 0)
 			Font::StrDraw(L"◆ゲームに戻る", 450, 425, 35, g);
 		else
@@ -186,5 +231,5 @@ void CObjMenu::BackDraw(float top, float left, float right, float bottom, float 
 	dst.m_left = left;
 	dst.m_right = right;
 	dst.m_bottom = bottom;
-	Draw::Draw(30, &src, &dst, c, 0.0f);
+	Draw::Draw(31, &src, &dst, c, 0.0f);
 }
