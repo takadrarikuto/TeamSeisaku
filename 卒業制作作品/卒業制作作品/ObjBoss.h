@@ -26,4 +26,7 @@ private:
 	int Ze_dst_flg_num; //ゾンビランダム描画切り替え用変数
 	bool Ze_dst_flg;  //ゾンビランダム描画切り替え用フラグ
 
+	float m_scrollx; //横スクロール
+	float m_scrolly; //縦スクロール
+
 };

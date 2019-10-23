@@ -29,6 +29,10 @@ CObjBoss::CObjBoss(float bx, float by)
 void CObjBoss::Init()
 {
 	//初期化
+	//スクロール初期化
+	m_scrollx = 0.0f;
+	m_scrolly = 0.0f;
+
 	//エネミー出現位置
 	e_x = 272.0f;
 	e_y = 400.0f;
@@ -132,6 +136,4 @@ void CObjBoss::Draw()
 	dst.m_right = m_dst_size * 2 + m_bx;
 	dst.m_bottom = m_dst_size + m_by;
 	Draw::Draw(4, &src, &dst, c, 0.0f);
-
-
 }

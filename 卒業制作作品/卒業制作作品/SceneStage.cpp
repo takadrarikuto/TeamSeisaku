@@ -94,7 +94,7 @@ void CSceneStage::InitScene()
 
 	//ボスオブジェクト作成
 	CObjBoss*obj_boss = new CObjBoss(272, 400);
-	Objs::InsertObj(obj_boss, OBJ_BOSS, 4);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
 	
 }
 

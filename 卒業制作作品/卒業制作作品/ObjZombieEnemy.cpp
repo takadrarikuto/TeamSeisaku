@@ -63,6 +63,9 @@ void CObjZombieEnemy::Init()
 	//爆発用描画サイズ
 	m_exp_blood_dst_size = 64;
 
+	//ダメージ量
+	m_damage = 1;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 5);
 }
