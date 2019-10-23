@@ -11,6 +11,7 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
+	int GetOP() { return m_Offensive_Power; }
 
 	int GetOP() { return m_Offensive_Power; }
 	//int GetSGAPB() { return m_sga_pb; }	//残り弾数を取得

@@ -102,5 +102,5 @@ void CObjStage::Draw()
 		Font::StrDraw(HP, 148, GAME_HP_POS_Y, 37, c);
 		swprintf_s(HP, L"%d", 20 + g_hero_max_hp, 15);
 		Font::StrDraw(HP, 163, 10, 27, c);
-	}*/
+	}*/	
 }
