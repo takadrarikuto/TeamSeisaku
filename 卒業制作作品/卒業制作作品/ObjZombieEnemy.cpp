@@ -73,6 +73,20 @@ void CObjZombieEnemy::Action()
 		float hx = hero->GetX();
 		float hy = hero->GetY();
 	}	
+	//武器の攻撃力情報取得
+	CObjGunAttack* Gun = (CObjGunAttack*)Objs::GetObj(OBJ_GUNATTACK);
+	CObjShotGunAttack* ShotGun = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
+	CObjARAttack* AR = (CObjARAttack*)Objs::GetObj(OBJ_ARATTACK);
+	CObjSniperRifleAttack* SR = (CObjSniperRifleAttack*)Objs::GetObj(OBJ_SNIPERRIFLEATTACK);
+	CObjRocketLauncherAttack* RL = (CObjRocketLauncherAttack*)Objs::GetObj(OBJ_ROCKETLAUNCHERATTACK);
+	CObjRailGunAttack* RG = (CObjRailGunAttack*)Objs::GetObj(OBJ_RAILGUNATTACK);
+	int Gun_Attack = Gun->GetOP();
+	int SHG_Attack = ShotGun->GetOP();
+	int AR_Attack = AR->GetOP();
+	int SR_Attack = SR->GetOP();
+	int RL_Attack = RL->GetOP();
+	int RG_Attack = RG->GetOP();
+	
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -165,21 +179,44 @@ void CObjZombieEnemy::Action()
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
 
-	if (m_hero_hp == 0)
+	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
+	//ハンドガン
+	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+	{
+		m_hero_hp -= Gun_Attack;
+	}
+	//ショットガン
+	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
+	{
+		m_hero_hp -= SHG_Attack;
+	}
+	//アサルトライフル
+	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
+	{
+		m_hero_hp -= AR_Attack;
+	}
+	//スナイパーライフル
+	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
+	{
+		m_hero_hp -= SR_Attack;
+	}
+	//ロケットランチャー
+	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
+	{
+		m_hero_hp -= RL_Attack;
+	}
+	//レールガン
+	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
+	{
+		m_hero_hp -= RG_Attack;
+	}
+	else if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 	}
 
-	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
-	//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
-	//	|| hit_h->CheckObjNameHit(OBJ_BOMB) != nullptr)
-	//	&& hp != 0 && m_ht == 0)
-	//{
-	//	m_hf = true;
-	//	hp -= 1;
-	//}
 }
 
 //ドロー

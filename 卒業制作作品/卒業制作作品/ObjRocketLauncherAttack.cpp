@@ -34,6 +34,9 @@ void CObjRocketLauncherAttack::Init()
 
 	//íœ‹——£Å‘å’l
 	Distance_max = 5;
+	
+	//UŒ‚—Í
+	m_Offensive_Power = 150;
 
 	m_exp_blood_dst_size = 64.0f;
 

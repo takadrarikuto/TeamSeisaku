@@ -11,6 +11,7 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
+	int GetOP() { return m_Offensive_Power; }
 
 private:
 	float m_RLx; //位置情報
@@ -23,5 +24,6 @@ private:
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 
 	int Distance_max; //削除距離最大値
+	int m_Offensive_Power; //攻撃力
 
 };

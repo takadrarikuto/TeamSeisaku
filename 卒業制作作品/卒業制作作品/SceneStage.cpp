@@ -67,17 +67,9 @@ void CSceneStage::InitScene()
 	i_time = 0;
 	//アイテム出現位置初期化
 	i_x = 0.0f;
-	//エネミー出現位置
-	e_x = 0.0f;
-	e_y = 0.0f;
 	//アイテム出現位置
 	i_x = 0.0f;
 	i_y = 0.0f;
-
-	//ゾンビランダム描画切り替え用
-	Ze_dst_flg_num = 1;
-	//ゾンビランダム描画切り替え用フラグ
-	Ze_dst_flg = false;  
 
 	//シーン切り替えタイム
 	Scene_time = 0;
@@ -100,24 +92,10 @@ void CSceneStage::InitScene()
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 4);
 
-
-	srand(time(NULL)); // ランダム情報を初期化
-
-	Ze_dst_flg_num = rand() % 3;
-	if (Ze_dst_flg_num % 2 == 0)
-	{
-		Ze_dst_flg = true;
-	}
-	else if (Ze_dst_flg_num % 2 != 0)
-	{
-		Ze_dst_flg = false;
-	}
-	e_x = rand() % 736;
-	e_y = rand() % 536;
+	//ボスオブジェクト作成
+	CObjBoss*obj_boss = new CObjBoss(272, 400);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 4);
 	
-	//敵機オブジェクト作成
-	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-	Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
 }
 
 void CSceneStage::Scene()

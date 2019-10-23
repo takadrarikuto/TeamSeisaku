@@ -30,6 +30,9 @@ void CObjRailGunAttack::Init()
 	//íœ‹——£Å‘å’l
 	Distance_max = 5;
 
+	//UŒ‚—Í
+	m_Offensive_Power = 200; 
+
 	if (m_RGr == 0 || m_RGr == 180)
 	{
 		//“–‚½‚è”»’è—pHitBox‚ğì¬
