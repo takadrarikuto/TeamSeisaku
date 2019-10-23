@@ -14,36 +14,34 @@ using namespace GameL;
 CObjRailGunAttack::CObjRailGunAttack(float x, float y, float vx, float vy, float r)
 {
 	//位置情報登録(数値=位置調整)
-	m_gax = x;
-	m_gay = y;
+	m_RGx = x;
+	m_RGy = y;
 	//移動ベクトル
-	m_gavx = vx;
-	m_gavy = vy;
+	m_RGvx = vx;
+	m_RGvy = vy;
 	//画像角度調整
-	m_gar = r;
+	m_RGr = r;
 }
 
 //イニシャライズ
 void CObjRailGunAttack::Init()
 {
-	//初期化
-	//描画フレーム
-	m_ani_frame = 0;
-	//アニメーションフレーム動作間隔
-	m_ani_time = 0;
-
+//初期化
 	//削除距離最大値
 	Distance_max = 5;
 
-	if (m_gar == 0 || m_gar == 180)
+	//攻撃力
+	m_Offensive_Power = 200; 
+
+	if (m_RGr == 0 || m_RGr == 180)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_gax, m_gay, 10, 32, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
+		Hits::SetHitBox(this, m_RGx, m_RGy, 10, 32, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
 	}
-	else if (m_gar == 90 || m_gar == 270)
+	else if (m_RGr == 90 || m_RGr == 270)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_gax, m_gay, 32, 10, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
+		Hits::SetHitBox(this, m_RGx, m_RGy, 32, 10, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
 	}
 	
 
@@ -52,15 +50,12 @@ void CObjRailGunAttack::Init()
 //アクション
 void CObjRailGunAttack::Action()
 {
-	//アニメーションフレーム更新
-	m_ani_time++;
-
 	//メニューを開くと行動停止
 	//if (Menu_flg == false)
 	//{
 	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+	m_RGx += m_RGvx;
+	m_RGy += m_RGvy;
 	//}
 
 	////SE処理
@@ -76,47 +71,34 @@ void CObjRailGunAttack::Action()
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
-	//アニメーション処理
-	if (m_ani_time > 6)
-	{
-		m_ani_time = 0;
-		m_ani_frame += 1;
-	}
-
-	if (m_ani_frame == 8)
-	{
-		m_ani_frame = 0;
-	}
-	
-
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
-	if (m_gar == 0 || m_gar == 180)
+	if (m_RGr == 0 || m_RGr == 180)
 	{
-		hit_ga->SetPos(m_gax - 64.0f, m_gay); //当たり判定の位置更新
+		hit_ga->SetPos(m_RGx, m_RGy); //当たり判定の位置更新
 	}
-	else if (m_gar == 90 || m_gar == 270)
+	else if (m_RGr == 90 || m_RGr == 270)
 	{
-		hit_ga->SetPos(m_gax - 16.0f, m_gay - 48.0f); //当たり判定の位置更新
+		hit_ga->SetPos(m_RGx - 10.0f, m_RGy + 10.0f); //当たり判定の位置更新
 	}
 
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * Distance_max || m_gax < 0.0f)
+	if (m_RGx < hx - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax + 32 > hx + 64 * Distance_max || m_gax + 32 > 800.0f)
+	else if (m_RGx> hx + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * Distance_max || m_gay < 0.0f)
+	if (m_RGy < hy - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay + 32 > hy + 64 * Distance_max || m_gay + 32 > 600.0f)
+	else if (m_RGy> hy + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -137,26 +119,20 @@ void CObjRailGunAttack::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 
-	//モーション
-	int AniData[8] =
-	{
-		0,1,2,3,4,5,6,7,
-	};
-
 	RECT_F src;
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 310.0f;
-	src.m_left = 0.0f + AniData[m_ani_frame] * 20;
-	src.m_right = 20.0f + AniData[m_ani_frame] * 20;
-	src.m_bottom = 360.0f;
+	src.m_top = 105.0f;
+	src.m_left = 10.0f;
+	src.m_right = 22.0f;
+	src.m_bottom = 130.0f;
 	//描画処理
-	dst.m_top = 0.0f + m_gay;
-	dst.m_left = 0.0f + m_gax;
-	dst.m_right = 10.0f + m_gax;
-	dst.m_bottom = 32.0f + m_gay;
+	dst.m_top = 0.0f + m_RGy;
+	dst.m_left = 0.0f + m_RGx;
+	dst.m_right = 10.0f + m_RGx;
+	dst.m_bottom = 32.0f + m_RGy;
 
-	Draw::Draw(3, &src, &dst, c, m_gar);
+	Draw::Draw(3, &src, &dst, c, m_RGr);
 
 }

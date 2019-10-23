@@ -16,6 +16,7 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHERATTACK,
 	OBJ_RAILGUNATTACK,
 	OBJ_ENEMY,
+	OBJ_BOSS,
 	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
 	OBJ_STAGE,
@@ -26,6 +27,8 @@ enum OBJ_NAME
 	OBJ_OVER,
 	OBJ_ED,
 	OBJ_MENU,
+	OBJ_TOPBACK,
+	OBJ_BACKGROUND,
 };
 //------------------------------------------------
 
@@ -82,8 +85,12 @@ struct UserData
 #include "ObjRailGunAttack.h"
 
 //エネミー
+#include "ObjZombieEnemy.h"
+
 //中ボス
 //ボス
+#include "ObjBoss.h"
+
 //エネミー・中ボス・ボス用攻撃
 //死亡エフェクト
 #include "ObjBlood_splash.h"
@@ -114,6 +121,12 @@ struct UserData
 
 //タイム
 #include "ObjTime.h"
+
+//ステージ上部UI背景
+#include "ObjTopback.h"
+
+//背景
+#include "ObjBackground.h"
 
 //ベース設定
 #include "GameHead.h"

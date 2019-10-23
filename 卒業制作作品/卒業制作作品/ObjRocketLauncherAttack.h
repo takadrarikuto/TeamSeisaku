@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjRocketLauncherAttack :public CObj
+class CObjRocketLauncherAttack :public CObj , public CBaseStatus
 {
 public:
 	CObjRocketLauncherAttack(float x, float y, float vx, float vy, float r);
@@ -11,17 +11,19 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
+	int GetOP() { return m_Offensive_Power; }
 
 private:
-	float m_gax; //位置情報
-	float m_gay;
-	float m_gavx; //移動ベクトル
-	float m_gavy;
-	float m_gar; //画像角度調整
+	float m_RLx; //位置情報
+	float m_RLy;
+	float m_RLvx; //移動ベクトル
+	float m_RLvy;
+	float m_RLr; //画像角度調整
 
 	int m_ani_frame; //描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 
 	int Distance_max; //削除距離最大値
+	int m_Offensive_Power; //攻撃力
 
 };

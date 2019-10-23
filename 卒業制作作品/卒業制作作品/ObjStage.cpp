@@ -18,7 +18,6 @@ void CObjStage::Init()
 	//初期化
 	//描画フレーム
 	m_ani_frame = 0;
-
 }
 
 //アクション
@@ -30,12 +29,14 @@ void CObjStage::Action()
 
 	//武器切り替え変数をアニメーションに同期
 	m_ani_frame = WS;
-
 }
 
 //ドロー
 void CObjStage::Draw()
 {
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+
 	//モーション
 	int AniData[6] =
 	{
@@ -44,6 +45,13 @@ void CObjStage::Draw()
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
+	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+	float a[4] = { 1.0f,1.0f,1.0f,0.5f };
+
 	RECT_F src;	//描画元切り取り位置
 	RECT_F dst;	//描画先表示位置
 
@@ -51,7 +59,6 @@ void CObjStage::Draw()
 	wchar_t HP[128];
 
 	//画面上部のメニュー画面
-
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f + AniData[m_ani_frame] * 60;
@@ -67,10 +74,10 @@ void CObjStage::Draw()
 
 	//TIMEを表示
 	swprintf_s(TIME, L"TIME", m_stage_time, 15);
-	Font::StrDraw(TIME, 15, 4, 23, c);
+	Font::StrDraw(TIME, 12, 2, 26, c);
 
 	//HPを表示
-	swprintf_s(HP, L"HP:100/100", hero_hp, 15);
+	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
 	//武器使用可数を表示

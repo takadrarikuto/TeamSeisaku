@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //イニシャライズ
 void CObjTime::Init()
 {
@@ -20,12 +23,14 @@ void CObjTime::Init()
 //アクション
 void CObjTime::Action()
 {
-	if (m_time > 0)
+	if (Menu_flg == false)
 	{
-		m_time--;
+		if (m_time > 0)
+		{
+			m_time--;
+		}
 	}
 	//m_time = 120;
-	
 }
 
 //ドロー
@@ -39,6 +44,7 @@ void CObjTime::Draw()
 	minute = (m_time / 60) / 60;	//分
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 	wchar_t str[128];
 
 	//分：秒の値を文字列化
@@ -47,5 +53,10 @@ void CObjTime::Draw()
 	else
 		swprintf_s(str, L"%d:%d", minute, second);
 
-	Font::StrDraw(str, 16, 30, 22, c);
+	Font::StrDraw(str, 10, 30, 28, c);
+
+	if (minute == 1 && second == 0 || minute == 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, r);
+	}
 }

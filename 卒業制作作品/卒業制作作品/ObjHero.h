@@ -16,6 +16,15 @@ public:
 	float GetX() { return m_x; }
 	float GetY() { return m_y; }
 	int GetWS() { return m_Weapon_switching; }
+	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
+
+	float GetVX() { return m_vx; }
+	float GetVY() { return m_vy; }
+
+	void SetX(float x) { m_x = x; }
+	void SetY(float y) { m_y = y; }
+	void SetVX(float vx) { m_vx = vx; }
+	void SetVY(float vy) { m_vy = vy; }
 
 private:
 	float m_x; //位置更新

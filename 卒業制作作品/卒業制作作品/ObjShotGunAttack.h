@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjShotGunAttack :public CObj
+class CObjShotGunAttack :public CObj, public CBaseStatus
 {
 public:
 	CObjShotGunAttack(float x, float y, float vx, float vy, float r);
@@ -12,17 +12,17 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-private:
-	float m_gax; //位置情報
-	float m_gay;
-	float m_gavx; //移動ベクトル
-	float m_gavy;
-	float m_gar; //画像角度調整
+	int GetOP() { return m_Offensive_Power; }
+	//int GetSGAPB() { return m_sga_pb; }	//残り弾数を取得
 
-	int m_ani_frame; //描画フレーム
-	int m_UDani_frame; //上下描画フレーム
-	int m_ani_time;	//アニメーションフレーム動作間隔	
+private:
+	float m_SGx; //位置情報
+	float m_SGy;
+	float m_SGvx; //移動ベクトル
+	float m_SGvy;
+	float m_SGr; //画像角度調整
 
 	int Distance_max; //削除距離最大値
+	int m_Offensive_Power; //攻撃力
 
 };

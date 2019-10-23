@@ -38,9 +38,12 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
+	Draw::LoadImage(L"血の池.png", 4, TEX_SIZE_512);
+	Draw::LoadImage(L"エネミーまとめ.png", 5, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
-	Draw::LoadImage(L"武器表示用", 11, TEX_SIZE_512);
+	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
+	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
@@ -62,28 +65,37 @@ void CSceneStage::InitScene()
 	e_time = 0;
 	//アイテム出現タイム初期化
 	i_time = 0;
-	//アイテム出現x位置初期化
+	//アイテム出現位置初期化
 	i_x = 0.0f;
+	//アイテム出現位置
+	i_x = 0.0f;
+	i_y = 0.0f;
 
 	//シーン切り替えタイム
 	Scene_time = 0;
 	//ゲームオーバー移動時間
 	GameOver_time = 0;
 
+	//背景オブジェクト作成
+	C0bjBackground * back = new C0bjBackground();
+	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	/*
-	//敵機オブジェクト作成
-	CObjEnemy* obj_e = new CObjEnemy();
-	Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-	*/
+	//ステージ上部背景オブジェクト作成
+	CObjTopback* objtb = new CObjTopback();
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 3);
 
 	//ステージオブジェクト作成
 	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 1);
+	Objs::InsertObj(objm, OBJ_STAGE, 4);
 
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
-	Objs::InsertObj(objt, OBJ_TIME, 11);
+	Objs::InsertObj(objt, OBJ_TIME, 4);
+
+	//ボスオブジェクト作成
+	CObjBoss*obj_boss = new CObjBoss(272, 400);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 4);
+	
 }
 
 void CSceneStage::Scene()
@@ -117,6 +129,15 @@ void CSceneStage::Scene()
 			Scene_time = 0;
 		}
 
+		//e_time++;
+		//if (e_time == 90)
+		//{
+		//	e_x = rand() % 736;
+		//	e_y = rand() % 536;
+		//	//敵機オブジェクト作成
+		//	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y);
+		//	Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
+		//}		
 
 	//メニュー画面閲覧時行動停止処理
 	//if (Menu_flg == false)
