@@ -141,8 +141,8 @@ void CObjMenu::Draw()
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
 	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
-	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
-	float a[4] = { 1.0f,1.0f,1.0f,0.5f };
+	float g[4] = { 0.5f,0.5f,0.5f,1.0f };//緑
+	float a[4] = { 1.0f,1.0f,1.0f,0.7f };
 
 	wchar_t str[128];
 
@@ -153,58 +153,120 @@ void CObjMenu::Draw()
 	if (Menu_flg == true)
 	{
 		BackDraw(100.0f, 50.0f, 750.0f, 570.0f, a);
-		//Font::StrDraw(L"武器一覧（仮）", 295, 200, 35, b);
 
+		//メニューに各武器の画像を表示用--------------------------------------
+		
+		//ハンドガン
 		//切り取り位置の設定
 		src.m_top = 2.0f;
 		src.m_left = 20.0f;
 		src.m_right = 40.0f;
 		src.m_bottom = 18.0f;
-
 		//表示位置の設定
 		dst.m_top = 125.0f;
 		dst.m_left = 75.0f;
 		dst.m_right = 125.0f;
 		dst.m_bottom = 175.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"∞", 15);
+		Font::StrDraw(str, 200, 135, 37, c);
 
-
+		//ショットガン
 		//切り取り位置の設定
 		src.m_top = 2.0f;
 		src.m_left = 68.0f;
 		src.m_right = 110.0f;
 		src.m_bottom = 18.0f;
-
 		//表示位置の設定
 		dst.m_top = 200.0f;
 		dst.m_left = 75.0f;
 		dst.m_right = 175.0f;
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"70/70", 15);
+		Font::StrDraw(str, 200, 205, 37, c);
 
-
+		//アサルトライフル
 		//切り取り位置の設定
 		src.m_top = 2.0f;
 		src.m_left = 127.0f;
 		src.m_right = 170.0f;
 		src.m_bottom = 18.0f;
-
 		//表示位置の設定
 		dst.m_top = 275.0f;
 		dst.m_left = 75.0f;
 		dst.m_right = 175.0f;
 		dst.m_bottom = 325.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"300/300", 15);
+		Font::StrDraw(str, 200, 285, 37, c);
+
+		//スナイパーライフル
+		//切り取り位置の設定
+		src.m_top = 2.0f;
+		src.m_left = 180.0f;
+		src.m_right = 240.0f;
+		src.m_bottom = 18.0f;
+		//表示位置の設定
+		dst.m_top = 350.0f;
+		dst.m_left = 75.0f;
+		dst.m_right = 200.0f;
+		dst.m_bottom = 400.0f;
+		Draw::Draw(11, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"50/50", 15);
+		Font::StrDraw(str, 200, 360, 37, c);
+
+		//ロケットランチャー
+		//切り取り位置の設定
+		src.m_top = 2.0f;
+		src.m_left = 252.0f;
+		src.m_right = 285.0f;
+		src.m_bottom = 18.0f;
+		//表示位置の設定
+		dst.m_top = 125.0f;
+		dst.m_left = 400.0f;
+		dst.m_right = 500.0f;
+		dst.m_bottom = 175.0f;
+		Draw::Draw(11, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"2/2", 15);
+		Font::StrDraw(str, 515, 135, 37, c);
+
+		//レールガン
+		//切り取り位置の設定
+		src.m_top = 2.0f;
+		src.m_left = 313.0f;
+		src.m_right = 345.0f;
+		src.m_bottom = 18.0f;
+		//表示位置の設定
+		dst.m_top = 200.0f;
+		dst.m_left = 400.0f;
+		dst.m_right = 500.0f;
+		dst.m_bottom = 250.0f;
+		Draw::Draw(11, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"1/1", 15);
+		Font::StrDraw(str, 515, 210, 37, c);
+
+		//表示説明用
+		swprintf_s(str, L"残り弾数/最大所持弾数", 15);
+		Font::StrDraw(str, 100, 475, 25, c);
+
+		//-------------------------------------------------------------------
 
 		if (choose == 0)
-			Font::StrDraw(L"◆ゲームに戻る", 450, 425, 35, g);
+			Font::StrDraw(L"◆ゲームに戻る", 450, 425, 35, r);
 		else
-			Font::StrDraw(L"　ゲームに戻る", 450, 425, 35, g);
+			Font::StrDraw(L"　ゲームに戻る", 450, 425, 35, c);
 
 		if (choose == 1)
-			Font::StrDraw(L"◆タイトルへ", 450, 500, 35, g);
+			Font::StrDraw(L"◆タイトルへ", 450, 500, 35, r);
 		else
-			Font::StrDraw(L"　タイトルへ", 450, 500, 35, g);
+			Font::StrDraw(L"　タイトルへ", 450, 500, 35, c);
 	}
 
 }
