@@ -134,6 +134,9 @@ void CObjMenu::Action()
 //ドロー
 void CObjMenu::Draw()
 {
+	//CObjShotGunAttack* sga = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
+	//sga_pb = sga->GetSGAPB();	//情報を取得
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float pc[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -144,10 +147,11 @@ void CObjMenu::Draw()
 	float g[4] = { 0.5f,0.5f,0.5f,1.0f };//緑
 	float a[4] = { 1.0f,1.0f,1.0f,0.7f };
 
-	wchar_t str[128];
-
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
+
+	wchar_t str[128];
+	wchar_t SGA[128];
 
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)
@@ -185,8 +189,8 @@ void CObjMenu::Draw()
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"70/70", 15);
-		Font::StrDraw(str, 200, 205, 37, c);
+		swprintf_s(SGA, L"%d/70",sga_pb, 15);
+		Font::StrDraw(SGA, 200, 205, 37, c);
 
 		//アサルトライフル
 		//切り取り位置の設定
