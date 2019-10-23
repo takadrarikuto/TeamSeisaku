@@ -12,7 +12,7 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	//int GetSGAPB() { return m_sga_pb; }	//残り弾数を取得
+	//int GetSGA() { return m_sga_pb; }	//残り弾数を取得
 
 private:
 	float m_SGx; //位置情報

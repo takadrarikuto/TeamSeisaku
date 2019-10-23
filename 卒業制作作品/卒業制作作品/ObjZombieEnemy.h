@@ -16,6 +16,7 @@ public:
 	float GetX() { return m_zex; } //エネミー情報取得用
 	float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
+	int GetDMG() { return m_damage; }//攻撃力を取得
 
 private:
 	float m_zex; //位置更新
@@ -33,4 +34,5 @@ private:
 	int m_at; //攻撃頻度
 	int m_at_max; //攻撃頻度最大値
 
+	int m_damage;
 };

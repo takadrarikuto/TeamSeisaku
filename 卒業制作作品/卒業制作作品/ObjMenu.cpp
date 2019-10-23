@@ -134,8 +134,8 @@ void CObjMenu::Action()
 //ドロー
 void CObjMenu::Draw()
 {
-	//CObjShotGunAttack* sga = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
-	//sga_pb = sga->GetSGAPB();	//情報を取得
+	CObjShotGunAttack* sga = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
+	// sga_pb = sga->GetSGA();	//情報を取得
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

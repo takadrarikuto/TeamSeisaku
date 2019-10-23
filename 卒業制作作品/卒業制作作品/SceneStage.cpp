@@ -117,7 +117,7 @@ void CSceneStage::InitScene()
 	
 	//敵機オブジェクト作成
 	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-	Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
+	Objs::InsertObj(obj_ze, OBJ_ENEMY, 2);
 }
 
 void CSceneStage::Scene()

@@ -40,6 +40,8 @@ private:
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 	int m_LRani_frame;
 
+	int m_damage;	//主人公が受けるダメージ用
+
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値
 	int m_Weapon_switching; //武器切り替え
