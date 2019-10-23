@@ -13,11 +13,11 @@ public:
 	void Draw(); //ドロー
 
 private:
-	float m_gax; //位置情報
-	float m_gay;
-	float m_gavx; //移動ベクトル
-	float m_gavy;
-	float m_gar; //画像角度調整
+	float m_ARx; //位置情報
+	float m_ARy;
+	float m_ARvx; //移動ベクトル
+	float m_ARvy;
+	float m_ARr; //画像角度調整
 
 	int Distance_max; //削除距離最大値
 

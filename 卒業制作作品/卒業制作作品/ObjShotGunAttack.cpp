@@ -14,13 +14,13 @@ using namespace GameL;
 CObjShotGunAttack::CObjShotGunAttack(float x, float y, float vx, float vy, float r)
 {
 	//位置情報登録(数値=位置調整)
-	m_gax = x;
-	m_gay = y;
+	m_SGx = x;
+	m_SGy = y;
 	//移動ベクトル
-	m_gavx = vx;
-	m_gavy = vy;
+	m_SGvx = vx;
+	m_SGvy = vy;
 	//画像角度調整
-	m_gar = r;
+	m_SGr = r;
 }
 
 //イニシャライズ
@@ -31,7 +31,7 @@ void CObjShotGunAttack::Init()
 	Distance_max = 2;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_gax, m_gay, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
+	Hits::SetHitBox(this, m_SGx, m_SGy, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
 
 }
 
@@ -43,7 +43,7 @@ void CObjShotGunAttack::Action()
 	//{
 	//斜め移動修正処理
 	float r = 0.0f;
-	r = m_gavx * m_gavx + m_gavy * m_gavy;
+	r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
 	r = sqrt(r); //ルートを求める
 
 	//斜めベクトルを求める
@@ -53,13 +53,13 @@ void CObjShotGunAttack::Action()
 	}
 	else
 	{
-		m_gavx = 5.0f / r * m_gavx;
-		m_gavy = 5.0f / r * m_gavy;
+		m_SGvx = 5.0f / r * m_SGvx;
+		m_SGvy = 5.0f / r * m_SGvy;
 	}
 
 	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+	m_SGx += m_SGvx;
+	m_SGy += m_SGvy;
 	//}
 
 	////SE処理
@@ -77,25 +77,25 @@ void CObjShotGunAttack::Action()
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
+	hit_ga->SetPos(m_SGx + 11, m_SGy + 11); //当たり判定の位置更新
 		
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * Distance_max)
+	if (m_SGx < hx - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax> hx + 64 * Distance_max)
+	else if (m_SGx> hx + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * Distance_max)
+	if (m_SGy < hy - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay> hy + 64 * Distance_max)
+	else if (m_SGy> hy + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -125,11 +125,11 @@ void CObjShotGunAttack::Draw()
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
 	//描画処理
-	dst.m_top = 0.0f + m_gay;
-	dst.m_left = 0.0f + m_gax;
-	dst.m_right = 32.0f + m_gax;
-	dst.m_bottom = 32.0f + m_gay;
+	dst.m_top = 0.0f + m_SGy;
+	dst.m_left = 0.0f + m_SGx;
+	dst.m_right = 32.0f + m_SGx;
+	dst.m_bottom = 32.0f + m_SGy;
 
-	Draw::Draw(3, &src, &dst, c, m_gar);
+	Draw::Draw(3, &src, &dst, c, m_SGr);
 
 }

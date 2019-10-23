@@ -52,6 +52,9 @@
     <Filter Include="ソース ファイル\ステージメイン\エネミー">
       <UniqueIdentifier>{b67fc8b4-743d-4af6-ba7d-0419c2ab59c9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\ボス">
+      <UniqueIdentifier>{079dfddd-8ad3-4c0d-be9e-5c0e308cf19d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -192,6 +195,12 @@
     <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="ObjZombieEnemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBoss.h">
+      <Filter>ソース ファイル\ステージメイン\ボス</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -319,6 +328,12 @@
     </ClCompile>
     <ClCompile Include="SceneStage.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjZombieEnemy.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBoss.cpp">
+      <Filter>ソース ファイル\ステージメイン\ボス</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
