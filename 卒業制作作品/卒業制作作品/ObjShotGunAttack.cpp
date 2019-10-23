@@ -30,6 +30,9 @@ void CObjShotGunAttack::Init()
 	//íœ‹——£Å‘å’l
 	Distance_max = 2;
 
+	//UŒ‚—Í
+	m_Offensive_Power = 30; 
+
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
 	Hits::SetHitBox(this, m_SGx, m_SGy, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
 
