@@ -30,9 +30,6 @@ void CObjARAttack::Init()
 	//íœ‹——£Å‘å’l
 	Distance_max = 3;
 
-	//UŒ‚—Í
-	m_Offensive_Power = 20; 
-
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
 	Hits::SetHitBox(this, m_ARx, m_ARy, 10, 10, ELEMENT_RED, OBJ_ARATTACK, 3);
 

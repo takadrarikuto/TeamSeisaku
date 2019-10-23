@@ -30,9 +30,6 @@ void CObjShotGunAttack::Init()
 	//íœ‹——£Å‘å’l
 	Distance_max = 2;
 
-	//UŒ‚—Í
-	m_Offensive_Power = 30; 
-
 	//Š’e
 	m_sga_pb = 60;
 

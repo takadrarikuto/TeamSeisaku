@@ -11,9 +11,6 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
-	int GetOP() { return m_Offensive_Power; }
-
-	int GetOP() { return m_Offensive_Power; }
 	//int GetSGAPB() { return m_sga_pb; }	//残り弾数を取得
 
 private:
@@ -24,6 +21,5 @@ private:
 	float m_SGr; //画像角度調整
 
 	int Distance_max; //削除距離最大値
-	int m_Offensive_Power; //攻撃力
 
 };

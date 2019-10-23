@@ -30,9 +30,6 @@ void CObjSniperRifleAttack::Init()
 	//íœ‹——£Å‘å’l
 	Distance_max = 4;
 
-	//UŒ‚—Í
-	m_Offensive_Power = 50; 
-
 	if (m_SRr == 0 || m_SRr == 180)
 	{
 		//“–‚½‚è”»’è—pHitBox‚ğì¬

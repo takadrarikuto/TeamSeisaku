@@ -500,6 +500,9 @@ void CObjHero::Action()
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);				
+
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 
 	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
