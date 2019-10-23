@@ -49,6 +49,9 @@
     <Filter Include="ソース ファイル\ステージメイン\ステージ">
       <UniqueIdentifier>{8bb0248a-1e35-4dc3-812f-c6485172110b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\エネミー">
+      <UniqueIdentifier>{b67fc8b4-743d-4af6-ba7d-0419c2ab59c9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
