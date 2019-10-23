@@ -147,11 +147,11 @@ void CObjOver::Draw()
 	if (choose == 0)
 		Font::StrDraw(L"◆リトライ", GAME_YES_X , GAME_YES_Y, GAME_YES_FONT_SIZE, r);
 	else
-		Font::StrDraw(L"　リトライ", GAME_YES_X, GAME_YES_Y, GAME_YES_FONT_SIZE, r);
+		Font::StrDraw(L"　リトライ", GAME_YES_X, GAME_YES_Y, GAME_YES_FONT_SIZE, c);
 
 	if (choose == 1)
 		Font::StrDraw(L"◆タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
 	else
-		Font::StrDraw(L"　タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
+		Font::StrDraw(L"　タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, c);
 
 }
