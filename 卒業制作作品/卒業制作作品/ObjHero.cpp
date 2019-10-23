@@ -83,44 +83,53 @@ void CObjHero::Action()
 	//移動停止
 	m_vx = 0.0f;
 	m_vy = 0.0f;
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		//移動処理
+		if (hero != nullptr)
+		{
+			//移動処理
 		//'W'を押すと上に移動
-		if (Input::GetVKey('W') == true)
-		{
-			m_vy -= m_v_max;
-			m_UDani_frame = 0;
-			m_ani_time += 1;
+			if (Input::GetVKey('W') == true)
+			{
+				m_vy -= m_v_max;
+				m_UDani_frame = 0;
+				m_ani_time += 1;
+			}
+			//'S'を押すと下に移動
+			else if (Input::GetVKey('S') == true)
+			{
+				m_vy += m_v_max;
+				m_UDani_frame = 4;
+				m_ani_time += 1;
+			}
+			//'A'を押すと左に移動
+			else if (Input::GetVKey('A') == true)
+			{
+				m_vx -= m_v_max;
+				m_UDani_frame = 6;
+				m_ani_time += 1;
+			}
+			//'D'を押すと右移動
+			else if (Input::GetVKey('D') == true)
+			{
+				m_vx += m_v_max;
+				m_UDani_frame = 2;
+				m_ani_time += 1;
+			}
+			else
+			{
+				m_ani_time = 0.0f;
+				m_LRani_frame = 0;
+			}
+
+			//位置更新
+			m_x += m_vx;
+			m_y += m_vy;
 		}
-		//'S'を押すと下に移動
-		else if (Input::GetVKey('S') == true)
-		{
-			m_vy += m_v_max;
-			m_UDani_frame = 4;
-			m_ani_time += 1;
-		}
-		//'A'を押すと左に移動
-		else if (Input::GetVKey('A') == true)
-		{
-			m_vx -= m_v_max;
-			m_UDani_frame = 6;
-			m_ani_time += 1;
-		}
-		//'D'を押すと右移動
-		else if (Input::GetVKey('D') == true)
-		{
-			m_vx += m_v_max;
-			m_UDani_frame = 2;
-			m_ani_time += 1;
-		}
-		else
-		{
-			m_ani_time = 0.0f;
-			m_LRani_frame = 0;
-		}
+		
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -132,11 +141,7 @@ void CObjHero::Action()
 		if (m_LRani_frame == 3)
 		{
 			m_LRani_frame = 0;
-		}
-
-		//位置更新
-		m_x += m_vx;
-		m_y += m_vy;
+		}		
 
 		//武器切り替え処理
 		if (Input::GetVKey(VK_LEFT) == true)

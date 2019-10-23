@@ -76,41 +76,76 @@ void CObjZombieEnemy::Action()
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	if (hero != nullptr)
-	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
-	}	
+		
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
 		////移動処理
-		////'W'を押すと上に移動
-		//if (hx < m_zex)
+		if (hero != nullptr)
+		{
+			float hx = hero->GetX();
+			float hy = hero->GetY();
+
+			//主人公が左に居ると上に移動
+			if (hx < m_zex)
+			{
+				m_zevx -= m_zev_max;
+				m_UDani_frame = 0;
+				m_ani_time += 1;
+			}
+			//主人公が右に居ると下に移動
+			else if (hx + 64 > m_zex)
+			{
+				m_zevx += m_zev_max;
+				m_UDani_frame = 4;
+				m_ani_time += 1;
+			}
+			//主人公が上に居ると左に移動
+			if (hy < m_zey)
+			{
+				m_zevy -= m_zev_max;
+				m_UDani_frame = 6;
+				m_ani_time += 1;
+			}
+			//主人公が下に居ると右移動
+			else if (hy > m_zey)
+			{
+				m_zevy += m_zev_max;
+				m_UDani_frame = 2;
+				m_ani_time += 1;
+			}
+			else
+			{
+				m_ani_time = 0.0f;
+				m_LRani_frame = 0;
+			}
+		}
+		
+		//if (Input::GetVKey('W') == true)
 		//{
-		//	m_zevx -= m_zev_max;
+		//	m_zevy -= m_zev_max;
 		//	m_UDani_frame = 0;
 		//	m_ani_time += 1;
 		//}
 		////'S'を押すと下に移動
-		//else if (hx + 64 > m_zex)
+		//else if (Input::GetVKey('S') == true)
 		//{
-		//	m_zevx += m_zev_max;
+		//	m_zevy += m_zev_max;
 		//	m_UDani_frame = 4;
 		//	m_ani_time += 1;
 		//}
 		////'A'を押すと左に移動
-		//else if (hy < m_zey)
+		//else if (Input::GetVKey('A') == true)
 		//{
-		//	m_zevy -= m_zev_max;
+		//	m_zex -= m_zev_max;
 		//	m_UDani_frame = 6;
 		//	m_ani_time += 1;
 		//}
 		////'D'を押すと右移動
-		//else if (hy > m_zey)
+		//else if (Input::GetVKey('D') == true)
 		//{
-		//	m_zevy += m_zev_max;
+		//	m_zex += m_zev_max;
 		//	m_UDani_frame = 2;
 		//	m_ani_time += 1;
 		//}
@@ -119,38 +154,6 @@ void CObjZombieEnemy::Action()
 		//	m_ani_time = 0.0f;
 		//	m_LRani_frame = 0;
 		//}
-		if (Input::GetVKey('W') == true)
-		{
-			m_zevy -= m_zev_max;
-			m_UDani_frame = 0;
-			m_ani_time += 1;
-		}
-		//'S'を押すと下に移動
-		else if (Input::GetVKey('S') == true)
-		{
-			m_zevy += m_zev_max;
-			m_UDani_frame = 4;
-			m_ani_time += 1;
-		}
-		//'A'を押すと左に移動
-		else if (Input::GetVKey('A') == true)
-		{
-			m_zex -= m_zev_max;
-			m_UDani_frame = 6;
-			m_ani_time += 1;
-		}
-		//'D'を押すと右移動
-		else if (Input::GetVKey('D') == true)
-		{
-			m_zex += m_zev_max;
-			m_UDani_frame = 2;
-			m_ani_time += 1;
-		}
-		else
-		{
-			m_ani_time = 0.0f;
-			m_LRani_frame = 0;
-		}
 
 		//アニメーション処理
 		if (m_ani_time > 6)

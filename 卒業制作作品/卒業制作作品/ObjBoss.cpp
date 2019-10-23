@@ -72,6 +72,8 @@ void CObjBoss::Action()
 		//エネミー生成処理
 		m_Enemy_Generation++;
 
+		srand(time(NULL)); // ランダム情報を初期化
+
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 128 + m_by;
 
@@ -92,8 +94,6 @@ void CObjBoss::Action()
 			//敵機オブジェクト作成 272, 400)
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
 			Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
-
-			srand(time(NULL)); // ランダム情報を初期化
 		}
 	}
 
