@@ -128,7 +128,7 @@ void CSceneStage::Scene()
 		}
 
 		CObjZombieEnemy* ZE = (CObjZombieEnemy*)Objs::GetObj(OBJ_ENEMY);
-		bool ze_flg = ZE->GetAF();
+		//bool ze_flg = ZE->GetAF();
 
 		e_time++;
 		if (e_time == 90)

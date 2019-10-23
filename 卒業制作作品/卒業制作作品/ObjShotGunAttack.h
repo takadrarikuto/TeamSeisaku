@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjShotGunAttack :public CObj
+class CObjShotGunAttack :public CObj, public CBaseStatus
 {
 public:
 	CObjShotGunAttack(float x, float y, float vx, float vy, float r);
@@ -11,6 +11,8 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
+
+	//int GetSGAPB() { return m_sga_pb; }	//残り弾数を取得
 
 private:
 	float m_gax; //位置情報
