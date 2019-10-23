@@ -15,18 +15,14 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
-//エネミー情報変更用
-void CObjZombieEnemy::SetAF(bool af)
-{
-	m_ani_frame_flg = af;
-}
-
 //コンストラクタ
-CObjZombieEnemy::CObjZombieEnemy(float zex, float zey)
+CObjZombieEnemy::CObjZombieEnemy(float zex, float zey, bool zeaf)
 {
 	//位置情報登録(数値=位置調整)
 	m_zex = zex;
 	m_zey = zey;
+	//エネミー描画フレーム切り替えフラグ取得用
+	m_ani_frame_flg = zeaf;
 }
 
 //イニシャライズ
@@ -46,7 +42,6 @@ void CObjZombieEnemy::Init()
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
-	m_ani_frame_flg = false; 	//描画フレーム切り替えフラグ
 
 	//攻撃頻度
 	m_at = 0;
@@ -61,7 +56,7 @@ void CObjZombieEnemy::Init()
 	m_exp_blood_dst_size = 64;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
+	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 5);
 }
 
 //アクション
@@ -73,8 +68,11 @@ void CObjZombieEnemy::Action()
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
+	if (hero != nullptr)
+	{
+		float hx = hero->GetX();
+		float hy = hero->GetY();
+	}	
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -182,7 +180,6 @@ void CObjZombieEnemy::Action()
 	//	m_hf = true;
 	//	hp -= 1;
 	//}
-	m_ani_frame_flg = true;
 }
 
 //ドロー
@@ -222,7 +219,7 @@ void CObjZombieEnemy::Draw()
 	dst.m_left = 0.0f + m_zex;
 	dst.m_right = m_dst_size + m_zex;
 	dst.m_bottom = m_dst_size + m_zey;
-	Draw::Draw(4, &src, &dst, c, 0.0f);
+	Draw::Draw(5, &src, &dst, c, 0.0f);
 
 
 }

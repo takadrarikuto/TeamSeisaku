@@ -14,13 +14,13 @@ using namespace GameL;
 CObjARAttack::CObjARAttack(float x, float y, float vx, float vy, float r)
 {
 	//位置情報登録(数値=位置調整)
-	m_gax = x;
-	m_gay = y;
+	m_ARx = x;
+	m_ARy = y;
 	//移動ベクトル
-	m_gavx = vx;
-	m_gavy = vy;
+	m_ARvx = vx;
+	m_ARvy = vy;
 	//画像角度調整
-	m_gar = r;
+	m_ARr = r;
 }
 
 //イニシャライズ
@@ -31,7 +31,7 @@ void CObjARAttack::Init()
 	Distance_max = 3;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_gax, m_gay, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
+	Hits::SetHitBox(this, m_ARx, m_ARy, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
 
 }
 
@@ -42,8 +42,8 @@ void CObjARAttack::Action()
 	//if (Menu_flg == false)
 	//{
 	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+	m_ARx += m_ARvx;
+	m_ARy += m_ARvy;
 	//}
 
 	////SE処理
@@ -61,25 +61,25 @@ void CObjARAttack::Action()
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
+	hit_ga->SetPos(m_ARx + 11, m_ARy + 11); //当たり判定の位置更新
 
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * Distance_max)
+	if (m_ARx < hx - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax> hx + 64 * Distance_max)
+	else if (m_ARx> hx + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * Distance_max)
+	if (m_ARy < hy - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay> hy + 64 * Distance_max)
+	else if (m_ARy> hy + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -109,11 +109,11 @@ void CObjARAttack::Draw()
 	src.m_right = 100.0f;
 	src.m_bottom = 70.0f;
 	//描画処理
-	dst.m_top = 0.0f + m_gay;
-	dst.m_left = 0.0f + m_gax;
-	dst.m_right = 32.0f + m_gax;
-	dst.m_bottom = 32.0f + m_gay;
+	dst.m_top = 0.0f + m_ARy;
+	dst.m_left = 0.0f + m_ARx;
+	dst.m_right = 32.0f + m_ARx;
+	dst.m_bottom = 32.0f + m_ARy;
 
-	Draw::Draw(3, &src, &dst, c, m_gar);
+	Draw::Draw(3, &src, &dst, c, m_ARr);
 
 }

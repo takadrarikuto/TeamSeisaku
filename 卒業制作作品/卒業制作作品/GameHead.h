@@ -16,6 +16,7 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHERATTACK,
 	OBJ_RAILGUNATTACK,
 	OBJ_ENEMY,
+	OBJ_BOSS,
 	OBJ_BLOOD_SPLASH,
 	OBJ_OBJECT,
 	OBJ_STAGE,
@@ -88,6 +89,8 @@ struct UserData
 
 //中ボス
 //ボス
+#include "ObjBoss.h"
+
 //エネミー・中ボス・ボス用攻撃
 //死亡エフェクト
 #include "ObjBlood_splash.h"

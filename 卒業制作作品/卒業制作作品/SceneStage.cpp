@@ -38,7 +38,8 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
-	Draw::LoadImage(L"エネミーまとめ.png", 4, TEX_SIZE_512);
+	Draw::LoadImage(L"血の池.png", 4, TEX_SIZE_512);
+	Draw::LoadImage(L"エネミーまとめ.png", 5, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
@@ -73,6 +74,10 @@ void CSceneStage::InitScene()
 	i_x = 0.0f;
 	i_y = 0.0f;
 
+	//ゾンビランダム描画切り替え用
+	Ze_dst_flg_num = 1;
+	//ゾンビランダム描画切り替え用フラグ
+	Ze_dst_flg = false;  
 
 	//シーン切り替えタイム
 	Scene_time = 0;
@@ -94,6 +99,25 @@ void CSceneStage::InitScene()
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 4);
+
+
+	srand(time(NULL)); // ランダム情報を初期化
+
+	Ze_dst_flg_num = rand() % 3;
+	if (Ze_dst_flg_num % 2 == 0)
+	{
+		Ze_dst_flg = true;
+	}
+	else if (Ze_dst_flg_num % 2 != 0)
+	{
+		Ze_dst_flg = false;
+	}
+	e_x = rand() % 736;
+	e_y = rand() % 536;
+	
+	//敵機オブジェクト作成
+	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
+	Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
 }
 
 void CSceneStage::Scene()
@@ -127,18 +151,15 @@ void CSceneStage::Scene()
 			Scene_time = 0;
 		}
 
-		CObjZombieEnemy* ZE = (CObjZombieEnemy*)Objs::GetObj(OBJ_ENEMY);
-		bool ze_flg = ZE->GetAF();
-
-		e_time++;
-		if (e_time == 90)
-		{
-			e_x = rand() % 736;
-			e_y = rand() % 536;
-			//敵機オブジェクト作成
-			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(200, 200);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
-		}		
+		//e_time++;
+		//if (e_time == 90)
+		//{
+		//	e_x = rand() % 736;
+		//	e_y = rand() % 536;
+		//	//敵機オブジェクト作成
+		//	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y);
+		//	Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
+		//}		
 
 	//メニュー画面閲覧時行動停止処理
 	//if (Menu_flg == false)

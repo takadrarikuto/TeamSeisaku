@@ -6,18 +6,16 @@ using namespace GameL;
 class CObjZombieEnemy : public CObj, public CBaseStatus
 {
 public:
-	CObjZombieEnemy(float zex, float zey);
+	CObjZombieEnemy(float zex, float zey,bool zeaf);
 	~CObjZombieEnemy() {};
 
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	void SetAF(bool af);  //エネミー情報変更用
 	float GetX() { return m_zex; } //エネミー情報取得用
 	float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
-	bool GetAF() { return m_ani_frame_flg; } //エネミー描画フレーム切り替えフラグ取得用
 
 private:
 	float m_zex; //位置更新
