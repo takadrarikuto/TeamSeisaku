@@ -26,12 +26,15 @@ CObjShotGunAttack::CObjShotGunAttack(float x, float y, float vx, float vy, float
 //イニシャライズ
 void CObjShotGunAttack::Init()
 {
-//初期化
+	//初期化
 	//削除距離最大値
 	Distance_max = 2;
 
 	//攻撃力
 	m_Offensive_Power = 30; 
+
+	//所持弾
+	m_sga_pb = 60;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SGx, m_SGy, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);

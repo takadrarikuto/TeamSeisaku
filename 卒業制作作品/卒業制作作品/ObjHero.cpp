@@ -553,7 +553,7 @@ void CObjHero::Action()
 	}
 	//右のスクロールライン
 	{
-		m_x = 400;
+		m_x = 350;
 		b->SetScrollX(b->GetScrollX());
 	}
 	//上のスクロールライン
