@@ -29,6 +29,10 @@ CObjBoss::CObjBoss(float bx, float by)
 void CObjBoss::Init()
 {
 	//初期化
+	//スクロール初期化
+	m_scrollx = 0.0f;
+	m_scrolly = 0.0f;
+
 	//エネミー出現位置
 	e_x = 272.0f;
 	e_y = 400.0f;
@@ -72,6 +76,8 @@ void CObjBoss::Action()
 		//エネミー生成処理
 		m_Enemy_Generation++;
 
+		srand(time(NULL)); // ランダム情報を初期化
+
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 128 + m_by;
 
@@ -91,9 +97,7 @@ void CObjBoss::Action()
 
 			//敵機オブジェクト作成 272, 400)
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
-
-			srand(time(NULL)); // ランダム情報を初期化
+			Objs::InsertObj(obj_ze, OBJ_ENEMY, 3);
 		}
 	}
 
@@ -132,6 +136,4 @@ void CObjBoss::Draw()
 	dst.m_right = m_dst_size * 2 + m_bx;
 	dst.m_bottom = m_dst_size + m_by;
 	Draw::Draw(4, &src, &dst, c, 0.0f);
-
-
 }

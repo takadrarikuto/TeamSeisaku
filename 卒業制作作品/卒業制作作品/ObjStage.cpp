@@ -73,8 +73,7 @@ void CObjStage::Draw()
 	Draw::Draw(11, &src, &dst, c, 0.0f);
 
 	//TIME‚ð•\Ž¦
-	swprintf_s(TIME, L"TIME", m_stage_time, 15);
-	Font::StrDraw(TIME, 12, 2, 26, c);
+	Font::StrDraw(L"TIME", 12, 2, 26, c);
 
 	//HP‚ð•\Ž¦
 	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);

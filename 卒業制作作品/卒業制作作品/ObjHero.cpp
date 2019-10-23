@@ -32,7 +32,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	m_hero_hp = 100;
+	m_hero_hp = 5;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -491,10 +491,54 @@ void CObjHero::Action()
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
-	if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	//当たり判定を行うオブジェクト情報群
+	int data_base[3] =
 	{
-		m_hero_hp -= 1;
+		ELEMENT_ENEMY,
+	};
+	//オブジェクト情報群と当たり判定行い。当たっていればノックバック
+	for (int i = 0; i < 3; i++)
+	{
+		if (hit_h->CheckElementHit(data_base[i]) == true)
+		{
+			HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
+			hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+			float r = 0;
+			for (int j = 0; j < 10; j++) {
+				if (hit_date[j] != nullptr) {
+					r = hit_date[j]->r;
+				}
+			}
+			//角度で上下左右を判定
+			//if ((r < 45 && r >= 0) || r > 315)
+			//if (r > 90 && r < 270)
+			//{
+			//	m_vy = -5;		//右
+			//	m_vx += 6;
+			//}
+			//else
+			//{
+			//	m_vy = -5;		//左
+			//	m_vx -= 6;
+			//}
+
+			//Audio::Start(3);	//ダメージ音
+			m_time_d = 80;		//無敵時間をセット
+			hit_h->SetInvincibility(true);	//無敵オン
+
+			if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+			{
+				m_hero_hp -= 1;
+			}
+
+			//敵の攻撃によってHPが0以下になった場合
+			//if (m_hero_hp <= 0)
+			//	m_hero_hp = 0;	//HPを0にする
+
+		}
 	}
+
 	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
@@ -503,6 +547,34 @@ void CObjHero::Action()
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
+
+	if (m_del == true)
+	{
+		hit_h->SetInvincibility(true);	//無敵にする
+		m_eff_flag = true;			//画像切り替え用フラグ
+		//m_speed_power = 0.0f;			//動きを止める
+
+	}
+
+	if (m_time_d > 0)
+	{
+		m_time_d--;
+		if (m_time_d <= 0)
+		{
+			m_time_d = 0;
+			hit_h->SetInvincibility(false);	//無敵オフ
+		}
+	}
+
+	if (m_time_dead > 0)
+	{
+		m_time_dead--;
+		if (m_time_dead <= 0)
+		{
+			Scene::SetScene(new CSceneOver());
+			m_time_dead = 0;
+		}
 	}
 
 	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
@@ -581,6 +653,7 @@ void CObjHero::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float a[4] = { 10.0f,0.6f,0.6f,0.7f };
 
 	//モーション
 	int LRAniData[3] =
@@ -601,5 +674,11 @@ void CObjHero::Draw()
 	dst.m_left = 0.0f + m_x;
 	dst.m_right = m_dst_size + m_x;
 	dst.m_bottom = m_dst_size + m_y;
-	Draw::Draw(2, &src, &dst, c, 0.0f);
+
+	if (m_time_d > 0) {
+		Draw::Draw(2, &src, &dst, a, 0.0f);
+	}
+	else {
+		Draw::Draw(2, &src, &dst, c, 0.0f);
+	}
 }
