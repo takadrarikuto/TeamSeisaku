@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjRailGunAttack :public CObj
+class CObjRailGunAttack :public CObj, public CBaseStatus
 {
 public:
 	CObjRailGunAttack(float x, float y, float vx, float vy, float r);

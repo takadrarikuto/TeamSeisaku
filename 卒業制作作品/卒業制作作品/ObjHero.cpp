@@ -491,37 +491,18 @@ void CObjHero::Action()
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
-
-	//当たり判定を行うオブジェクト情報群
-	int data_base[3] =
+	if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 	{
-		ELEMENT_ENEMY,
-	};
-	//オブジェクト情報群と当たり判定行い。当たっていればノックバック
-	for (int i = 0; i < 3; i++)
-	{
-
-		if (hit_h->CheckElementHit(data_base[i]) == true)
-		{
-			HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
-			hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-		//敵に当たるとHPを減らす
-			if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-			{
-				CObjZombieEnemy* ene1 = (CObjZombieEnemy*)Objs::GetObj(OBJ_ENEMY);
-				m_damage = ene1->GetDMG();
-				m_hero_hp -= m_damage;
-			}
-		}
+		m_hero_hp -= 1;
 	}
-
-
-	if (m_hero_hp == 0)
+	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);				
+
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 
 	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始

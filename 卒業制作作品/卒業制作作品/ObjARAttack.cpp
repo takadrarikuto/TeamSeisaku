@@ -31,7 +31,7 @@ void CObjARAttack::Init()
 	Distance_max = 3;
 
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
-	Hits::SetHitBox(this, m_ARx, m_ARy, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
+	Hits::SetHitBox(this, m_ARx, m_ARy, 10, 10, ELEMENT_RED, OBJ_ARATTACK, 3);
 
 }
 

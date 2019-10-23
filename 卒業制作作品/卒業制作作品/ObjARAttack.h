@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjARAttack :public CObj
+class CObjARAttack :public CObj, public CBaseStatus
 {
 public:
 	CObjARAttack(float x, float y, float vx, float vy, float r);
@@ -20,5 +20,6 @@ private:
 	float m_ARr; //‰æ‘œŠp“x’²®
 
 	int Distance_max; //íœ‹——£Å‘å’l
+
 
 };

@@ -34,7 +34,7 @@ void CObjShotGunAttack::Init()
 	m_sga_pb = 60;
 
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
-	Hits::SetHitBox(this, m_SGx, m_SGy, 10, 10, ELEMENT_RED, OBJ_GUNATTACK, 3);
+	Hits::SetHitBox(this, m_SGx, m_SGy, 10, 10, ELEMENT_RED, OBJ_SHOTGUNATTACK, 3);
 
 }
 
