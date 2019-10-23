@@ -47,7 +47,10 @@
       <UniqueIdentifier>{8f4b48fe-34b9-44e1-8c90-8bee9c01a689}</UniqueIdentifier>
     </Filter>
     <Filter Include="ソース ファイル\ステージメイン\ステージ">
-      <UniqueIdentifier>{5f35f501-4724-4f9c-9529-615ae0602682}</UniqueIdentifier>
+      <UniqueIdentifier>{8bb0248a-1e35-4dc3-812f-c6485172110b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\エネミー">
+      <UniqueIdentifier>{b67fc8b4-743d-4af6-ba7d-0419c2ab59c9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,13 +171,25 @@
     <ClInclude Include="ObjRailGunAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClInclude>
-    <ClInclude Include="ObjTime.h">
-      <Filter>ソース ファイル\ステージメイン</Filter>
+    <ClInclude Include="ObjStage.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClInclude>
-    <ClInclude Include="ObjTopback.h">
-      <Filter>ソース ファイル</Filter>
+    <ClInclude Include="ObjTime.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStage.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClInclude>
     <ClInclude Include="ObjBackground.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTopback.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneStage.h">
+      <Filter>ソース ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
   </ItemGroup>
@@ -269,9 +284,6 @@
     <ClCompile Include="ObjGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>
-    <ClCompile Include="ObjTime.cpp">
-      <Filter>ソース ファイル\ステージメイン</Filter>
-    </ClCompile>
     <ClCompile Include="ObjShotGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>
@@ -287,10 +299,25 @@
     <ClCompile Include="ObjRailGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>
-    <ClCompile Include="ObjTopback.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTime.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStage.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClCompile>
     <ClCompile Include="ObjBackground.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTopback.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjStage.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneStage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>

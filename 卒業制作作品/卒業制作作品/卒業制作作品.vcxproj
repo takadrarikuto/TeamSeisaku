@@ -150,6 +150,7 @@
     <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="ObjTopback.h" />
+    <ClInclude Include="ObjZombieEnemy.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
     <ClInclude Include="SceneOP.h" />
@@ -192,6 +193,7 @@
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="ObjTopback.cpp" />
+    <ClCompile Include="ObjZombieEnemy.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />
     <ClCompile Include="SceneOP.cpp" />

@@ -84,6 +84,8 @@ struct UserData
 #include "ObjRailGunAttack.h"
 
 //エネミー
+#include "ObjZombieEnemy.h"
+
 //中ボス
 //ボス
 //エネミー・中ボス・ボス用攻撃
@@ -157,5 +159,5 @@ struct UserData
 #define SET_GAME_START  CSceneStage
 
 //デバッグ用
-//#define SET_GAME_START  CSceneOver
+//#define SET_GAME_START  CSceneTitle
 //-----------------------------------------------

@@ -47,6 +47,13 @@ void CObjStage::Draw()
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//Ô
+	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//Â
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//‰©
+	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//—Î
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//•
+	float a[4] = { 1.0f,1.0f,1.0f,0.5f };
+
 	RECT_F src;	//•`‰æŒ³Ø‚èæ‚èˆÊ’u
 	RECT_F dst;	//•`‰ææ•\¦ˆÊ’u
 

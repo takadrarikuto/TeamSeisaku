@@ -19,10 +19,6 @@ private:
 	float m_gavy;
 	float m_gar; //画像角度調整
 
-	int m_ani_frame; //描画フレーム
-	int m_UDani_frame; //上下描画フレーム
-	int m_ani_time;	//アニメーションフレーム動作間隔	
-
 	int Distance_max; //削除距離最大値
 
 };

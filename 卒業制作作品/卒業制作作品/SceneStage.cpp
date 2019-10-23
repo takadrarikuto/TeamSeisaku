@@ -38,9 +38,11 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
+	Draw::LoadImage(L"エネミーまとめ.png", 4, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
-	//Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
+	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
+	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
@@ -62,20 +64,20 @@ void CSceneStage::InitScene()
 	e_time = 0;
 	//アイテム出現タイム初期化
 	i_time = 0;
-	//アイテム出現x位置初期化
+	//アイテム出現位置初期化
 	i_x = 0.0f;
+	//エネミー出現位置
+	e_x = 0.0f;
+	e_y = 0.0f;
+	//アイテム出現位置
+	i_x = 0.0f;
+	i_y = 0.0f;
+
 
 	//シーン切り替えタイム
 	Scene_time = 0;
 	//ゲームオーバー移動時間
 	GameOver_time = 0;
-
-
-	/*
-	//敵機オブジェクト作成
-	CObjEnemy* obj_e = new CObjEnemy();
-	Objs::InsertObj(obj_e, OBJ_ENEMY, 2);
-	*/
 
 	//背景オブジェクト作成
 	C0bjBackground * back = new C0bjBackground();
@@ -125,6 +127,18 @@ void CSceneStage::Scene()
 			Scene_time = 0;
 		}
 
+		CObjZombieEnemy* ZE = (CObjZombieEnemy*)Objs::GetObj(OBJ_ENEMY);
+		bool ze_flg = ZE->GetAF();
+
+		e_time++;
+		if (e_time == 90)
+		{
+			e_x = rand() % 736;
+			e_y = rand() % 536;
+			//敵機オブジェクト作成
+			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(200, 200);
+			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
+		}		
 
 	//メニュー画面閲覧時行動停止処理
 	//if (Menu_flg == false)

@@ -27,11 +27,6 @@ CObjARAttack::CObjARAttack(float x, float y, float vx, float vy, float r)
 void CObjARAttack::Init()
 {
 	//初期化
-		//描画フレーム
-	m_ani_frame = 0;
-	//アニメーションフレーム動作間隔
-	m_ani_time = 0;
-
 	//削除距離最大値
 	Distance_max = 3;
 
@@ -43,9 +38,6 @@ void CObjARAttack::Init()
 //アクション
 void CObjARAttack::Action()
 {
-	//アニメーションフレーム更新
-	m_ani_time++;
-
 	//メニューを開くと行動停止
 	//if (Menu_flg == false)
 	//{
@@ -67,39 +59,27 @@ void CObjARAttack::Action()
 	float hx = hero->GetX();
 	float hy = hero->GetY();
 
-	//アニメーション処理
-	if (m_ani_time > 6)
-	{
-		m_ani_time = 0;
-		m_ani_frame += 1;
-	}
-
-	if (m_ani_frame == 8)
-	{
-		m_ani_frame = 0;
-	}
-
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
 
 	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * Distance_max || m_gax < 0.0f)
+	if (m_gax < hx - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gax + 32 > hx + 64 * Distance_max || m_gax + 32 > 800.0f)
+	else if (m_gax> hx + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	if (m_gay < hy - 64 * Distance_max || m_gay < 0.0f)
+	if (m_gay < hy - 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-	else if (m_gay + 32 > hy + 64 * Distance_max || m_gay + 32 > 600.0f)
+	else if (m_gay> hy + 64 * Distance_max)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -120,19 +100,13 @@ void CObjARAttack::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 
-	//モーション
-	int AniData[8] =
-	{
-		0,1,2,3,4,5,6,7,
-	};
-
 	RECT_F src;
 	RECT_F dst;
 
 	//切り取り処理
 	src.m_top = 30.0f;
-	src.m_left = 0.0f + AniData[m_ani_frame] * 100;
-	src.m_right = 100.0f + AniData[m_ani_frame] * 100;
+	src.m_left = 0.0f;
+	src.m_right = 100.0f;
 	src.m_bottom = 70.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_gay;
