@@ -18,7 +18,6 @@ void CObjStage::Init()
 	//初期化
 	//描画フレーム
 	m_ani_frame = 0;
-
 }
 
 //アクション
@@ -30,7 +29,6 @@ void CObjStage::Action()
 
 	//武器切り替え変数をアニメーションに同期
 	m_ani_frame = WS;
-
 }
 
 //ドロー
@@ -61,7 +59,6 @@ void CObjStage::Draw()
 	wchar_t HP[128];
 
 	//画面上部のメニュー画面
-
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f + AniData[m_ani_frame] * 60;
@@ -78,8 +75,6 @@ void CObjStage::Draw()
 	//TIMEを表示
 	swprintf_s(TIME, L"TIME", m_stage_time, 15);
 	Font::StrDraw(TIME, 12, 2, 26, c);
-	/*swprintf_s(TIME, L"○○", m_stage_time, 15);
-	Font::StrDraw(TIME, GAME_TIME_POS_X, GAME_TIME_POS_Y, 25, c);*/
 
 	//HPを表示
 	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
