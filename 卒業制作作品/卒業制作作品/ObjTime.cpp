@@ -16,13 +16,14 @@ extern bool Menu_flg;
 //イニシャライズ
 void CObjTime::Init()
 {
-	m_time = 10850;
+	m_time = 10850; //10850 = 3分
 	m_flag_time = true;
 }
 
 //アクション
 void CObjTime::Action()
 {
+	//制限時間カウントダウン
 	if (Menu_flg == false)
 	{
 		if (m_time > 0)
@@ -30,7 +31,11 @@ void CObjTime::Action()
 			m_time--;
 		}
 	}
-	//m_time = 120;
+	//制限時間0でゲームオーバーシーン移行
+	if (m_time == 0)
+	{
+		Scene::SetScene(new CSceneOver());
+	}
 }
 
 //ドロー

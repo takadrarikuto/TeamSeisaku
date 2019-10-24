@@ -42,9 +42,15 @@ private:
 
 	int m_damage;	//主人公が受けるダメージ用
 
+	int m_time_d;	//ダメージ無敵時間用
+	int m_time_dead;	//死亡用
+
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
+
+	bool m_del;			//削除チェック
+	bool m_eff_flag;	//エフェクト用フラグ
 
 };

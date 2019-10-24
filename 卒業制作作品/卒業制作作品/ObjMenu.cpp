@@ -135,7 +135,7 @@ void CObjMenu::Action()
 void CObjMenu::Draw()
 {
 	CObjShotGunAttack* sga = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
-	// sga_pb = sga->GetSGA();	//î•ñ‚ğæ“¾
+	//sga_pb = sga->GetSGA();	//î•ñ‚ğæ“¾
 
 	//•`‰æƒJƒ‰[î•ñ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
