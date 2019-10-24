@@ -57,6 +57,7 @@ void CObjStage::Draw()
 
 	wchar_t TIME[128];
 	wchar_t HP[128];
+	wchar_t str[128];
 
 	//画面上部のメニュー画面
 	//切り取り位置の設定
@@ -67,8 +68,8 @@ void CObjStage::Draw()
 
 	//表示位置の設定
 	dst.m_top = 10.0f;
-	dst.m_left = 289.0f;
-	dst.m_right = 349.0f;
+	dst.m_left = 269.0f;
+	dst.m_right = 369.0f;
 	dst.m_bottom = 60.0f;
 	Draw::Draw(11, &src, &dst, c, 0.0f);
 
@@ -79,9 +80,10 @@ void CObjStage::Draw()
 	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
+
 	//武器使用可数を表示
-	swprintf_s(HP, L"×10", hero_hp, 15);
-	Font::StrDraw(HP, 359, 15, 37, c);
+	swprintf_s(str, L"×10", 15);
+	Font::StrDraw(str, 359, 15, 37, c);
 
 	//その他表示
 	Font::StrDraw(L"武器切替：左右キー", 470, 13, 18, c);
