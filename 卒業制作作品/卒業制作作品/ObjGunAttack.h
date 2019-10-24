@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjGunAttack :public CObj
+class CObjGunAttack :public CObj, public CBaseStatus
 {
 public:
 	CObjGunAttack(float x, float y,float vx, float vy,float r);
@@ -18,9 +18,6 @@ private:
 	float m_gavx; //移動ベクトル
 	float m_gavy;
 	float m_gar; //画像角度調整
-
-	int m_ani_frame; //描画フレーム
-	int m_ani_time;	//アニメーションフレーム動作間隔	
 
 	int Distance_max; //削除距離最大値
 

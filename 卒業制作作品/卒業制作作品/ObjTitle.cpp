@@ -117,6 +117,7 @@ void CObjTitle::Draw()
 	//描写カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
 	float bl[4] = { 0.8f,0.8f,0.8f,1.0f, };
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -158,12 +159,12 @@ void CObjTitle::Draw()
 	Font::StrDraw(L"SCP354（仮）", 225, 125, 60, b);
 
 		if (choose == 0)
-			Font::StrDraw(L"◆ゲームスタート", GAME_START_POS_X , GAME_START_POS_Y, GAME_START_FONT_SIZE, b);
+			Font::StrDraw(L"◆ゲームスタート", GAME_START_POS_X , GAME_START_POS_Y, GAME_START_FONT_SIZE, r);
 		else
 			Font::StrDraw(L"　ゲームスタート", GAME_START_POS_X, GAME_START_POS_Y, GAME_START_FONT_SIZE, b);
 
 		if (choose == 1)
-			Font::StrDraw(L"◆ゲーム終了", GAME_EXIT_POS_X , GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, b);
+			Font::StrDraw(L"◆ゲーム終了", GAME_EXIT_POS_X , GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, r);
 		else
 			Font::StrDraw(L"　ゲーム終了", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, b);
 }
