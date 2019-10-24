@@ -29,6 +29,7 @@ enum OBJ_NAME
 	OBJ_MENU,
 	OBJ_TOPBACK,
 	OBJ_BACKGROUND,
+
 };
 //------------------------------------------------
 
@@ -130,6 +131,7 @@ struct UserData
 
 //ÉxÅ[ÉXê›íË
 #include "GameHead.h"
+
 
 //------------------------------------------------
 

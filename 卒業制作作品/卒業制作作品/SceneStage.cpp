@@ -44,6 +44,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
+	Draw::LoadImage(L"発電機.png", 32, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
