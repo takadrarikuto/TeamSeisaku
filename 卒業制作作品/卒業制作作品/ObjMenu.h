@@ -20,7 +20,12 @@ private:
 	int choose;
 	int m_time;
 	int m_time_s;
-	int sga_pb;
+
+	int sg_pb;
+	int ar_pb;
+	int sr_pb;
+	int rl_pb;
+	int rg_pb;
 
 	float m_and;		//透明度処理用
 	bool m_andf;		//透明度処理用フラグ

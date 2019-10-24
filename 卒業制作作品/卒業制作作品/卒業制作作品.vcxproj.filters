@@ -293,6 +293,9 @@
     <ClCompile Include="ObjOperation.cpp">
       <Filter>ソース ファイル\操作説明</Filter>
     </ClCompile>
+    <ClCompile Include="ObjBlood_splash.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係</Filter>
+    </ClCompile>
     <ClCompile Include="ObjGunAttack.cpp">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClCompile>

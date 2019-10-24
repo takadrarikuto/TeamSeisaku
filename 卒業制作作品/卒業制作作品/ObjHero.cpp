@@ -32,7 +32,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	m_hero_hp = 100;
+	m_hero_hp = 5;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -55,12 +55,25 @@ void CObjHero::Init()
 	//グレネード投下処理
 	m_Grenade_flg = false;
 
+	//所持最大弾
+	m_sg_pb_num = 70; //ショットガン(70)
+	m_ar_pb_num = 300;//アサルトライフル(300)
+	m_sr_pb_num = 50;//スナイパーライフル(50)
+	m_rl_pb_num = 2;//ロケットランチャー(2)
+	m_rg_pb_num = 1;//レールガン(1)
+
 	//描画サイズ
 	m_dst_size = 64.0f;
 	//当たり判定サイズ
 	Hitbox_size = 64;
 	//爆発用描画サイズ
 	m_exp_blood_dst_size = 64;
+
+	m_del = false; //削除チェック用
+
+	m_speed_power = 0.5f;//通常速度
+
+	m_inputf = true;	// true = 入力可	false = 入力不可
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 2);
@@ -69,22 +82,36 @@ void CObjHero::Init()
 //アクション
 void CObjHero::Action()
 {
-	//メニューを開く
-	if (m_key_flag_menu == true)
+	//HPが0以下の時にゲームオーバーに移行する
+	if (m_del == false && m_hero_hp <= 0)
 	{
-		if (Input::GetVKey('R') == true)
-		{
-			Menu_flg = true;
-			m_key_flag_menu = false;
-			//メニューオブジェクト作成
-			CObjMenu* obj_m = new CObjMenu();
-			Objs::InsertObj(obj_m, OBJ_MENU, 5);
-		}
+		m_del = true;
+		m_inputf = false;	//キー入力を制御
+		m_time_dead = 80;	//死亡時間をセット
 	}
 
-	//移動停止
-	m_vx = 0.0f;
-	m_vy = 0.0f;
+	m_speed_power = 0.5f;
+
+	//inputフラグがオンの場合入力を可能にする
+	if (m_inputf == true)
+	{
+		//メニューを開く
+		if (m_key_flag_menu == true)
+		{
+			if (Input::GetVKey('R') == true)
+			{
+				Menu_flg = true;
+				m_key_flag_menu = false;
+				//メニューオブジェクト作成
+				CObjMenu* obj_m = new CObjMenu();
+				Objs::InsertObj(obj_m, OBJ_MENU, 5);
+			}
+		}
+
+		//移動停止
+		m_vx = 0.0f;
+		m_vy = 0.0f;
+		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -587,6 +614,9 @@ void CObjHero::Action()
 
 	if (m_hero_hp <= 0)
 	{
+		hit_h->SetInvincibility(true);	//無敵にする
+		m_eff_flag = true;			//画像切り替え用フラグ
+		m_speed_power = 0.0f;			//動きを止める
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);	
