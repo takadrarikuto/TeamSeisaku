@@ -93,5 +93,6 @@ private:
 	bool m_del;			//削除チェック
 	bool m_eff_flag;	//エフェクト用フラグ
 	bool m_inputf;	//死亡用キー入力制御
+	bool m_blood_flg; //血しぶき表示フラグ
 
 };
