@@ -34,11 +34,16 @@ void CObjGrenadeAttack::Init()
 	//爆破時間
 	EXP_time = 0;
 
+	//描画サイズ
+	m_dst_size = 15.0f;
+	//当たり判定サイズ
+	Hitbox_size = 15;
+
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 192.0f;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Grex, m_Grey, 10, 10, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
 
 }
 
@@ -75,8 +80,8 @@ void CObjGrenadeAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるとオブジェクト移動停止
-		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 64 * Stop_max 
-			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 64 * Stop_max)
+		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
+			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max )
 		{
 			//移動停止
 			m_Grevx = 0.0f;
@@ -87,7 +92,7 @@ void CObjGrenadeAttack::Action()
 	if (EXP_time >= 180)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 140, m_Grey - 140, m_exp_blood_dst_size, GRE_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, GRE_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 		this->SetStatus(false); //オブジェクト破棄
@@ -117,15 +122,15 @@ void CObjGrenadeAttack::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 300.0f;
-	src.m_left = 0.0f;
-	src.m_right = 28.0f;
-	src.m_bottom = 325.0f;
+	src.m_top = 320.0f;
+	src.m_left = 15.0f;
+	src.m_right = 30.0f;
+	src.m_bottom = 330.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_Grey;
 	dst.m_left = 0.0f + m_Grex;
-	dst.m_right = 32.0f + m_Grex;
-	dst.m_bottom = 70.0f + m_Grey;
+	dst.m_right = m_dst_size + m_Grex;
+	dst.m_bottom = m_dst_size + m_Grey;
 
 	Draw::Draw(3, &src, &dst, c, 0.0f);
 

@@ -140,6 +140,7 @@ void CObjMenu::Draw()
 	sr_pb = hero->GetSR();
 	rl_pb = hero->GetRL();
 	rg_pb = hero->GetRG();
+	gre_pb = hero->GetGRE();
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -259,6 +260,22 @@ void CObjMenu::Draw()
 		//武器所持弾表示
 		swprintf_s(str, L"%d/1", rg_pb, 15);
 		Font::StrDraw(str, 515, 210, 37, c);
+
+		//グレネード
+		//切り取り位置の設定
+		src.m_top = 420.0f;
+		src.m_left = 420.0f;
+		src.m_right = 444.0f;
+		src.m_bottom = 439.0f;
+		//表示位置の設定
+		dst.m_top = 265.0f;
+		dst.m_left = 405.0f;
+		dst.m_right = 490.0f;
+		dst.m_bottom = 330.0f;
+		Draw::Draw(12, &src, &dst, c, 0.0f);
+		//武器所持弾表示
+		swprintf_s(str, L"%d/3", gre_pb, 15);
+		Font::StrDraw(str, 515, 285, 37, c);
 
 		//表示説明用
 		swprintf_s(str, L"残り弾数/最大所持弾数", 15);

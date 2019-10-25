@@ -23,6 +23,7 @@ public:
 	int GetSR() { return m_sr_pb_num; }	//スナイパーライフルの残り弾数を取得
 	int GetRL() { return m_rl_pb_num; }	//ロケットランチャーの残り弾数を取得
 	int GetRG() { return m_rg_pb_num; }	//レールガンの残り弾数を取得
+	int GetGRE() { return m_gre_pb_num; }	//グレネードの残り弾数を取得
 
 	float GetVX() { return m_vx; }
 	float GetVY() { return m_vy; }
@@ -61,19 +62,18 @@ private:
 	int m_sr_pb;//スナイパーライフル現在弾数用(上部表示用)
 	int m_rl_pb;//ロケットランチャー現在弾数用(上部表示用)
 	int m_rg_pb;//レールガン現在弾数用(上部表示用)
+	int m_gre_pb;//グレネード現在弾数用(上部表示用)
 
 	int m_sg_pb_num;//ショットガン残り弾数
 	int m_ar_pb_num;//アサルトライフル残り弾数
 	int m_sr_pb_num;//スナイパーライフル残り弾数
 	int m_rl_pb_num;//ロケットランチャー残り弾数
 	int m_rg_pb_num;//レールガン残り弾数
+	int m_gre_pb_num;//グレネード残り弾数
 
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 	bool m_Grenade_flg; //グレネード投下処理
-
-	bool m_del;			//削除チェック
-	bool m_eff_flag;	//エフェクト用フラグ
 
 	bool m_del;			//削除チェック
 	bool m_eff_flag;	//エフェクト用フラグ

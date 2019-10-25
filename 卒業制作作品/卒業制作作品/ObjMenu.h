@@ -26,6 +26,7 @@ private:
 	int sr_pb;
 	int rl_pb;
 	int rg_pb;
+	int gre_pb;
 
 	float m_and;		//透明度処理用
 	bool m_andf;		//透明度処理用フラグ

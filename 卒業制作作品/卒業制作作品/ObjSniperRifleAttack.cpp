@@ -88,7 +88,7 @@ void CObjSniperRifleAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_SRx > hx + 64 * Distance_max)
+		else if (m_SRx > hx + 32 + 64 * Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -98,7 +98,7 @@ void CObjSniperRifleAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_SRy > hy + 64 * Distance_max)
+		else if (m_SRy > hy + 32 + 64 * Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
