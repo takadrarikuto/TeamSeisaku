@@ -37,6 +37,15 @@ void CObjStage::Draw()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
 
+	//各残り弾数情報を取得(装備分)
+	hg_pb_e = hero->GetHG_E();	//ハンドガン
+	sg_pb_e = hero->GetSG_E();	//ショットガン
+	ar_pb_e = hero->GetAR_E();	//アサルトライフル
+	sr_pb_e = hero->GetSR_E();	//スナイパーライフル
+	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
+	rg_pb_e = hero->GetRG_E();	//レールガン
+	gre_pb_e = hero->GetGRE_E();//グレネード
+
 	//モーション
 	int AniData[6] =
 	{
@@ -80,10 +89,43 @@ void CObjStage::Draw()
 	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
-
 	//武器使用可数を表示
-	swprintf_s(str, L"×10", 15);
-	Font::StrDraw(str, 359, 15, 37, c);
+	//ハンドガン
+	if (AniData[m_ani_frame] == 0)
+	{
+		swprintf_s(str, L"×%d", hg_pb_e, 15);
+		Font::StrDraw(str, 359, 15, 37, c);
+	}
+	//ショットガン
+	if (AniData[m_ani_frame] == 1)
+	{
+		swprintf_s(str, L"×%d", sg_pb_e, 15);
+		Font::StrDraw(str, 359, 15, 37, c);
+	}
+	//アサルトライフル
+	if (AniData[m_ani_frame] == 2)
+	{
+		swprintf_s(str, L"×%d", ar_pb_e, 15);
+		Font::StrDraw(str, 359, 15, 37, c);
+	}
+	//スナイパーライフル
+	if (AniData[m_ani_frame] == 3)
+	{
+		swprintf_s(str, L"×%d", sr_pb_e, 15);
+		Font::StrDraw(str, 359, 15, 37, c);
+	}
+	//ロケットランチャー
+	if (AniData[m_ani_frame] == 4)
+	{
+		swprintf_s(str, L"×%d", rl_pb_e, 15);
+		Font::StrDraw(str, 359, 15, 37, c);
+	}
+	//レールガン
+	if (AniData[m_ani_frame] == 5)
+	{
+		swprintf_s(str, L"×%d", rg_pb_e, 15);
+		Font::StrDraw(str, 359, 15, 37, c);
+	}
 
 	//その他表示
 	Font::StrDraw(L"武器切替：左右キー", 470, 13, 18, c);

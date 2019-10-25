@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjGrenadeAttack::CObjGrenadeAttack(float x, float y, float vx, float vy)
 {
@@ -50,15 +53,15 @@ void CObjGrenadeAttack::Init()
 //アクション
 void CObjGrenadeAttack::Action()
 {
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
+	//メニューを開くと停止
+	if (Menu_flg == false)
+	{
 	//爆破処理
 	EXP_time++;
 	//位置更新
 	m_Grex += m_Grevx;
 	m_Grey += m_Grevy;
-	//}
+	}
 
 	////SE処理
 	//if (Attack_flg == true)
@@ -89,14 +92,18 @@ void CObjGrenadeAttack::Action()
 		}
 	}
 
-	if (EXP_time >= 180)
+	//メニューを開くと停止
+	if (Menu_flg == false)
 	{
-		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, GRE_Attack);
-		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+		if (EXP_time >= 180)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, GRE_Attack);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 4);
 
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
 	}
 
 	//敵オブジェクトと接触するとオブジェクト破棄
@@ -104,7 +111,7 @@ void CObjGrenadeAttack::Action()
 	{
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 140, m_Grey - 140, m_exp_blood_dst_size, GRE_Attack);
-		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 4);
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
