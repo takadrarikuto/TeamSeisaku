@@ -150,9 +150,6 @@
     <ClInclude Include="BaseStatus.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ObjBlood_splash.h">
-      <Filter>ソース ファイル\血しぶき・爆発</Filter>
-    </ClInclude>
     <ClInclude Include="ObjGunAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
     </ClInclude>
@@ -206,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="ObjGrenadeAttack.h">
       <Filter>ソース ファイル\ステージメイン\武器</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBlood_splash.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
