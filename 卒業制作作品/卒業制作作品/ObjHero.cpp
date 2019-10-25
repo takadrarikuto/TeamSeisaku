@@ -51,7 +51,7 @@ void CObjHero::Init()
 	//武器切り替え
 	m_Weapon_switching = 0;
 	//武器切り替えフラグ
-	m_Weapon_switching_flg = false; 
+	m_Weapon_switching_flg = false;
 	//グレネード投下処理
 	m_Grenade_flg = false;
 
@@ -61,7 +61,6 @@ void CObjHero::Init()
 	m_sr_pb_num = 50;//スナイパーライフル(50)
 	m_rl_pb_num = 2;//ロケットランチャー(2)
 	m_rg_pb_num = 1;//レールガン(1)
-	m_gre_pb_num = 3;//グレネード(3)
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -110,15 +109,14 @@ void CObjHero::Action()
 		}
 	}
 
-		//移動停止
-		m_vx = 0.0f;
-		m_vy = 0.0f;
-		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	}
+	//移動停止
+	m_vx = 0.0f;
+	m_vy = 0.0f;
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{	
+	{
 		//移動処理
 		//'W'を押すと上に移動
 		if (Input::GetVKey('W') == true)
@@ -157,7 +155,7 @@ void CObjHero::Action()
 		//位置更新
 		m_x += m_vx;
 		m_y += m_vy;
-				
+
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -169,7 +167,7 @@ void CObjHero::Action()
 		if (m_LRani_frame == 3)
 		{
 			m_LRani_frame = 0;
-		}		
+		}
 
 		//武器切り替え処理
 		if (Input::GetVKey(VK_LEFT) == true)
@@ -183,15 +181,15 @@ void CObjHero::Action()
 					m_bt = 0; //攻撃頻度初期化
 				}
 			}
-			else if(m_Weapon_switching > 0)
+			else if (m_Weapon_switching > 0)
 			{
 				if (m_Weapon_switching_flg == true)
 				{
 					m_Weapon_switching -= 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
-				}				
-			}					
+				}
+			}
 		}
 		else if (Input::GetVKey(VK_RIGHT) == true)
 		{
@@ -212,7 +210,7 @@ void CObjHero::Action()
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
 				}
-			}									
+			}
 		}
 		else
 		{
@@ -224,7 +222,7 @@ void CObjHero::Action()
 		if (Input::GetVKey('Q') == true)
 		{
 			if (m_Grenade_flg == true)
-			{				
+			{
 				//上
 				if (m_UDani_frame == 0)
 				{
@@ -254,7 +252,7 @@ void CObjHero::Action()
 					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
 				}
 				m_Grenade_flg = false;
-			}		
+			}
 		}
 		else
 		{
@@ -307,7 +305,7 @@ void CObjHero::Action()
 				}
 			}
 			//ショットガン
-			else if (m_Weapon_switching == 1 && m_sg_pb_num > 0)
+			else if (m_Weapon_switching == 1)
 			{
 				m_bt_max = 60;
 				float i = 0.0f;
@@ -320,7 +318,7 @@ void CObjHero::Action()
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);	
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
@@ -366,7 +364,7 @@ void CObjHero::Action()
 				}
 			}
 			//アサルト
-			else if(m_Weapon_switching == 2 && m_ar_pb_num > 0)
+			else if (m_Weapon_switching == 2)
 			{
 				m_bt_max = 20;
 				if (m_bt == 1)
@@ -408,7 +406,7 @@ void CObjHero::Action()
 				}
 			}
 			//スナイパー
-			else if (m_Weapon_switching == 3 && m_sr_pb_num > 0)
+			else if (m_Weapon_switching == 3)
 			{
 				m_bt_max = 120;
 				if (m_bt == 1)
@@ -450,7 +448,7 @@ void CObjHero::Action()
 				}
 			}
 			//ロケットランチャー
-			else if (m_Weapon_switching == 4 && m_rl_pb_num > 0)
+			else if (m_Weapon_switching == 4)
 			{
 				m_bt_max = 150;
 				if (m_bt == 1)
@@ -492,7 +490,7 @@ void CObjHero::Action()
 				}
 			}
 			//レールガン
-			else if (m_Weapon_switching == 5 && m_rg_pb_num > 0)
+			else if (m_Weapon_switching == 5)
 			{
 				m_bt_max = 150;
 				if (m_bt == 1)
@@ -537,7 +535,7 @@ void CObjHero::Action()
 		else
 		{
 			m_bt = 0;
-		}		
+		}
 	}
 
 	//画面範囲外に出ないようにする処理
@@ -612,7 +610,7 @@ void CObjHero::Action()
 			//敵の攻撃によってHPが0以下になった場合
 			//if (m_hero_hp <= 0)
 			//	m_hero_hp = 0;	//HPを0にする
-		}		
+		}
 	}
 
 	if (m_hero_hp <= 0)
@@ -622,7 +620,7 @@ void CObjHero::Action()
 		m_speed_power = 0.0f;			//動きを止める
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
-		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);	
+		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 	}
 
 	if (m_del == true)
@@ -649,7 +647,7 @@ void CObjHero::Action()
 		if (m_time_dead <= 0)
 		{
 			Scene::SetScene(new CSceneOver());
-			m_time_dead = 0;		
+			m_time_dead = 0;
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 		}
