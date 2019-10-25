@@ -32,7 +32,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	m_hero_hp = 5;
+	m_hero_hp = 500;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -61,6 +61,7 @@ void CObjHero::Init()
 	m_sr_pb_num = 50;//スナイパーライフル(50)
 	m_rl_pb_num = 2;//ロケットランチャー(2)
 	m_rg_pb_num = 1;//レールガン(1)
+	m_gre_pb_num = 3;//グレネード(3)
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -112,6 +113,7 @@ void CObjHero::Action()
 		m_vx = 0.0f;
 		m_vy = 0.0f;
 		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	}
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -304,7 +306,7 @@ void CObjHero::Action()
 				}
 			}
 			//ショットガン
-			else if (m_Weapon_switching == 1)
+			else if (m_Weapon_switching == 1 && m_sg_pb_num > 0)
 			{
 				m_bt_max = 60;
 				float i = 0.0f;
@@ -363,7 +365,7 @@ void CObjHero::Action()
 				}
 			}
 			//アサルト
-			else if(m_Weapon_switching == 2)
+			else if(m_Weapon_switching == 2 && m_ar_pb_num > 0)
 			{
 				m_bt_max = 20;
 				if (m_bt == 1)
@@ -405,7 +407,7 @@ void CObjHero::Action()
 				}
 			}
 			//スナイパー
-			else if (m_Weapon_switching == 3)
+			else if (m_Weapon_switching == 3 && m_sr_pb_num > 0)
 			{
 				m_bt_max = 120;
 				if (m_bt == 1)
@@ -447,7 +449,7 @@ void CObjHero::Action()
 				}
 			}
 			//ロケットランチャー
-			else if (m_Weapon_switching == 4)
+			else if (m_Weapon_switching == 4 && m_rl_pb_num > 0)
 			{
 				m_bt_max = 150;
 				if (m_bt == 1)
@@ -489,7 +491,7 @@ void CObjHero::Action()
 				}
 			}
 			//レールガン
-			else if (m_Weapon_switching == 5)
+			else if (m_Weapon_switching == 5 && m_rg_pb_num > 0)
 			{
 				m_bt_max = 150;
 				if (m_bt == 1)

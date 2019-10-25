@@ -43,6 +43,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"爆発.png", 9, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
+	Draw::LoadImage(L"機材・武器.png", 12, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
 
