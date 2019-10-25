@@ -70,6 +70,10 @@ private:
 
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
+	bool m_Grenade_flg; //グレネード投下処理
+
+	bool m_del;			//削除チェック
+	bool m_eff_flag;	//エフェクト用フラグ
 
 	bool m_del;			//削除チェック
 	bool m_eff_flag;	//エフェクト用フラグ

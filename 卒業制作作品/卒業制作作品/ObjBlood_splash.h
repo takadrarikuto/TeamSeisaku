@@ -3,7 +3,7 @@
 
 using namespace GameL;
 
-class CObjBlood_splash :public CObj
+class CObjBlood_splash :public CObj, public CBaseStatus
 {
 public:
 	CObjBlood_splash(float x, float y, float size);
@@ -18,7 +18,5 @@ private:
 
 	int m_ani_time; //アニメーション間隔
 	int m_ani_flame; //描画フレーム
-
-	int m_bsp_size; //描画・当たり判定サイズ
 
 };

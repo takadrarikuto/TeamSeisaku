@@ -97,7 +97,7 @@ void CObjBoss::Action()
 
 			//敵機オブジェクト作成 272, 400)
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 3);
+			Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
 		}
 	}
 
