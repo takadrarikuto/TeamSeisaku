@@ -55,37 +55,42 @@ void CObjGunAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
 	
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
 
-	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_gax < hx - 64 * 3)
+	if (hero != nullptr)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	else if (m_gax > hx + 64 * 3)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	if (m_gay < hy - 64 * 3)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	else if (m_gay > hy + 64 * 3)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
+		float hx = hero->GetX();
+		float hy = hero->GetY();
 
-	//敵機オブジェクトと接触するとオブジェクト破棄
+		//主人公から離れるor画面端に行くとオブジェクト削除
+		if (m_gax < hx - 64 * 3)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+		else if (m_gax > hx + 64 * 3)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+		if (m_gay < hy - 64 * 3)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+		else if (m_gay > hy + 64 * 3)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+	}
+	
+
+	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 	{
 		this->SetStatus(false); //オブジェクト破棄

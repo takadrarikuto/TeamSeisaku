@@ -134,8 +134,12 @@ void CObjMenu::Action()
 //ドロー
 void CObjMenu::Draw()
 {
-	CObjShotGunAttack* sga = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
-	//sga_pb = sga->GetSGA();	//情報を取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	sg_pb = hero->GetSG();	//各残り弾数情報を取得
+	ar_pb = hero->GetAR();
+	sr_pb = hero->GetSR();
+	rl_pb = hero->GetRL();
+	rg_pb = hero->GetRG();
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -151,7 +155,7 @@ void CObjMenu::Draw()
 	RECT_F dst;//描写先表示位置
 
 	wchar_t str[128];
-	wchar_t SGA[128];
+	//wchar_t sga[128];
 
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)
@@ -189,8 +193,8 @@ void CObjMenu::Draw()
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(SGA, L"%d/70",sga_pb, 15);
-		Font::StrDraw(SGA, 200, 205, 37, c);
+		swprintf_s(str, L"%d/70",sg_pb, 15);
+		Font::StrDraw(str, 200, 205, 37, c);
 
 		//アサルトライフル
 		//切り取り位置の設定
@@ -205,7 +209,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 325.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"300/300", 15);
+		swprintf_s(str, L"%d/300", ar_pb, 15);
 		Font::StrDraw(str, 200, 285, 37, c);
 
 		//スナイパーライフル
@@ -221,7 +225,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 400.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"50/50", 15);
+		swprintf_s(str, L"%d/50", sr_pb, 15);
 		Font::StrDraw(str, 200, 360, 37, c);
 
 		//ロケットランチャー
@@ -237,7 +241,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 175.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"2/2", 15);
+		swprintf_s(str, L"%d/2", rl_pb, 15);
 		Font::StrDraw(str, 515, 135, 37, c);
 
 		//レールガン
@@ -253,7 +257,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"1/1", 15);
+		swprintf_s(str, L"%d/1", rg_pb, 15);
 		Font::StrDraw(str, 515, 210, 37, c);
 
 		//表示説明用

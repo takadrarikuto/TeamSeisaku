@@ -65,44 +65,49 @@ void CObjRailGunAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
 
 	//HitBoxの内容を更新 
-	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
+	CHitBox* hit_rg = Hits::GetHitBox(this); //当たり判定情報取得
 	if (m_RGr == 0 || m_RGr == 180)
 	{
-		hit_ga->SetPos(m_RGx, m_RGy); //当たり判定の位置更新
+		hit_rg->SetPos(m_RGx, m_RGy); //当たり判定の位置更新
 	}
 	else if (m_RGr == 90 || m_RGr == 270)
 	{
-		hit_ga->SetPos(m_RGx - 10.0f, m_RGy + 10.0f); //当たり判定の位置更新
+		hit_rg->SetPos(m_RGx - 10.0f, m_RGy + 10.0f); //当たり判定の位置更新
 	}
 
-	//主人公から離れるor画面端に行くとオブジェクト削除
-	if (m_RGx < hx - 64 * Distance_max)
+	if (hero != nullptr)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	else if (m_RGx> hx + 64 * Distance_max)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	if (m_RGy < hy - 64 * Distance_max)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	else if (m_RGy> hy + 64 * Distance_max)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
+		float hx = hero->GetX();
+		float hy = hero->GetY();
 
-	//敵機オブジェクトと接触するとオブジェクト破棄
-	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+		//主人公から離れるor画面端に行くとオブジェクト削除
+		if (m_RGx < hx - 64 * Distance_max)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+		else if (m_RGx > hx + 64 * Distance_max)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+		if (m_RGy < hy - 64 * Distance_max)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+		else if (m_RGy > hy + 64 * Distance_max)
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+	}
+	
+
+	//敵オブジェクトと接触するとオブジェクト破棄
+	if (hit_rg->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
