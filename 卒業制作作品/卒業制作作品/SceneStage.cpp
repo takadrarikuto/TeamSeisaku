@@ -46,6 +46,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"機材・武器.png", 12, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
+	Draw::LoadImage(L"発電機.png", 32, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
@@ -59,7 +60,7 @@ void CSceneStage::InitScene()
 
 
 	//主人公機オブジェクト作成
-	CObjHero* obj_h = new CObjHero(378.0f, 300.0f);
+	CObjHero* obj_h = new CObjHero(350.0f, 260.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 3);
 
 
@@ -94,8 +95,8 @@ void CSceneStage::InitScene()
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 20);
 
-	//ボスオブジェクト作成
-	CObjBoss*obj_boss = new CObjBoss(272, 400);
+	//ボスオブジェクト作成 272, 400
+	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
 	
 }

@@ -37,7 +37,7 @@ void CObjZombieEnemy::Init()
 	m_hero_hp = 50;
 
 	//移動ベクトル最大値
-	m_zev_max = 2.0f;
+	m_zev_max = 0.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
@@ -74,97 +74,93 @@ void CObjZombieEnemy::Init()
 //アクション
 void CObjZombieEnemy::Action()
 {
-	//移動停止
-	m_zevx = 0.0f;
-	m_zevy = 0.0f;
-
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-		
+	float hx = hero->GetX();
+	float hy = hero->GetY();
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
+	//爆発
+	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+	int EXPDamage;
+	if (EXPAttack != nullptr)
+	{
+		EXPDamage = EXPAttack->GetEXP();
+	}
+
+	if (m_ani_frame_flg == true)
+	{
+		m_zev_max = 1.5f;
+	}
+	//直立状態
+	else if (m_ani_frame_flg == false)
+	{
+		m_zev_max = 2.0f;
+	}
+
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		////移動処理
-		if (hero != nullptr)
+		//移動処理
+		//主人公の移動を適応する
+		m_zevx -= hvx;
+		m_zevy -= hvy;
+
+		//主人公が左に居ると左に移動
+		if (hx < m_zex)
 		{
-			float hx = hero->GetX();
-			float hy = hero->GetY();
-
-			//主人公が左に居ると上に移動
-			if (hx < m_zex)
-			{
-				m_zevx -= m_zev_max;
-				m_UDani_frame = 0;
-				m_ani_time += 1;
-			}
-			//主人公が右に居ると下に移動
-			else if (hx + 64 > m_zex)
-			{
-				m_zevx += m_zev_max;
-				m_UDani_frame = 4;
-				m_ani_time += 1;
-			}
-			//主人公が上に居ると左に移動
-			if (hy < m_zey)
-			{
-				m_zevy -= m_zev_max;
-				m_UDani_frame = 6;
-				m_ani_time += 1;
-			}
-			//主人公が下に居ると右移動
-			else if (hy > m_zey)
-			{
-				m_zevy += m_zev_max;
-				m_UDani_frame = 2;
-				m_ani_time += 1;
-			}
-			else if (hx == m_zex || hy == m_zey)
-			{
-				m_ani_time = 0.0f;
-				m_zevx = 0.0f;
-				m_zevy = 0.0f;
-			}
-			else
-			{
-				m_ani_time = 0.0f;
-				m_LRani_frame = 0;
-			}
+			m_zevx -= m_zev_max;
+			m_UDani_frame = 0;
+			m_ani_time += 1;
 		}
-		
-		//if (Input::GetVKey('W') == true)
-		//{
-		//	m_zevy -= m_zev_max;
-		//	m_UDani_frame = 0;
-		//	m_ani_time += 1;
-		//}
-		////'S'を押すと下に移動
-		//else if (Input::GetVKey('S') == true)
-		//{
-		//	m_zevy += m_zev_max;
-		//	m_UDani_frame = 4;
-		//	m_ani_time += 1;
-		//}
-		////'A'を押すと左に移動
-		//else if (Input::GetVKey('A') == true)
-		//{
-		//	m_zex -= m_zev_max;
-		//	m_UDani_frame = 6;
-		//	m_ani_time += 1;
-		//}
-		////'D'を押すと右移動
-		//else if (Input::GetVKey('D') == true)
-		//{
-		//	m_zex += m_zev_max;
-		//	m_UDani_frame = 2;
-		//	m_ani_time += 1;
-		//}
-		//else
-		//{
-		//	m_ani_time = 0.0f;
-		//	m_LRani_frame = 0;
-		//}
+		//主人公が右に居ると右に移動
+		else if (hx > m_zex)
+		{
+			m_zevx += m_zev_max;
+			m_UDani_frame = 4;
+			m_ani_time += 1;
+		}
+		//主人公が上に居ると上に移動
+		if (hy < m_zey)
+		{
+			m_zevy -= m_zev_max;
+			m_UDani_frame = 6;
+			m_ani_time += 1;
+		}
+		//主人公が下に居ると下移動
+		else if (hy > m_zey)
+		{
+			m_zevy += m_zev_max;
+			m_UDani_frame = 2;
+			m_ani_time += 1;
+		}
+		//主人公とx,y位置が同じだと移動
+		if (hx == m_zex)
+		{
+			m_zevx = 0.0f;
+		}
+		else if (hy == m_zey)
+		{
+			m_zevy = 0.0f;
+		}
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_zevx * m_zevx + m_zevy * m_zevy;
+		r = sqrt(r); //ルートを求める
 
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_zevx = m_zev_max / r * m_zevx;
+			m_zevy = m_zev_max / r * m_zevy;
+		}
+
+		
 		//アニメーション処理
 		if (m_ani_time > 6)
 		{
@@ -223,6 +219,11 @@ void CObjZombieEnemy::Action()
 	{
 		m_hero_hp -= GRE_Attack;
 	}
+	//爆発
+	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+	{
+		m_hero_hp -= EXPDamage;
+	}
 	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
@@ -250,6 +251,7 @@ void CObjZombieEnemy::Draw()
 	RECT_F dst;
 
 	//這いずり、立っている描画切り替え
+	//這いずり状態
 	if (m_ani_frame_flg == true)
 	{
 		//切り取り処理
@@ -258,6 +260,7 @@ void CObjZombieEnemy::Draw()
 		src.m_right = 24.0f + LRAniData[m_LRani_frame] * 25.0f;
 		src.m_bottom = 160.0f + m_UDani_frame * 16.0f;
 	}
+	//直立状態
 	else if (m_ani_frame_flg == false)
 	{
 		//切り取り処理

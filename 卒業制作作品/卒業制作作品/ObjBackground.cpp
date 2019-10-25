@@ -11,38 +11,13 @@ using namespace GameL;
 //イニシャライズ
 void  C0bjBackground::Init()
 {
-	m_x1 = 0.0f;
+
 }
 
 //アクション
 void  C0bjBackground::Action()
 {
-	//主人公の位置を取得
-	CObjHero*hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
 
-	//スクロールテスト
-	//左のスクロールライン
-	{
-		hero->SetX(0);				//主人公はラインを超えないようにする
-		m_scrollx -= hero->GetVX();	//主人公が本来動くべき分の値をm_scrollに加える
-	}
-	//右のスクロールライン
-	{
-		hero->SetX(350);			//主人公はラインを超えないようにする
-		m_scrollx -= hero->GetVX();	//主人公が本来動くべき分の値をm_scrollに加える
-	}
-	//上のスクロールライン
-	{
-		hero->SetY(0);				//主人公はラインを超えないようにする
-		m_scrolly -= hero->GetVY();	//主人公が本来動くべき分の値をm_scrollに加える
-	}
-	//下のスクロールライン
-	{
-		hero->SetY(250);			//主人公はラインを超えないようにする
-		m_scrolly -= hero->GetVY();	//主人公が本来動くべき分の値をm_scrollに加える
-	}
 }
 
 //ドロー

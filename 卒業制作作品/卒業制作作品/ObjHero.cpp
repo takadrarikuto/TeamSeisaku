@@ -158,7 +158,7 @@ void CObjHero::Action()
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{	
+	{
 		//移動処理
 		//'W'を押すと上に移動
 		if (Input::GetVKey('W') == true)
@@ -194,11 +194,6 @@ void CObjHero::Action()
 			m_LRani_frame = 0;
 		}
 
-		//位置更新
-		m_x += m_vx;
-		m_y += m_vy;
-				
-
 		//アニメーション処理
 		if (m_ani_time > 6)
 		{
@@ -209,7 +204,7 @@ void CObjHero::Action()
 		if (m_LRani_frame == 3)
 		{
 			m_LRani_frame = 0;
-		}		
+		}
 
 		//武器切り替え処理
 		if (Input::GetVKey(VK_LEFT) == true)
@@ -223,15 +218,15 @@ void CObjHero::Action()
 					m_bt = 0; //攻撃頻度初期化
 				}
 			}
-			else if(m_Weapon_switching > 0)
+			else if (m_Weapon_switching > 0)
 			{
 				if (m_Weapon_switching_flg == true)
 				{
 					m_Weapon_switching -= 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
-				}				
-			}					
+				}
+			}
 		}
 		else if (Input::GetVKey(VK_RIGHT) == true)
 		{
@@ -252,7 +247,7 @@ void CObjHero::Action()
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
 				}
-			}									
+			}
 		}
 		else
 		{
@@ -362,7 +357,7 @@ void CObjHero::Action()
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);	
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
@@ -731,13 +726,18 @@ void CObjHero::Action()
 			//	m_vx -= 6;
 			//}
 
-			//Audio::Start(3);	//ダメージ音
-			m_time_d = 80;		//無敵時間をセット
+			//Audio::Start(3);	//ダメージ音	
 			hit_h->SetInvincibility(true);	//無敵オン
 
 			if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 			{
 				m_hero_hp -= 5;
+				m_time_d = 80;		//無敵時間をセット
+			}
+			else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+			{
+				m_hero_hp -= 2;
+				m_time_d = 30;		//無敵時間をセット
 			}
 			else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 			{
@@ -751,6 +751,7 @@ void CObjHero::Action()
 		}		
 	}
 
+	
 	if (m_hero_hp <= 0)
 	{
 		hit_h->SetInvincibility(true);	//無敵にする
@@ -836,29 +837,6 @@ void CObjHero::Action()
 	//	//ポイントを獲得
 	//}
 
-	//スクロール
-	C0bjBackground * b = (C0bjBackground*)Objs::GetObj(OBJ_BACKGROUND);
-
-	//左のスクロールライン
-	{
-		m_x = 0;
-		b->SetScrollX(b->GetScrollX());
-	}
-	//右のスクロールライン
-	{
-		m_x = 350;
-		b->SetScrollX(b->GetScrollX());
-	}
-	//上のスクロールライン
-	{
-		m_y = 0;
-		b->SetScrollY(b->GetScrollY());
-	}
-	//下のスクロールライン
-	{
-		m_y = 250;
-		b->SetScrollY(b->GetScrollY());
-	}
 
 }
 

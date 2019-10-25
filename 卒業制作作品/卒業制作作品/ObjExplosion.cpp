@@ -8,9 +8,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjExplosion::CObjExplosion(float x, float y, float size, int Damage)
 {
@@ -42,37 +39,33 @@ void CObjExplosion::Init()
 //アクション
 void CObjExplosion::Action()
 {
-	//メニューを開くと停止
-	if (Menu_flg == false)
+	//アニメーション更新
+	m_ani_time += 1;
+
+	//アニメーション処理
+	if (m_ani_time > 5)
 	{
-		//アニメーション更新
-		m_ani_time += 1;
+		m_ani_flame += 1;
+		m_ani_time = 0;
+	}
 
-		//アニメーション処理
-		if (m_ani_time > 5)
-		{
-			m_ani_flame += 1;
-			m_ani_time = 0;
-		}
+	//HitBoxの内容を更新 
+	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
+	hit_exp->SetPos(m_Expx, m_Expy); //当たり判定の位置更新
 
-		//HitBoxの内容を更新 
-		CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-		hit_exp->SetPos(m_Expx, m_Expy); //当たり判定の位置更新
+	////描画フレームが5になるとSE発生
+	//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
+	if (m_UDani_flame == 0 && m_ani_flame == 8)
+	{
+		m_UDani_flame = 1;
+		m_ani_flame = 0;
+	}
+	else if (m_UDani_flame == 1 && m_ani_flame == 6)
+	{
+		m_ani_flame = 0;
 
-		////描画フレームが5になるとSE発生
-		//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
-		if (m_UDani_flame == 0 && m_ani_flame == 8)
-		{
-			m_UDani_flame = 1;
-			m_ani_flame = 0;
-		}
-		else if (m_UDani_flame == 1 && m_ani_flame == 6)
-		{
-			m_ani_flame = 0;
-
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-		}
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 }
 

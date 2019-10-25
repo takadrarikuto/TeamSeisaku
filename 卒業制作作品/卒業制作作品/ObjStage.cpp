@@ -89,6 +89,7 @@ void CObjStage::Draw()
 	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
+
 	//武器使用可数を表示
 	//ハンドガン
 	if (AniData[m_ani_frame] == 0)
