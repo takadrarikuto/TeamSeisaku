@@ -33,8 +33,13 @@ void CObjShotGunAttack::Init()
 	//所持弾
 	m_sga_pb = 60;
 
+	//描画サイズ
+	m_dst_size = 32.0f;
+	//当たり判定サイズ
+	Hitbox_size = 10;
+
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_SGx, m_SGy, 10, 10, ELEMENT_RED, OBJ_SHOTGUNATTACK, 3);
+	Hits::SetHitBox(this, m_SGx, m_SGy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_SHOTGUNATTACK, 3);
 
 }
 
@@ -91,7 +96,7 @@ void CObjShotGunAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_SGx > hx + 64 * Distance_max)
+		else if (m_SGx > hx + 32 + 64 * Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -101,7 +106,7 @@ void CObjShotGunAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_SGy > hy + 64 * Distance_max)
+		else if (m_SGy > hy + 32 + 64 * Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -135,8 +140,8 @@ void CObjShotGunAttack::Draw()
 	//描画処理
 	dst.m_top = 0.0f + m_SGy;
 	dst.m_left = 0.0f + m_SGx;
-	dst.m_right = 32.0f + m_SGx;
-	dst.m_bottom = 32.0f + m_SGy;
+	dst.m_right = m_dst_size + m_SGx;
+	dst.m_bottom = m_dst_size + m_SGy;
 
 	Draw::Draw(3, &src, &dst, c, m_SGr);
 

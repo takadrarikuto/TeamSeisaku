@@ -47,13 +47,14 @@ void CObjZombieEnemy::Init()
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
-	//武器別ダメージ
-	Gun_Attack = 10;
-	SHG_Attack = 30;
-	AR_Attack = 20;
-	SR_Attack = 50;
-	RL_Attack = 150;
-	RG_Attack = 200;
+	//ダメージ量
+	Gun_Attack = 10;  //ハンドガン
+	SHG_Attack = 30;  //ショットガン
+	AR_Attack = 20;	  //アサルトライフル
+	SR_Attack = 50;	  //スナイパーライフル
+	RL_Attack = 150;  //ロケットランチャー
+	RG_Attack = 200;  //レールガン
+	GRE_Attack = 100; //グレネード
 
 
 	//描画サイズ
@@ -117,6 +118,12 @@ void CObjZombieEnemy::Action()
 				m_zevy += m_zev_max;
 				m_UDani_frame = 2;
 				m_ani_time += 1;
+			}
+			else if (hx == m_zex || hy == m_zey)
+			{
+				m_ani_time = 0.0f;
+				m_zevx = 0.0f;
+				m_zevy = 0.0f;
 			}
 			else
 			{
@@ -211,6 +218,11 @@ void CObjZombieEnemy::Action()
 	{
 		m_hero_hp -= RG_Attack;
 	}	
+	//グレネード
+	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
+	{
+		m_hero_hp -= GRE_Attack;
+	}
 	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成

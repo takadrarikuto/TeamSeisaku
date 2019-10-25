@@ -32,7 +32,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	m_hero_hp = 5;
+	m_hero_hp = 100;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -107,6 +107,7 @@ void CObjHero::Action()
 				Objs::InsertObj(obj_m, OBJ_MENU, 5);
 			}
 		}
+	}
 
 		//移動停止
 		m_vx = 0.0f;
@@ -226,36 +227,36 @@ void CObjHero::Action()
 				if (m_UDani_frame == 0)
 				{
 					//グレネードオブジェクト作成
-					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max);
+					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y - 10, 0, -m_ga_vy_max);
 					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//グレネードオブジェクト作成
-					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0);
+					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 32, m_y + 30, m_ga_vx_max, 0);
 					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//グレネードオブジェクト作成
-					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max);
+					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y + 32, 0, m_ga_vy_max);
 					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//グレネードオブジェクト作成
-					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x, m_y + 20, -m_ga_vx_max, 0);
+					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x, m_y + 30, -m_ga_vx_max, 0);
 					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
 				}
 				m_Grenade_flg = false;
-			}
-			else
-			{
-				m_Grenade_flg = true;
-			}
+			}		
+		}
+		else
+		{
+			m_Grenade_flg = true;
 		}
 		//スペースキーを押すと弾を発射
 		if (Input::GetVKey(VK_SPACE) == true)
@@ -717,7 +718,7 @@ void CObjHero::Action()
 	}
 	//下のスクロールライン
 	{
-		m_y = 300;
+		m_y = 250;
 		b->SetScrollY(b->GetScrollY());
 	}
 

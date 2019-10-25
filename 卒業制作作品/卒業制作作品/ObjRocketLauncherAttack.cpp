@@ -117,7 +117,7 @@ void CObjRocketLauncherAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_RLx > hx + 64 * Distance_max)
+		else if (m_RLx > hx + 32 + 64 * Distance_max)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
@@ -135,7 +135,7 @@ void CObjRocketLauncherAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_RLy > hy + 64 * Distance_max)
+		else if (m_RLy > hy + 32 + 64 * Distance_max)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
