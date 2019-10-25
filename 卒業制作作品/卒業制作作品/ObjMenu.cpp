@@ -135,7 +135,7 @@ void CObjMenu::Action()
 void CObjMenu::Draw()
 {
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	sg_pb = hero->GetSG();	//各残り弾数情報を取得
+	sg_pb = hero->GetSG();	//各残り弾数情報を取得(全体)
 	ar_pb = hero->GetAR();
 	sr_pb = hero->GetSR();
 	rl_pb = hero->GetRL();

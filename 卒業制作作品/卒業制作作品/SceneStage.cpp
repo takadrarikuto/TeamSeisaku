@@ -85,15 +85,15 @@ void CSceneStage::InitScene()
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
-	Objs::InsertObj(objtb, OBJ_TOPBACK, 4);
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
 
 	//ステージオブジェクト作成
 	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 5);
+	Objs::InsertObj(objm, OBJ_STAGE, 20);
 
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
-	Objs::InsertObj(objt, OBJ_TIME, 5);
+	Objs::InsertObj(objt, OBJ_TIME, 20);
 
 	//ボスオブジェクト作成
 	CObjBoss*obj_boss = new CObjBoss(272, 400);

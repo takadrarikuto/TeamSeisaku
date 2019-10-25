@@ -21,6 +21,7 @@ private:
 	int m_time;
 	int m_time_s;
 
+	//各残り弾数情報取得用変数(全体)
 	int sg_pb;
 	int ar_pb;
 	int sr_pb;
