@@ -31,10 +31,10 @@ void CObjTime::Action()
 			m_time--;
 		}
 	}
-	//制限時間0でゲームオーバーシーン移行
+	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)
 	{
-		Scene::SetScene(new CSceneOver());
+		Scene::SetScene(new CSceneClear());
 	}
 }
 

@@ -57,18 +57,32 @@ void CObjHero::Init()
 
 	//所持弾数(装備分)
 	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = 10;//ショットガン現在弾数用(上部表示用)
+	m_sg_pb = 8;//ショットガン現在弾数用(上部表示用)
 	m_ar_pb = 30;//アサルトライフル現在弾数用(上部表示用)
 	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)
 	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
 	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
 
-	//最大所持弾数
-	m_sg_pb_num = 70; //ショットガン(70)
-	m_ar_pb_num = 300;//アサルトライフル(300)
-	m_sr_pb_num = 50;//スナイパーライフル(50)
-	m_rl_pb_num = 2;//ロケットランチャー(2)
-	m_rg_pb_num = 1;//レールガン(1)
+	//所持弾数(計算用)
+	m_sg_pb_c = 8;//ショットガン現在弾数用
+	m_ar_pb_c = 30;//アサルトライフル現在弾数用
+	m_sr_pb_c = 5;//スナイパーライフル現在弾数用
+	m_rl_pb_c = 1;//ロケットランチャー現在弾数用
+	m_rg_pb_c = 1;//レールガン現在弾数用
+
+	m_sg_pb_cc = 0;//ショットガン現在弾数用
+	m_ar_pb_cc = 0;//アサルトライフル現在弾数用
+	m_sr_pb_cc = 0;//スナイパーライフル現在弾数用
+	m_rl_pb_cc = 0;//ロケットランチャー現在弾数用
+	m_rg_pb_cc = 0;//レールガン現在弾数用
+
+	//メニュー表示用
+	m_sg_pb_me = 80;//ショットガン
+	m_ar_pb_me = 300;//アサルトライフル
+	m_sr_pb_me = 50;//スナイパーライフル
+	m_rl_pb_me = 2;//ロケットランチャー
+	m_rg_pb_me = 1;//レールガン
+	m_gre_pb_me = 3;//グレネード
 
 	//リロード用
 	m_sg_pb_r = 0;//ショットガン
@@ -77,6 +91,18 @@ void CObjHero::Init()
 	m_rl_pb_r = 0;//ロケットランチャー
 	m_rg_pb_r = 0;//レールガン
 	m_gre_pb_r = 0;//グレネード
+
+
+	//------------------------------------------
+	//最大所持弾数
+	m_sg_pb_num = 80; //ショットガン(70)
+	m_ar_pb_num = 300;//アサルトライフル(300)
+	m_sr_pb_num = 50;//スナイパーライフル(50)
+	m_rl_pb_num = 2;//ロケットランチャー(2)
+	m_rg_pb_num = 1;//レールガン(1)
+	m_gre_pb_num = 3;//グレネード(3)
+	//------------------------------------------
+
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -324,7 +350,6 @@ void CObjHero::Action()
 				if (m_bt == 1)
 				{
 					m_sg_pb -= 1;//弾数を1減らす
-					m_sg_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -384,7 +409,6 @@ void CObjHero::Action()
 				if (m_bt == 1)
 				{
 					m_ar_pb -= 1;//弾数を1減らす
-					m_ar_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -428,7 +452,6 @@ void CObjHero::Action()
 				if (m_bt == 1)
 				{
 					m_sr_pb -= 1;//弾数を1減らす
-					m_sr_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -472,7 +495,6 @@ void CObjHero::Action()
 				if (m_bt == 1)
 				{
 					m_rl_pb -= 1;//弾数を1減らす
-					m_rl_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -516,7 +538,6 @@ void CObjHero::Action()
 				if (m_bt == 1)
 				{
 					m_rg_pb -= 1;//弾数を1減らす
-					m_rg_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -570,36 +591,83 @@ void CObjHero::Action()
 					m_hg_pb = 10;*/
 			}
 			//ショットガン
-			else if (m_Weapon_switching == 1 && m_sg_pb >= 0)
+			else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
 			{
-				//m_sg_pb_r = m_sg_pb_num - m_sg_pb;//使った弾数を変数に入れる
-				//m_sg_pb = m_sg_pb_num - m_sg_pb_r;//使った弾数分を全体の弾数から引く
+				if (m_sg_flg == true)
+				{
+					//  8        10         2
+					m_sg_pb_cc = m_sg_pb_c - m_sg_pb;//使った弾数分を全体の弾数から引く
+					//  52       60         8
+					m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+					m_sg_pb = m_sg_pb + m_sg_pb_cc;
+					m_sg_flg = false;
+				}
 			}
 			//アサルト
-			else if (m_Weapon_switching == 2 && m_ar_pb > 0)
+			else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 			{
-				m_ar_pb -= 1;//弾数を1減らす
-				m_ar_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+				if (m_ar_flg == true)
+				{
+					//  8        10         2
+					m_ar_pb_cc = m_ar_pb_c - m_ar_pb;//使った弾数分を全体の弾数から引く
+					//  52       60         8
+					m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+					m_ar_pb = m_ar_pb + m_ar_pb_cc;
+					m_ar_flg = false;
+				}
 			}
 			//スナイパー
-			else if (m_Weapon_switching == 3 && m_sr_pb > 0)
+			else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 			{
-				m_sr_pb -= 1;//弾数を1減らす
-				m_sr_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+				if (m_sr_flg == true)
+				{
+					//  8        10         2
+					m_sr_pb_cc = m_sr_pb_c - m_sr_pb;//使った弾数分を全体の弾数から引く
+					//  52       60         8
+					m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
+					m_sr_pb = m_sr_pb + m_sr_pb_cc;
+					m_sr_flg = false;
+				}
 			}
 			//ロケットランチャー
-			else if (m_Weapon_switching == 4 && m_rl_pb > 0)
+			else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 			{
-				m_rl_pb -= 1;//弾数を1減らす
-				m_rl_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+				if (m_rl_flg == true)
+				{
+					//  8        10         2
+					m_rl_pb_cc = m_rl_pb_c - m_rl_pb;//使った弾数分を全体の弾数から引く
+					//  52       60         8
+					m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
+					m_rl_pb = m_rl_pb + m_rl_pb_cc;
+					m_rl_flg = false;
+				}
 			}
 			//レールガン
-			else if (m_Weapon_switching == 5 && m_rg_pb > 0)
+			else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 			{
-				m_rg_pb -= 1;//弾数を1減らす
-				m_rg_pb_num -= 1;//弾数を1減らす(全体所持弾用)
-
+				if (m_rg_flg == true)
+				{
+					//  8        10         2
+					m_rg_pb_cc = m_rg_pb_c - m_rg_pb;//使った弾数分を全体の弾数から引く
+					//  52       60         8
+					m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
+					m_rg_pb = m_rg_pb + m_rg_pb_cc;
+					m_rg_flg = false;
+				}
 			}
+		}
+		else
+		{
+			m_sg_flg = true;
+			m_ar_flg = true;
+			m_sr_flg = true;
+			m_rl_flg = true;
+			m_rg_flg = true;
+			m_sg_pb_cc = 0;
+			m_ar_pb_cc = 0;
+			m_sr_pb_cc = 0;
+			m_rl_pb_cc = 0;
+			m_rg_pb_cc = 0;
 		}
 	}
 
@@ -678,10 +746,9 @@ void CObjHero::Action()
 				m_hero_hp -= EXPDamage;
 			}
 			//敵の攻撃によってHPが0以下になった場合
-			//if (m_hero_hp <= 0)
-			//	m_hero_hp = 0;	//HPを0にする
-		}	
-		
+			if (m_hero_hp <= 0)
+				m_hero_hp = 0;	//HPを0にする
+		}		
 	}
 
 	
