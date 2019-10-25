@@ -30,8 +30,13 @@ void CObjARAttack::Init()
 	//削除距離最大値
 	Distance_max = 3;
 
+	//描画サイズ
+	m_dst_size = 32.0f;
+	//当たり判定サイズ
+	Hitbox_size = 10;
+
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_ARx, m_ARy, 10, 10, ELEMENT_RED, OBJ_ARATTACK, 3);
+	Hits::SetHitBox(this, m_ARx, m_ARy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ARATTACK, 3);
 
 }
 
@@ -72,7 +77,7 @@ void CObjARAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARx > hx + 64 * Distance_max)
+		else if (m_ARx > hx + 32 + 64 * Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -82,7 +87,7 @@ void CObjARAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARy > hy + 64 * Distance_max)
+		else if (m_ARy > hy + 32 + 64 * Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -116,8 +121,8 @@ void CObjARAttack::Draw()
 	//描画処理
 	dst.m_top = 0.0f + m_ARy;
 	dst.m_left = 0.0f + m_ARx;
-	dst.m_right = 32.0f + m_ARx;
-	dst.m_bottom = 32.0f + m_ARy;
+	dst.m_right = m_dst_size + m_ARx;
+	dst.m_bottom = m_dst_size + m_ARy;
 
 	Draw::Draw(3, &src, &dst, c, m_ARr);
 

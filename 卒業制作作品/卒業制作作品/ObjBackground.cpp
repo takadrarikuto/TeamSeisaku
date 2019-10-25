@@ -40,7 +40,7 @@ void  C0bjBackground::Action()
 	}
 	//下のスクロールライン
 	{
-		hero->SetY(300);			//主人公はラインを超えないようにする
+		hero->SetY(250);			//主人公はラインを超えないようにする
 		m_scrolly -= hero->GetVY();	//主人公が本来動くべき分の値をm_scrollに加える
 	}
 }
