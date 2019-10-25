@@ -55,12 +55,28 @@ void CObjHero::Init()
 	//グレネード投下処理
 	m_Grenade_flg = false;
 
-	//所持最大弾
+	//所持弾数(装備分)
+	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
+	m_sg_pb = 10;//ショットガン現在弾数用(上部表示用)
+	m_ar_pb = 30;//アサルトライフル現在弾数用(上部表示用)
+	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)
+	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
+	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
+
+	//最大所持弾数
 	m_sg_pb_num = 70; //ショットガン(70)
 	m_ar_pb_num = 300;//アサルトライフル(300)
 	m_sr_pb_num = 50;//スナイパーライフル(50)
 	m_rl_pb_num = 2;//ロケットランチャー(2)
 	m_rg_pb_num = 1;//レールガン(1)
+
+	//リロード用
+	m_sg_pb_r = 0;//ショットガン
+	m_ar_pb_r = 0;//アサルトライフル
+	m_sr_pb_r = 0;//スナイパーライフル
+	m_rl_pb_r = 0;//ロケットランチャー
+	m_rg_pb_r = 0;//レールガン
+	m_gre_pb_r = 0;//グレネード
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -109,14 +125,14 @@ void CObjHero::Action()
 		}
 	}
 
-	//移動停止
-	m_vx = 0.0f;
-	m_vy = 0.0f;
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+		//移動停止
+		m_vx = 0.0f;
+		m_vy = 0.0f;
+		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{	
+	{
 		//移動処理
 		//'W'を押すと上に移動
 		if (Input::GetVKey('W') == true)
@@ -150,7 +166,7 @@ void CObjHero::Action()
 		{
 			m_ani_time = 0.0f;
 			m_LRani_frame = 0;
-		}				
+		}
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -162,7 +178,7 @@ void CObjHero::Action()
 		if (m_LRani_frame == 3)
 		{
 			m_LRani_frame = 0;
-		}		
+		}
 
 		//武器切り替え処理
 		if (Input::GetVKey(VK_LEFT) == true)
@@ -176,15 +192,15 @@ void CObjHero::Action()
 					m_bt = 0; //攻撃頻度初期化
 				}
 			}
-			else if(m_Weapon_switching > 0)
+			else if (m_Weapon_switching > 0)
 			{
 				if (m_Weapon_switching_flg == true)
 				{
 					m_Weapon_switching -= 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
-				}				
-			}					
+				}
+			}
 		}
 		else if (Input::GetVKey(VK_RIGHT) == true)
 		{
@@ -205,7 +221,7 @@ void CObjHero::Action()
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
 				}
-			}									
+			}
 		}
 		else
 		{
@@ -258,11 +274,12 @@ void CObjHero::Action()
 		{
 			m_bt += 1;
 			//ハンドガン
-			if (m_Weapon_switching == 0)
+			if (m_Weapon_switching == 0 && m_hg_pb > 0)
 			{
 				m_bt_max = 30;
 				if (m_bt == 1)
 				{
+					m_hg_pb -= 1;//弾数を1減らす
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -300,12 +317,14 @@ void CObjHero::Action()
 				}
 			}
 			//ショットガン
-			else if (m_Weapon_switching == 1)
+			else if (m_Weapon_switching == 1 && m_sg_pb > 0)
 			{
 				m_bt_max = 60;
 				float i = 0.0f;
 				if (m_bt == 1)
 				{
+					m_sg_pb -= 1;//弾数を1減らす
+					m_sg_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -313,7 +332,7 @@ void CObjHero::Action()
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);	
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
@@ -359,11 +378,13 @@ void CObjHero::Action()
 				}
 			}
 			//アサルト
-			else if(m_Weapon_switching == 2)
+			else if(m_Weapon_switching == 2 && m_ar_pb > 0)
 			{
 				m_bt_max = 20;
 				if (m_bt == 1)
 				{
+					m_ar_pb -= 1;//弾数を1減らす
+					m_ar_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -401,11 +422,13 @@ void CObjHero::Action()
 				}
 			}
 			//スナイパー
-			else if (m_Weapon_switching == 3)
+			else if (m_Weapon_switching == 3 && m_sr_pb > 0)
 			{
 				m_bt_max = 120;
 				if (m_bt == 1)
 				{
+					m_sr_pb -= 1;//弾数を1減らす
+					m_sr_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -443,11 +466,13 @@ void CObjHero::Action()
 				}
 			}
 			//ロケットランチャー
-			else if (m_Weapon_switching == 4)
+			else if (m_Weapon_switching == 4 && m_rl_pb > 0)
 			{
 				m_bt_max = 150;
 				if (m_bt == 1)
 				{
+					m_rl_pb -= 1;//弾数を1減らす
+					m_rl_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -485,11 +510,13 @@ void CObjHero::Action()
 				}
 			}
 			//レールガン
-			else if (m_Weapon_switching == 5)
+			else if (m_Weapon_switching == 5 && m_rg_pb > 0)
 			{
 				m_bt_max = 150;
 				if (m_bt == 1)
 				{
+					m_rg_pb -= 1;//弾数を1減らす
+					m_rg_pb_num -= 1;//弾数を1減らす(全体所持弾用)
 					//上
 					if (m_UDani_frame == 0)
 					{
@@ -530,7 +557,50 @@ void CObjHero::Action()
 		else
 		{
 			m_bt = 0;
-		}		
+		}
+
+		//Eキーを押すと弾をリロード
+		if (Input::GetVKey('E') == true)
+		{
+			//ハンドガン
+			if (m_Weapon_switching == 0 && m_hg_pb >= 0)
+			{
+				m_hg_pb = 10;//弾数を10増やす
+				/*if (m_hg_pb == 10)
+					m_hg_pb = 10;*/
+			}
+			//ショットガン
+			else if (m_Weapon_switching == 1 && m_sg_pb >= 0)
+			{
+				//m_sg_pb_r = m_sg_pb_num - m_sg_pb;//使った弾数を変数に入れる
+				//m_sg_pb = m_sg_pb_num - m_sg_pb_r;//使った弾数分を全体の弾数から引く
+			}
+			//アサルト
+			else if (m_Weapon_switching == 2 && m_ar_pb > 0)
+			{
+				m_ar_pb -= 1;//弾数を1減らす
+				m_ar_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+			}
+			//スナイパー
+			else if (m_Weapon_switching == 3 && m_sr_pb > 0)
+			{
+				m_sr_pb -= 1;//弾数を1減らす
+				m_sr_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+			}
+			//ロケットランチャー
+			else if (m_Weapon_switching == 4 && m_rl_pb > 0)
+			{
+				m_rl_pb -= 1;//弾数を1減らす
+				m_rl_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+			}
+			//レールガン
+			else if (m_Weapon_switching == 5 && m_rg_pb > 0)
+			{
+				m_rg_pb -= 1;//弾数を1減らす
+				m_rg_pb_num -= 1;//弾数を1減らす(全体所持弾用)
+
+			}
+		}
 	}
 
 	//画面範囲外に出ないようにする処理
@@ -607,7 +677,6 @@ void CObjHero::Action()
 				int EXPDamage = EXPAttack->GetEXP();
 				m_hero_hp -= EXPDamage;
 			}
-
 			//敵の攻撃によってHPが0以下になった場合
 			//if (m_hero_hp <= 0)
 			//	m_hero_hp = 0;	//HPを0にする

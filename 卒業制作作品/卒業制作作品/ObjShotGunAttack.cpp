@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjShotGunAttack::CObjShotGunAttack(float x, float y, float vx, float vy, float r)
 {
@@ -46,9 +49,9 @@ void CObjShotGunAttack::Init()
 //アクション
 void CObjShotGunAttack::Action()
 {
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
+	//メニューを開くと停止
+	if (Menu_flg == false)
+	{
 	//斜め移動修正処理
 	float r = 0.0f;
 	r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
@@ -68,7 +71,7 @@ void CObjShotGunAttack::Action()
 	//位置更新
 	m_SGx += m_SGvx;
 	m_SGy += m_SGvy;
-	//}
+	}
 
 	////SE処理
 	//if (Attack_flg == true)

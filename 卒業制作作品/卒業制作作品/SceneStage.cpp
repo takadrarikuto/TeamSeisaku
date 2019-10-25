@@ -43,8 +43,10 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"爆発.png", 9, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
+	Draw::LoadImage(L"機材・武器.png", 12, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
+	Draw::LoadImage(L"発電機.png", 32, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
@@ -83,15 +85,15 @@ void CSceneStage::InitScene()
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
-	Objs::InsertObj(objtb, OBJ_TOPBACK, 4);
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
 
 	//ステージオブジェクト作成
 	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 5);
+	Objs::InsertObj(objm, OBJ_STAGE, 20);
 
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
-	Objs::InsertObj(objt, OBJ_TIME, 5);
+	Objs::InsertObj(objt, OBJ_TIME, 20);
 
 	//ボスオブジェクト作成 272, 400
 	CObjBoss*obj_boss = new CObjBoss(832, 632);

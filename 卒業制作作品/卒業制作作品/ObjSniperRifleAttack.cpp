@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjSniperRifleAttack::CObjSniperRifleAttack(float x, float y, float vx, float vy, float r)
 {
@@ -47,13 +50,13 @@ void CObjSniperRifleAttack::Init()
 //アクション
 void CObjSniperRifleAttack::Action()
 {
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
+	//メニューを開くと停止
+	if (Menu_flg == false)
+	{
 	//位置更新
 	m_SRx += m_SRvx;
 	m_SRy += m_SRvy;
-	//}
+	}
 
 	////SE処理
 	//if (Attack_flg == true)
