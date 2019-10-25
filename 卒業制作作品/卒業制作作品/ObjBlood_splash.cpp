@@ -8,19 +8,14 @@
 //使用するネームスペース
 using namespace GameL;
 
-//Explosionフラグ
-bool Exp_flg = false;
-//BossExplosionフラグ
-bool B_Exp_flg = false;
-
 //コンストラクタ
 CObjBlood_splash::CObjBlood_splash(float x, float y, float size)
 {
 	//位置情報登録(数値=位置調整)
 	m_bspx = x;
 	m_bspy = y;
-	//描画・当たり判定サイズ
-	m_bsp_size = size;
+	//爆発・血しぶき用描画サイズ
+	m_exp_blood_dst_size = size; 
 }
 
 //イニシャライズ
@@ -33,7 +28,7 @@ void CObjBlood_splash::Init()
 	m_ani_flame = 1;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_bspx, m_bspy, m_bsp_size, m_bsp_size, ELEMENT_RED, OBJ_BLOOD_SPLASH, 10);
+	Hits::SetHitBox(this, m_bspx, m_bspy, m_exp_blood_dst_size, m_exp_blood_dst_size, ELEMENT_RED, OBJ_BLOOD_SPLASH, 10);
 
 }
 
@@ -104,8 +99,8 @@ void CObjBlood_splash::Draw()
 	//描画処理
 	dst.m_top = 0.0f + m_bspy;
 	dst.m_left = 0.0f + m_bspx;
-	dst.m_right = m_bsp_size + m_bspx;
-	dst.m_bottom = m_bsp_size + m_bspy;
+	dst.m_right = m_exp_blood_dst_size + m_bspx;
+	dst.m_bottom = m_exp_blood_dst_size + m_bspy;
 	Draw::Draw(10, &src, &dst, c, 0.0f);
 
 

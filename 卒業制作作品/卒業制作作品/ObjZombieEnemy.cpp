@@ -47,6 +47,14 @@ void CObjZombieEnemy::Init()
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
+	//武器別ダメージ
+	Gun_Attack = 10;
+	SHG_Attack = 30;
+	AR_Attack = 20;
+	SR_Attack = 50;
+	RL_Attack = 150;
+	RG_Attack = 200;
+
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -54,6 +62,9 @@ void CObjZombieEnemy::Init()
 	Hitbox_size = 64;
 	//爆発用描画サイズ
 	m_exp_blood_dst_size = 64;
+
+	//ダメージ量
+	m_damage = 5;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 5);
@@ -68,55 +79,76 @@ void CObjZombieEnemy::Action()
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	if (hero != nullptr)
-	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
-	}	
-	//武器の攻撃力情報取得
-	CObjGunAttack* Gun = (CObjGunAttack*)Objs::GetObj(OBJ_GUNATTACK);
-	CObjShotGunAttack* ShotGun = (CObjShotGunAttack*)Objs::GetObj(OBJ_SHOTGUNATTACK);
-	CObjARAttack* AR = (CObjARAttack*)Objs::GetObj(OBJ_ARATTACK);
-	CObjSniperRifleAttack* SR = (CObjSniperRifleAttack*)Objs::GetObj(OBJ_SNIPERRIFLEATTACK);
-	CObjRocketLauncherAttack* RL = (CObjRocketLauncherAttack*)Objs::GetObj(OBJ_ROCKETLAUNCHERATTACK);
-	CObjRailGunAttack* RG = (CObjRailGunAttack*)Objs::GetObj(OBJ_RAILGUNATTACK);
-	int Gun_Attack = Gun->GetOP();
-	int SHG_Attack = ShotGun->GetOP();
-	int AR_Attack = AR->GetOP();
-	int SR_Attack = SR->GetOP();
-	int RL_Attack = RL->GetOP();
-	int RG_Attack = RG->GetOP();
-	
+		
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
 		////移動処理
-		////'W'を押すと上に移動
-		//if (hx < m_zex)
+		if (hero != nullptr)
+		{
+			float hx = hero->GetX();
+			float hy = hero->GetY();
+
+			//主人公が左に居ると上に移動
+			if (hx < m_zex)
+			{
+				m_zevx -= m_zev_max;
+				m_UDani_frame = 0;
+				m_ani_time += 1;
+			}
+			//主人公が右に居ると下に移動
+			else if (hx + 64 > m_zex)
+			{
+				m_zevx += m_zev_max;
+				m_UDani_frame = 4;
+				m_ani_time += 1;
+			}
+			//主人公が上に居ると左に移動
+			if (hy < m_zey)
+			{
+				m_zevy -= m_zev_max;
+				m_UDani_frame = 6;
+				m_ani_time += 1;
+			}
+			//主人公が下に居ると右移動
+			else if (hy > m_zey)
+			{
+				m_zevy += m_zev_max;
+				m_UDani_frame = 2;
+				m_ani_time += 1;
+			}
+			else
+			{
+				m_ani_time = 0.0f;
+				m_LRani_frame = 0;
+			}
+		}
+		
+		//if (Input::GetVKey('W') == true)
 		//{
-		//	m_zevx -= m_zev_max;
+		//	m_zevy -= m_zev_max;
 		//	m_UDani_frame = 0;
 		//	m_ani_time += 1;
 		//}
 		////'S'を押すと下に移動
-		//else if (hx + 64 > m_zex)
+		//else if (Input::GetVKey('S') == true)
 		//{
-		//	m_zevx += m_zev_max;
+		//	m_zevy += m_zev_max;
 		//	m_UDani_frame = 4;
 		//	m_ani_time += 1;
 		//}
 		////'A'を押すと左に移動
-		//else if (hy < m_zey)
+		//else if (Input::GetVKey('A') == true)
 		//{
-		//	m_zevy -= m_zev_max;
+		//	m_zex -= m_zev_max;
 		//	m_UDani_frame = 6;
 		//	m_ani_time += 1;
 		//}
 		////'D'を押すと右移動
-		//else if (hy > m_zey)
+		//else if (Input::GetVKey('D') == true)
 		//{
-		//	m_zevy += m_zev_max;
+		//	m_zex += m_zev_max;
 		//	m_UDani_frame = 2;
 		//	m_ani_time += 1;
 		//}
@@ -125,38 +157,6 @@ void CObjZombieEnemy::Action()
 		//	m_ani_time = 0.0f;
 		//	m_LRani_frame = 0;
 		//}
-		if (Input::GetVKey('W') == true)
-		{
-			m_zevy -= m_zev_max;
-			m_UDani_frame = 0;
-			m_ani_time += 1;
-		}
-		//'S'を押すと下に移動
-		else if (Input::GetVKey('S') == true)
-		{
-			m_zevy += m_zev_max;
-			m_UDani_frame = 4;
-			m_ani_time += 1;
-		}
-		//'A'を押すと左に移動
-		else if (Input::GetVKey('A') == true)
-		{
-			m_zex -= m_zev_max;
-			m_UDani_frame = 6;
-			m_ani_time += 1;
-		}
-		//'D'を押すと右移動
-		else if (Input::GetVKey('D') == true)
-		{
-			m_zex += m_zev_max;
-			m_UDani_frame = 2;
-			m_ani_time += 1;
-		}
-		else
-		{
-			m_ani_time = 0.0f;
-			m_LRani_frame = 0;
-		}
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -178,8 +178,9 @@ void CObjZombieEnemy::Action()
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
+	
 
-	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
+	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
@@ -209,14 +210,16 @@ void CObjZombieEnemy::Action()
 	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
 		m_hero_hp -= RG_Attack;
-	}
-	else if (m_hero_hp <= 0)
+	}	
+	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
-	}
 
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
 }
 
 //ドロー
