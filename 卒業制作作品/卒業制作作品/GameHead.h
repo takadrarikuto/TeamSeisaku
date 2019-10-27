@@ -15,8 +15,11 @@ enum OBJ_NAME
 	OBJ_SNIPERRIFLEATTACK,
 	OBJ_ROCKETLAUNCHERATTACK,
 	OBJ_RAILGUNATTACK,
+	OBJ_GRENADEATTACK,
 	OBJ_ENEMY,
+	OBJ_BOSS,
 	OBJ_BLOOD_SPLASH,
+	OBJ_EXPLOSION,
 	OBJ_OBJECT,
 	OBJ_STAGE,
 	OBJ_TITLE,
@@ -28,6 +31,7 @@ enum OBJ_NAME
 	OBJ_MENU,
 	OBJ_TOPBACK,
 	OBJ_BACKGROUND,
+
 };
 //------------------------------------------------
 
@@ -82,13 +86,21 @@ struct UserData
 #include "ObjSniperRifleAttack.h"
 #include "ObjRocketLauncherAttack.h"
 #include "ObjRailGunAttack.h"
+#include "ObjGrenadeAttack.h"
 
 //エネミー
+#include "ObjZombieEnemy.h"
+
 //中ボス
 //ボス
+#include "ObjBoss.h"
+
 //エネミー・中ボス・ボス用攻撃
 //死亡エフェクト
 #include "ObjBlood_splash.h"
+
+//爆発
+#include "ObjExplosion.h"
 
 //ステージ
 #include "ObjStage.h"
@@ -126,6 +138,7 @@ struct UserData
 //ベース設定
 #include "GameHead.h"
 
+
 //------------------------------------------------
 
 //ゲームシーンクラスヘッダ------------------------
@@ -155,7 +168,3 @@ struct UserData
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 #define SET_GAME_START  CSceneStage
-
-//デバッグ用
-//#define SET_GAME_START  CSceneOver
-//-----------------------------------------------

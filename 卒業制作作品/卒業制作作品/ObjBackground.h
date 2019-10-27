@@ -15,14 +15,7 @@ public:
 	void Action();	//アクション
 	void Draw();    //ドロー
 
-	void SetScrollx(float sx) { m_xscroll = sx; }
-	float GetScrollx() { return m_xscroll; }
-	void SetScrolly(float sy) { m_yscroll = sy; }
-	float GetScrolly() { return m_yscroll; }
 
 private:
-	float m_x1;//背景1の位置情報
 
-	float m_xscroll; //横スクロール
-	float m_yscroll; //縦スクロール
 };

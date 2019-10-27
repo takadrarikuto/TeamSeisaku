@@ -11,38 +11,13 @@ using namespace GameL;
 //イニシャライズ
 void  C0bjBackground::Init()
 {
-	m_x1 = 0.0f;
+
 }
 
 //アクション
 void  C0bjBackground::Action()
 {
-	//主人公の位置を取得
-	CObjHero*hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
 
-	//スクロールテスト
-	//左のスクロールライン
-	//{
-	//	hero->SetX(0);				//主人公はラインを超えないようにする
-	//	m_scrollx -= hero->GetVX();	//主人公が本来動くべき分の値をm_scrollに加える
-	//}
-	////右のスクロールライン
-	//{
-	//	hero->SetX(400);			//主人公はラインを超えないようにする
-	//	m_scrollx -= hero->GetVX();	//主人公が本来動くべき分の値をm_scrollに加える
-	//}
-	////上のスクロールライン
-	//{
-	//	hero->SetY(0);				//主人公はラインを超えないようにする
-	//	m_scrolly -= hero->GetVY();	//主人公が本来動くべき分の値をm_scrollに加える
-	//}
-	////下のスクロールライン
-	//{
-	//	hero->SetY(300);			//主人公はラインを超えないようにする
-	//	m_scrolly -= hero->GetVY();	//主人公が本来動くべき分の値をm_scrollに加える
-	//}
 }
 
 //ドロー
@@ -57,13 +32,13 @@ void C0bjBackground::Draw()
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 799.0f;
-	src.m_bottom = 601.0f;
+	src.m_right = 800.0f;
+	src.m_bottom = 600.0f;
 	
 	//描画
-	dst.m_top = 0.0f;
-	dst.m_left = 0.0f;
-	dst.m_right = 800.0f;
-	dst.m_bottom = 600.0f;
+	dst.m_top = -100.0f;
+	dst.m_left = -100.0f;
+	dst.m_right = 900.0f;
+	dst.m_bottom = 700.0f;
 	Draw::Draw(0, &src, &dst, c, 0.0f);
 }

@@ -16,13 +16,14 @@ extern bool Menu_flg;
 //イニシャライズ
 void CObjTime::Init()
 {
-	m_time = 10850;
+	m_time = 10850; //10850 = 3分
 	m_flag_time = true;
 }
 
 //アクション
 void CObjTime::Action()
 {
+	//制限時間カウントダウン
 	if (Menu_flg == false)
 	{
 		if (m_time > 0)
@@ -30,12 +31,11 @@ void CObjTime::Action()
 			m_time--;
 		}
 	}
-
-	
-	//m_time = 120;
-	
-
-
+	//制限時間0でゲームクリアシーン移行
+	if (m_time == 0)
+	{
+		Scene::SetScene(new CSceneClear());
+	}
 }
 
 //ドロー
@@ -49,6 +49,7 @@ void CObjTime::Draw()
 	minute = (m_time / 60) / 60;	//分
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 	wchar_t str[128];
 
 	//分：秒の値を文字列化
@@ -58,4 +59,9 @@ void CObjTime::Draw()
 		swprintf_s(str, L"%d:%d", minute, second);
 
 	Font::StrDraw(str, 10, 30, 28, c);
+
+	if (minute == 1 && second == 0 || minute == 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, r);
+	}
 }
