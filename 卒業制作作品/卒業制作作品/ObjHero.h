@@ -15,6 +15,9 @@ public:
 	
 	float GetX() { return m_x; }
 	float GetY() { return m_y; }
+	float GetVX() { return m_vx; }
+	float GetVY() { return m_vy; }
+
 	int GetWS() { return m_Weapon_switching; }
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 
@@ -39,9 +42,6 @@ public:
 	int GetRL_R() { return m_rl_pb_r; }	//ロケットランチャーのリロード用取得
 	int GetRG_R() { return m_rg_pb_r; }	//レールガンのリロード用取得
 	int GetGRE_R() { return m_gre_pb_r; }	//グレネードのリロード用取得
-
-	float GetVX() { return m_vx; }
-	float GetVY() { return m_vy; }
 
 	void SetX(float x) { m_x = x; }
 	void SetY(float y) { m_y = y; }

@@ -40,12 +40,60 @@ void CObjGenerator::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hx = hero->GetX();
+	float hy = hero->GetY();
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	if ((hx < m_Genx + 100.0f) && (hx + 64.0f > m_Genx) && (hy < m_Geny + 100.0f) && (hy + 64.0f > m_Geny))
+	{
+		//上下左右判定
+		float vx = hx - m_Genx;
+		float vy = hy - m_Geny;
+
+		//斜めの長さを求める
+		float len = (vx*vx + vy*vy);
+
+		//角度を求める
+		float r = atan2(vy, vx);
+		r = r * 180 / 3.14f;
+
+		if (r <= 0.0f)
+			r = abs(r);
+		else
+			r = 360.0f - abs(r);
+
+		//角度で判定を行う
+		//右
+		if ((r < 45 & r>0) || r > 315)
+		{
+			hero->SetX(m_Genx + 100); 	
+			hero->SetVX(-hero->GetVX()*0.1f);
+		}
+		//上
+		else if (r > 45 || r < 135)
+		{
+			hero->SetY(m_Geny - 64.0f);	
+			hero->SetVY(-hero->GetVY()*0.1f);
+		}
+		//左
+		else if (r > 135 || r < 225)
+		{
+			hero->SetX(m_Genx - 64.0f); 
+			hero->SetVX(-hero->GetVX()*0.1f);
+		}
+		//下
+		else if (r > 225 || r < 315)
+		{
+			hero->SetY(m_Geny + 100);	
+			hero->SetVY(-hero->GetVY()*0.1f);
+		}
+	}
 	//主人公の移動に合わせる
 	m_Genx -= hvx;
 	m_Geny -= hvy;
+	
+			
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 

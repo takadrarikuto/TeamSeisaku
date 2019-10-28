@@ -155,13 +155,12 @@ void CObjHero::Action()
 	}
 
 	//主人公位置固定
-	m_x = 350.0f;
-	m_y = 250.0f;
+	//m_x = 350.0f;
+	//m_y = 250.0f;
 
 	//移動停止
 	m_vx = 0.0f;
 	m_vy = 0.0f;
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -677,25 +676,6 @@ void CObjHero::Action()
 			m_rg_pb_cc = 0;
 		}
 	}
-
-	//画面範囲外に出ないようにする処理
-	if (m_x < 0.0f)
-	{
-		m_x = 0.0f;
-	}
-	else if (m_x + m_dst_size > 800.0f)
-	{
-		m_x = 800.0f - m_dst_size;
-	}
-	else if (m_y < 0.0f)
-	{
-		m_y = 0.0f;
-	}
-	else if (m_y + m_dst_size > 600.0f)
-	{
-		m_y = 600.0f - m_dst_size;
-	}
-
 
 	//HitBoxの内容を更新
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
