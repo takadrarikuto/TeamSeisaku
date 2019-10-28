@@ -58,7 +58,7 @@ void CSceneStage::InitScene()
 
 
 	//主人公機オブジェクト作成
-	CObjHero* obj_h = new CObjHero(378.0f, 300.0f);
+	CObjHero* obj_h = new CObjHero(350.0f, 250.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 3);
 
 
@@ -93,8 +93,8 @@ void CSceneStage::InitScene()
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 5);
 
-	//ボスオブジェクト作成
-	CObjBoss*obj_boss = new CObjBoss(272, 400);
+	//ボスオブジェクト作成 272, 400
+	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
 	
 }

@@ -109,10 +109,14 @@ void CObjHero::Action()
 		}
 	}
 
-		//移動停止
-		m_vx = 0.0f;
-		m_vy = 0.0f;
-		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//主人公位置固定
+	m_x = 350.0f;
+	m_y = 250.0f;
+
+	//移動停止
+	m_vx = 0.0f;
+	m_vy = 0.0f;
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -150,12 +154,7 @@ void CObjHero::Action()
 		{
 			m_ani_time = 0.0f;
 			m_LRani_frame = 0;
-		}
-
-		//位置更新
-		m_x += m_vx;
-		m_y += m_vy;
-				
+		}				
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -698,29 +697,6 @@ void CObjHero::Action()
 	//	//ポイントを獲得
 	//}
 
-	//スクロール
-	C0bjBackground * b = (C0bjBackground*)Objs::GetObj(OBJ_BACKGROUND);
-
-	//左のスクロールライン
-	{
-		m_x = 0;
-		b->SetScrollX(b->GetScrollX());
-	}
-	//右のスクロールライン
-	{
-		m_x = 350;
-		b->SetScrollX(b->GetScrollX());
-	}
-	//上のスクロールライン
-	{
-		m_y = 0;
-		b->SetScrollY(b->GetScrollY());
-	}
-	//下のスクロールライン
-	{
-		m_y = 250;
-		b->SetScrollY(b->GetScrollY());
-	}
 
 }
 

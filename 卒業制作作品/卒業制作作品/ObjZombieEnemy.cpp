@@ -80,6 +80,9 @@ void CObjZombieEnemy::Action()
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//爆発
+	CObjExplosion* exp = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+	int EXP_Attack = exp->GetEXP();
 		
 
 	//メニューを開くと行動停止
@@ -91,44 +94,40 @@ void CObjZombieEnemy::Action()
 			float hx = hero->GetX();
 			float hy = hero->GetY();
 
-			//主人公が左に居ると上に移動
+			//主人公が左に居ると左に移動
 			if (hx < m_zex)
 			{
 				m_zevx -= m_zev_max;
 				m_UDani_frame = 0;
 				m_ani_time += 1;
 			}
-			//主人公が右に居ると下に移動
+			//主人公が右に居ると右に移動
 			else if (hx + 64 > m_zex)
 			{
 				m_zevx += m_zev_max;
 				m_UDani_frame = 4;
 				m_ani_time += 1;
 			}
-			//主人公が上に居ると左に移動
+			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
 				m_zevy -= m_zev_max;
 				m_UDani_frame = 6;
 				m_ani_time += 1;
 			}
-			//主人公が下に居ると右移動
+			//主人公が下に居ると下移動
 			else if (hy > m_zey)
 			{
 				m_zevy += m_zev_max;
 				m_UDani_frame = 2;
 				m_ani_time += 1;
 			}
+			//主人公と位置が同じだと移動、アニメーション停止
 			else if (hx == m_zex || hy == m_zey)
 			{
 				m_ani_time = 0.0f;
 				m_zevx = 0.0f;
 				m_zevy = 0.0f;
-			}
-			else
-			{
-				m_ani_time = 0.0f;
-				m_LRani_frame = 0;
 			}
 		}
 		
@@ -222,6 +221,11 @@ void CObjZombieEnemy::Action()
 	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 	{
 		m_hero_hp -= GRE_Attack;
+	}
+	//爆発
+	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+	{
+		m_hero_hp -= EXP_Attack;
 	}
 	if (m_hero_hp <= 0)
 	{
