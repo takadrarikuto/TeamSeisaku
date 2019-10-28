@@ -109,7 +109,7 @@ void CObjBoss::Action()
 
 			//敵機オブジェクト作成
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
+			Objs::InsertObj(obj_ze, OBJ_ENEMY, 3);
 
 			m_Enemy_Generation = 0; //エネミー生成タイム初期化
 			m_Zombie_Restriction++; //ゾンビ生成数カウント

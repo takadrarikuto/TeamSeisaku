@@ -32,7 +32,7 @@ enum OBJ_NAME
 	OBJ_MENU,
 	OBJ_TOPBACK,
 	OBJ_BACKGROUND,
-
+	OBJ_HEAL,
 };
 //------------------------------------------------
 
@@ -108,6 +108,9 @@ struct UserData
 
 //設置物
 #include "ObjGenerator.h"
+
+//アイテム
+#include "ObjHeal.h"//回復
 
 //タイトル
 #include "ObjTitle.h"

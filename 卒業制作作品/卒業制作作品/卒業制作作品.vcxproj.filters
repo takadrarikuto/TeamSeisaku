@@ -61,6 +61,9 @@
     <Filter Include="ソース ファイル\ステージメイン\設置物\装置">
       <UniqueIdentifier>{3dc70b40-b311-4302-8274-823e48fa4b71}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\アイテム">
+      <UniqueIdentifier>{d8e2dc0a-741b-4238-b15e-da2fa5be1812}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -216,6 +219,9 @@
     <ClInclude Include="ObjGenerator.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
+    <ClInclude Include="ObjHeal.h">
+      <Filter>ソース ファイル\ステージメイン\アイテム</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -361,6 +367,9 @@
     </ClCompile>
     <ClCompile Include="ObjGenerator.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjHeal.cpp">
+      <Filter>ソース ファイル\ステージメイン\アイテム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
