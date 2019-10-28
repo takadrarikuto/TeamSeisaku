@@ -112,6 +112,9 @@ struct UserData
 //アイテム
 #include "ObjHeal.h"//回復
 
+//イベント
+#include "ObjEvent.h"
+
 //タイトル
 #include "ObjTitle.h"
 

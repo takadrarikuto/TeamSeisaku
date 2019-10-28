@@ -11,8 +11,8 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
-
-	bool GetGen() { return m_Gen_flg; } //発電機起動フラグ取得用
+	
+	bool GetTS() { return m_Starp_flg; } //時間停止フラグ取得用
 
 private:
 	float m_Genx; //位置情報
@@ -20,7 +20,7 @@ private:
 	float m_Genvx; //位置更新
 	float m_Genvy;
 
-	bool m_Gen_flg; //発電機起動フラグ
+	bool m_Starp_flg; //計測開始フラグ
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
