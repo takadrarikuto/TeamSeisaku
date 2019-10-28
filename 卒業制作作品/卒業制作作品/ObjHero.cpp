@@ -149,7 +149,7 @@ void CObjHero::Action()
 				m_key_flag_menu = false;
 				//メニューオブジェクト作成
 				CObjMenu* obj_m = new CObjMenu();
-				Objs::InsertObj(obj_m, OBJ_MENU, 5);
+				Objs::InsertObj(obj_m, OBJ_MENU, 20);
 			}
 		}
 	}
@@ -264,8 +264,9 @@ void CObjHero::Action()
 		//グレネード
 		if (Input::GetVKey('Q') == true)
 		{
-			if (m_Grenade_flg == true)
-			{				
+			if (m_Grenade_flg == true && m_gre_pb_me > 0)
+			{	
+				m_gre_pb_me -= 1;//弾数を1減らす
 				//上
 				if (m_UDani_frame == 0)
 				{
@@ -681,63 +682,67 @@ void CObjHero::Action()
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
-	//当たり判定を行うオブジェクト情報群
-	int data_base[3] =
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
 	{
-		ELEMENT_ENEMY,ELEMENT_MAGIC,
-	};
-	//オブジェクト情報群と当たり判定行い。当たっていればノックバック
-	for (int i = 0; i < 3; i++)
-	{
-		if (hit_h->CheckElementHit(data_base[i]) == true)
+
+		//当たり判定を行うオブジェクト情報群
+		int data_base[3] =
 		{
-			HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
-			hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+			ELEMENT_ENEMY,ELEMENT_MAGIC,
+		};
+		//オブジェクト情報群と当たり判定行い。当たっていればノックバック
+		for (int i = 0; i < 3; i++)
+		{
+			if (hit_h->CheckElementHit(data_base[i]) == true)
+			{
+				HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
+				hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
 
-			float r = 0;
-			for (int j = 0; j < 10; j++) {
-				if (hit_date[j] != nullptr) {
-					r = hit_date[j]->r;
+				float r = 0;
+				for (int j = 0; j < 10; j++) {
+					if (hit_date[j] != nullptr) {
+						r = hit_date[j]->r;
+					}
 				}
-			}
-			//角度で上下左右を判定
-			//if ((r < 45 && r >= 0) || r > 315)
-			//if (r > 90 && r < 270)
-			//{
-			//	m_vy = -5;		//右
-			//	m_vx += 6;
-			//}
-			//else
-			//{
-			//	m_vy = -5;		//左
-			//	m_vx -= 6;
-			//}
+				//角度で上下左右を判定
+				//if ((r < 45 && r >= 0) || r > 315)
+				//if (r > 90 && r < 270)
+				//{
+				//	m_vy = -5;		//右
+				//	m_vx += 6;
+				//}
+				//else
+				//{
+				//	m_vy = -5;		//左
+				//	m_vx -= 6;
+				//}
 
-			//Audio::Start(3);	//ダメージ音	
-			hit_h->SetInvincibility(true);	//無敵オン
+				//Audio::Start(3);	//ダメージ音	
+				hit_h->SetInvincibility(true);	//無敵オン
 
-			if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-			{
-				m_hero_hp -= 5;
-				m_time_d = 80;		//無敵時間をセット
+				if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+				{
+					m_hero_hp -= 5;
+					m_time_d = 80;		//無敵時間をセット
+				}
+				else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+				{
+					m_hero_hp -= 2;
+					m_time_d = 30;		//無敵時間をセット
+				}
+				else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+				{
+					CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+					int EXPDamage = EXPAttack->GetEXP();
+					m_hero_hp -= EXPDamage;
+				}
+				//敵の攻撃によってHPが0以下になった場合
+				if (m_hero_hp <= 0)
+					m_hero_hp = 0;	//HPを0にする					
 			}
-			else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-			{
-				m_hero_hp -= 2;
-				m_time_d = 30;		//無敵時間をセット
-			}
-			else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-			{
-				CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-				int EXPDamage = EXPAttack->GetEXP();
-				m_hero_hp -= EXPDamage;
-			}
-			//敵の攻撃によってHPが0以下になった場合
-			if (m_hero_hp <= 0)		
-				m_hero_hp = 0;	//HPを0にする					
-		}		
+		}
 	}
-
 	
 	if (m_hero_hp <= 0 && m_blood_flg == false)
 	{
