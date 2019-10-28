@@ -36,12 +36,12 @@ void CObjSniperRifleAttack::Init()
 	if (m_SRr == 0 || m_SRr == 180)
 	{
 		//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-		Hits::SetHitBox(this, m_SRx, m_SRy, 10, 32, ELEMENT_RED, OBJ_SNIPERRIFLEATTACK, 3);
+		Hits::SetHitBox(this, m_SRx, m_SRy, 10, 32, ELEMENT_RED, OBJ_SNIPERRIFLEATTACK, 2);
 	}
 	else if (m_SRr == 90 || m_SRr == 270)
 	{
 		//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-		Hits::SetHitBox(this, m_SRx, m_SRy, 32, 10, ELEMENT_RED, OBJ_SNIPERRIFLEATTACK, 3);
+		Hits::SetHitBox(this, m_SRx, m_SRy, 32, 10, ELEMENT_RED, OBJ_SNIPERRIFLEATTACK, 2);
 	}
 
 
@@ -138,6 +138,6 @@ void CObjSniperRifleAttack::Draw()
 	dst.m_right = 10.0f + m_SRx;
 	dst.m_bottom = 32.0f + m_SRy;
 
-	Draw::Draw(3, &src, &dst, c, m_SRr);
+	Draw::Draw(2, &src, &dst, c, m_SRr);
 
 }

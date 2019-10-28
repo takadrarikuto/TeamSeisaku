@@ -201,7 +201,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/70",sg_pb_me, 15);
+		swprintf_s(str, L"%d/80",sg_pb_me, 15);
 		Font::StrDraw(str, 200, 205, 37, c);
 
 		//アサルトライフル

@@ -40,6 +40,12 @@ void CObjHero::Init()
 	m_ga_vx_max = 5.0f;
 	m_ga_vy_max = 5.0f;
 
+	//上下左右別当たり判定確認フラグ
+	m_UpHit_flg = false;    //上
+	m_DownHit_flg = false;	 //下
+	m_LeftHit_flg = false;	 //左
+	m_LightHit_flg = false; //右
+
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
@@ -121,7 +127,7 @@ void CObjHero::Init()
 	m_inputf = true;	// true = 入力可	false = 入力不可
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 2);
+	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 8);
 }
 
 //アクション
@@ -149,15 +155,18 @@ void CObjHero::Action()
 				m_key_flag_menu = false;
 				//メニューオブジェクト作成
 				CObjMenu* obj_m = new CObjMenu();
-				Objs::InsertObj(obj_m, OBJ_MENU, 5);
+				Objs::InsertObj(obj_m, OBJ_MENU, 20);
 			}
 		}
 	}
 
-		//移動停止
-		m_vx = 0.0f;
-		m_vy = 0.0f;
-		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//主人公位置固定
+	//m_x = 350.0f;
+	//m_y = 250.0f;
+
+	//移動停止
+	m_vx = 0.0f;
+	m_vy = 0.0f;
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -195,7 +204,7 @@ void CObjHero::Action()
 		{
 			m_ani_time = 0.0f;
 			m_LRani_frame = 0;
-		}
+		}				
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -261,8 +270,9 @@ void CObjHero::Action()
 		//グレネード
 		if (Input::GetVKey('Q') == true)
 		{
-			if (m_Grenade_flg == true)
-			{				
+			if (m_Grenade_flg == true && m_gre_pb_me > 0)
+			{	
+				m_gre_pb_me -= 1;//弾数を1減らす
 				//上
 				if (m_UDani_frame == 0)
 				{
@@ -674,86 +684,123 @@ void CObjHero::Action()
 		}
 	}
 
-	//画面範囲外に出ないようにする処理
-	if (m_x < 0.0f)
-	{
-		m_x = 0.0f;
-	}
-	else if (m_x + m_dst_size > 800.0f)
-	{
-		m_x = 800.0f - m_dst_size;
-	}
-	else if (m_y < 0.0f)
-	{
-		m_y = 0.0f;
-	}
-	else if (m_y + m_dst_size > 600.0f)
-	{
-		m_y = 600.0f - m_dst_size;
-	}
-
-
 	//HitBoxの内容を更新
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
-	//当たり判定を行うオブジェクト情報群
-	int data_base[3] =
+	//上下左右別当たり判定確認フラグ常時初期化
+	m_UpHit_flg = false;    //上
+	m_DownHit_flg = false;	 //下
+	m_LeftHit_flg = false;	 //左
+	m_LightHit_flg = false; //右
+
+	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+	if (hit_h->CheckElementHit(ELEMENT_FIELD) == true)
 	{
-		ELEMENT_ENEMY,ELEMENT_MAGIC,
-	};
-	//オブジェクト情報群と当たり判定行い。当たっていればノックバック
-	for (int i = 0; i < 3; i++)
-	{
-		if (hit_h->CheckElementHit(data_base[i]) == true)
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
+
+
+		float r = hit_data[0]->r;
+
+		//角度で上下左右を判定
+		if (r > 0 && r < 45 || r >= 315)
 		{
-			HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
-			hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+			m_LightHit_flg = true; //右
+		}
+		else if (r >= 45 && r < 136)
+		{
+			m_UpHit_flg = true;    //上
+		}
+		else if (r >= 135 && r <= 225)
+		{
+			m_LeftHit_flg = true;	 //左
+		}
+		else if (r > 225 && r < 316)
+		{
+			m_DownHit_flg = true;	 //下
+		}
 
-			float r = 0;
-			for (int j = 0; j < 10; j++) {
-				if (hit_date[j] != nullptr) {
-					r = hit_date[j]->r;
-				}
-			}
-			//角度で上下左右を判定
-			//if ((r < 45 && r >= 0) || r > 315)
-			//if (r > 90 && r < 270)
-			//{
-			//	m_vy = -5;		//右
-			//	m_vx += 6;
-			//}
-			//else
-			//{
-			//	m_vy = -5;		//左
-			//	m_vx -= 6;
-			//}
-
-			//Audio::Start(3);	//ダメージ音	
-			hit_h->SetInvincibility(true);	//無敵オン
-
-			if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-			{
-				m_hero_hp -= 5;
-				m_time_d = 80;		//無敵時間をセット
-			}
-			else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-			{
-				m_hero_hp -= 2;
-				m_time_d = 30;		//無敵時間をセット
-			}
-			else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-			{
-				CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-				int EXPDamage = EXPAttack->GetEXP();
-				m_hero_hp -= EXPDamage;
-			}
-			//敵の攻撃によってHPが0以下になった場合
-			if (m_hero_hp <= 0)		
-				m_hero_hp = 0;	//HPを0にする					
-		}		
+		if (m_LeftHit_flg == true)//左に当たり判定があった場合
+		{
+			m_vx = m_vx + 3.0f;
+		}
+		else if (m_LightHit_flg == true)//右に当たり判定があった場合
+		{
+			m_vx = m_vx - 3.0f;
+		}
+		else if (m_DownHit_flg == true)//下に当たり判定があった場合
+		{
+			m_vy = m_vy - 3.0f;
+		}
+		else if (m_UpHit_flg == true)//上に当たり判定があった場合
+		{
+			m_vy = m_vy + 3.0f;
+		}
 	}
 
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
+	{
+
+		//当たり判定を行うオブジェクト情報群
+		int data_base[3] =
+		{
+			ELEMENT_ENEMY,ELEMENT_MAGIC,
+		};
+		//オブジェクト情報群と当たり判定行い。当たっていればノックバック
+		for (int i = 0; i < 3; i++)
+		{
+			if (hit_h->CheckElementHit(data_base[i]) == true)
+			{
+				HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
+				hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+				float r = 0;
+				for (int j = 0; j < 10; j++) {
+					if (hit_date[j] != nullptr) {
+						r = hit_date[j]->r;
+					}
+				}
+				//角度で上下左右を判定
+				//if ((r < 45 && r >= 0) || r > 315)
+				//if (r > 90 && r < 270)
+				//{
+				//	m_vy = -5;		//右
+				//	m_vx += 6;
+				//}
+				//else
+				//{
+				//	m_vy = -5;		//左
+				//	m_vx -= 6;
+				//}
+
+				//Audio::Start(3);	//ダメージ音	
+				hit_h->SetInvincibility(true);	//無敵オン
+
+				if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+				{
+					m_hero_hp -= 5;
+					m_time_d = 80;		//無敵時間をセット
+				}
+				else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+				{
+					m_hero_hp -= 2;
+					m_time_d = 30;		//無敵時間をセット
+				}
+				else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+				{
+					CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+					int EXPDamage = EXPAttack->GetEXP();
+					m_hero_hp -= EXPDamage;
+				}
+				//敵の攻撃によってHPが0以下になった場合
+				if (m_hero_hp <= 0)
+					m_hero_hp = 0;	//HPを0にする					
+			}
+		}
+	}
 	
 	if (m_hero_hp <= 0 && m_blood_flg == false)
 	{
@@ -872,9 +919,9 @@ void CObjHero::Draw()
 	dst.m_bottom = m_dst_size + m_y;
 
 	if (m_time_d > 0) {
-		Draw::Draw(2, &src, &dst, a, 0.0f);
+		Draw::Draw(8, &src, &dst, a, 0.0f);
 	}
 	else {
-		Draw::Draw(2, &src, &dst, c, 0.0f);
+		Draw::Draw(8, &src, &dst, c, 0.0f);
 	}
 }

@@ -89,7 +89,6 @@ void CObjStage::Draw()
 	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
 	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
 
-
 	//武器使用可数を表示
 	//ハンドガン
 	if (AniData[m_ani_frame] == 0)
@@ -133,18 +132,4 @@ void CObjStage::Draw()
 	Font::StrDraw(L"MENU画面：Rキー", 470, 36, 18, c);
 	Font::StrDraw(L"リロード：Eキー", 640, 13, 18, c);
 	Font::StrDraw(L"グレネード：Qキー", 640, 36, 18, c);
-	/*if (hero_hp < 10)
-	{
-		swprintf_s(HP, L"/", hero_hp, 15);
-		Font::StrDraw(HP, 129, GAME_HP_POS_Y, 37, c);
-		swprintf_s(HP, L"%d", 20 + g_hero_max_hp, 15);
-		Font::StrDraw(HP, 144, 10, 27, c);
-	}
-	else
-	{
-		swprintf_s(HP, L"/", hero_hp, 15);
-		Font::StrDraw(HP, 148, GAME_HP_POS_Y, 37, c);
-		swprintf_s(HP, L"%d", 20 + g_hero_max_hp, 15);
-		Font::StrDraw(HP, 163, 10, 27, c);
-	}*/	
 }

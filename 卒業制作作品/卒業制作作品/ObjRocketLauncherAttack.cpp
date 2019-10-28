@@ -47,12 +47,12 @@ void CObjRocketLauncherAttack::Init()
 	if (m_RLr == 0 || m_RLr == 180)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_RLx, m_RLy, 32, 70, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+		Hits::SetHitBox(this, m_RLx, m_RLy, 32, 70, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	else if (m_RLr == 90 || m_RLr == 270)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	
 
@@ -67,30 +67,30 @@ void CObjRocketLauncherAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_RLx += m_RLvx;
-	m_RLy += m_RLvy;
+		//位置更新
+		m_RLx += m_RLvx;
+		m_RLy += m_RLvy;
+
+		////SE処理
+		//if (Attack_flg == true)
+		//{
+		//	Audio::Start(1); //音楽スタート
+		//	Attack_flg = false; //Attackフラグfalse
+		//}	
+
+		//アニメーション処理
+		if (m_ani_time > 6)
+		{
+			m_ani_time = 0;
+			m_ani_frame += 1;
+		}
+
+		if (m_ani_frame == 8)
+		{
+			m_ani_frame = 0;
+		}
 	}
 
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}	
-
-	//アニメーション処理
-	if (m_ani_time > 6)
-	{
-		m_ani_time = 0;
-		m_ani_frame += 1;
-	}
-
-	if (m_ani_frame == 8)
-	{
-		m_ani_frame = 0;
-	}
-	
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
@@ -190,6 +190,6 @@ void CObjRocketLauncherAttack::Draw()
 	dst.m_right = 32.0f + m_RLx;
 	dst.m_bottom = 70.0f + m_RLy;
 
-	Draw::Draw(3, &src, &dst, c, m_RLr);
+	Draw::Draw(2, &src, &dst, c, m_RLr);
 
 }

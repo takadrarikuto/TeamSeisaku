@@ -22,6 +22,15 @@ CObjGenerator::CObjGenerator(float x, float y)
 void CObjGenerator::Init()
 {
 	//初期化
+	m_Genvx = 0.0f; //位置更新
+	m_Genvy = 0.0f;
+
+	//上下左右別当たり判定確認フラグ
+	m_UpHit_flg = false;    //上
+	m_DownHit_flg = false;	 //下
+	m_LeftHit_flg = false;	 //左
+	m_LightHit_flg = false; //右
+
 	//発電機起動フラグ
 	m_Gen_flg = false; 
 
@@ -31,7 +40,7 @@ void CObjGenerator::Init()
 	Hitbox_size = 100; 
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Genx, m_Geny, Hitbox_size, Hitbox_size, ELEMENT_FIELD, OBJ_APPARATUS, 7);
+	Hits::SetHitBox(this, m_Genx, m_Geny, Hitbox_size, 40, ELEMENT_FIELD, OBJ_APPARATUS, 6);
 
 }
 
@@ -40,16 +49,19 @@ void CObjGenerator::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hx = hero->GetX();
+	float hy = hero->GetY();
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
-
-	//主人公の移動に合わせる
-	m_Genx -= hvx;
-	m_Geny -= hvy;
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_exp->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
+
+	
+	//主人公の移動に合わせる
+	m_Genx -= hvx;
+	m_Geny -= hvy;
 
 }
 
@@ -73,7 +85,7 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	Draw::Draw(7, &src, &dst, c, 0.0f);
+	Draw::Draw(6, &src, &dst, c, 0.0f);
 
 
 

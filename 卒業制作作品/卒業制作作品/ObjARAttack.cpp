@@ -39,7 +39,7 @@ void CObjARAttack::Init()
 	Hitbox_size = 10;
 
 	//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-	Hits::SetHitBox(this, m_ARx, m_ARy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ARATTACK, 3);
+	Hits::SetHitBox(this, m_ARx, m_ARy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ARATTACK, 2);
 
 }
 
@@ -126,6 +126,6 @@ void CObjARAttack::Draw()
 	dst.m_right = m_dst_size + m_ARx;
 	dst.m_bottom = m_dst_size + m_ARy;
 
-	Draw::Draw(3, &src, &dst, c, m_ARr);
+	Draw::Draw(2, &src, &dst, c, m_ARr);
 
 }

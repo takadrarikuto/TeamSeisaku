@@ -6,7 +6,7 @@ using namespace GameL;
 
 //’è”
 //•`‰æŠÖŒW‚Ì’è”
-#define GAME_HP_POS_X     (80)
+#define GAME_HP_POS_X     (78)
 #define GAME_HP_POS_Y     (15)
 #define GAME_HP_FONT_SIZE (25)
 

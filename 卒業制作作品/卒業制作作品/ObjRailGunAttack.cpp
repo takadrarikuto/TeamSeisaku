@@ -36,12 +36,12 @@ void CObjRailGunAttack::Init()
 	if (m_RGr == 0 || m_RGr == 180)
 	{
 		//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-		Hits::SetHitBox(this, m_RGx, m_RGy, 10, 32, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
+		Hits::SetHitBox(this, m_RGx, m_RGy, 10, 32, ELEMENT_RED, OBJ_RAILGUNATTACK, 2);
 	}
 	else if (m_RGr == 90 || m_RGr == 270)
 	{
 		//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-		Hits::SetHitBox(this, m_RGx, m_RGy, 32, 10, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
+		Hits::SetHitBox(this, m_RGx, m_RGy, 32, 10, ELEMENT_RED, OBJ_RAILGUNATTACK, 2);
 	}
 	
 
@@ -138,6 +138,6 @@ void CObjRailGunAttack::Draw()
 	dst.m_right = 10.0f + m_RGx;
 	dst.m_bottom = 32.0f + m_RGy;
 
-	Draw::Draw(3, &src, &dst, c, m_RGr);
+	Draw::Draw(2, &src, &dst, c, m_RGr);
 
 }
