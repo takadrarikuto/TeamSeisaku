@@ -40,9 +40,12 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"銃弾まとめ.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"血の池.png", 4, TEX_SIZE_512);
 	Draw::LoadImage(L"エネミーまとめ.png", 5, TEX_SIZE_512);
+	//中ボス用に6は空ける
+	Draw::LoadImage(L"装置・設置物.png", 7, TEX_SIZE_512);
 	Draw::LoadImage(L"爆発.png", 9, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
+	Draw::LoadImage(L"機材・武器.png", 12, TEX_SIZE_512);
 	Draw::LoadImageW(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImageW(L"image2.png", 31, TEX_SIZE_512);
 
@@ -58,7 +61,7 @@ void CSceneStage::InitScene()
 
 
 	//主人公機オブジェクト作成
-	CObjHero* obj_h = new CObjHero(350.0f, 250.0f);
+	CObjHero* obj_h = new CObjHero(350.0f, 260.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 3);
 
 
@@ -81,17 +84,21 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
+	//発電機オブジェクト作成	
+	CObjGenerator* Gen = new CObjGenerator(200, 200);
+	Objs::InsertObj(Gen, OBJ_APPARATUS, 7);
+
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
-	Objs::InsertObj(objtb, OBJ_TOPBACK, 4);
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
 
 	//ステージオブジェクト作成
 	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 5);
+	Objs::InsertObj(objm, OBJ_STAGE, 20);
 
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
-	Objs::InsertObj(objt, OBJ_TIME, 5);
+	Objs::InsertObj(objt, OBJ_TIME, 20);
 
 	//ボスオブジェクト作成 272, 400
 	CObjBoss*obj_boss = new CObjBoss(832, 632);

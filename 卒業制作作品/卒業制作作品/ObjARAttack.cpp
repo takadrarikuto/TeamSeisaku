@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjARAttack::CObjARAttack(float x, float y, float vx, float vy, float r)
 {
@@ -43,13 +46,13 @@ void CObjARAttack::Init()
 //アクション
 void CObjARAttack::Action()
 {
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
+	//メニューを開くと停止
+	if (Menu_flg == false)
+	{
 	//位置更新
 	m_ARx += m_ARvx;
 	m_ARy += m_ARvy;
-	//}
+	}
 
 	////SE処理
 	//if (Attack_flg == true)
@@ -57,7 +60,6 @@ void CObjARAttack::Action()
 	//	Audio::Start(1); //音楽スタート
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
-
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);

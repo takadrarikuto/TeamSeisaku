@@ -34,5 +34,5 @@ private:
 	int m_at; //UŒ‚•p“x
 	int m_at_max; //UŒ‚•p“xÅ‘å’l
 
-	int m_damage;
+	int m_damage; //ƒ_ƒ[ƒW—Ê
 };

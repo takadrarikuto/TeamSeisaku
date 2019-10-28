@@ -53,11 +53,6 @@ void CObjGrenadeAttack::Action()
 	//メニューを開くと行動停止
 	//if (Menu_flg == false)
 	//{
-	//爆破処理
-	EXP_time++;
-	//位置更新
-	m_Grex += m_Grevx;
-	m_Grey += m_Grevy;
 	//}
 
 	////SE処理
@@ -69,25 +64,36 @@ void CObjGrenadeAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hx = hero->GetX();
+	float hy = hero->GetY();
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
+
+	//主人公の移動に合わせる
+	m_Grex -= hvx;
+	m_Grey -= hvy;
+
+	//爆破処理
+	EXP_time++;
+	//位置更新
+	m_Grex += m_Grevx;
+	m_Grey += m_Grevy;
+
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ga->SetPos(m_Grex, m_Grey); //当たり判定の位置更新
 
-	if (hero != nullptr)
-	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
 
-		//主人公から離れるとオブジェクト移動停止
-		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
-			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max )
-		{
-			//移動停止
-			m_Grevx = 0.0f;
-			m_Grevy = 0.0f;
-		}
+	//主人公から離れるとオブジェクト移動停止
+	if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
+		|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max )
+	{
+		//移動停止
+		m_Grevx = 0.0f;
+		m_Grevy = 0.0f;
 	}
+	
 
 	if (EXP_time >= 180)
 	{
@@ -103,7 +109,7 @@ void CObjGrenadeAttack::Action()
 	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 140, m_Grey - 140, m_exp_blood_dst_size, GRE_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, GRE_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 		this->SetStatus(false); //オブジェクト破棄

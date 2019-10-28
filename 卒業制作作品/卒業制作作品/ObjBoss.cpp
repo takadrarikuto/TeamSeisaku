@@ -45,7 +45,7 @@ void CObjBoss::Init()
 	//ゾンビ生成数制限
 	m_Zombie_Restriction = 0;
 	//ゾンビ生成数制限最大値
-	m_Zombie_Restriction_max = 2;
+	m_Zombie_Restriction_max = 10;
 	//ゾンビランダム描画切り替え用
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
@@ -89,9 +89,12 @@ void CObjBoss::Action()
 
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 128 + m_by;
+		
+		e_x -= hvx;
+		e_y -= hvy;
 
 		//エネミー生成処理
-		if (m_Enemy_Generation == 60 && m_Zombie_Restriction < m_Zombie_Restriction_max)
+		if (m_Enemy_Generation == 240 && m_Zombie_Restriction < m_Zombie_Restriction_max)
 		{
 			//ゾンビの伏せている、立っている描画切り替え処理
 			Ze_dst_flg_num = rand() % 3;

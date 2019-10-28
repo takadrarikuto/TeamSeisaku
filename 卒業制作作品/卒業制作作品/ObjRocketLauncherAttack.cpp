@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, float vy, float r)
 {
@@ -61,13 +64,13 @@ void CObjRocketLauncherAttack::Action()
 	//アニメーションフレーム更新
 	m_ani_time++;
 
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
+	//メニューを開くと停止
+	if (Menu_flg == false)
+	{
 	//位置更新
 	m_RLx += m_RLvx;
 	m_RLy += m_RLvy;
-	//}
+	}
 
 	////SE処理
 	//if (Attack_flg == true)
@@ -90,6 +93,8 @@ void CObjRocketLauncherAttack::Action()
 	
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+
+	//主人公の移動に合わせる
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_rl = Hits::GetHitBox(this); //当たり判定情報取得
