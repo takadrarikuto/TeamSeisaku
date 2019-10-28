@@ -744,6 +744,10 @@ void CObjHero::Action()
 	if (Menu_flg == false)
 	{
 
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
+	{
+
 		//当たり判定を行うオブジェクト情報群
 		int data_base[3] =
 		{
