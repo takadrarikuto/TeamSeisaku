@@ -61,7 +61,6 @@ void CObjARAttack::Action()
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
 
-
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 

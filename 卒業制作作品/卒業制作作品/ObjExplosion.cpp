@@ -39,6 +39,15 @@ void CObjExplosion::Init()
 //アクション
 void CObjExplosion::Action()
 {
+	//主人公位置取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
+
+	//主人公の移動に合わせる
+	m_Expx -= hvx;
+	m_Expy -= hvy;
+
 	//アニメーション更新
 	m_ani_time += 1;
 

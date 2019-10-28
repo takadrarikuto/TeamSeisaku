@@ -111,6 +111,9 @@ void CObjHero::Init()
 	//爆発用描画サイズ
 	m_exp_blood_dst_size = 64;
 
+	//血しぶき表示停止フラグ
+	m_blood_flg = false;
+
 	m_del = false; //削除チェック用
 
 	m_speed_power = 0.5f;//通常速度
@@ -129,7 +132,7 @@ void CObjHero::Action()
 	{
 		m_del = true;
 		m_inputf = false;	//キー入力を制御
-		m_time_dead = 80;	//死亡時間をセット
+		m_time_dead = 20;	//死亡時間をセット
 	}
 
 	m_speed_power = 0.5f;
@@ -151,10 +154,14 @@ void CObjHero::Action()
 		}
 	}
 
-		//移動停止
-		m_vx = 0.0f;
-		m_vy = 0.0f;
-		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//主人公位置固定
+	m_x = 350.0f;
+	m_y = 250.0f;
+
+	//移動停止
+	m_vx = 0.0f;
+	m_vy = 0.0f;
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -192,7 +199,7 @@ void CObjHero::Action()
 		{
 			m_ani_time = 0.0f;
 			m_LRani_frame = 0;
-		}
+		}				
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -746,20 +753,21 @@ void CObjHero::Action()
 				m_hero_hp -= EXPDamage;
 			}
 			//敵の攻撃によってHPが0以下になった場合
-			if (m_hero_hp <= 0)
-				m_hero_hp = 0;	//HPを0にする
+			if (m_hero_hp <= 0)		
+				m_hero_hp = 0;	//HPを0にする					
 		}		
 	}
 
 	
-	if (m_hero_hp <= 0)
+	if (m_hero_hp <= 0 && m_blood_flg == false)
 	{
 		hit_h->SetInvincibility(true);	//無敵にする
 		m_eff_flag = true;			//画像切り替え用フラグ
-		m_speed_power = 0.0f;			//動きを止める
+		m_speed_power = 0.0f;			//動きを止める	
+		m_blood_flg = true; //血しぶき表示停止フラグ
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
-		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);	
+		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 	}
 
 	if (m_del == true)

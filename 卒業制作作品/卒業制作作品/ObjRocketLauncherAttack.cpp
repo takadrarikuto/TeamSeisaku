@@ -94,6 +94,8 @@ void CObjRocketLauncherAttack::Action()
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
+	//主人公の移動に合わせる
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_rl = Hits::GetHitBox(this); //当たり判定情報取得
 	if (m_RLr == 0 || m_RLr == 180)

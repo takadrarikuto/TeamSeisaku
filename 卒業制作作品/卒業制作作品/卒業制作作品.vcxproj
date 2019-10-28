@@ -138,6 +138,7 @@
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="ObjED.h" />
     <ClInclude Include="ObjExplosion.h" />
+    <ClInclude Include="ObjGenerator.h" />
     <ClInclude Include="ObjGrenadeAttack.h" />
     <ClInclude Include="ObjGunAttack.h" />
     <ClInclude Include="ObjHero.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="ObjED.cpp" />
     <ClCompile Include="ObjExplosion.cpp" />
+    <ClCompile Include="ObjGenerator.cpp" />
     <ClCompile Include="ObjGrenadeAttack.cpp" />
     <ClCompile Include="ObjGunAttack.cpp" />
     <ClCompile Include="ObjHero.cpp" />
