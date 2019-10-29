@@ -146,10 +146,10 @@ void CObjHero::Action()
 	//inputフラグがオンの場合入力を可能にする
 	if (m_inputf == true)
 	{
-		//メニューを開く
+		//Eキーを押すとメニューを開く
 		if (m_key_flag_menu == true)
 		{
-			if (Input::GetVKey('R') == true)
+			if (Input::GetVKey('E') == true)
 			{
 				Menu_flg = true;
 				m_key_flag_menu = false;
@@ -386,8 +386,8 @@ void CObjHero::Action()
 		{
 			m_Grenade_flg = true;
 		}
-		//スペースキーを押すと弾を発射
-		if (Input::GetVKey(VK_SPACE) == true)
+		//上キーを押すと弾を発射
+		if (Input::GetVKey(VK_UP) == true)
 		{
 			m_bt += 1;
 			//ハンドガン
@@ -671,8 +671,8 @@ void CObjHero::Action()
 			m_bt = 0;
 		}
 
-		//Eキーを押すと弾をリロード
-		if (Input::GetVKey('E') == true)
+		//下キーを押すと弾をリロード
+		if (Input::GetVKey(VK_DOWN) == true)
 		{
 			//ハンドガン
 			if (m_Weapon_switching == 0 && m_hg_pb >= 0)
@@ -819,6 +819,7 @@ void CObjHero::Action()
 					CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 					int EXPDamage = EXPAttack->GetEXP();
 					m_hero_hp -= EXPDamage;
+					m_time_d = 80;		//無敵時間をセット
 				}
 				//敵の攻撃によってHPが0以下になった場合
 				if (m_hero_hp <= 0)

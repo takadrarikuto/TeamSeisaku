@@ -95,41 +95,65 @@ void CObjStage::Draw()
 	{
 		swprintf_s(str, L"×%d", hg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
+		if (hg_pb_e == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+		}
 	}
 	//ショットガン
 	if (AniData[m_ani_frame] == 1)
 	{
 		swprintf_s(str, L"×%d", sg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
+		if (sg_pb_e == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+		}
 	}
 	//アサルトライフル
 	if (AniData[m_ani_frame] == 2)
 	{
 		swprintf_s(str, L"×%d", ar_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
+		if (ar_pb_e == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+		}
 	}
 	//スナイパーライフル
 	if (AniData[m_ani_frame] == 3)
 	{
 		swprintf_s(str, L"×%d", sr_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
+		if (sr_pb_e == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+		}
 	}
 	//ロケットランチャー
 	if (AniData[m_ani_frame] == 4)
 	{
 		swprintf_s(str, L"×%d", rl_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
+		if (rl_pb_e == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+		}
 	}
 	//レールガン
 	if (AniData[m_ani_frame] == 5)
 	{
 		swprintf_s(str, L"×%d", rg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
+		if (rg_pb_e == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+		}
 	}
 
 	//その他表示
 	Font::StrDraw(L"武器切替：左右キー", 470, 13, 18, c);
-	Font::StrDraw(L"MENU画面：Rキー", 470, 36, 18, c);
-	Font::StrDraw(L"リロード：Eキー", 640, 13, 18, c);
+	Font::StrDraw(L"リロード：下キー", 470, 36, 18, c);
+	Font::StrDraw(L"MENU画面：Eキー", 643, 13, 18, c);
 	Font::StrDraw(L"グレネード：Qキー", 640, 36, 18, c);
 }
