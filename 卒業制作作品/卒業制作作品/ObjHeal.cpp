@@ -31,13 +31,23 @@ void CObjHeal::Init()
 	Hitbox_size = 50;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Genx, m_Geny, 29, 27, ELEMENT_FIELD, OBJ_APPARATUS, 7);
+	Hits::SetHitBox(this, m_Genx, m_Geny, 29, 27, ELEMENT_ITEM, OBJ_HEAL, 7);
 
 }
 
 //アクション
 void CObjHeal::Action()
 {
+	//自身のHitBoxを持ってくる
+	CHitBox* hit = Hits::GetHitBox(this);
+
+	//主人公と衝突したら消滅
+	if (hit->CheckObjNameHit(OBJ_HERO) != nullptr)
+	{
+		this->SetStatus(false);
+		Hits::DeleteHitBox(this);
+	}
+
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
@@ -48,8 +58,8 @@ void CObjHeal::Action()
 	m_Geny -= hvy;
 
 	//HitBoxの内容を更新 
-	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_exp->SetPos(m_Genx + 55, m_Geny + 55); //当たり判定の位置更新
+	//CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
+	hit->SetPos(m_Genx + 55, m_Geny + 55); //当たり判定の位置更新
 
 }
 

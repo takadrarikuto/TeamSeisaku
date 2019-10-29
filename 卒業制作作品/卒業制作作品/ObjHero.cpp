@@ -34,6 +34,9 @@ void CObjHero::Init()
 	//体力
 	m_hero_hp = 100;
 
+	//体力最大値
+	m_hero_hp_max = 100;
+
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
 	//武器攻撃移動ベクトル最大値
@@ -146,10 +149,10 @@ void CObjHero::Action()
 	//inputフラグがオンの場合入力を可能にする
 	if (m_inputf == true)
 	{
-		//メニューを開く
+		//Eキーを押すとメニューを開く
 		if (m_key_flag_menu == true)
 		{
-			if (Input::GetVKey('R') == true)
+			if (Input::GetVKey('E') == true)
 			{
 				Menu_flg = true;
 				m_key_flag_menu = false;
@@ -308,8 +311,8 @@ void CObjHero::Action()
 		{
 			m_Grenade_flg = true;
 		}
-		//スペースキーを押すと弾を発射
-		if (Input::GetVKey(VK_SPACE) == true)
+		//上キーを押すと弾を発射
+		if (Input::GetVKey(VK_UP) == true)
 		{
 			m_bt += 1;
 			//ハンドガン
@@ -593,8 +596,8 @@ void CObjHero::Action()
 			m_bt = 0;
 		}
 
-		//Eキーを押すと弾をリロード
-		if (Input::GetVKey('E') == true)
+		//下キーを押すと弾をリロード
+		if (Input::GetVKey(VK_DOWN) == true)
 		{
 			//ハンドガン
 			if (m_Weapon_switching == 0 && m_hg_pb >= 0)
@@ -783,39 +786,58 @@ void CObjHero::Action()
 					//Audio::Start(3);	//ダメージ音	
 					hit_h->SetInvincibility(true);	//無敵オン
 
-				if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-				{
-					m_hero_hp -= 5;
-					m_time_d = 80;		//無敵時間をセット
+					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+					{
+						m_hero_hp -= 5;
+						m_time_d = 80;		//無敵時間をセット
+					}
+					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+					{
+						m_hero_hp -= 2;
+						m_time_d = 30;		//無敵時間をセット
+					}
+					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+					{
+						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+						int EXPDamage = EXPAttack->GetEXP();
+						m_hero_hp -= EXPDamage;
+						m_time_d = 80;		//無敵時間をセット
+					}
+					//敵の攻撃によってHPが0以下になった場合
+					if (m_hero_hp <= 0)
+						m_hero_hp = 0;	//HPの表示を0にする					
 				}
-				else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-				{
-					m_hero_hp -= 2;
-					m_time_d = 30;		//無敵時間をセット
-				}
-				else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-				{
-					CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-					int EXPDamage = EXPAttack->GetEXP();
-					m_hero_hp -= EXPDamage;
-				}
-				//敵の攻撃によってHPが0以下になった場合
-				if (m_hero_hp <= 0)
-					m_hero_hp = 0;	//HPの表示を0にする					
 			}
 		}
-	}
+
+		//自身のHitBoxを持ってくる
+		CHitBox* hit = Hits::GetHitBox(this);
+
+		if (hit->CheckObjNameHit(OBJ_HEAL) != nullptr)	//主人公が回復箱と当たった場合
+		{
+			m_hero_hp += 50;
+
+			/*if (m_hero_hp >= 100 && m_hero_hp >= 51)
+			{
+				m_hero_hp += 50;
+				m_hero_hp = 100;
+			}
+			else if(m_hero_hp >= 50)
+			{
+				m_hero_hp += 50;
+			}*/
+		}
 	
-	if (m_hero_hp <= 0 && m_blood_flg == false)
-	{
-		hit_h->SetInvincibility(true);	//無敵にする
-		m_eff_flag = true;			//画像切り替え用フラグ
-		m_speed_power = 0.0f;			//動きを止める	
-		m_blood_flg = true; //血しぶき表示停止フラグ
-		//血しぶきオブジェクト作成
-		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
-		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
-	}
+		if (m_hero_hp <= 0 && m_blood_flg == false)
+		{
+			hit_h->SetInvincibility(true);	//無敵にする
+			m_eff_flag = true;			//画像切り替え用フラグ
+			m_speed_power = 0.0f;			//動きを止める
+			m_blood_flg = true; //血しぶき表示停止フラグ
+			//血しぶきオブジェクト作成
+			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
+			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+		}
 
 		if (m_del == true)
 		{
