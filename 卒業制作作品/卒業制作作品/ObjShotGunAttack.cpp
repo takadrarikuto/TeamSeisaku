@@ -42,7 +42,7 @@ void CObjShotGunAttack::Init()
 	Hitbox_size = 10;
 
 	//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-	Hits::SetHitBox(this, m_SGx, m_SGy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_SHOTGUNATTACK, 3);
+	Hits::SetHitBox(this, m_SGx, m_SGy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_SHOTGUNATTACK, 2);
 
 }
 
@@ -146,6 +146,6 @@ void CObjShotGunAttack::Draw()
 	dst.m_right = m_dst_size + m_SGx;
 	dst.m_bottom = m_dst_size + m_SGy;
 
-	Draw::Draw(3, &src, &dst, c, m_SGr);
+	Draw::Draw(2, &src, &dst, c, m_SGr);
 
 }

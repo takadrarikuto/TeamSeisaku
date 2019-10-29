@@ -14,9 +14,13 @@ public:
 	void Action();	//アクション
 	void Draw();	//ドロー
 
-	void SetTimeFlag(bool b) { m_flag_time = b; }
+	bool GetTS() { return m_Stop_flg; } //時間停止フラグ取得用
+
+	void SetTimeFlag(bool b) { m_flag_time = b; } 
 private:
 	int m_time;		//時間
 	bool m_flag_time;//時間計測スタートフラグ
+	bool m_Stop_flg; //計測停止フラグ
+	bool m_Start_num;  //計測開始変数
 
 };

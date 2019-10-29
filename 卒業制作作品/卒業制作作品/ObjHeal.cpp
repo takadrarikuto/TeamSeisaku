@@ -73,5 +73,5 @@ void CObjHeal::Draw()
 	dst.m_left = 85.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	Draw::Draw(8, &src, &dst, c, 0.0f);
+	Draw::Draw(7, &src, &dst, c, 0.0f);
 }

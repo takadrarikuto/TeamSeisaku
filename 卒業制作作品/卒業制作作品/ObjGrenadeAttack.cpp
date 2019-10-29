@@ -46,7 +46,7 @@ void CObjGrenadeAttack::Init()
 	m_exp_blood_dst_size = 192.0f;
 
 	//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 
 }
 
@@ -138,6 +138,6 @@ void CObjGrenadeAttack::Draw()
 	dst.m_right = m_dst_size + m_Grex;
 	dst.m_bottom = m_dst_size + m_Grey;
 
-	Draw::Draw(3, &src, &dst, c, 0.0f);
+	Draw::Draw(2, &src, &dst, c, 0.0f);
 
 }

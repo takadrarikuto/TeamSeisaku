@@ -39,7 +39,7 @@ void CObjGunAttack::Init()
 	Hitbox_size = 10;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_gax, m_gay, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_GUNATTACK, 3);
+	Hits::SetHitBox(this, m_gax, m_gay, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_GUNATTACK, 2);
 }
 
 //アクション
@@ -126,6 +126,6 @@ void CObjGunAttack::Draw()
 	dst.m_left = 0.0f + m_gax;
 	dst.m_right = m_dst_size + m_gax;
 	dst.m_bottom = m_dst_size + m_gay;
-	Draw::Draw(3, &src, &dst, c, m_gar);
+	Draw::Draw(2, &src, &dst, c, m_gar);
 
 }

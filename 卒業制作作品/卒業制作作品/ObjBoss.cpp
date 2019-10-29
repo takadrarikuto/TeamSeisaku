@@ -57,7 +57,7 @@ void CObjBoss::Init()
 	Hitbox_size = 128;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_bx, m_by, Hitbox_size * 2, Hitbox_size, ELEMENT_ENEMY, OBJ_BOSS, 4);
+	Hits::SetHitBox(this, m_bx, m_by, Hitbox_size * 2, Hitbox_size, ELEMENT_ENEMY, OBJ_BOSS, 3);
 }
 
 //アクション
@@ -109,7 +109,7 @@ void CObjBoss::Action()
 
 			//敵機オブジェクト作成
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 3);
+			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
 
 			m_Enemy_Generation = 0; //エネミー生成タイム初期化
 			m_Zombie_Restriction++; //ゾンビ生成数カウント
@@ -150,5 +150,5 @@ void CObjBoss::Draw()
 	dst.m_left = 0.0f + m_bx;
 	dst.m_right = m_dst_size * 2 + m_bx;
 	dst.m_bottom = m_dst_size + m_by;
-	Draw::Draw(4, &src, &dst, c, 0.0f);
+	Draw::Draw(3, &src, &dst, c, 0.0f);
 }

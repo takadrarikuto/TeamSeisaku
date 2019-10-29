@@ -47,12 +47,12 @@ void CObjRocketLauncherAttack::Init()
 	if (m_RLr == 0 || m_RLr == 180)
 	{
 		//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-		Hits::SetHitBox(this, m_RLx, m_RLy, 32, 70, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+		Hits::SetHitBox(this, m_RLx, m_RLy, 32, 70, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	else if (m_RLr == 90 || m_RLr == 270)
 	{
 		//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	
 
@@ -190,6 +190,6 @@ void CObjRocketLauncherAttack::Draw()
 	dst.m_right = 32.0f + m_RLx;
 	dst.m_bottom = 70.0f + m_RLy;
 
-	Draw::Draw(3, &src, &dst, c, m_RLr);
+	Draw::Draw(2, &src, &dst, c, m_RLr);
 
 }

@@ -68,7 +68,7 @@ void CObjZombieEnemy::Init()
 	m_damage = 5;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 5);
+	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
 }
 
 //アクション
@@ -274,7 +274,7 @@ void CObjZombieEnemy::Draw()
 	dst.m_left = 0.0f + m_zex;
 	dst.m_right = m_dst_size + m_zex;
 	dst.m_bottom = m_dst_size + m_zey;
-	Draw::Draw(5, &src, &dst, c, 0.0f);
+	Draw::Draw(4, &src, &dst, c, 0.0f);
 
 
 }
