@@ -33,8 +33,6 @@ void CObjHero::Init()
 
 	//体力
 	m_hero_hp = 100;
-	//体力回復用変数
-	m_HP_Recovery = 0; 
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -141,12 +139,6 @@ void CObjHero::Action()
 		m_del = true;
 		m_inputf = false;	//キー入力を制御
 		m_time_dead = 20;	//死亡時間をセット
-	}
-	//体力回復処理
-	m_hero_hp += m_HP_Recovery;
-	if (m_hero_hp > 100)
-	{
-		m_hero_hp = 100;
 	}
 
 	m_speed_power = 0.5f;

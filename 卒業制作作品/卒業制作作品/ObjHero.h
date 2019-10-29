@@ -47,7 +47,7 @@ public:
 	void SetY(float y) { m_y = y; }
 	void SetVX(float vx) { m_vx = vx; }
 	void SetVY(float vy) { m_vy = vy; }
-	void SetHP(int hp) { m_HP_Recovery = hp; }
+	void SetHP(int hp) { m_hero_hp = hp; }
 
 private:
 	float m_x; //位置更新
@@ -58,7 +58,6 @@ private:
 	float m_ga_vx_max; //武器攻撃移動ベクトル最大値
 	float m_ga_vy_max;
 	float m_speed_power; //スピードパワー
-	int m_HP_Recovery; //体力回復用変数
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
