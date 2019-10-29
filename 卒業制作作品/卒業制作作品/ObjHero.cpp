@@ -33,6 +33,8 @@ void CObjHero::Init()
 
 	//体力
 	m_hero_hp = 100;
+	//体力回復用変数
+	m_HP_Recovery = 0; 
 
 	//体力最大値
 	m_hero_hp_max = 100;
@@ -143,6 +145,12 @@ void CObjHero::Action()
 		m_inputf = false;	//キー入力を制御
 		m_time_dead = 20;	//死亡時間をセット
 	}
+	//体力回復処理
+	m_hero_hp += m_HP_Recovery;
+	if (m_hero_hp > 100)
+	{
+		m_hero_hp = 100;
+	}
 
 	m_speed_power = 0.5f;
 
@@ -164,8 +172,8 @@ void CObjHero::Action()
 	}
 
 	//主人公位置固定
-	//m_x = 350.0f;
-	//m_y = 250.0f;
+	m_x = 350.0f;
+	m_y = 250.0f;
 
 	//移動停止
 	m_vx = 0.0f;
@@ -175,31 +183,44 @@ void CObjHero::Action()
 	if (Menu_flg == false)
 	{
 		//移動処理
+		//当たり判定にあたっていない時に移動できる
 		//'W'を押すと上に移動
 		if (Input::GetVKey('W') == true)
 		{
-			m_vy -= m_v_max;
+			if (m_UpHit_flg == false)
+			{
+				m_vy -= m_v_max;
+			}			
 			m_UDani_frame = 0;
 			m_ani_time += 1;
 		}
 		//'S'を押すと下に移動
 		else if (Input::GetVKey('S') == true)
 		{
-			m_vy += m_v_max;
+			if (m_DownHit_flg == false)
+			{
+				m_vy += m_v_max;
+			}			
 			m_UDani_frame = 4;
 			m_ani_time += 1;
 		}
 		//'A'を押すと左に移動
 		else if (Input::GetVKey('A') == true)
 		{
-			m_vx -= m_v_max;
+			if (m_LeftHit_flg == false)
+			{
+				m_vx -= m_v_max;
+			}			
 			m_UDani_frame = 6;
 			m_ani_time += 1;
 		}
 		//'D'を押すと右移動
 		else if (Input::GetVKey('D') == true)
 		{
-			m_vx += m_v_max;
+			if (m_LightHit_flg == false)
+			{
+				m_vx += m_v_max;
+			}			
 			m_UDani_frame = 2;
 			m_ani_time += 1;
 		}
@@ -220,6 +241,71 @@ void CObjHero::Action()
 		{
 			m_LRani_frame = 0;
 		}
+
+		//HitBoxの内容を更新
+		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
+		hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
+
+		//設置物オブジェクト情報作成
+		CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
+		float GenX = Gen->GetGenX();
+		float GenY = Gen->GetGenY();
+
+		//上下左右別当たり判定確認フラグ常時初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_LightHit_flg = false; //右
+
+		//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+		if (hit_h->CheckElementHit(ELEMENT_FIELD) == true)
+		{
+			//主人公と障害物がどの角度で当たっているか調べる
+			HIT_DATA** hit_data;
+			hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
+
+
+			float r = hit_data[0]->r;
+
+			//角度で上下左右を判定
+			if (r > 0 && r < 45 || r >= 315)
+			{
+				m_LightHit_flg = true; //右
+			}
+			else if (r >= 45 && r < 136)
+			{
+				m_UpHit_flg = true;    //上
+			}
+			else if (r >= 135 && r <= 225)
+			{
+				m_LeftHit_flg = true;	 //左
+			}
+			else if (r > 225 && r < 316)
+			{
+				m_DownHit_flg = true;	 //下
+			}
+
+			if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
+			{
+				if (m_LeftHit_flg == true)//左に当たり判定があった場合
+				{
+					m_x = GenX + 100;
+				}
+				else if (m_LightHit_flg == true)//右に当たり判定があった場合
+				{
+					m_x = GenX - m_dst_size;
+				}
+				else if (m_DownHit_flg == true)//下に当たり判定があった場合
+				{
+					m_y = GenY - m_dst_size;
+				}
+				else if (m_UpHit_flg == true)//上に当たり判定があった場合
+				{
+					m_y = GenY + 40;
+				}
+			}			
+		}
+		
 
 		//武器切り替え処理
 		if (Input::GetVKey(VK_LEFT) == true)
@@ -687,187 +773,112 @@ void CObjHero::Action()
 		}
 	}
 
+
 	//HitBoxの内容を更新
 	CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
-
-	//上下左右別当たり判定確認フラグ常時初期化
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_LightHit_flg = false; //右
-
-	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_h->CheckElementHit(ELEMENT_FIELD) == true)
-	{
-		//主人公と障害物がどの角度で当たっているか調べる
-		HIT_DATA** hit_data;
-		hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
-
-
-		float r = hit_data[0]->r;
-
-		//角度で上下左右を判定
-		if (r > 0 && r < 45 || r >= 315)
-		{
-			m_LightHit_flg = true; //右
-		}
-		else if (r >= 45 && r < 136)
-		{
-			m_UpHit_flg = true;    //上
-		}
-		else if (r >= 135 && r <= 225)
-		{
-			m_LeftHit_flg = true;	 //左
-		}
-		else if (r > 225 && r < 316)
-		{
-			m_DownHit_flg = true;	 //下
-		}
-
-		if (m_LeftHit_flg == true)//左に当たり判定があった場合
-		{
-			m_vx = m_vx + 3.0f;
-		}
-		else if (m_LightHit_flg == true)//右に当たり判定があった場合
-		{
-			m_vx = m_vx - 3.0f;
-		}
-		else if (m_DownHit_flg == true)//下に当たり判定があった場合
-		{
-			m_vy = m_vy - 3.0f;
-		}
-		else if (m_UpHit_flg == true)//上に当たり判定があった場合
-		{
-			m_vy = m_vy + 3.0f;
-		}
-	}
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-
-		//メニューを開くと行動停止
-		if (Menu_flg == false)
+		//当たり判定を行うオブジェクト情報群
+		int data_base[3] =
 		{
-
-			//当たり判定を行うオブジェクト情報群
-			int data_base[3] =
+			ELEMENT_ENEMY,ELEMENT_MAGIC,
+		};
+		//オブジェクト情報群と当たり判定行い。当たっていればノックバック
+		for (int i = 0; i < 3; i++)
+		{
+			if (hit_h->CheckElementHit(data_base[i]) == true)
 			{
-				ELEMENT_ENEMY,ELEMENT_MAGIC,
-			};
-			//オブジェクト情報群と当たり判定行い。当たっていればノックバック
-			for (int i = 0; i < 3; i++)
-			{
-				if (hit_h->CheckElementHit(data_base[i]) == true)
-				{
-					HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
-					hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+				HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
+				hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
 
-					float r = 0;
-					for (int j = 0; j < 10; j++) {
-						if (hit_date[j] != nullptr) {
-							r = hit_date[j]->r;
-						}
+				float r = 0;
+				for (int j = 0; j < 10; j++) {
+					if (hit_date[j] != nullptr) {
+						r = hit_date[j]->r;
 					}
-					//角度で上下左右を判定
-					//if ((r < 45 && r >= 0) || r > 315)
-					//if (r > 90 && r < 270)
-					//{
-					//	m_vy = -5;		//右
-					//	m_vx += 6;
-					//}
-					//else
-					//{
-					//	m_vy = -5;		//左
-					//	m_vx -= 6;
-					//}
-
-					//Audio::Start(3);	//ダメージ音	
-					hit_h->SetInvincibility(true);	//無敵オン
-
-					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-					{
-						m_hero_hp -= 5;
-						m_time_d = 80;		//無敵時間をセット
-					}
-					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-					{
-						m_hero_hp -= 2;
-						m_time_d = 30;		//無敵時間をセット
-					}
-					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
-						m_time_d = 80;		//無敵時間をセット
-					}
-					//敵の攻撃によってHPが0以下になった場合
-					if (m_hero_hp <= 0)
-						m_hero_hp = 0;	//HPの表示を0にする					
 				}
+				//角度で上下左右を判定
+				//if ((r < 45 && r >= 0) || r > 315)
+				//if (r > 90 && r < 270)
+				//{
+				//	m_vy = -5;		//右
+				//	m_vx += 6;
+				//}
+				//else
+				//{
+				//	m_vy = -5;		//左
+				//	m_vx -= 6;
+				//}
+
+				//Audio::Start(3);	//ダメージ音	
+				hit_h->SetInvincibility(true);	//無敵オン
+
+				if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+				{
+					m_hero_hp -= 5;
+					m_time_d = 80;		//無敵時間をセット
+				}
+				else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+				{
+					m_hero_hp -= 2;
+					m_time_d = 30;		//無敵時間をセット
+				}
+				else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+				{
+					CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+					int EXPDamage = EXPAttack->GetEXP();
+					m_hero_hp -= EXPDamage;
+					m_time_d = 80;		//無敵時間をセット
+				}
+				//敵の攻撃によってHPが0以下になった場合
+				if (m_hero_hp <= 0)
+					m_hero_hp = 0;	//HPを0にする					
 			}
 		}
+	}
 
-		//自身のHitBoxを持ってくる
-		CHitBox* hit = Hits::GetHitBox(this);
+	if (m_hero_hp <= 0 && m_blood_flg == false)
+	{
+		hit_h->SetInvincibility(true);	//無敵にする
+		m_eff_flag = true;			//画像切り替え用フラグ
+		m_speed_power = 0.0f;			//動きを止める	
+		m_blood_flg = true; //血しぶき表示停止フラグ
+		//血しぶきオブジェクト作成
+		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
+		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+	}
 
-		if (hit->CheckObjNameHit(OBJ_HEAL) != nullptr)	//主人公が回復箱と当たった場合
+	if (m_del == true)
+	{
+		hit_h->SetInvincibility(true);	//無敵にする
+		m_eff_flag = true;			//画像切り替え用フラグ
+		//m_speed_power = 0.0f;			//動きを止める
+
+	}
+
+	if (m_time_d > 0)
+	{
+		m_time_d--;
+		if (m_time_d <= 0)
 		{
-			m_hero_hp += 50;
-
-			/*if (m_hero_hp >= 100 && m_hero_hp >= 51)
-			{
-				m_hero_hp += 50;
-				m_hero_hp = 100;
-			}
-			else if(m_hero_hp >= 50)
-			{
-				m_hero_hp += 50;
-			}*/
+			m_time_d = 0;
+			hit_h->SetInvincibility(false);	//無敵オフ
 		}
-	
-		if (m_hero_hp <= 0 && m_blood_flg == false)
+	}
+
+	if (m_time_dead > 0)
+	{
+		m_time_dead--;
+		if (m_time_dead <= 0)
 		{
-			hit_h->SetInvincibility(true);	//無敵にする
-			m_eff_flag = true;			//画像切り替え用フラグ
-			m_speed_power = 0.0f;			//動きを止める
-			m_blood_flg = true; //血しぶき表示停止フラグ
-			//血しぶきオブジェクト作成
-			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
-			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+			Scene::SetScene(new CSceneOver());
+			m_time_dead = 0;
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 		}
-
-		if (m_del == true)
-		{
-			hit_h->SetInvincibility(true);	//無敵にする
-			m_eff_flag = true;			//画像切り替え用フラグ
-			//m_speed_power = 0.0f;			//動きを止める
-
-		}
-
-		if (m_time_d > 0)
-		{
-			m_time_d--;
-			if (m_time_d <= 0)
-			{
-				m_time_d = 0;
-				hit_h->SetInvincibility(false);	//無敵オフ
-			}
-		}
-
-		if (m_time_dead > 0)
-		{
-			m_time_dead--;
-			if (m_time_dead <= 0)
-			{
-				Scene::SetScene(new CSceneOver());
-				m_time_dead = 0;
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
-			}
-		}
+	}
 
 		////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 		//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
@@ -914,7 +925,7 @@ void CObjHero::Action()
 		//	//ポイントを獲得
 		//}
 
-	}
+	
 }
 
 //ドロー

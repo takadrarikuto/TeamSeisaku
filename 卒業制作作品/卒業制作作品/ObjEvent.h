@@ -14,7 +14,7 @@ public:
 
 private:
 	int m_Evwnt_time;	//イベント時間
-	int m_rand_num; //イベントランダム変数
+	bool m_Start_flg; //測定スタートフラグ
 	
 
 };

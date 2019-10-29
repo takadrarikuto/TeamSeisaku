@@ -16,23 +16,29 @@ void CObjEvent::Init()
 {
 	//初期化
 	//イベント時間
-	m_Evwnt_time = 0;		
-	//イベントランダム変数
-	m_rand_num = 0;
+	m_Evwnt_time = 1800;		
+	//測定スタートフラグ
+	m_Start_flg = false;
 
 }
 
 //アクション
 void CObjEvent::Action()
 {
-	//タイム情報取得
-	CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-	bool ST_flg = time->GetTS();
+	////発電機情報取得
+	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
+	//bool ST_flg = time->GetTS();
 
-	if (ST_flg == true)
+	/*if (ST_flg == true)
 	{
-
+		m_Evwnt_time--;
 	}
+	if (m_Evwnt_time == 0)
+	{
+		ST_flg = false;
+		m_Start_flg = true;
+		m_Evwnt_time = 1800;
+	}*/
 }
 
 //ドロー

@@ -26,13 +26,7 @@ void CObjGenerator::Init()
 	m_Genvx = 0.0f; //位置更新
 	m_Genvy = 0.0f;
 
-	m_Starp_flg = false; //計測開始フラグ
-
-	//上下左右別当たり判定確認フラグ
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_LightHit_flg = false; //右
+	m_Start_flg = false; //計測開始フラグ
 
 	//描画サイズ
 	m_dst_size = 100.0f; 
@@ -56,7 +50,8 @@ void CObjGenerator::Action()
 	
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool ST_flg = time->GetTS();
+	bool TStop_flg = time->GetTStop();
+	bool TStart_flg = time->GetTStart();
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -65,14 +60,15 @@ void CObjGenerator::Action()
 	//主人公接触判定処理
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && ST_flg == true)
+		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true)
 		{
-			m_Starp_flg = true;
+			TStart_flg = true;
+			time->SetTStart(TStart_flg);
 		}
 	}
 	else
 	{
-		m_Starp_flg = false;
+		TStart_flg = false;
 	}
 	
 	//主人公の移動に合わせる
@@ -84,8 +80,13 @@ void CObjGenerator::Action()
 //ドロー
 void CObjGenerator::Draw()
 {
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool TStop_flg = time->GetTStop();
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	RECT_F src;
 	RECT_F dst;
@@ -101,8 +102,14 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	Draw::Draw(6, &src, &dst, c, 0.0f);
-
+	if (TStop_flg == true)
+	{
+		Draw::Draw(6, &src, &dst, c, 0.0f);
+	}
+	else if (TStop_flg == false)
+	{
+		Draw::Draw(6, &src, &dst, cD, 0.0f);
+	}
 
 
 }

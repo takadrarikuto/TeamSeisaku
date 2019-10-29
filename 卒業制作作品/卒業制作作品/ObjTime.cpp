@@ -20,6 +20,7 @@ void CObjTime::Init()
 	m_time = 10850; //10850 = 3分
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
+	m_Start_flg = false; //測定開始フラグ
 	m_Start_num = 0;  //計測開始変数
 
 }
@@ -27,16 +28,19 @@ void CObjTime::Init()
 //アクション
 void CObjTime::Action()
 {
-	//タイム情報取得
-	CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-	bool ST_flg = time->GetTS();
+	////発電機情報取得
+	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
+	//bool ST_flg = time->GetTS();
+	////イベント情報取得
+	//CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_HEAL);
+	//bool Start_flg = Event->GetStartT();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
 		if (m_time > 0)
 		{
-			m_time--;		
+			m_time--;
 		}
 	}
 	//イベント開始、計測停止処理
@@ -45,10 +49,30 @@ void CObjTime::Action()
 		m_Stop_flg = true;
 		m_Start_num = 1;
 	}
-	if (ST_flg == true)
+	if (m_Start_flg == true)
 	{
 		m_Stop_flg = false;
+		m_Start_flg = false;
 	}
+
+	////制限時間カウントダウン
+	//if (Menu_flg == false && m_Stop_flg == false)
+	//{
+	//	if (m_time > 0)
+	//	{
+	//		m_time--;		
+	//	}
+	//}
+	////イベント開始、計測停止処理
+	//if (m_time == 9050 && m_Start_num == 0)
+	//{
+	//	m_Stop_flg = true;
+	//	m_Start_num = 1;
+	//}
+	//if (ST_flg == true)
+	//{
+	//	m_Stop_flg = false;
+	//}
 	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)
 	{
