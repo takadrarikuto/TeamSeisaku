@@ -36,7 +36,7 @@ CSceneOver::~CSceneOver()
 void CSceneOver::InitScene()
 {
 	//出力させる文字のグラフィックを作成
-	//Draw::LoadImage(L"ゲームオーバー.png", 4, TEX_SIZE_512);
+	Draw::LoadImage(L"ゲームオーバー.png", 3, TEX_SIZE_512);
 
 	//背景オブジェクト作成
 	CObjOver* go1 = new CObjOver();
