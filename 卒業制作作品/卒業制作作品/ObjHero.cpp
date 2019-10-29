@@ -759,7 +759,7 @@ void CObjHero::Action()
 				}
 				//“G‚ÌUŒ‚‚É‚æ‚Á‚ÄHP‚ª0ˆÈ‰º‚É‚È‚Á‚½ê‡
 				if (m_hero_hp <= 0)
-					m_hero_hp = 0;	//HP‚ð0‚É‚·‚é					
+					m_hero_hp = 0;	//HP‚Ì•\Ž¦‚ð0‚É‚·‚é					
 			}
 		}
 	}
