@@ -47,7 +47,6 @@ void CObjGrenadeAttack::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
-
 }
 
 //アクション
@@ -80,11 +79,9 @@ void CObjGrenadeAttack::Action()
 		m_Grex += m_Grevx;
 		m_Grey += m_Grevy;
 
-
 		//HitBoxの内容を更新 
 		CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
 		hit_ga->SetPos(m_Grex, m_Grey); //当たり判定の位置更新
-
 
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
@@ -132,12 +129,11 @@ void CObjGrenadeAttack::Draw()
 	src.m_left = 15.0f;
 	src.m_right = 30.0f;
 	src.m_bottom = 330.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_Grey;
 	dst.m_left = 0.0f + m_Grex;
 	dst.m_right = m_dst_size + m_Grex;
 	dst.m_bottom = m_dst_size + m_Grey;
-
 	Draw::Draw(2, &src, &dst, c, 0.0f);
-
 }

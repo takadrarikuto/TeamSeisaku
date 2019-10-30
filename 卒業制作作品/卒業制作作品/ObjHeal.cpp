@@ -30,7 +30,6 @@ void CObjHeal::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Healx, m_Healy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_HEAL, 7);
-
 }
 
 //アクション
@@ -58,7 +57,6 @@ void CObjHeal::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー

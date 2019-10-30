@@ -21,6 +21,9 @@ bool Menu_flg = false;
 //メニューキー制御用フラグ
 bool m_key_flag_menu = true;
 
+//死亡時動き停止フラグ
+bool Dead_flg = false;
+
 //イニシャライズ
 void CObjMenu::Init()
 {

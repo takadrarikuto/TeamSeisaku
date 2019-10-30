@@ -16,10 +16,9 @@ void CObjEvent::Init()
 {
 	//初期化
 	//イベント時間
-	m_Evwnt_time = 1800;		
+	m_Evwnt_time = 1800;
 	//測定スタートフラグ
 	m_Start_flg = false;
-
 }
 
 //アクション

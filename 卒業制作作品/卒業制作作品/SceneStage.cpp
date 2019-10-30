@@ -32,8 +32,6 @@ CSceneStage::~CSceneStage()
 void CSceneStage::InitScene()
 {
 	//Font作成
-	//Font::SetStrTex(L"0123456789分秒");
-
 	//グラフィック読み込み
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);

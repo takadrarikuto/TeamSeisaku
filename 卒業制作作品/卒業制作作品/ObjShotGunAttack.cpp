@@ -43,7 +43,6 @@ void CObjShotGunAttack::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SGx, m_SGy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_SHOTGUNATTACK, 2);
-
 }
 
 //アクション
@@ -80,7 +79,6 @@ void CObjShotGunAttack::Action()
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
 
-
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
@@ -115,7 +113,6 @@ void CObjShotGunAttack::Action()
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
 	}
-	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_sg->CheckObjNameHit(OBJ_ENEMY) != nullptr)
@@ -123,7 +120,6 @@ void CObjShotGunAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー
@@ -140,12 +136,11 @@ void CObjShotGunAttack::Draw()
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_SGy;
 	dst.m_left = 0.0f + m_SGx;
 	dst.m_right = m_dst_size + m_SGx;
 	dst.m_bottom = m_dst_size + m_SGy;
-
 	Draw::Draw(2, &src, &dst, c, m_SGr);
-
 }

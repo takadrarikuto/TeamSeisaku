@@ -29,7 +29,7 @@ CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, f
 //イニシャライズ
 void CObjRocketLauncherAttack::Init()
 {
-//初期化
+	//初期化
 	//描画フレーム
 	m_ani_frame = 0;
 	//アニメーションフレーム動作間隔
@@ -54,8 +54,6 @@ void CObjRocketLauncherAttack::Init()
 		//当たり判定用HitBoxを作成
 		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
-	
-
 }
 
 //アクション
@@ -161,7 +159,6 @@ void CObjRocketLauncherAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー
@@ -184,12 +181,11 @@ void CObjRocketLauncherAttack::Draw()
 	src.m_left = 0.0f + AniData[m_ani_frame] * 32;
 	src.m_right = 28.0f + AniData[m_ani_frame] * 32;
 	src.m_bottom = 280.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_RLy;
 	dst.m_left = 0.0f + m_RLx;
 	dst.m_right = 32.0f + m_RLx;
 	dst.m_bottom = 70.0f + m_RLy;
-
 	Draw::Draw(2, &src, &dst, c, m_RLr);
-
 }

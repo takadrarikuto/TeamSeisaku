@@ -35,7 +35,6 @@ void CObjGenerator::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Genx, m_Geny, Hitbox_size, 40, ELEMENT_FIELD, OBJ_APPARATUS, 6);
-
 }
 
 //アクション
@@ -74,7 +73,6 @@ void CObjGenerator::Action()
 	//主人公の移動に合わせる
 	m_Genx -= hvx;
 	m_Geny -= hvy;
-
 }
 
 //ドロー
@@ -102,6 +100,7 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
+
 	if (TStop_flg == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
@@ -110,6 +109,4 @@ void CObjGenerator::Draw()
 	{
 		Draw::Draw(6, &src, &dst, cD, 0.0f);
 	}
-
-
 }

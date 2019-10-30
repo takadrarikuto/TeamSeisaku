@@ -40,7 +40,6 @@ void CObjARAttack::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_ARx, m_ARy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ARATTACK, 2);
-
 }
 
 //アクション
@@ -95,7 +94,6 @@ void CObjARAttack::Action()
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
 	}
-	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ar->CheckObjNameHit(OBJ_ENEMY) != nullptr)
@@ -103,7 +101,6 @@ void CObjARAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー
@@ -120,12 +117,11 @@ void CObjARAttack::Draw()
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 70.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_ARy;
 	dst.m_left = 0.0f + m_ARx;
 	dst.m_right = m_dst_size + m_ARx;
 	dst.m_bottom = m_dst_size + m_ARy;
-
 	Draw::Draw(2, &src, &dst, c, m_ARr);
-
 }

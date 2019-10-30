@@ -29,7 +29,7 @@ CObjSniperRifleAttack::CObjSniperRifleAttack(float x, float y, float vx, float v
 //イニシャライズ
 void CObjSniperRifleAttack::Init()
 {
-//初期化
+	//初期化
 	//削除距離最大値
 	Distance_max = 4;
 
@@ -43,8 +43,6 @@ void CObjSniperRifleAttack::Init()
 		//当たり判定用HitBoxを作成
 		Hits::SetHitBox(this, m_SRx, m_SRy, 32, 10, ELEMENT_RED, OBJ_SNIPERRIFLEATTACK, 2);
 	}
-
-
 }
 
 //アクション
@@ -64,7 +62,6 @@ void CObjSniperRifleAttack::Action()
 	//	Audio::Start(1); //音楽スタート
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
-
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -107,7 +104,6 @@ void CObjSniperRifleAttack::Action()
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
 	}
-	
 
 	//敵機オブジェクトと接触するとオブジェクト破棄
 	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
@@ -115,7 +111,6 @@ void CObjSniperRifleAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー
@@ -132,12 +127,11 @@ void CObjSniperRifleAttack::Draw()
 	src.m_left = 10.0f;
 	src.m_right = 22.0f;
 	src.m_bottom = 130.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_SRy;
 	dst.m_left = 0.0f + m_SRx;
 	dst.m_right = 10.0f + m_SRx;
 	dst.m_bottom = 32.0f + m_SRy;
-
 	Draw::Draw(2, &src, &dst, c, m_SRr);
-
 }

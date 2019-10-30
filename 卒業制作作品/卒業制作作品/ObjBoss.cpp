@@ -136,7 +136,6 @@ void CObjBoss::Draw()
 	//•`‰æƒJƒ‰[î•ñ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 
-
 	RECT_F src;
 	RECT_F dst;
 
@@ -145,6 +144,7 @@ void CObjBoss::Draw()
 	src.m_left = 0.0f;
 	src.m_right = 279.0f;
 	src.m_bottom = 181.0f;
+
 	//•`‰æˆ—
 	dst.m_top = 0.0f + m_by;
 	dst.m_left = 0.0f + m_bx;

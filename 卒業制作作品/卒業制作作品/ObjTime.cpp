@@ -22,7 +22,6 @@ void CObjTime::Init()
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
 	m_Start_num = 0;  //計測開始変数
-
 }
 
 //アクション

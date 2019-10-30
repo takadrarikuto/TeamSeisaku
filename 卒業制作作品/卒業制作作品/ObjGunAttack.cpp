@@ -29,7 +29,7 @@ CObjGunAttack::CObjGunAttack(float x, float y, float vx, float vy, float r)
 //イニシャライズ
 void CObjGunAttack::Init()
 {
-//初期化
+	//初期化
 	//削除距離最大値
 	Distance_max = 3;
 
@@ -59,7 +59,6 @@ void CObjGunAttack::Action()
 	//	Audio::Start(1); //音楽スタート
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
-	
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -96,14 +95,12 @@ void CObjGunAttack::Action()
 		}
 	}
 	
-
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー
@@ -121,11 +118,11 @@ void CObjGunAttack::Draw()
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 70.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_gay;
 	dst.m_left = 0.0f + m_gax;
 	dst.m_right = m_dst_size + m_gax;
 	dst.m_bottom = m_dst_size + m_gay;
 	Draw::Draw(2, &src, &dst, c, m_gar);
-
 }
