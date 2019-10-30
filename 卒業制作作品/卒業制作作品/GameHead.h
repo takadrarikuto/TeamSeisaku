@@ -9,11 +9,31 @@ enum OBJ_NAME
 	OBJ_HERO,
 	OBJ_PER_DECISION,
 	OBJ_TIME,
+	OBJ_GUNATTACK,
+	OBJ_SHOTGUNATTACK,
+	OBJ_ARATTACK,
+	OBJ_SNIPERRIFLEATTACK,
+	OBJ_ROCKETLAUNCHERATTACK,
+	OBJ_RAILGUNATTACK,
+	OBJ_GRENADEATTACK,
 	OBJ_ENEMY,
+	OBJ_BOSS,
+	OBJ_APPARATUS,
+	OBJ_BLOOD_SPLASH,
+	OBJ_EXPLOSION,
 	OBJ_OBJECT,
+	OBJ_STAGE,
 	OBJ_TITLE,
+	OBJ_OP,
+	OBJ_OPERATION,
 	OBJ_CLEAR,
 	OBJ_OVER,
+	OBJ_ED,
+	OBJ_MENU,
+	OBJ_TOPBACK,
+	OBJ_BACKGROUND,
+	OBJ_AIMING,
+	OBJ_HEAL,
 };
 //------------------------------------------------
 
@@ -52,6 +72,7 @@ struct UserData
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------
+//ベースデータ
 #include "BaseStatus.h"
 
 //------------------------------------------------
@@ -61,17 +82,51 @@ struct UserData
 #include "ObjHero.h"
 
 //主人公用攻撃
+#include "ObjGunAttack.h"
+#include "ObjShotGunAttack.h"
+#include "ObjARAttack.h"
+#include "ObjSniperRifleAttack.h"
+#include "ObjRocketLauncherAttack.h"
+#include "ObjRailGunAttack.h"
+#include "ObjGrenadeAttack.h"
+
+//標準
+#include "ObjAiming.h"
+
 //エネミー
+#include "ObjZombieEnemy.h"
+
 //中ボス
 //ボス
+#include "ObjBoss.h"
+
 //エネミー・中ボス・ボス用攻撃
 //死亡エフェクト
 #include "ObjBlood_splash.h"
 
+//爆発
+#include "ObjExplosion.h"
+
 //ステージ
+#include "ObjStage.h"
+
+//設置物
+#include "ObjGenerator.h"
+
+//アイテム
+#include "ObjHeal.h"//回復
+
+//イベント
+#include "ObjEvent.h"
 
 //タイトル
 #include "ObjTitle.h"
+
+//あらすじ
+#include "ObjOP.h"
+
+//操作説明
+#include "ObjOperation.h"
 
 //ゲームオーバー
 #include "ObjOver.h"
@@ -79,10 +134,24 @@ struct UserData
 //クリア
 #include "ObjClear.h"
 
+//エンディング
+#include "ObjED.h"
+
 //メニュー
+#include "ObjMenu.h"
+
+//タイム
+#include "ObjTime.h"
+
+//ステージ上部UI背景
+#include "ObjTopback.h"
+
+//背景
+#include "ObjBackground.h"
 
 //ベース設定
 #include "GameHead.h"
+
 
 //------------------------------------------------
 
@@ -93,14 +162,23 @@ struct UserData
 //タイトル
 #include "SceneTitle.h"
 
+//あらすじ
+#include "SceneOP.h"
+
+//操作説明
+#include "SceneOperation.h"
+
 //ゲームオーバー
 #include "SceneOver.h"
 
 //クリア
 #include "SceneClear.h"
+
+//エンディング
+#include "SceneED.h"
+
 //-----------------------------------------------
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
-#define SET_GAME_START  CSceneOver 
-//-----------------------------------------------
+#define SET_GAME_START  CSceneStage
