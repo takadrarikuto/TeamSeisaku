@@ -107,6 +107,10 @@ void CSceneStage::InitScene()
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 20);
+
+	//イベントタイムオブジェクト作成
+	CObjEvent*objev = new CObjEvent();
+	Objs::InsertObj(objev, OBJ_EVENT, 20);
 }
 
 void CSceneStage::Scene()

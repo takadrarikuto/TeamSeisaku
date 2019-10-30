@@ -48,9 +48,9 @@ void CObjGunAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+		//位置更新
+		m_gax += m_gavx;
+		m_gay += m_gavy;
 	}
 
 	////SE処理

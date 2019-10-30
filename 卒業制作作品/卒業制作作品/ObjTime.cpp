@@ -13,13 +13,16 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//計測停止フラグ
+bool m_Stop_flg = false;
+
 //イニシャライズ
 void CObjTime::Init()
 {
 	//初期化
 	m_time = 10850; //10850 = 3分
 	m_flag_time = true;
-	m_Stop_flg = false; //計測停止フラグ
+	m_Stop_flg = false;
 	m_Start_flg = false; //測定開始フラグ
 	m_Start_num = 0;  //計測開始変数
 }

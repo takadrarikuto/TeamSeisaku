@@ -35,7 +35,6 @@ void CObjMenu::Init()
 	m_andf2 = false;
 	//シーン移動フラグ
 	m_Scene_flg = false;
-
 }
 
 //アクション
@@ -131,7 +130,6 @@ void CObjMenu::Action()
 			}
 		}
 	}
-
 }
 
 //ドロー
@@ -174,7 +172,6 @@ void CObjMenu::Draw()
 		BackDraw(100.0f, 50.0f, 750.0f, 570.0f, a);
 
 		//メニューに各武器の画像を表示用--------------------------------------
-		
 		//ハンドガン
 		//切り取り位置の設定
 		src.m_top = 2.0f;
@@ -320,7 +317,6 @@ void CObjMenu::Draw()
 		//表示説明用
 		swprintf_s(str, L"残り弾数/最大所持弾数", 15);
 		Font::StrDraw(str, 100, 475, 25, c);
-
 		//-------------------------------------------------------------------
 
 		if (choose == 0)
@@ -333,7 +329,6 @@ void CObjMenu::Draw()
 		else
 			Font::StrDraw(L"　タイトルへ", 450, 500, 35, c);
 	}
-
 }
 
 //BackDrawMethod関数

@@ -51,9 +51,9 @@ void CObjRailGunAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_RGx += m_RGvx;
-	m_RGy += m_RGvy;
+		//位置更新
+		m_RGx += m_RGvx;
+		m_RGy += m_RGvy;
 	}
 
 	////SE処理

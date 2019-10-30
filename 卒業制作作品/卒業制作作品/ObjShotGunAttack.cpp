@@ -51,25 +51,25 @@ void CObjShotGunAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//斜め移動修正処理
-	float r = 0.0f;
-	r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
-	r = sqrt(r); //ルートを求める
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
+		r = sqrt(r); //ルートを求める
 
-	//斜めベクトルを求める
-	if (r == 0.0f)
-	{
-		; //0なら何もしない
-	}
-	else
-	{
-		m_SGvx = 5.0f / r * m_SGvx;
-		m_SGvy = 5.0f / r * m_SGvy;
-	}
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_SGvx = 5.0f / r * m_SGvx;
+			m_SGvy = 5.0f / r * m_SGvy;
+		}
 
-	//位置更新
-	m_SGx += m_SGvx;
-	m_SGy += m_SGvy;
+		//位置更新
+		m_SGx += m_SGvx;
+		m_SGy += m_SGvy;
 	}
 
 	////SE処理

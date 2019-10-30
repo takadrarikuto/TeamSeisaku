@@ -48,9 +48,9 @@ void CObjARAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_ARx += m_ARvx;
-	m_ARy += m_ARvy;
+		//位置更新
+		m_ARx += m_ARvx;
+		m_ARy += m_ARvy;
 	}
 
 	////SE処理

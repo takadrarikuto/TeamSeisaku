@@ -51,9 +51,9 @@ void CObjSniperRifleAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_SRx += m_SRvx;
-	m_SRy += m_SRvy;
+		//位置更新
+		m_SRx += m_SRvx;
+		m_SRy += m_SRvy;
 	}
 
 	////SE処理

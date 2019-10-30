@@ -33,6 +33,7 @@ enum OBJ_NAME
 	OBJ_TOPBACK,
 	OBJ_BACKGROUND,
 	OBJ_HEAL,
+	OBJ_EVENT,
 };
 //------------------------------------------------
 
