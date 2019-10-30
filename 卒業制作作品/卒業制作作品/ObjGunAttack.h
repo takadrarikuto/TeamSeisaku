@@ -12,6 +12,8 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
+	int GetGunDistance() { return m_Distance_max; } //削除距離最大値取得用
+
 private:
 	float m_gax; //位置情報
 	float m_gay;
