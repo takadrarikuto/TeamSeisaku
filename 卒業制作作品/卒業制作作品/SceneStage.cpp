@@ -32,8 +32,6 @@ CSceneStage::~CSceneStage()
 void CSceneStage::InitScene()
 {
 	//Font作成
-	//Font::SetStrTex(L"0123456789分秒");
-
 	//グラフィック読み込み
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);
@@ -113,6 +111,9 @@ void CSceneStage::InitScene()
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 20);
+	//イベントタイムオブジェクト作成
+	CObjEvent*objev = new CObjEvent();
+	Objs::InsertObj(objev, OBJ_EVENT, 20);
 }
 
 void CSceneStage::Scene()

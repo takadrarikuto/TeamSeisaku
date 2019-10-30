@@ -15,6 +15,9 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
+//死亡時動き停止フラグ
+extern bool Dead_flg;
+
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -171,65 +174,67 @@ void CObjHero::Action()
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		//移動処理
-		//当たり判定にあたっていない時に移動できる
-		//'W'を押すと上に移動
-		if (Input::GetVKey('W') == true)
+		if (Dead_flg == false)
 		{
-			if (m_UpHit_flg == false)
+			//移動処理
+			//当たり判定にあたっていない時に移動できる
+			//'W'を押すと上に移動
+			if (Input::GetVKey('W') == true)
 			{
-				m_vy -= m_v_max;
-			}			
-			m_UDani_frame = 0;
-			m_ani_time += 1;
-		}
-		//'S'を押すと下に移動
-		else if (Input::GetVKey('S') == true)
-		{
-			if (m_DownHit_flg == false)
+				if (m_UpHit_flg == false)
+				{
+					m_vy -= m_v_max;
+				}
+				m_UDani_frame = 0;
+				m_ani_time += 1;
+			}
+			//'S'を押すと下に移動
+			else if (Input::GetVKey('S') == true)
 			{
-				m_vy += m_v_max;
-			}			
-			m_UDani_frame = 4;
-			m_ani_time += 1;
-		}
-		//'A'を押すと左に移動
-		else if (Input::GetVKey('A') == true)
-		{
-			if (m_LeftHit_flg == false)
+				if (m_DownHit_flg == false)
+				{
+					m_vy += m_v_max;
+				}
+				m_UDani_frame = 4;
+				m_ani_time += 1;
+			}
+			//'A'を押すと左に移動
+			else if (Input::GetVKey('A') == true)
 			{
-				m_vx -= m_v_max;
-			}			
-			m_UDani_frame = 6;
-			m_ani_time += 1;
-		}
-		//'D'を押すと右移動
-		else if (Input::GetVKey('D') == true)
-		{
-			if (m_LightHit_flg == false)
+				if (m_LeftHit_flg == false)
+				{
+					m_vx -= m_v_max;
+				}
+				m_UDani_frame = 6;
+				m_ani_time += 1;
+			}
+			//'D'を押すと右移動
+			else if (Input::GetVKey('D') == true)
 			{
-				m_vx += m_v_max;
-			}			
-			m_UDani_frame = 2;
-			m_ani_time += 1;
-		}
-		else
-		{
-			m_ani_time = 0.0f;
-			m_LRani_frame = 0;
-		}				
+				if (m_LightHit_flg == false)
+				{
+					m_vx += m_v_max;
+				}
+				m_UDani_frame = 2;
+				m_ani_time += 1;
+			}
+			else
+			{
+				m_ani_time = 0.0f;
+				m_LRani_frame = 0;
+			}
 
-		//アニメーション処理
-		if (m_ani_time > 6)
-		{
-			m_LRani_frame += 1;
-			m_ani_time = 0;
-		}
+			//アニメーション処理
+			if (m_ani_time > 6)
+			{
+				m_LRani_frame += 1;
+				m_ani_time = 0;
+			}
 
-		if (m_LRani_frame == 3)
-		{
-			m_LRani_frame = 0;
-		}
+			if (m_LRani_frame == 3)
+			{
+				m_LRani_frame = 0;
+			}
 
 		//HitBoxの内容を更新
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
@@ -831,6 +836,7 @@ void CObjHero::Action()
 	if (m_hero_hp <= 0 && m_blood_flg == false)
 	{
 		hit_h->SetInvincibility(true);	//無敵にする
+		Dead_flg = true;
 		m_eff_flag = true;			//画像切り替え用フラグ
 		m_speed_power = 0.0f;			//動きを止める	
 		m_blood_flg = true; //血しぶき表示停止フラグ
@@ -864,6 +870,7 @@ void CObjHero::Action()
 		{
 			Scene::SetScene(new CSceneOver());
 			m_time_dead = 0;
+			Dead_flg = false;
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 		}

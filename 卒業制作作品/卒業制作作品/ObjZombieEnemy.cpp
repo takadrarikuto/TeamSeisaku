@@ -56,7 +56,6 @@ void CObjZombieEnemy::Init()
 	RG_Attack = 200;  //レールガン
 	GRE_Attack = 100; //グレネード
 
-
 	//描画サイズ
 	m_dst_size = 64.0f;
 	//当たり判定サイズ
@@ -97,7 +96,6 @@ void CObjZombieEnemy::Action()
 	{
 		m_zev_max = 2.0f;
 	}
-
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -160,7 +158,6 @@ void CObjZombieEnemy::Action()
 			m_zevy = m_zev_max / r * m_zevy;
 		}
 
-		
 		//アニメーション処理
 		if (m_ani_time > 6)
 		{
@@ -181,49 +178,56 @@ void CObjZombieEnemy::Action()
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
-	
 
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
 		m_hero_hp -= Gun_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 	//ショットガン
 	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 	{
 		m_hero_hp -= SHG_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 	//アサルトライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 	{
 		m_hero_hp -= AR_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 	//スナイパーライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 	{
 		m_hero_hp -= SR_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 	//ロケットランチャー
 	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 	{
 		m_hero_hp -= RL_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 	//レールガン
 	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
 		m_hero_hp -= RG_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}	
 	//グレネード
 	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 	{
 		m_hero_hp -= GRE_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 	//爆発
 	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 	{
 		m_hero_hp -= EXPDamage;
 	}
+
 	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
@@ -233,6 +237,15 @@ void CObjZombieEnemy::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
+
+	if (m_time_d > 0)
+	{
+		m_time_d--;
+		if (m_time_d <= 0)
+		{
+			m_time_d = 0;
+		}
+	}
 }
 
 //ドロー
@@ -240,6 +253,7 @@ void CObjZombieEnemy::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float a[4] = { 10.0f,0.6f,0.6f,0.7f };
 
 	//モーション
 	int LRAniData[3] =
@@ -274,7 +288,11 @@ void CObjZombieEnemy::Draw()
 	dst.m_left = 0.0f + m_zex;
 	dst.m_right = m_dst_size + m_zex;
 	dst.m_bottom = m_dst_size + m_zey;
-	Draw::Draw(4, &src, &dst, c, 0.0f);
 
-
+	if (m_time_d > 0) {
+		Draw::Draw(4, &src, &dst, a, 0.0f);
+	}
+	else{
+		Draw::Draw(4, &src, &dst, c, 0.0f);
+	}
 }
