@@ -31,17 +31,17 @@ void CObjRailGunAttack::Init()
 {
 //初期化
 	//削除距離最大値
-	Distance_max = 5;
+	m_Distance_max = 5;
 
 	if (m_RGr == 0 || m_RGr == 180)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_RGx, m_RGy, 10, 32, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
+		Hits::SetHitBox(this, m_RGx, m_RGy, 10, 32, ELEMENT_RED, OBJ_RAILGUNATTACK, 2);
 	}
 	else if (m_RGr == 90 || m_RGr == 270)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_RGx, m_RGy, 32, 10, ELEMENT_RED, OBJ_RAILGUNATTACK, 3);
+		Hits::SetHitBox(this, m_RGx, m_RGy, 32, 10, ELEMENT_RED, OBJ_RAILGUNATTACK, 2);
 	}
 	
 
@@ -86,22 +86,22 @@ void CObjRailGunAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
-		if (m_RGx < hx - 64 * Distance_max)
+		if (m_RGx < hx - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_RGx > hx + 32 + 64 * Distance_max)
+		else if (m_RGx > hx + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_RGy < hy - 64 * Distance_max)
+		if (m_RGy < hy - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_RGy > hy + 32 + 64 * Distance_max)
+		else if (m_RGy > hy + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -138,6 +138,6 @@ void CObjRailGunAttack::Draw()
 	dst.m_right = 10.0f + m_RGx;
 	dst.m_bottom = 32.0f + m_RGy;
 
-	Draw::Draw(3, &src, &dst, c, m_RGr);
+	Draw::Draw(2, &src, &dst, c, m_RGr);
 
 }

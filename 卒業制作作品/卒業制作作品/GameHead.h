@@ -18,6 +18,7 @@ enum OBJ_NAME
 	OBJ_GRENADEATTACK,
 	OBJ_ENEMY,
 	OBJ_BOSS,
+	OBJ_APPARATUS,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
@@ -31,7 +32,9 @@ enum OBJ_NAME
 	OBJ_MENU,
 	OBJ_TOPBACK,
 	OBJ_BACKGROUND,
-
+	OBJ_AIMING,
+	OBJ_HEAL,
+	OBJ_EVENT,
 };
 //------------------------------------------------
 
@@ -88,6 +91,9 @@ struct UserData
 #include "ObjRailGunAttack.h"
 #include "ObjGrenadeAttack.h"
 
+//標準
+#include "ObjAiming.h"
+
 //エネミー
 #include "ObjZombieEnemy.h"
 
@@ -104,6 +110,15 @@ struct UserData
 
 //ステージ
 #include "ObjStage.h"
+
+//設置物
+#include "ObjGenerator.h"
+
+//アイテム
+#include "ObjHeal.h"//回復
+
+//イベント
+#include "ObjEvent.h"
 
 //タイトル
 #include "ObjTitle.h"

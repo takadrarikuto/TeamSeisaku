@@ -15,8 +15,12 @@ public:
 	
 	float GetX() { return m_x; }
 	float GetY() { return m_y; }
+	float GetVX() { return m_vx; }
+	float GetVY() { return m_vy; }
+
 	int GetWS() { return m_Weapon_switching; }
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
+	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
 
 	int GetHG_E() { return m_hg_pb; }	//ハンドガンの残り弾数を取得(装備分)
 	int GetSG_E() { return m_sg_pb; }	//ショットガンの残り弾数を取得(装備分)
@@ -40,13 +44,11 @@ public:
 	int GetRG_R() { return m_rg_pb_r; }	//レールガンのリロード用取得
 	int GetGRE_R() { return m_gre_pb_r; }	//グレネードのリロード用取得
 
-	float GetVX() { return m_vx; }
-	float GetVY() { return m_vy; }
-
 	void SetX(float x) { m_x = x; }
 	void SetY(float y) { m_y = y; }
 	void SetVX(float vx) { m_vx = vx; }
 	void SetVY(float vy) { m_vy = vy; }
+	void SetHP(int hp) { m_hero_hp = hp; }
 
 private:
 	float m_x; //位置更新
@@ -57,6 +59,12 @@ private:
 	float m_ga_vx_max; //武器攻撃移動ベクトル最大値
 	float m_ga_vy_max;
 	float m_speed_power; //スピードパワー
+
+	//上下左右別当たり判定確認フラグ
+	bool m_UpHit_flg;    //上
+	bool m_DownHit_flg;	 //下
+	bool m_LeftHit_flg;	 //左
+	bool m_LightHit_flg; //右
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム
@@ -127,6 +135,6 @@ private:
 	bool m_del;			//削除チェック
 	bool m_eff_flag;	//エフェクト用フラグ
 	bool m_inputf;	//死亡用キー入力制御
-	bool m_blood_flg; //血しぶき表示フラグ
+	bool m_blood_flg; //血しぶき表示停止フラグ
 
 };

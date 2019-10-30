@@ -19,6 +19,6 @@ private:
 	float m_gavy;
 	float m_gar; //‰æ‘œŠp“x’²®
 
-	int Distance_max; //íœ‹——£Å‘å’l
+	int m_Distance_max; //íœ‹——£Å‘å’l
 
 };

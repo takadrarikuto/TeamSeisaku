@@ -36,7 +36,7 @@ void CObjRocketLauncherAttack::Init()
 	m_ani_time = 0;
 
 	//削除距離最大値
-	Distance_max = 5;
+	m_Distance_max = 5;
 
 	//ダメージ量
 	RL_Attack = 150;
@@ -47,12 +47,12 @@ void CObjRocketLauncherAttack::Init()
 	if (m_RLr == 0 || m_RLr == 180)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_RLx, m_RLy, 32, 70, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+		Hits::SetHitBox(this, m_RLx, m_RLy, 32, 70, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	else if (m_RLr == 90 || m_RLr == 270)
 	{
 		//当たり判定用HitBoxを作成
-		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	
 
@@ -67,32 +67,34 @@ void CObjRocketLauncherAttack::Action()
 	//メニューを開くと停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_RLx += m_RLvx;
-	m_RLy += m_RLvy;
+		//位置更新
+		m_RLx += m_RLvx;
+		m_RLy += m_RLvy;
+
+		////SE処理
+		//if (Attack_flg == true)
+		//{
+		//	Audio::Start(1); //音楽スタート
+		//	Attack_flg = false; //Attackフラグfalse
+		//}	
+
+		//アニメーション処理
+		if (m_ani_time > 6)
+		{
+			m_ani_time = 0;
+			m_ani_frame += 1;
+		}
+
+		if (m_ani_frame == 8)
+		{
+			m_ani_frame = 0;
+		}
 	}
 
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}	
-
-	//アニメーション処理
-	if (m_ani_time > 6)
-	{
-		m_ani_time = 0;
-		m_ani_frame += 1;
-	}
-
-	if (m_ani_frame == 8)
-	{
-		m_ani_frame = 0;
-	}
-	
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+
+	//主人公の移動に合わせる
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_rl = Hits::GetHitBox(this); //当たり判定情報取得
@@ -111,7 +113,7 @@ void CObjRocketLauncherAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるとオブジェクト削除
-		if (m_RLx < hx - 64 * Distance_max)
+		if (m_RLx < hx - 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
@@ -120,7 +122,7 @@ void CObjRocketLauncherAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_RLx > hx + 32 + 64 * Distance_max)
+		else if (m_RLx > hx + 32 + 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
@@ -129,7 +131,7 @@ void CObjRocketLauncherAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_RLy < hy - 64 * Distance_max)
+		if (m_RLy < hy - 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
@@ -138,7 +140,7 @@ void CObjRocketLauncherAttack::Action()
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_RLy > hy + 32 + 64 * Distance_max)
+		else if (m_RLy > hy + 32 + 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
@@ -188,6 +190,6 @@ void CObjRocketLauncherAttack::Draw()
 	dst.m_right = 32.0f + m_RLx;
 	dst.m_bottom = 70.0f + m_RLy;
 
-	Draw::Draw(3, &src, &dst, c, m_RLr);
+	Draw::Draw(2, &src, &dst, c, m_RLr);
 
 }

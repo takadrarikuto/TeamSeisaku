@@ -17,6 +17,7 @@ public:
 private:
 	float m_Expx; //位置情報
 	float m_Expy;
+	
 
 	int m_ani_time; //アニメーション間隔
 	int m_ani_flame; //描画フレーム

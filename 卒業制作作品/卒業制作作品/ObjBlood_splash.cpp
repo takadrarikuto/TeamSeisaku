@@ -45,6 +45,15 @@ void CObjBlood_splash::Action()
 		m_ani_time = 0;
 	}
 
+	//主人公位置取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
+
+	//主人公の移動に合わせる
+	m_bspx -= hvx;
+	m_bspy -= hvy;
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_exp->SetPos(m_bspx, m_bspy); //当たり判定の位置更新
@@ -52,8 +61,7 @@ void CObjBlood_splash::Action()
 	////描画フレームが5になるとSE発生
 	//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
 	if (m_ani_flame == 1)
-	{
-		////通常爆発
+	{		
 		//if (Exp_flg == true)
 		//{
 		//	//Audio::Start(4); //音楽スタート
@@ -68,11 +76,12 @@ void CObjBlood_splash::Action()
 	}
 	else if (m_ani_flame == 5)
 	{
-		m_ani_flame = 0;
+		m_ani_flame = 5;
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
+
 }
 
 //ドロー

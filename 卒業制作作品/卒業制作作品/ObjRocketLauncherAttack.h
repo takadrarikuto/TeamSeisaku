@@ -22,6 +22,6 @@ private:
 	int m_ani_frame; //描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 
-	int Distance_max; //削除距離最大値
+	int m_Distance_max; //削除距離最大値
 
 };

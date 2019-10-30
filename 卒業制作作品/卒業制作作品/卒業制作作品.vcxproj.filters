@@ -55,6 +55,21 @@
     <Filter Include="ソース ファイル\ステージメイン\主人公関係\血しぶき・爆発">
       <UniqueIdentifier>{b0b4183f-a99a-41ad-be32-8aafc33481ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物">
+      <UniqueIdentifier>{df068dfe-f6d0-4fc2-a7ad-96aa63ac5c93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\装置">
+      <UniqueIdentifier>{3dc70b40-b311-4302-8274-823e48fa4b71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\イベント">
+      <UniqueIdentifier>{a4490514-830f-4457-99ac-53a21eb3e313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム">
+      <UniqueIdentifier>{d8e2dc0a-741b-4238-b15e-da2fa5be1812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\主人公関係\照準">
+      <UniqueIdentifier>{acf95c58-9b2e-4952-a565-53e1eef93f12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -207,6 +222,18 @@
     <ClInclude Include="ObjBlood_splash.h">
       <Filter>ソース ファイル\ステージメイン\主人公関係\血しぶき・爆発</Filter>
     </ClInclude>
+    <ClInclude Include="ObjGenerator.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjHeal.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjEvent.h">
+      <Filter>ソース ファイル\ステージメイン\イベント</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjAiming.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\照準</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -349,6 +376,18 @@
     </ClCompile>
     <ClCompile Include="ObjBlood_splash.cpp">
       <Filter>ソース ファイル\ステージメイン\主人公関係\血しぶき・爆発</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGenerator.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjHeal.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjEvent.cpp">
+      <Filter>ソース ファイル\ステージメイン\イベント</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjAiming.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\照準</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

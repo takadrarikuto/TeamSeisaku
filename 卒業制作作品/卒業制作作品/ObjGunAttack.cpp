@@ -31,7 +31,7 @@ void CObjGunAttack::Init()
 {
 //初期化
 	//削除距離最大値
-	Distance_max = 3;
+	m_Distance_max = 3;
 
 	//描画サイズ
 	m_dst_size = 32.0f;
@@ -39,7 +39,7 @@ void CObjGunAttack::Init()
 	Hitbox_size = 10;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_gax, m_gay, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_GUNATTACK, 3);
+	Hits::SetHitBox(this, m_gax, m_gay, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_GUNATTACK, 2);
 }
 
 //アクション
@@ -63,7 +63,6 @@ void CObjGunAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
@@ -75,22 +74,22 @@ void CObjGunAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
-		if (m_gax < hx - 64 * Distance_max)
+		if (m_gax < hx - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_gax > hx + 32 + 64 * Distance_max)
+		else if (m_gax > hx + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_gay < hy - 64 * Distance_max)
+		if (m_gay < hy - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_gay > hy + 32 + 64 * Distance_max)
+		else if (m_gay > hy + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -127,6 +126,6 @@ void CObjGunAttack::Draw()
 	dst.m_left = 0.0f + m_gax;
 	dst.m_right = m_dst_size + m_gax;
 	dst.m_bottom = m_dst_size + m_gay;
-	Draw::Draw(3, &src, &dst, c, m_gar);
+	Draw::Draw(2, &src, &dst, c, m_gar);
 
 }
