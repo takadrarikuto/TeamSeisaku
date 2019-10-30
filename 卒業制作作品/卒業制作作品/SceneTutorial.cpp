@@ -11,10 +11,12 @@
 using namespace GameL;
 
 //使用するヘッダー
-//#include "SceneMain.h"
 #include "GameHead.h"
 #include "SceneTutorial.h"
 #include "ObjTutorial.h"
+
+//メニューONOFFフラグ
+extern bool Menu_flg;
 
 //コンストラクタ
 CSceneTutorial::CSceneTutorial()
@@ -31,21 +33,35 @@ CSceneTutorial::~CSceneTutorial()
 //ゲームメイン初期化メソッド
 void CSceneTutorial::InitScene()
 {
+	//エネミー出現タイム初期化
+	e_time = 0;
+	//アイテム出現タイム初期化
+	i_time = 0;
+	//アイテム出現位置初期化
+	i_x = 0.0f;
+	//アイテム出現位置
+	i_x = 0.0f;
+	i_y = 0.0f;
+
+	//背景オブジェクト作成
+	/*C0bjBackground * back = new C0bjBackground();
+	Objs::InsertObj(back, OBJ_BACKGROUND, 1);*/
+
 	//チュートリアルオブジェクト作成
-	CObjTutorial* back = new CObjTutorial();
-	Objs::InsertObj(back, OBJ_TUTORIAL, 3);
+	/*CObjTutorial* tuto = new CObjTutorial();
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 3);*/
 
 	//主人公機オブジェクト作成
 	CObjHero* obj_h = new CObjHero(350.0f, 280.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 8);
 
 	//ステージ上部背景オブジェクト作成
-	CObjTopback* objtb = new CObjTopback();
-	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
+	/*CObjTopback* objtb = new CObjTopback();
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);*/
 
 	//ステージオブジェクト作成
-	CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 20);
+	/*CObjStage* objm = new CObjStage();
+	Objs::InsertObj(objm, OBJ_STAGE, 20);*/
 
 	//音楽情報の読み込み
 	/*Audio::LoadAudio(0, L"選択音.wav", EFFECT);

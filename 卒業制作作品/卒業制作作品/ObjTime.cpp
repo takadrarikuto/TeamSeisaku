@@ -13,6 +13,12 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+bool m_Stop_flg = false; //計測停止フラグ
+bool m_Start_flg = false; //測定開始フラグ
+
+//イベント用タイムONOFFフラグ
+bool m_Evetime_flg = false;
+
 //イニシャライズ
 void CObjTime::Init()
 {
@@ -48,6 +54,7 @@ void CObjTime::Action()
 	{
 		m_Stop_flg = true;
 		m_Start_num = 1;
+		m_Evetime_flg = true;
 	}
 	if (m_Start_flg == true)
 	{

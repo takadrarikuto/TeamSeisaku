@@ -13,12 +13,17 @@ using namespace GameL;
 //計測停止フラグ
 extern bool m_Stop_flg;
 
+//イベント用タイムONOFFフラグ
+extern bool m_Evetime_flg;
+
 //イニシャライズ
 void CObjEvent::Init()
 {
 	//初期化
 	//イベント時間
-	m_Evwnt_time = 1800;
+	m_Event_time = 1800;
+
+	//m_Stop_flg = false;
 	//測定スタートフラグ
 	m_Start_flg = false;
 }
@@ -32,14 +37,19 @@ void CObjEvent::Action()
 
 	/*if (ST_flg == true)
 	{
-		m_Evwnt_time--;
+		m_Event_time--;
 	}
-	if (m_Evwnt_time == 0)
+	if (m_Event_time == 0)
 	{
 		ST_flg = false;
 		m_Start_flg = true;
-		m_Evwnt_time = 1800;
+		m_Event_time = 1800;
 	}*/
+
+	if (m_Stop_flg == false)
+	{
+		m_Event_time--;
+	}
 }
 
 //ドロー
@@ -49,15 +59,15 @@ void CObjEvent::Draw()
 	int minute;//分
 	int second;//秒
 
-	second = (m_Evwnt_time / 60) % 60;	//秒
-	minute = (m_Evwnt_time / 60) / 60;	//分
+	second = (m_Event_time / 60) % 60;	//秒
+	minute = (m_Event_time / 60) / 60;	//分
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 	wchar_t str[128];
 
-	/*if (m_Stop_flg == true)
-	{*/
+	if (m_Evetime_flg == true)
+	{
 		//イベントTIMEを表示
 		Font::StrDraw(L"EVENT TIME", 7, 65, 20, c);
 
@@ -68,7 +78,7 @@ void CObjEvent::Draw()
 			swprintf_s(str, L"%d:%d", minute, second);
 
 		Font::StrDraw(str, 27, 85, 28, c);
-	//}
+	}
 
 	/*if (minute == 1 && second == 0 || minute == 0)
 	{

@@ -307,7 +307,7 @@ void CObjMenu::Draw()
 		dst.m_left = 405.0f;
 		dst.m_right = 490.0f;
 		dst.m_bottom = 330.0f;
-		Draw::Draw(12, &src, &dst, c, 0.0f);
+		Draw::Draw(29, &src, &dst, c, 0.0f);
 		//•ŠíŠ’e•\¦
 		swprintf_s(str, L"%d/3", gre_pb_me, 15);
 		Font::StrDraw(str, 515, 285, 37, c);
