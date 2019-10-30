@@ -356,28 +356,28 @@ void CObjHero::Action()
 				{
 					//グレネードオブジェクト作成
 					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y - 10, 0, -m_ga_vy_max);
-					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 4);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//グレネードオブジェクト作成
 					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 32, m_y + 30, m_ga_vx_max, 0);
-					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 4);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//グレネードオブジェクト作成
 					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y + 32, 0, m_ga_vy_max);
-					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 4);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//グレネードオブジェクト作成
 					CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x, m_y + 30, -m_ga_vx_max, 0);
-					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+					Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 4);
 				}
 				m_Grenade_flg = false;
 			}		
@@ -402,28 +402,28 @@ void CObjHero::Action()
 					{
 						//ハンドガンアタックオブジェクト作成
 						CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 0.0f);
-						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 4);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//ハンドガンアタックオブジェクト作成
 						CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 4);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//ハンドガンアタックオブジェクト作成
 						CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 4);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//ハンドガンアタックオブジェクト作成
 						CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 4);
 					}
 					//Attack_flg = true; //Attackフラグtrue
 				}
@@ -446,44 +446,44 @@ void CObjHero::Action()
 					{
 						//ショットガンアタックオブジェクト作成
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//ショットガンアタックオブジェクト作成
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max, 60.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max, 120.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//ショットガンアタックオブジェクト作成
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max, m_ga_vy_max, -30.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 0.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max, m_ga_vy_max, 30.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//ショットガンアタックオブジェクト作成
 						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max, 240.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max, 300.0f);
-						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 4);
 					}
 					//Attack_flg = true; //Attackフラグtrue
 				}
@@ -505,28 +505,28 @@ void CObjHero::Action()
 					{
 						//アサルトアタックオブジェクト作成
 						CObjARAttack* obj_ara = new CObjARAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 0.0f);
-						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 4);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//アサルトアタックオブジェクト作成
 						CObjARAttack* obj_ara = new CObjARAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 4);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//アサルトアタックオブジェクト作成
 						CObjARAttack* obj_ara = new CObjARAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 4);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//アサルトアタックオブジェクト作成
 						CObjARAttack* obj_ara = new CObjARAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 4);
 					}
 					//Attack_flg = true; //Attackフラグtrue
 				}
@@ -548,28 +548,28 @@ void CObjHero::Action()
 					{
 						//スナイパーアタックオブジェクト作成
 						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
-						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 4);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//スナイパーアタックオブジェクト作成
 						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
-						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 4);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//スナイパーアタックオブジェクト作成
 						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 4);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//スナイパーアタックオブジェクト作成
 						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
-						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 4);
 					}
 					//Attack_flg = true; //Attackフラグtrue
 				}
@@ -591,28 +591,28 @@ void CObjHero::Action()
 					{
 						//ロケットランチャーアタックオブジェクト作成
 						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x + 16, m_y, 0, -m_ga_vy_max, 0.0f);
-						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 4);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//ロケットランチャーアタックオブジェクト作成
 						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, m_ga_vx_max, 0, 270.0f);
-						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 4);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//ロケットランチャーアタックオブジェクト作成
 						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x + 16, m_y, 0, m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 4);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//ロケットランチャーアタックオブジェクト作成
 						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 90.0f);
-						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 4);
 					}
 					//Attack_flg = true; //Attackフラグtrue
 				}
@@ -634,28 +634,28 @@ void CObjHero::Action()
 					{
 						//レールガンアタックオブジェクト作成
 						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
-						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 4);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//レールガンアタックオブジェクト作成
 						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
-						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 4);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//レールガンアタックオブジェクト作成
 						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
-						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 4);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//レールガンアタックオブジェクト作成
 						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
-						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 4);
 					}
 					//Attack_flg = true; //Attackフラグtrue
 				}

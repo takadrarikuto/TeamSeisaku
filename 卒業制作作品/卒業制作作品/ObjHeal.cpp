@@ -39,13 +39,6 @@ void CObjHeal::Action()
 	//自身のHitBoxを持ってくる
 	CHitBox* hit = Hits::GetHitBox(this);
 
-	//主人公と衝突したら消滅
-	if (hit->CheckObjNameHit(OBJ_HERO) != nullptr)
-	{
-		this->SetStatus(false);
-		Hits::DeleteHitBox(this);
-	}
-
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
@@ -56,10 +49,10 @@ void CObjHeal::Action()
 	m_Healy -= hvy;
 
 	//HitBoxの内容を更新 
-	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_exp->SetPos(m_Healx + 55, m_Healy + 55); //当たり判定の位置更新
+	//CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
+	hit->SetPos(m_Healx + 55, m_Healy + 55); //当たり判定の位置更新
 
-	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
+	if (hit->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		hero->SetHP(100);
 		this->SetStatus(false); //オブジェクト破棄
