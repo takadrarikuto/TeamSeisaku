@@ -95,5 +95,5 @@ void CObjOperation::Draw()
 
 	float b[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"◆Enterでステージへ", 400, 500, 35, b);
+	Font::StrDraw(L"◆Enterでステージへ", 400, 510, 35, b);
 }
