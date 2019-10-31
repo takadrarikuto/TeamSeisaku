@@ -35,7 +35,7 @@ void CSceneTitle::InitScene()
 	Draw::LoadImage(L"SCP354タイトル.png", 3, TEX_SIZE_1024);
 	Draw::LoadImage(L"タイトルSCPロゴ.png", 4, TEX_SIZE_1024);
 
-	//背景オブジェクト作成
+	//タイトルオブジェクト作成
 	CObjTitle* back = new CObjTitle();
 	Objs::InsertObj(back, OBJ_TITLE, 3);
 
