@@ -17,7 +17,7 @@ extern bool m_Stop_flg;
 extern bool m_Start_flg;
 
 //イベント用タイムONOFFフラグ
-extern bool m_Evetime_flg;
+//extern bool m_Evetime_flg;
 
 //イニシャライズ
 void CObjEvent::Init()
@@ -37,7 +37,21 @@ void CObjEvent::Action()
 	////発電機情報取得
 	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
 	//bool ST_flg = time->GetTS();
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool TStop_flg = time->GetTStop();
+	bool TStart_flg = time->GetTStart();
 
+	if (TStop_flg == true)
+	{
+		m_Event_time--;
+	}
+	if (m_Event_time == 0)
+	{
+		TStart_flg = true;
+		time->SetTStart(TStart_flg);
+		m_Event_time = 1850;
+	}
 	/*if (ST_flg == true)
 	{
 		m_Event_time--;
@@ -49,7 +63,7 @@ void CObjEvent::Action()
 		m_Event_time = 1800;
 	}*/
 
-	if (m_Evetime_flg == true)
+	/*if (m_Evetime_flg == true)
 	{
 		m_Event_time--;
 	}
@@ -58,12 +72,16 @@ void CObjEvent::Action()
 		m_Start_flg = true;
 		m_Evetime_flg = false;
 		m_Event_time = 1850;
-	}
+	}*/
 }
 
 //ドロー
 void CObjEvent::Draw()
 {
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool TStop_flg = time->GetTStop();
+	bool TStart_flg = time->GetTStart();
 	//m_timeから秒分を求める
 	int minute;//分
 	int second;//秒
@@ -75,7 +93,8 @@ void CObjEvent::Draw()
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 	wchar_t str[128];
 
-	if (m_Evetime_flg == true)
+	//表示切替
+	if (TStop_flg == true)
 	{
 		//イベントTIMEを表示
 		Font::StrDraw(L"EVENT TIME", 7, 65, 20, c);

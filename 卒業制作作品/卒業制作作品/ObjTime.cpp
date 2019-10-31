@@ -17,16 +17,21 @@ bool m_Stop_flg = false; //計測停止フラグ
 bool m_Start_flg = false; //測定開始フラグ
 
 //イベント用タイムONOFFフラグ
-bool m_Evetime_flg = false;
+//bool m_Evetime_flg = false;
 
 //イニシャライズ
 void CObjTime::Init()
 {
 	//初期化
 	m_time = 10850; //10850 = 3分
+
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
+
+	m_Gen_flg = false; //発電機起動フラグ
+	m_END_flg = false; //敵無力化装置フラグ
+
 	m_Event_num = 0;  //イベント変数
 
 }
@@ -54,20 +59,27 @@ void CObjTime::Action()
 	{
 		m_Stop_flg = true;
 		m_Event_num = 1;
-		m_Evetime_flg = true;
+		//m_Evetime_flg = true;
 	}
 	else if (m_time == 7250 && m_Event_num == 1)
 	{
 		m_Stop_flg = true;
 		m_Event_num = 2;
-		m_Evetime_flg = true;
+		//m_Evetime_flg = true;
 	}
 	if (m_Start_flg == true)
 	{
 		m_Stop_flg = false;
 		m_Start_flg = false;
 	}
-
+	if (m_Event_num == 1)
+	{
+		m_Gen_flg = true;
+	}
+	else if (m_Event_num == 2)
+	{
+		m_END_flg = true;
+	}
 	////制限時間カウントダウン
 	//if (Menu_flg == false && m_Stop_flg == false)
 	//{
