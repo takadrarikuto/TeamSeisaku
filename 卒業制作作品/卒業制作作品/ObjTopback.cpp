@@ -10,6 +10,9 @@ using namespace GameL;
 //計測停止フラグ
 extern bool m_Stop_flg;
 
+//イベント用タイムONOFFフラグ
+extern bool m_Evetime_flg;
+
 //イニシャライズ
 void CObjTopback::Init()
 {
@@ -86,8 +89,8 @@ void CObjTopback::Draw()
 	dst.m_right = 115.0f;
 	dst.m_bottom = 115.0f;
 
-	/*if (m_Stop_flg == true)
-	{*/
+	if (m_Evetime_flg == true)
+	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
-	//}
+	}
 }

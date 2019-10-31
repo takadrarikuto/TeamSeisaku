@@ -442,6 +442,7 @@ void CObjHero::Action()
 				else if (m_Weapon_switching == 1 && m_sg_pb > 0)
 				{
 					m_bt_max = 60;
+					float i = 0.0f;
 					if (m_bt == 1)
 					{
 						m_sg_pb -= 1;//弾数を1減らす
@@ -919,8 +920,8 @@ void CObjHero::Action()
 		//	hp = 10;
 		//	//ポイントを獲得
 		//}
-
 	}
+	
 }
 
 //ドロー

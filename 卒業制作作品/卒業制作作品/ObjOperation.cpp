@@ -55,7 +55,7 @@ void CObjOperation::Action()
 		m_key_flag = true;
 	}
 
-	//ステージに移動
+	//チュートリアルに移動
 	if (m_andf == true)
 	{
 		m_and -= 0.03f;
@@ -63,7 +63,8 @@ void CObjOperation::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneStage());
+			//Scene::SetScene(new CSceneStage());
+			Scene::SetScene(new CSceneTutorial());
 		}
 	}
 }

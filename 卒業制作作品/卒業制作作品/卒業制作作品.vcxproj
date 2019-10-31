@@ -157,6 +157,7 @@
     <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="ObjTopback.h" />
+    <ClInclude Include="ObjTutorial.h" />
     <ClInclude Include="ObjZombieEnemy.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="SceneOver.h" />
     <ClInclude Include="SceneStage.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp" />
@@ -207,6 +209,7 @@
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="ObjTopback.cpp" />
+    <ClCompile Include="ObjTutorial.cpp" />
     <ClCompile Include="ObjZombieEnemy.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />
@@ -215,6 +218,7 @@
     <ClCompile Include="SceneOver.cpp" />
     <ClCompile Include="SceneStage.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="SceneTutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameL\DirectXTex.inl" />

@@ -22,6 +22,7 @@ enum OBJ_NAME
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
+	OBJ_TUTORIAL,
 	OBJ_STAGE,
 	OBJ_TITLE,
 	OBJ_OP,
@@ -129,6 +130,9 @@ struct UserData
 //操作説明
 #include "ObjOperation.h"
 
+//チュートリアル
+#include "ObjTutorial.h"
+
 //ゲームオーバー
 #include "ObjOver.h"
 
@@ -168,6 +172,9 @@ struct UserData
 
 //操作説明
 #include "SceneOperation.h"
+
+//チュートリアル
+#include "SceneTutorial.h"
 
 //ゲームオーバー
 #include "SceneOver.h"

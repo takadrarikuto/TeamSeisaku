@@ -45,6 +45,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
 	Draw::LoadImage(L"照準.png", 12, TEX_SIZE_512);
+	Draw::LoadImage(L"機材・武器.png", 29, TEX_SIZE_512);
 	Draw::LoadImage(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
@@ -111,6 +112,7 @@ void CSceneStage::InitScene()
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 20);
+
 	//イベントタイムオブジェクト作成
 	CObjEvent*objev = new CObjEvent();
 	Objs::InsertObj(objev, OBJ_EVENT, 20);
