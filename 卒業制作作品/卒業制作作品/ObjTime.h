@@ -16,6 +16,7 @@ public:
 
 	bool GetTStop() { return m_Stop_flg; } //時間停止フラグ取得用
 	bool GetTStart() { return m_Start_flg; } //測定開始フラグ取得用
+	bool GetEve() { return m_Event_num; } //イベント変数取得用
 
 	void SetTStop(bool stop_t) { m_Stop_flg = stop_t; }  //時間停止フラグ更新用
 	void SetTStart(bool start_t) { m_Start_flg = start_t; } //測定開始フラグ更新用
@@ -26,6 +27,6 @@ private:
 	bool m_flag_time;//時間計測スタートフラグ
 	bool m_Stop_flg; //計測停止フラグ
 	bool m_Start_flg; //測定開始フラグ
-	bool m_Start_num;  //計測開始変数
+	bool m_Event_num;  //イベント変数
 
 };

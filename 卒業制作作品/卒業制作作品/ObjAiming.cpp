@@ -102,6 +102,10 @@ void CObjAiming::Action()
 //ドロー
 void CObjAiming::Draw()
 {
+	//主人公位置取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	int h_ws = hero->GetWS();
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 
@@ -109,10 +113,54 @@ void CObjAiming::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 10.0f;
-	src.m_left = 435.0f;
-	src.m_right = 505.0f;
-	src.m_bottom = 90.0f;
+	//ハンドガン
+	if (h_ws == 0)
+	{		
+		src.m_top = 10.0f;
+		src.m_left = 435.0f;
+		src.m_right = 505.0f;
+		src.m_bottom = 90.0f;
+	}
+	//ショットガン
+	else if (h_ws == 1)
+	{
+		src.m_top = 10.0f;
+		src.m_left = 350.0f;
+		src.m_right = 425.0f;
+		src.m_bottom = 90.0f;
+	}
+	//アサルトライフル
+	else if (h_ws == 2)
+	{
+		src.m_top = 10.0f;
+		src.m_left = 190.0f;
+		src.m_right = 265.0f;
+		src.m_bottom = 90.0f;
+	}
+	//スナイパーライフル
+	else if (h_ws == 3)
+	{
+		src.m_top = 10.0f;
+		src.m_left = 270.0f;
+		src.m_right = 350.0f;
+		src.m_bottom = 90.0f;
+	}
+	//ロケットランチャー
+	else if (h_ws == 4)
+	{
+		src.m_top = 100.0f;
+		src.m_left = 30.0f;
+		src.m_right = 100.0f;
+		src.m_bottom = 165.0f;
+	}
+	//レールガン
+	else if (h_ws == 5)
+	{		
+		src.m_top = 10.0f;
+		src.m_left = 30.0f;
+		src.m_right = 100.0f;
+		src.m_bottom = 90.0f;
+	}
 
 	//描画処理
 	dst.m_top = 0.0f + m_Ay;

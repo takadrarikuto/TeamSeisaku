@@ -243,6 +243,9 @@
     <ClInclude Include="SceneTutorial.h">
       <Filter>ソース ファイル\チュートリアル</Filter>
     </ClInclude>
+    <ClInclude Include="ObjEnemy_Neutralization_Device.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -403,6 +406,9 @@
     </ClCompile>
     <ClCompile Include="SceneTutorial.cpp">
       <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjEnemy_Neutralization_Device.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
