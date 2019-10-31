@@ -77,7 +77,7 @@ void CSceneStage::InitScene()
 	GameOver_time = 0;
 
 	//主人公機オブジェクト作成
-	CObjHero* obj_h = new CObjHero(350.0f, 280.0f);
+	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 8);
 
 	//標準オブジェクト作成
@@ -95,6 +95,10 @@ void CSceneStage::InitScene()
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
 	Objs::InsertObj(Gen, OBJ_APPARATUS, 6);
+
+	//敵無力化装置オブジェクト作成
+	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(400, 200);
+	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
 
 	//アイテムオブジェクト作成	
 	//回復

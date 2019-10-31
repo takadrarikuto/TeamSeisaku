@@ -146,6 +146,7 @@
     <ClInclude Include="ObjHeal.h" />
     <ClInclude Include="ObjHero.h" />
     <ClInclude Include="ObjMenu.h" />
+    <ClInclude Include="ObjEnemy_Neutralization_Device.h" />
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="ObjHeal.cpp" />
     <ClCompile Include="ObjHero.cpp" />
     <ClCompile Include="ObjMenu.cpp" />
+    <ClCompile Include="ObjEnemy_Neutralization_Device.cpp" />
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />

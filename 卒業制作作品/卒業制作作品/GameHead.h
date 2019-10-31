@@ -19,6 +19,7 @@ enum OBJ_NAME
 	OBJ_ENEMY,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
+	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
@@ -114,6 +115,7 @@ struct UserData
 
 //設置物
 #include "ObjGenerator.h"
+#include "ObjEnemy_Neutralization_Device.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
