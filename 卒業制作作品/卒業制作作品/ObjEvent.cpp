@@ -13,6 +13,9 @@ using namespace GameL;
 //計測停止フラグ
 extern bool m_Stop_flg;
 
+//フラグ
+extern bool m_Start_flg;
+
 //イベント用タイムONOFFフラグ
 extern bool m_Evetime_flg;
 
@@ -21,11 +24,11 @@ void CObjEvent::Init()
 {
 	//初期化
 	//イベント時間
-	m_Event_time = 1800;
+	m_Event_time = 1850; //1850 ＝ 30秒
 
 	//m_Stop_flg = false;
 	//測定スタートフラグ
-	m_Start_flg = false;
+	//m_Start_flg = false;
 }
 
 //アクション
@@ -46,9 +49,15 @@ void CObjEvent::Action()
 		m_Event_time = 1800;
 	}*/
 
-	if (m_Stop_flg == false)
+	if (m_Evetime_flg == true)
 	{
 		m_Event_time--;
+	}
+	if (m_Event_time == 0)
+	{
+		m_Start_flg = true;
+		m_Evetime_flg = false;
+		m_Event_time = 1850;
 	}
 }
 
