@@ -18,6 +18,9 @@ extern bool m_key_flag_menu;
 //死亡時動き停止フラグ
 extern bool Dead_flg;
 
+//イベント用タイムONOFFフラグ
+extern bool m_Evetime_flg;
+
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -871,6 +874,7 @@ void CObjHero::Action()
 				Scene::SetScene(new CSceneOver());
 				m_time_dead = 0;
 				Dead_flg = false;
+				m_Evetime_flg = false;
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}

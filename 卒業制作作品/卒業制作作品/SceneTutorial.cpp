@@ -52,8 +52,8 @@ void CSceneTutorial::InitScene()
 	Objs::InsertObj(tuto, OBJ_TUTORIAL, 3);*/
 
 	//主人公機オブジェクト作成
-	CObjHero* obj_h = new CObjHero(350.0f, 280.0f);
-	Objs::InsertObj(obj_h, OBJ_HERO, 8);
+	/*CObjHero* obj_h = new CObjHero(350.0f, 280.0f);
+	Objs::InsertObj(obj_h, OBJ_HERO, 8);*/
 
 	//ステージ上部背景オブジェクト作成
 	/*CObjTopback* objtb = new CObjTopback();
