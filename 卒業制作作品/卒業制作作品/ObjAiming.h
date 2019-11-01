@@ -17,6 +17,6 @@ private:
 	float m_Ay;
 	float m_A_dst_num; //ˆÊ’uC³•Ï”
 
-	int m_Distance_max; //íœ‹——£Å‘å’l
+	int m_Aiming_Distance_max; //íœ‹——£Å‘å’l
 
 };

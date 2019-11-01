@@ -5,41 +5,36 @@
 #include "GameL\WinInputs.h"
 
 #include "GameHead.h"
-#include "ObjGenerator.h"
+#include "ObjEnemy_Neutralization_Device.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 //コンストラクタ
-CObjGenerator::CObjGenerator(float x, float y)
+CObjEnemy_Neutralization_Device::CObjEnemy_Neutralization_Device(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Genx = x;
-	m_Geny = y;
-	
+	m_Enemy_Neu_Devx = x;
+	m_Enemy_Neu_Devy = y;
+
 }
 
 //イニシャライズ
-void CObjGenerator::Init()
+void CObjEnemy_Neutralization_Device::Init()
 {
 	//初期化
-	m_Genvx = 0.0f; //位置更新
-	m_Genvy = 0.0f;
+	m_Enemy_Neu_Dev_vx = 0.0f; //位置更新
+	m_Enemy_Neu_Dev_vy = 0.0f;
 
 	m_Start_flg = false; //計測開始フラグ
 
-	//描画サイズ
-	m_dst_size = 100.0f; 
-	//当たり判定サイズ
-	Hitbox_size = 100; 
-
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Genx, m_Geny, Hitbox_size, 40, ELEMENT_FIELD, OBJ_APPARATUS, 6);
+	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, 55, 50, ELEMENT_FIELD, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
 
 }
 
 //アクション
-void CObjGenerator::Action()
+void CObjEnemy_Neutralization_Device::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -47,43 +42,43 @@ void CObjGenerator::Action()
 	float hy = hero->GetY();
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
-	
+
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool Eve_flg = time->GetEve();
-	bool GEN = time->GetGenFlg();
+	bool END = time->GetENDFlg();
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_exp->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
+	hit_exp->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
 
 	//主人公接触判定処理
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& GEN == true)
+			&& END == true)
 		{
 			TStart_flg = true;
-			GEN = false;
+			END = false;
 			time->SetTStart(TStart_flg);
-			time->SetGenFlg(GEN);
+			time->SetENDFlg(END);
 		}
 	}
 	else
 	{
 		TStart_flg = false;
 	}
-	
+
 	//主人公の移動に合わせる
-	m_Genx -= hvx;
-	m_Geny -= hvy;
+	m_Enemy_Neu_Devx -= hvx;
+	m_Enemy_Neu_Devy -= hvy;
 
 }
 
 //ドロー
-void CObjGenerator::Draw()
+void CObjEnemy_Neutralization_Device::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
@@ -97,16 +92,16 @@ void CObjGenerator::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 0.0f;
-	src.m_left = 0.0f;
-	src.m_right = 100.0f;
-	src.m_bottom = 100.0f;
+	src.m_top = 15.0f;
+	src.m_left = 110.0f;
+	src.m_right = 145.0f;
+	src.m_bottom = 80.0f;
 
 	//描画処理
-	dst.m_top = 0.0f + m_Geny;
-	dst.m_left = 0.0f + m_Genx;
-	dst.m_right = m_dst_size + m_Genx;
-	dst.m_bottom = m_dst_size + m_Geny;
+	dst.m_top = 0.0f + m_Enemy_Neu_Devy;
+	dst.m_left = 0.0f + m_Enemy_Neu_Devx;
+	dst.m_right = 55.0f + m_Enemy_Neu_Devx;
+	dst.m_bottom = 105.0f + m_Enemy_Neu_Devy;
 	if (TStop_flg == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);

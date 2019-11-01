@@ -19,9 +19,11 @@ enum OBJ_NAME
 	OBJ_ENEMY,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
+	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
+	OBJ_TUTORIAL,
 	OBJ_STAGE,
 	OBJ_TITLE,
 	OBJ_OP,
@@ -34,6 +36,7 @@ enum OBJ_NAME
 	OBJ_BACKGROUND,
 	OBJ_AIMING,
 	OBJ_HEAL,
+	OBJ_EVENT,
 };
 //------------------------------------------------
 
@@ -112,6 +115,7 @@ struct UserData
 
 //設置物
 #include "ObjGenerator.h"
+#include "ObjEnemy_Neutralization_Device.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -127,6 +131,9 @@ struct UserData
 
 //操作説明
 #include "ObjOperation.h"
+
+//チュートリアル
+#include "ObjTutorial.h"
 
 //ゲームオーバー
 #include "ObjOver.h"
@@ -167,6 +174,9 @@ struct UserData
 
 //操作説明
 #include "SceneOperation.h"
+
+//チュートリアル
+#include "SceneTutorial.h"
 
 //ゲームオーバー
 #include "SceneOver.h"
