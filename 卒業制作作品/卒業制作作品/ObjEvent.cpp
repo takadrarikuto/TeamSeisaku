@@ -39,7 +39,7 @@ void CObjEvent::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
-	if (TStop_flg == true)
+	if (Menu_flg == false && TStop_flg == true)
 	{
 		m_Event_time--;
 	}

@@ -104,6 +104,24 @@ void CSceneStage::InitScene()
 	//回復
 	CObjHeal* Heal = new CObjHeal(200, 200);
 	Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	//ショットガン弾補充
+	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
+	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
+	//アサルトライフル弾補充
+	CObjARItem* ARi = new CObjARItem(200, 200);
+	Objs::InsertObj(ARi, OBJ_AR_ITEM, 7);
+	//スナイパーライフル弾補充
+	CObjSniperRifleItem* SRi = new CObjSniperRifleItem(200, 200);
+	Objs::InsertObj(SRi, OBJ_SNIPERRIFLE_ITEM, 7);
+	//ロケットランチャー弾補充
+	CObjRocketLauncherItem* RLi = new CObjRocketLauncherItem(200, 200);
+	Objs::InsertObj(RLi, OBJ_ROCKETLAUNCHER_ITEM, 7);
+	//レールガン弾補充
+	CObjRailGunItem* RGi = new CObjRailGunItem(200, 200);
+	Objs::InsertObj(RGi, OBJ_RAILGUN_ITEM, 7);
+	//グレネード補充
+	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
+	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();

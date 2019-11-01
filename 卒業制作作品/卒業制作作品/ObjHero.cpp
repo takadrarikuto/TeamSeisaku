@@ -158,7 +158,7 @@ void CObjHero::Action()
 				m_key_flag_menu = false;
 				//メニューオブジェクト作成
 				CObjMenu* obj_m = new CObjMenu();
-				Objs::InsertObj(obj_m, OBJ_MENU, 20);
+				Objs::InsertObj(obj_m, OBJ_MENU, 21);
 			}
 		}
 	}
@@ -709,8 +709,6 @@ void CObjHero::Action()
 				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 				{
 					m_hg_pb = 10;//弾数を10増やす
-					/*if (m_hg_pb == 10)
-						m_hg_pb = 10;*/
 				}
 				//ショットガン
 				else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)

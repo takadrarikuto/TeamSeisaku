@@ -246,6 +246,24 @@
     <ClInclude Include="ObjEnemy_Neutralization_Device.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
+    <ClInclude Include="ObjShotGunItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSniperRifleItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjARItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGrenadeItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRocketLauncherItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRailGunItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -409,6 +427,24 @@
     </ClCompile>
     <ClCompile Include="ObjEnemy_Neutralization_Device.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjShotGunItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSniperRifleItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjARItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGrenadeItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRocketLauncherItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRailGunItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
