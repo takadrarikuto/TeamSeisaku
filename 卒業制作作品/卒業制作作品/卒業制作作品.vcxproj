@@ -165,6 +165,7 @@
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="ObjTopback.h" />
     <ClInclude Include="ObjTutorial.h" />
+    <ClInclude Include="ObjWall.h" />
     <ClInclude Include="ObjZombieEnemy.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -224,6 +225,7 @@
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="ObjTopback.cpp" />
     <ClCompile Include="ObjTutorial.cpp" />
+    <ClCompile Include="ObjWall.cpp" />
     <ClCompile Include="ObjZombieEnemy.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />

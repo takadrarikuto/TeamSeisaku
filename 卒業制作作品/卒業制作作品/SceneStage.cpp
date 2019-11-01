@@ -123,6 +123,10 @@ void CSceneStage::InitScene()
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
 
+	//壁オブジェクト作成
+	CObjWall* Wall = new CObjWall(200, 200);
+	Objs::InsertObj(Wall, OBJ_WALL, 7);
+
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
 	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
