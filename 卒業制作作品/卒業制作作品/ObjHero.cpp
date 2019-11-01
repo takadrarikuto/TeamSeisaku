@@ -19,7 +19,7 @@ extern bool m_key_flag_menu;
 extern bool Dead_flg;
 
 //イベント用タイムONOFFフラグ
-extern bool m_Evetime_flg;
+//extern bool m_Evetime_flg;
 
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
@@ -161,7 +161,7 @@ void CObjHero::Action()
 				m_key_flag_menu = false;
 				//メニューオブジェクト作成
 				CObjMenu* obj_m = new CObjMenu();
-				Objs::InsertObj(obj_m, OBJ_MENU, 20);
+				Objs::InsertObj(obj_m, OBJ_MENU, 21);
 			}
 		}
 	}
@@ -686,8 +686,6 @@ void CObjHero::Action()
 				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 				{
 					m_hg_pb = 10;//弾数を10増やす
-					/*if (m_hg_pb == 10)
-						m_hg_pb = 10;*/
 				}
 				//ショットガン
 				else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
@@ -874,7 +872,7 @@ void CObjHero::Action()
 				Scene::SetScene(new CSceneOver());
 				m_time_dead = 0;
 				Dead_flg = false;
-				m_Evetime_flg = false;
+				//m_Evetime_flg = false;
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}

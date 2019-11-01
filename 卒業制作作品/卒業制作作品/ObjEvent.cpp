@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //計測停止フラグ
 extern bool m_Stop_flg;
 
@@ -42,7 +45,7 @@ void CObjEvent::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
-	if (TStop_flg == true)
+	if (Menu_flg == false && TStop_flg == true)
 	{
 		m_Event_time--;
 	}

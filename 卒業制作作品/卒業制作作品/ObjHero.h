@@ -50,6 +50,13 @@ public:
 	void SetVY(float vy) { m_vy = vy; }
 	void SetHP(int hp) { m_hero_hp = hp; }
 
+	void SetSG(int sg) { m_sg_pb_me = sg;}	//ショットガン弾セット用
+	void SetAR(int ar) { m_ar_pb_me = ar; }	//アサルトライフル弾セット用
+	void SetSR(int sr) { m_sr_pb_me = sr; }	//スナイパーライフル弾セット用
+	void SetRL(int rl) { m_rl_pb_me = rl; }	//ロケットランチャー弾セット用
+	void SetRG(int rg) { m_rg_pb_me = rg; }	//レールガン弾セット用
+	void SetGRE(int gre) { m_gre_pb_me = gre; }	//グレネードセット用
+
 private:
 	float m_x; //位置更新
 	float m_y;
