@@ -22,7 +22,7 @@ bool Menu_flg = false;
 bool m_key_flag_menu = true;
 
 //死亡時動き停止フラグ
-bool Dead_flg;
+bool Dead_flg = false;
 
 //イニシャライズ
 void CObjMenu::Init()
@@ -307,7 +307,7 @@ void CObjMenu::Draw()
 		dst.m_left = 405.0f;
 		dst.m_right = 490.0f;
 		dst.m_bottom = 330.0f;
-		Draw::Draw(12, &src, &dst, c, 0.0f);
+		Draw::Draw(29, &src, &dst, c, 0.0f);
 		//武器所持弾表示
 		swprintf_s(str, L"%d/3", gre_pb_me, 15);
 		Font::StrDraw(str, 515, 285, 37, c);

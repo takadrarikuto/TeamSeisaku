@@ -14,6 +14,8 @@ public:
 	
 	float GetGenX() { return m_Genx; } //x位置情報取得用
 	float GetGenY() { return m_Geny; } //y位置情報取得用
+	float GetGenHitX() { return m_HitSize_x; } //HitBox xサイズ取得用
+	float GetGenHitY() { return m_HitSize_y; } //HitBox yサイズ取得用
 
 private:
 	float m_Genx; //位置情報
@@ -21,6 +23,7 @@ private:
 	float m_Genvx; //位置更新
 	float m_Genvy;
 
-	bool m_Start_flg; //計測開始フラグ
+	float m_HitSize_x; //HitBoxサイズ
+	float m_HitSize_y;
 
 };

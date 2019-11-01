@@ -13,15 +13,22 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//イベント用タイムONOFFフラグ
+//bool m_Evetime_flg = false;
+
 //イニシャライズ
 void CObjTime::Init()
 {
 	//初期化
 	m_time = 10850; //10850 = 3分
+
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
-	m_Start_num = 0;  //計測開始変数
+
+	m_Gen_flg = false; //発電機起動フラグ
+	m_END_flg = false; //敵無力化装置フラグ
+
 
 }
 
@@ -44,17 +51,26 @@ void CObjTime::Action()
 		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == 9050 && m_Start_num == 0)
+	if (m_time == 9050 || m_time == 7250)
 	{
+		if (m_time == 9050)
+		{
+			m_Gen_flg = true;
+		}
+		if (m_time == 7250)
+		{
+			m_END_flg = true;
+		}
 		m_Stop_flg = true;
-		m_Start_num = 1;
+		//m_Evetime_flg = true;
 	}
 	if (m_Start_flg == true)
 	{
 		m_Stop_flg = false;
 		m_Start_flg = false;
+		m_Gen_flg = false;
+		m_END_flg = false;
 	}
-
 	////制限時間カウントダウン
 	//if (Menu_flg == false && m_Stop_flg == false)
 	//{
