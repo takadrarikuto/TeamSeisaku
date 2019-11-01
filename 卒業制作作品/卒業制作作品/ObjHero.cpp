@@ -47,7 +47,7 @@ void CObjHero::Init()
 	m_UpHit_flg = false;    //上
 	m_DownHit_flg = false;	 //下
 	m_LeftHit_flg = false;	 //左
-	m_LightHit_flg = false; //右
+	m_RightHit_flg = false; //右
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
@@ -211,7 +211,7 @@ void CObjHero::Action()
 			//'D'を押すと右移動
 			else if (Input::GetVKey('D') == true)
 			{
-				if (m_LightHit_flg == false)
+				if (m_RightHit_flg == false)
 				{
 					m_vx += m_v_max;
 				}
@@ -256,7 +256,7 @@ void CObjHero::Action()
 			m_UpHit_flg = false;    //上
 			m_DownHit_flg = false;	 //下
 			m_LeftHit_flg = false;	 //左
-			m_LightHit_flg = false; //右
+			m_RightHit_flg = false; //右
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 			if (hit_h->CheckElementHit(ELEMENT_FIELD) == true)
@@ -264,69 +264,81 @@ void CObjHero::Action()
 				//主人公と障害物がどの角度で当たっているか調べる
 				HIT_DATA** hit_data;
 				hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
-
 				float r = hit_data[0]->r;
-
-				//角度で上下左右を判定
-				if (r > 0 && r < 45 || r >= 315)
+				if (hit_data != nullptr)
+				{					
+					//角度で上下左右を判定
+					if ((r > 0 && r < 45) || r >= 315)
+					{
+						m_RightHit_flg = true; //右
+					}
+					else if (r >= 45 && r < 136)
+					{
+						m_UpHit_flg = true;    //上
+					}
+					else if (r >= 135 && r <= 225)
+					{
+						m_LeftHit_flg = true;	 //左
+					}
+					else if (r > 225 && r < 316)
+					{
+						m_DownHit_flg = true;	 //下
+					}
+				}				
+				//当たり判定処理
+				if (m_LeftHit_flg == true)//左に当たり判定があった場合
 				{
-					m_LightHit_flg = true; //右
-				}
-				else if (r >= 45 && r < 136)
-				{
-					m_UpHit_flg = true;    //上
-				}
-				else if (r >= 135 && r <= 225)
-				{
-					m_LeftHit_flg = true;	 //左
-				}
-				else if (r > 225 && r < 316)
-				{
-					m_DownHit_flg = true;	 //下
-				}
-
-				//発電機
-				if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
-				{
-					if (m_LeftHit_flg == true)//左に当たり判定があった場合
+					//発電機
+					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
 					{
 						m_x = GenX + GenHitX;
 					}
-					else if (m_LightHit_flg == true)//右に当たり判定があった場合
+					//敵無力化装置
+					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
+					{
+						m_x = EndX + EndHitX;
+					}						
+				}
+				else if (m_RightHit_flg == true)//右に当たり判定があった場合
+				{
+					//発電機
+					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
 					{
 						m_x = GenX - m_dst_size;
 					}
-					else if (m_DownHit_flg == true)//下に当たり判定があった場合
+					//敵無力化装置
+					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
+					{
+						m_x = EndX - m_dst_size;
+					}						
+				}
+				else if (m_DownHit_flg == true)//下に当たり判定があった場合
+				{
+					//発電機
+					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
 					{
 						m_y = GenY - m_dst_size;
 					}
-					else if (m_UpHit_flg == true)//上に当たり判定があった場合
+					//敵無力化装置
+					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
+					{
+						m_y = EndY - m_dst_size;
+					}						
+				}
+				else if (m_UpHit_flg == true)//上に当たり判定があった場合
+				{
+					//発電機
+					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
 					{
 						m_y = GenY + GenHitY;
 					}
-				}
-				//敵無力化装置
-				else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-				{
-					if (m_LeftHit_flg == true)//左に当たり判定があった場合
-					{
-						m_x = EndX + EndHitX;
-					}
-					else if (m_LightHit_flg == true)//右に当たり判定があった場合
-					{
-						m_x = EndX - m_dst_size;
-					}
-					else if (m_DownHit_flg == true)//下に当たり判定があった場合
-					{
-						m_y = EndY - m_dst_size;
-					}
-					else if (m_UpHit_flg == true)//上に当たり判定があった場合
+					//敵無力化装置
+					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
 					{
 						m_y = EndY + EndHitY;
-					}
-				}
+					}						
+				}			
 			}			
-
 			//武器切り替え処理
 			if (Input::GetVKey(VK_LEFT) == true)
 			{
@@ -791,6 +803,17 @@ void CObjHero::Action()
 			}
 		}
 
+		//設置物オブジェクト情報作成
+		CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
+		float GenX = Gen->GetGenX();
+		float GenY = Gen->GetGenY();
+		float GenHitX = Gen->GetGenHitX();
+		float GenHitY = Gen->GetGenHitY();
+		CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+		float EndX = End->GetEndX();
+		float EndY = End->GetEndY();
+		float EndHitX = End->GetEndHitX();
+		float EndHitY = End->GetEndHitY();
 
 		//HitBoxの内容を更新
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
@@ -808,13 +831,13 @@ void CObjHero::Action()
 			{
 				if (hit_h->CheckElementHit(data_base[i]) == true)
 				{
-					HIT_DATA** hit_date;							//当たった時の細かな情報を入れるための構造体
-					hit_date = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+					HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+					hit_data = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
 
 					float r = 0;
 					for (int j = 0; j < 10; j++) {
-						if (hit_date[j] != nullptr) {
-							r = hit_date[j]->r;
+						if (hit_data[j] != nullptr) {
+							r = hit_data[j]->r;
 						}
 					}
 					//角度で上下左右を判定
@@ -832,7 +855,7 @@ void CObjHero::Action()
 
 					//Audio::Start(3);	//ダメージ音	
 					hit_h->SetInvincibility(true);	//無敵オン
-
+					
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
 						m_hero_hp -= 5;

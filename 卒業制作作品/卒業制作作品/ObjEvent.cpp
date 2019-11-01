@@ -10,8 +10,8 @@
 //使用するネームスペース
 using namespace GameL;
 
-//イベント用タイムONOFFフラグ
-//extern bool m_Evetime_flg;
+//メニューONOFFフラグ
+extern bool Menu_flg;
 
 //イニシャライズ
 void CObjEvent::Init()
@@ -43,7 +43,7 @@ void CObjEvent::Action()
 	{
 		m_Event_time--;
 	}
-	else
+	else if(Menu_flg == false && TStop_flg == false)
 	{
 		m_Event_time = 1850;
 	}

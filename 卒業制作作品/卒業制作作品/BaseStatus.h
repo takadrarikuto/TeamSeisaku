@@ -21,12 +21,6 @@ public:
 	int m_sga_pb;	//ショットガン残り弾数
 	float m_exp_blood_dst_size; //爆発・血しぶき用描画サイズ
 
-	//上下左右別当たり判定確認フラグ
-	bool m_UpHit_flg;    //上
-	bool m_DownHit_flg;	 //下
-	bool m_LeftHit_flg;	 //左
-	bool m_LightHit_flg; //右
-
 	//武器別ダメージ
 	int Gun_Attack; ////ハンドガン
 	int SHG_Attack;	//ショットガン
