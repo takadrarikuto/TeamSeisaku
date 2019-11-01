@@ -52,7 +52,6 @@ void CObjEvent::Action()
 		time->SetTStart(TStart_flg);
 		m_Event_time = 1850;
 	}
-	//ålŒö‚ª€‚Ê‚Æ‰Šú‰»
 	/*if (ST_flg == true)
 	{
 		m_Event_time--;
