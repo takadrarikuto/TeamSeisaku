@@ -52,6 +52,8 @@ void CObjGenerator::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
+	bool Eve_flg = time->GetEve();
+	bool GEN = time->GetGenFlg();
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -60,10 +62,13 @@ void CObjGenerator::Action()
 	//主人公接触判定処理
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true)
+		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
+			&& GEN == true)
 		{
 			TStart_flg = true;
+			GEN = false;
 			time->SetTStart(TStart_flg);
+			time->SetGenFlg(GEN);
 		}
 	}
 	else
