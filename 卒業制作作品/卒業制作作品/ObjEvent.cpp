@@ -10,12 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//計測停止フラグ
-extern bool m_Stop_flg;
-
-//フラグ
-extern bool m_Start_flg;
-
 //イベント用タイムONOFFフラグ
 //extern bool m_Evetime_flg;
 
@@ -37,6 +31,9 @@ void CObjEvent::Action()
 	////発電機情報取得
 	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
 	//bool ST_flg = time->GetTS();
+	//主人公情報取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	int h_hp = hero->GetHP();
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
@@ -46,12 +43,16 @@ void CObjEvent::Action()
 	{
 		m_Event_time--;
 	}
-	if (m_Event_time == 0)
+	else
 	{
-		TStart_flg = true;
-		time->SetTStart(TStart_flg);
 		m_Event_time = 1850;
 	}
+	if (m_Event_time == 0 || h_hp <= 0)
+	{
+		TStart_flg = true;
+		time->SetTStart(TStart_flg);		
+	}
+
 	/*if (ST_flg == true)
 	{
 		m_Event_time--;

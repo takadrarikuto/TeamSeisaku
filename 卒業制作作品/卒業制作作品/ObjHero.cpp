@@ -18,9 +18,6 @@ extern bool m_key_flag_menu;
 //死亡時動き停止フラグ
 extern bool Dead_flg;
 
-//イベント用タイムONOFFフラグ
-extern bool m_Evetime_flg;
-
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -247,6 +244,13 @@ void CObjHero::Action()
 			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
 			float GenX = Gen->GetGenX();
 			float GenY = Gen->GetGenY();
+			float GenHitX = Gen->GetGenHitX();
+			float GenHitY = Gen->GetGenHitY();
+			CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+			float EndX = End->GetEndX();
+			float EndY = End->GetEndY();
+			float EndHitX = End->GetEndHitX();
+			float EndHitY = End->GetEndHitY();
 
 			//上下左右別当たり判定確認フラグ常時初期化
 			m_UpHit_flg = false;    //上
@@ -260,7 +264,6 @@ void CObjHero::Action()
 				//主人公と障害物がどの角度で当たっているか調べる
 				HIT_DATA** hit_data;
 				hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
-
 
 				float r = hit_data[0]->r;
 
@@ -282,11 +285,12 @@ void CObjHero::Action()
 					m_DownHit_flg = true;	 //下
 				}
 
+				//発電機
 				if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
 				{
 					if (m_LeftHit_flg == true)//左に当たり判定があった場合
 					{
-						m_x = GenX + 100;
+						m_x = GenX + GenHitX;
 					}
 					else if (m_LightHit_flg == true)//右に当たり判定があった場合
 					{
@@ -298,11 +302,30 @@ void CObjHero::Action()
 					}
 					else if (m_UpHit_flg == true)//上に当たり判定があった場合
 					{
-						m_y = GenY + 40;
+						m_y = GenY + GenHitY;
 					}
 				}
-			}
-
+				//敵無力化装置
+				else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
+				{
+					if (m_LeftHit_flg == true)//左に当たり判定があった場合
+					{
+						m_x = EndX + EndHitX;
+					}
+					else if (m_LightHit_flg == true)//右に当たり判定があった場合
+					{
+						m_x = EndX - m_dst_size;
+					}
+					else if (m_DownHit_flg == true)//下に当たり判定があった場合
+					{
+						m_y = EndY - m_dst_size;
+					}
+					else if (m_UpHit_flg == true)//上に当たり判定があった場合
+					{
+						m_y = EndY + EndHitY;
+					}
+				}
+			}			
 
 			//武器切り替え処理
 			if (Input::GetVKey(VK_LEFT) == true)
@@ -874,7 +897,6 @@ void CObjHero::Action()
 				Scene::SetScene(new CSceneOver());
 				m_time_dead = 0;
 				Dead_flg = false;
-				m_Evetime_flg = false;
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}

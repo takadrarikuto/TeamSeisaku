@@ -17,10 +17,12 @@ public:
 	float GetY() { return m_y; }
 	float GetVX() { return m_vx; }
 	float GetVY() { return m_vy; }
+	float GetHitBox() { return m_dst_size; }
 
 	int GetWS() { return m_Weapon_switching; }
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
+	bool GetDel() { return m_del; } //削除チェック
 
 	int GetHG_E() { return m_hg_pb; }	//ハンドガンの残り弾数を取得(装備分)
 	int GetSG_E() { return m_sg_pb; }	//ショットガンの残り弾数を取得(装備分)
@@ -59,12 +61,6 @@ private:
 	float m_ga_vx_max; //武器攻撃移動ベクトル最大値
 	float m_ga_vy_max;
 	float m_speed_power; //スピードパワー
-
-	//上下左右別当たり判定確認フラグ
-	bool m_UpHit_flg;    //上
-	bool m_DownHit_flg;	 //下
-	bool m_LeftHit_flg;	 //左
-	bool m_LightHit_flg; //右
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム
