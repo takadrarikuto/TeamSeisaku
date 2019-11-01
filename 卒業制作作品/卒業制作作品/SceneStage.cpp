@@ -90,7 +90,7 @@ void CSceneStage::InitScene()
 
 	//ボスオブジェクト作成 272, 400
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
-	Objs::InsertObj(obj_boss, OBJ_BOSS, 3);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
@@ -122,6 +122,10 @@ void CSceneStage::InitScene()
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+
+	//壁オブジェクト作成
+	CObjWall* Wall = new CObjWall(200, 200);
+	Objs::InsertObj(Wall, OBJ_WALL, 7);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();

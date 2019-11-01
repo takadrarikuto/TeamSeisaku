@@ -43,6 +43,7 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_WALL,
 };
 //------------------------------------------------
 
@@ -62,6 +63,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
+	ELEMENT_WALL,
 };
 //------------------------------------------------
 
@@ -167,6 +169,9 @@ struct UserData
 
 //îwåi
 #include "ObjBackground.h"
+
+//ï«
+#include "ObjWall.h"
 
 //ÉxÅ[ÉXê›íË
 #include "GameHead.h"

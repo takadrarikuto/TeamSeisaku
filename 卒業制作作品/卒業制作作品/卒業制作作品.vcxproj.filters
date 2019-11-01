@@ -264,6 +264,9 @@
     <ClInclude Include="ObjRailGunItem.h">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClInclude>
+    <ClInclude Include="ObjWall.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -445,6 +448,9 @@
     </ClCompile>
     <ClCompile Include="ObjRailGunItem.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
