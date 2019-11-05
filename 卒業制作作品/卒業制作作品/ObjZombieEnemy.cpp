@@ -81,6 +81,7 @@ void CObjZombieEnemy::Action()
 	float hvy = hero->GetVY();
 	float h_HitBox = hero->GetHitBox();
 	float h_gel = hero->GetDel();
+	
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -98,15 +99,14 @@ void CObjZombieEnemy::Action()
 	{
 		m_zev_max = 2.0f;
 	}
-
+	float rx = 0.0f;
+	float ry = 0.0f;
+	
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		//移動処理
-		//主人公の移動を適応する
-		m_zex -= hvx;
-		m_zey -= hvy;
-
+		rx = sqrt(hx * hx);
+		ry = sqrt(hy * hy);
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
@@ -165,62 +165,18 @@ void CObjZombieEnemy::Action()
 		}
 
 		//位置更新
-		m_zex += m_zevx;
-		m_zey += m_zevy;
+		//移動処理
+		//主人公の移動を適応する
+		//m_zex -= hvx;
+		//m_zey -= hvy;
+		m_zex += (-hvx) + m_zevx;
+		m_zey += (-hvy) + m_zevy;
 	}
 
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
 
-	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_PLAYER) == true)
-	{
-		//主人公と障害物がどの角度で当たっているか調べる
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_PLAYER);
-
-		float r = hit_data[0]->r;
-
-		//角度で上下左右を判定
-		if (r > 0 && r < 45 || r >= 315)
-		{
-			m_LightHit_flg = true; //右
-		}
-		else if (r >= 45 && r < 136)
-		{
-			m_UpHit_flg = true;    //上
-		}
-		else if (r >= 135 && r <= 225)
-		{
-			m_LeftHit_flg = true;	 //左
-		}
-		else if (r > 225 && r < 316)
-		{
-			m_DownHit_flg = true;	 //下
-		}
-
-		if (m_LeftHit_flg == true)//左に当たり判定があった場合
-		{
-			m_zex = hx + h_HitBox;
-			m_zevx = 0.0f;
-		}
-		else if (m_LightHit_flg == true)//右に当たり判定があった場合
-		{
-			m_zex = hx - m_dst_size;
-			m_zevx = 0.0f;
-		}
-		else if (m_DownHit_flg == true)//下に当たり判定があった場合
-		{
-			m_zey = hy - m_dst_size;
-			m_zevy = 0.0f;
-		}
-		else if (m_UpHit_flg == true)//上に当たり判定があった場合
-		{
-			m_zey = hy + h_HitBox;
-			m_zevy = 0.0f;
-		}	
-	}
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)

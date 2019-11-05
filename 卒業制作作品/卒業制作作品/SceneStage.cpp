@@ -94,11 +94,11 @@ void CSceneStage::InitScene()
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
-	Objs::InsertObj(Gen, OBJ_APPARATUS, 6);
+	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(400, 200);
-	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
+	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//アイテムオブジェクト作成	
 	//回復
