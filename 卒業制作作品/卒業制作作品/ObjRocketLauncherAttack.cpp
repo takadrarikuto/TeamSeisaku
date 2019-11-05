@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjRocketLauncherAttack.h"
@@ -39,7 +40,7 @@ void CObjRocketLauncherAttack::Init()
 	m_Distance_max = 5;
 
 	//ダメージ量
-	RL_Attack = 150;
+	((UserData*)Save::GetData())->RL_Attack;
 
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 320.0f;
@@ -116,7 +117,7 @@ void CObjRocketLauncherAttack::Action()
 		if (m_RLx < hx - 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 			this->SetStatus(false); //オブジェクト破棄
@@ -125,7 +126,7 @@ void CObjRocketLauncherAttack::Action()
 		else if (m_RLx > hx + 32 + 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 			this->SetStatus(false); //オブジェクト破棄
@@ -134,7 +135,7 @@ void CObjRocketLauncherAttack::Action()
 		if (m_RLy < hy - 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 			this->SetStatus(false); //オブジェクト破棄
@@ -143,7 +144,7 @@ void CObjRocketLauncherAttack::Action()
 		else if (m_RLy > hy + 32 + 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 			this->SetStatus(false); //オブジェクト破棄
@@ -155,7 +156,7 @@ void CObjRocketLauncherAttack::Action()
 	if (hit_rl->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, RL_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 		this->SetStatus(false); //オブジェクト破棄
@@ -164,7 +165,7 @@ void CObjRocketLauncherAttack::Action()
 	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, RL_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 		this->SetStatus(false); //オブジェクト破棄
