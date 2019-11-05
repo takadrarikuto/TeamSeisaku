@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //イベント用タイムONOFFフラグ
 //extern bool m_Evetime_flg;
 
