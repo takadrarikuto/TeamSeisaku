@@ -163,10 +163,6 @@ void CObjHero::Action()
 		}
 	}
 
-	//ŽålŒöˆÊ’uŒÅ’è
-	m_x = 368.0f;
-	m_y = 268.0f;
-
 	//ˆÚ“®’âŽ~
 	m_vx = 0.0f;
 	m_vy = 0.0f;

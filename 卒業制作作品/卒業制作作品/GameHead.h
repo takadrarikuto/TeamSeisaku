@@ -73,7 +73,15 @@ enum HIT_ELEMENTS
 struct UserData
 {
 	int mSeveData;	//サンプルセーブデータ
-	
+	//武器別ダメージ
+	int Gun_Attack = 10;  //ハンドガン
+	int SHG_Attack = 30;	//ショットガン
+	int AR_Attack = 20; //アサルトライフル
+	int SR_Attack = 50; //スナイパーライフル
+	int RL_Attack = 150; //ロケットランチャー
+	int RG_Attack = 200; //レールガン
+	int GRE_Attack = 100;	//グレネード
+
 };
 //------------------------------------------------
 

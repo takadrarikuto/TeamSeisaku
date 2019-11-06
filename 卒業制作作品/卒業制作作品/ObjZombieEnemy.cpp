@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjZombieEnemy.h"
@@ -40,7 +41,7 @@ void CObjZombieEnemy::Init()
 	m_zev_max = 0.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
-	m_UDani_frame = 4; //静止フレームを初期にする
+	m_UDani_frame = 2; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
 	//攻撃頻度
@@ -48,13 +49,13 @@ void CObjZombieEnemy::Init()
 	//攻撃頻度最大値
 	m_at_max = 5;
 	//ダメージ量
-	Gun_Attack = 10;  //ハンドガン
-	SHG_Attack = 30;  //ショットガン
-	AR_Attack = 20;	  //アサルトライフル
-	SR_Attack = 50;	  //スナイパーライフル
-	RL_Attack = 150;  //ロケットランチャー
-	RG_Attack = 200;  //レールガン
-	GRE_Attack = 100; //グレネード
+	((UserData*)Save::GetData())->Gun_Attack;
+	((UserData*)Save::GetData())->SHG_Attack;
+	((UserData*)Save::GetData())->AR_Attack;
+	((UserData*)Save::GetData())->SR_Attack;
+	((UserData*)Save::GetData())->RL_Attack;
+	((UserData*)Save::GetData())->RG_Attack;
+	((UserData*)Save::GetData())->GRE_Attack;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -99,14 +100,24 @@ void CObjZombieEnemy::Action()
 	{
 		m_zev_max = 2.0f;
 	}
-	float rx = 0.0f;
-	float ry = 0.0f;
-	
+
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{
-		rx = sqrt(hx * hx);
-		ry = sqrt(hy * hy);
+	{		
+		//主人公が上に居ると上に移動
+		if (hy < m_zey)
+		{
+			m_zevy = -m_zev_max;
+			m_UDani_frame = 6;
+			m_ani_time += 1;
+		}
+		//主人公が下に居ると下移動
+		if (hy > m_zey)
+		{
+			m_zevy = m_zev_max;
+			m_UDani_frame = 2;
+			m_ani_time += 1;
+		}
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
@@ -115,42 +126,28 @@ void CObjZombieEnemy::Action()
 			m_ani_time += 1;
 		}
 		//主人公が右に居ると右に移動
-		else if (hx > m_zex)
+		if (hx > m_zex)
 		{
 			m_zevx = m_zev_max;
 			m_UDani_frame = 4;
 			m_ani_time += 1;
 		}
-		//主人公が上に居ると上に移動
-		else if (hy < m_zey)
-		{
-			m_zevy = -m_zev_max;
-			m_UDani_frame = 6;
-			m_ani_time += 1;
-		}
-		//主人公が下に居ると下移動
-		else if (hy > m_zey)
-		{
-			m_zevy = m_zev_max;
-			m_UDani_frame = 2;
-			m_ani_time += 1;
-		}
 
-		////斜め移動修正処理
-		//float r = 0.0f;
-		//r = m_zevx * m_zevx + m_zevy * m_zevy;
-		//r = sqrt(r); //ルートを求める
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_zevx * m_zevx + m_zevy * m_zevy;
+		r = sqrt(r); //ルートを求める
 
-		////斜めベクトルを求める
-		//if (r == 0.0f)
-		//{
-		//	; //0なら何もしない
-		//}
-		//else
-		//{
-		//	m_zevx = m_zev_max / r * m_zevx;
-		//	m_zevy = m_zev_max / r * m_zevy;
-		//}
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_zevx = m_zev_max / r * m_zevx;
+			m_zevy = m_zev_max / r * m_zevy;
+		}
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -176,48 +173,48 @@ void CObjZombieEnemy::Action()
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
-
+	
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
-		m_hero_hp -= Gun_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ショットガン
 	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= SHG_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//アサルトライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 	{
-		m_hero_hp -= AR_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//スナイパーライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 	{
-		m_hero_hp -= SR_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ロケットランチャー
 	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 	{
-		m_hero_hp -= RL_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//レールガン
 	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= RG_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}	
 	//グレネード
 	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 	{
-		m_hero_hp -= GRE_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//爆発
