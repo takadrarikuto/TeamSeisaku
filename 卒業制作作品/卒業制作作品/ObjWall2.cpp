@@ -13,8 +13,8 @@ using namespace GameL;
 CObjWall2::CObjWall2(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Wallx = 1200;
-	m_Wally = -300;
+	m_Wallx = 1600;
+	m_Wally = -600;
 }
 
 //イニシャライズ
@@ -25,7 +25,7 @@ void CObjWall2::Init()
 	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 50;
-	m_YHitbox_size = 1200;
+	m_YHitbox_size = 1800;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL, OBJ_WALL, 7);
@@ -76,6 +76,6 @@ void CObjWall2::Draw()
 	dst.m_top = 0.0f + m_Wally;
 	dst.m_left = 0.0f + m_Wallx;
 	dst.m_right = 50.0f + m_Wallx;
-	dst.m_bottom = 1200.0f + m_Wally;
+	dst.m_bottom = 1800.0f + m_Wally;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 }
