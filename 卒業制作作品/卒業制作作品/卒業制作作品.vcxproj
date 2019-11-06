@@ -166,6 +166,9 @@
     <ClInclude Include="ObjTopback.h" />
     <ClInclude Include="ObjTutorial.h" />
     <ClInclude Include="ObjWall.h" />
+    <ClInclude Include="ObjWall2.h" />
+    <ClInclude Include="ObjWall3.h" />
+    <ClInclude Include="ObjWall4.h" />
     <ClInclude Include="ObjZombieEnemy.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -226,6 +229,9 @@
     <ClCompile Include="ObjTopback.cpp" />
     <ClCompile Include="ObjTutorial.cpp" />
     <ClCompile Include="ObjWall.cpp" />
+    <ClCompile Include="ObjWall2.cpp" />
+    <ClCompile Include="ObjWall3.cpp" />
+    <ClCompile Include="ObjWall4.cpp" />
     <ClCompile Include="ObjZombieEnemy.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />

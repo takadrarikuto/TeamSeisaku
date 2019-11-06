@@ -41,7 +41,7 @@ void CObjZombieEnemy::Init()
 	m_zev_max = 0.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
-	m_UDani_frame = 4; //静止フレームを初期にする
+	m_UDani_frame = 2; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
 	//攻撃頻度
@@ -100,85 +100,54 @@ void CObjZombieEnemy::Action()
 	{
 		m_zev_max = 2.0f;
 	}
-	/*float hzrx = hx - m_zex;
-	float hzry = hy - m_zevy;*/
-	float rx = hx - m_zex;
-	float ry = hy - m_zevy;
-	
+
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{
-		if (rx < 0)
-		{
-			m_zevx = -m_zev_max;
-			m_UDani_frame = 0;
-			m_ani_time += 1;
-		}
-		else if (rx > 0)
-		{
-			m_zevx = m_zev_max;
-			m_UDani_frame = 4;
-			m_ani_time += 1;
-		}
-		else if (ry > 0)
+	{		
+		//主人公が上に居ると上に移動
+		if (hy < m_zey)
 		{
 			m_zevy = -m_zev_max;
 			m_UDani_frame = 6;
 			m_ani_time += 1;
 		}
-		else if (ry < 0)
+		//主人公が下に居ると下移動
+		if (hy > m_zey)
 		{
 			m_zevy = m_zev_max;
 			m_UDani_frame = 2;
 			m_ani_time += 1;
 		}
-		
-		/*rx = sqrt(hzrx);
-		ry = sqrt(hzry);*/
 		//主人公が左に居ると左に移動
-		//if (hx < m_zex)
-		//{
-		//	m_zevx = -m_zev_max;
-		//	m_UDani_frame = 0;
-		//	m_ani_time += 1;
-		//}
-		////主人公が右に居ると右に移動
-		//else if (hx > m_zex)
-		//{
-		//	m_zevx = m_zev_max;
-		//	m_UDani_frame = 4;
-		//	m_ani_time += 1;
-		//}
-		////主人公が上に居ると上に移動
-		//else if (hy < m_zey)
-		//{
-		//	m_zevy = -m_zev_max;
-		//	m_UDani_frame = 6;
-		//	m_ani_time += 1;
-		//}
-		////主人公が下に居ると下移動
-		//else if (hy > m_zey)
-		//{
-		//	m_zevy = m_zev_max;
-		//	m_UDani_frame = 2;
-		//	m_ani_time += 1;
-		//}
+		if (hx < m_zex)
+		{
+			m_zevx = -m_zev_max;
+			m_UDani_frame = 0;
+			m_ani_time += 1;
+		}
+		//主人公が右に居ると右に移動
+		if (hx > m_zex)
+		{
+			m_zevx = m_zev_max;
+			m_UDani_frame = 4;
+			m_ani_time += 1;
+		}
 
-		////斜め移動修正処理
-		//float r = 0.0f;
-		//r = m_zevx * m_zevx + m_zevy * m_zevy;
-		//r = sqrt(r); //ルートを求める
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_zevx * m_zevx + m_zevy * m_zevy;
+		r = sqrt(r); //ルートを求める
 
-		////斜めベクトルを求める
-		//if (r == 0.0f)
-		//{
-		//	; //0なら何もしない
-		//}
-		//else
-		//{
-		//	m_zevx = m_zev_max / r * m_zevx;
-		//	m_zevy = m_zev_max / r * m_zevy;
-		//}
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_zevx = m_zev_max / r * m_zevx;
+			m_zevy = m_zev_max / r * m_zevy;
+		}
 
 		//アニメーション処理
 		if (m_ani_time > 6)

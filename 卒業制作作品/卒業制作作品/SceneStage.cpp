@@ -124,8 +124,18 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
 
 	//壁オブジェクト作成
+	//左
 	CObjWall* Wall = new CObjWall(200, 200);
 	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	//右
+	CObjWall2* Wall2 = new CObjWall2(200, 200);
+	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	//上
+	CObjWall3* Wall3 = new CObjWall3(200, 200);
+	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	//下
+	CObjWall4* Wall4 = new CObjWall4(200, 200);
+	Objs::InsertObj(Wall4, OBJ_WALL, 7);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
