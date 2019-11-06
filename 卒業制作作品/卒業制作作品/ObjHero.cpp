@@ -807,104 +807,161 @@ void CObjHero::Action()
 			}
 
 			//下キーを押すと弾をリロード
-			if (Input::GetVKey(VK_DOWN) == true)
+			if (m_hg_pb == 0 || m_sg_pb == 0 || m_ar_pb == 0 || m_sr_pb == 0 || m_rl_pb == 0 || m_rg_pb == 0 )
 			{
-				//ハンドガン
-				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
+				if (Input::GetVKey(VK_DOWN) == true)
 				{
-					m_hg_pb = 10;//弾数を10増やす
-				}
-				//ショットガン
-				else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
-				{
-					if (m_sg_flg == true)
+					//ハンドガン
+					if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 					{
-						//   6         8         2
-						m_sg_pb_cc = m_sg_pb_c - m_sg_pb;//使った弾数分を全体の弾数から引く
-						//  -2          4         6
-						m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
-						//  8       2         6
-						m_sg_pb = m_sg_pb + m_sg_pb_cc;
-
-						/*if (m_sg_pb_me < m_sg_pb_cc)
+						m_hg_pb = 10;//弾数を10増やす
+					}
+					//ショットガン
+					else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+					{
+						if (m_sg_flg == true)
 						{
-							//  6       2         4
-							m_sg_pb = m_sg_pb + m_sg_pb_me;
-							m_sg_pb_me = 0;
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+
+							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+							/*if (m_sg_pb_me <= 0)
+							{
+								//計算後 = 打った数 + 全体初期弾数
+								m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
+								m_sg_pb_me = 0;
+							}
+							else
+							{
+								//計算後 = 現在残り弾数 + 打った数
+								m_sg_pb = m_sg_pb + m_sg_pb_cc;
+							}*/
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_sg_pb = m_sg_pb + m_sg_pb_cc;
+
+							m_sg_flg = false;
 						}
-						else
+					}
+					//アサルト
+					else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
+					{
+						if (m_ar_flg == true)
 						{
-							
-						}*/
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
 
-						m_sg_flg = false;
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+
+							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+							/*if (m_ar_pb_me <= 0)
+							{
+								//計算後 = 打った数 + 全体初期弾数
+								m_ar_pb = m_ar_pb_cc + m_ar_pb_me;
+								m_ar_pb_me = 0;
+							}
+							else
+							{
+								//計算後 = 現在残り弾数 + 打った数
+								m_ar_pb = m_ar_pb + m_ar_pb_cc;
+							}*/
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_ar_pb = m_ar_pb + m_ar_pb_cc;
+
+							m_ar_flg = false;
+						}
 					}
-				}
-				//アサルト
-				else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
-				{
-					if (m_ar_flg == true)
+					//スナイパー
+					else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 					{
-						//  8        10         2
-						m_ar_pb_cc = m_ar_pb_c - m_ar_pb;//使った弾数分を全体の弾数から引く
-						//  52       60         8
-						m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
-						m_ar_pb = m_ar_pb + m_ar_pb_cc;
-						m_ar_flg = false;
+						if (m_sr_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
+
+							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+							/*if (m_sr_pb_me <= 0)
+							{
+								//計算後 = 打った数 + 全体初期弾数
+								m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
+								m_sr_pb_me = 0;
+							}
+							else
+							{
+								//計算後 = 現在残り弾数 + 打った数
+								m_sr_pb = m_sr_pb + m_sr_pb_cc;
+							}*/
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_sr_pb = m_sr_pb + m_sr_pb_cc;
+
+							m_sr_flg = false;
+						}
 					}
-				}
-				//スナイパー
-				else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
-				{
-					if (m_sr_flg == true)
+					//ロケットランチャー
+					else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 					{
-						//  8        10         2
-						m_sr_pb_cc = m_sr_pb_c - m_sr_pb;//使った弾数分を全体の弾数から引く
-						//  52       60         8
-						m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
-						m_sr_pb = m_sr_pb + m_sr_pb_cc;
-						m_sr_flg = false;
+						if (m_rl_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_rl_pb = m_rl_pb + m_rl_pb_cc;
+							m_rl_flg = false;
+						}
 					}
-				}
-				//ロケットランチャー
-				else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
-				{
-					if (m_rl_flg == true)
+					//レールガン
+					else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 					{
-						//  8        10         2
-						m_rl_pb_cc = m_rl_pb_c - m_rl_pb;//使った弾数分を全体の弾数から引く
-						//  52       60         8
-						m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
-						m_rl_pb = m_rl_pb + m_rl_pb_cc;
-						m_rl_flg = false;
+						if (m_rg_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_rg_pb = m_rg_pb + m_rg_pb_cc;
+							m_rg_flg = false;
+						}
 					}
 				}
-				//レールガン
-				else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
+				else
 				{
-					if (m_rg_flg == true)
-					{
-						//  8        10         2
-						m_rg_pb_cc = m_rg_pb_c - m_rg_pb;//使った弾数分を全体の弾数から引く
-						//  52       60         8
-						m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
-						m_rg_pb = m_rg_pb + m_rg_pb_cc;
-						m_rg_flg = false;
-					}
+					m_sg_flg = true;
+					m_ar_flg = true;
+					m_sr_flg = true;
+					m_rl_flg = true;
+					m_rg_flg = true;
+					m_sg_pb_cc = 0;
+					m_ar_pb_cc = 0;
+					m_sr_pb_cc = 0;
+					m_rl_pb_cc = 0;
+					m_rg_pb_cc = 0;
 				}
-			}
-			else
-			{
-				m_sg_flg = true;
-				m_ar_flg = true;
-				m_sr_flg = true;
-				m_rl_flg = true;
-				m_rg_flg = true;
-				m_sg_pb_cc = 0;
-				m_ar_pb_cc = 0;
-				m_sr_pb_cc = 0;
-				m_rl_pb_cc = 0;
-				m_rg_pb_cc = 0;
 			}
 		}
 
