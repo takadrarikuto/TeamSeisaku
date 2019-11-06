@@ -61,9 +61,9 @@ void CSceneTutorial::InitScene()
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 
-	//背景オブジェクト作成
-	/*C0bjBackground * back = new C0bjBackground();
-	Objs::InsertObj(back, OBJ_BACKGROUND, 1);*/
+	//背景オブジェクト作成(チュートリアル用)
+	CObjTutoBg * back_tu = new CObjTutoBg();
+	Objs::InsertObj(back_tu, OBJ_BACKGROUND, 1);
 
 	//チュートリアルオブジェクト作成
 	CObjTutorial* tuto = new CObjTutorial();
@@ -73,13 +73,13 @@ void CSceneTutorial::InitScene()
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
 	Objs::InsertObj(obj_h_tu, OBJ_HERO, 8);
 
-	//ステージ上部背景オブジェクト作成
-	/*CObjTopback* objtb = new CObjTopback();
-	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);*/
+	//ステージ上部背景オブジェクト作成(チュートリアル用)
+	CObjTutoTopback* objtutb = new CObjTutoTopback();
+	Objs::InsertObj(objtutb, OBJ_TOPBACK, 19);
 
-	//ステージオブジェクト作成
-	/*CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 20);*/
+	//ステージオブジェクト作成(チュートリアル用)
+	CObjStage* objm = new CObjStage();
+	Objs::InsertObj(objm, OBJ_STAGE, 20);
 
 	//音楽情報の読み込み
 	/*Audio::LoadAudio(0, L"選択音.wav", EFFECT);
