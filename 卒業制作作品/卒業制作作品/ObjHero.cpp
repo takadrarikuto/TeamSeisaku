@@ -819,11 +819,24 @@ void CObjHero::Action()
 				{
 					if (m_sg_flg == true)
 					{
-						//  8        10         2
+						//   6         8         2
 						m_sg_pb_cc = m_sg_pb_c - m_sg_pb;//g‚Á‚½’e”•ª‚ğ‘S‘Ì‚Ì’e”‚©‚çˆø‚­
-						//  52       60         8
+						//  -2          4         6
 						m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+						//  8       2         6
 						m_sg_pb = m_sg_pb + m_sg_pb_cc;
+
+						/*if (m_sg_pb_me < m_sg_pb_cc)
+						{
+							//  6       2         4
+							m_sg_pb = m_sg_pb + m_sg_pb_me;
+							m_sg_pb_me = 0;
+						}
+						else
+						{
+							
+						}*/
+
 						m_sg_flg = false;
 					}
 				}
