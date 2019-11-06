@@ -164,6 +164,8 @@
     <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="ObjTopback.h" />
+    <ClInclude Include="ObjTutoBg.h" />
+    <ClInclude Include="ObjTutoHero.h" />
     <ClInclude Include="ObjTutorial.h" />
     <ClInclude Include="ObjWall.h" />
     <ClInclude Include="ObjWall2.h" />
@@ -227,6 +229,8 @@
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="ObjTopback.cpp" />
+    <ClCompile Include="ObjTutoBg.cpp" />
+    <ClCompile Include="ObjTutoHero.cpp" />
     <ClCompile Include="ObjTutorial.cpp" />
     <ClCompile Include="ObjWall.cpp" />
     <ClCompile Include="ObjWall2.cpp" />

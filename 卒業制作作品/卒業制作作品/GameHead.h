@@ -157,6 +157,9 @@ struct UserData
 
 //チュートリアル
 #include "ObjTutorial.h"
+//チュートリアル用
+#include "ObjTutoHero.h"
+#include "ObjTutoBg.h"
 
 //ゲームオーバー
 #include "ObjOver.h"

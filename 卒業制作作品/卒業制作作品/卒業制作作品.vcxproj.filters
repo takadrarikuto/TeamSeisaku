@@ -279,6 +279,12 @@
     <ClInclude Include="ObjWall4.h">
       <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
     </ClInclude>
+    <ClInclude Include="ObjTutoHero.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoBg.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -472,6 +478,12 @@
     </ClCompile>
     <ClCompile Include="ObjWall4.cpp">
       <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoHero.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoBg.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

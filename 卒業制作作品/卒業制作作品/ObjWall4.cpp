@@ -13,8 +13,8 @@ using namespace GameL;
 CObjWall4::CObjWall4(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Wallx = -400;
-	m_Wally = 900;
+	m_Wallx = -800 - 50;
+	m_Wally = 1200;
 
 }
 
@@ -25,7 +25,7 @@ void CObjWall4::Init()
 	//描画サイズ
 	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
-	m_XHitbox_size = 1600;
+	m_XHitbox_size = 2500;
 	m_YHitbox_size = 50;
 
 	//当たり判定用HitBoxを作成
@@ -76,7 +76,7 @@ void CObjWall4::Draw()
 	//描画処理
 	dst.m_top = 0.0f + m_Wally;
 	dst.m_left = 0.0f + m_Wallx;
-	dst.m_right = 1600.0f + m_Wallx;
+	dst.m_right = 2500.0f + m_Wallx;
 	dst.m_bottom = 50.0f + m_Wally;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 }
