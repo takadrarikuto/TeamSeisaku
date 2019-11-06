@@ -19,9 +19,11 @@ enum OBJ_NAME
 	OBJ_ENEMY,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
+	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
+	OBJ_TUTORIAL,
 	OBJ_STAGE,
 	OBJ_TITLE,
 	OBJ_OP,
@@ -32,7 +34,16 @@ enum OBJ_NAME
 	OBJ_MENU,
 	OBJ_TOPBACK,
 	OBJ_BACKGROUND,
+	OBJ_AIMING,
 	OBJ_HEAL,
+	OBJ_EVENT,
+	OBJ_SHOTGUN_ITEM,
+	OBJ_AR_ITEM,
+	OBJ_SNIPERRIFLE_ITEM,
+	OBJ_ROCKETLAUNCHER_ITEM,
+	OBJ_RAILGUN_ITEM,
+	OBJ_GRENADE_ITEM,
+	OBJ_WALL,
 };
 //------------------------------------------------
 
@@ -52,6 +63,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
+	ELEMENT_WALL,
 };
 //------------------------------------------------
 
@@ -60,7 +72,15 @@ enum HIT_ELEMENTS
 struct UserData
 {
 	int mSeveData;	//サンプルセーブデータ
-	
+	//武器別ダメージ
+	int Gun_Attack = 10;  //ハンドガン
+	int SHG_Attack = 30;	//ショットガン
+	int AR_Attack = 20; //アサルトライフル
+	int SR_Attack = 50; //スナイパーライフル
+	int RL_Attack = 150; //ロケットランチャー
+	int RG_Attack = 200; //レールガン
+	int GRE_Attack = 100;	//グレネード
+
 };
 //------------------------------------------------
 
@@ -89,6 +109,9 @@ struct UserData
 #include "ObjRailGunAttack.h"
 #include "ObjGrenadeAttack.h"
 
+//標準
+#include "ObjAiming.h"
+
 //エネミー
 #include "ObjZombieEnemy.h"
 
@@ -108,9 +131,16 @@ struct UserData
 
 //設置物
 #include "ObjGenerator.h"
+#include "ObjEnemy_Neutralization_Device.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
+#include "ObjShotGunItem.h"//ショットガン補充用
+#include "ObjARItem.h"//アサルトライフル補充用
+#include "ObjSniperRifleItem.h"//スナイパーライフル補充用
+#include "ObjRocketLauncherItem.h"//ロケットランチャー補充用
+#include "ObjRailGunItem.h"//レールガン補充用
+#include "ObjGrenadeItem.h"//グレネード補充用
 
 //イベント
 #include "ObjEvent.h"
@@ -123,6 +153,9 @@ struct UserData
 
 //操作説明
 #include "ObjOperation.h"
+
+//チュートリアル
+#include "ObjTutorial.h"
 
 //ゲームオーバー
 #include "ObjOver.h"
@@ -145,6 +178,9 @@ struct UserData
 //背景
 #include "ObjBackground.h"
 
+//壁
+#include "ObjWall.h"
+
 //ベース設定
 #include "GameHead.h"
 
@@ -163,6 +199,9 @@ struct UserData
 
 //操作説明
 #include "SceneOperation.h"
+
+//チュートリアル
+#include "SceneTutorial.h"
 
 //ゲームオーバー
 #include "SceneOver.h"

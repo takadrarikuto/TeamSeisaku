@@ -32,8 +32,6 @@ CSceneStage::~CSceneStage()
 void CSceneStage::InitScene()
 {
 	//Font作成
-	//Font::SetStrTex(L"0123456789分秒");
-
 	//グラフィック読み込み
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);
@@ -46,9 +44,11 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"爆発.png", 9, TEX_SIZE_512);
 	Draw::LoadImage(L"血しぶきアニメーション.png", 10, TEX_SIZE_512);
 	Draw::LoadImage(L"武器表示用.png", 11, TEX_SIZE_512);
-	Draw::LoadImage(L"機材・武器.png", 12, TEX_SIZE_512);
+	Draw::LoadImage(L"照準.png", 12, TEX_SIZE_512);
+	Draw::LoadImage(L"機材・武器.png", 29, TEX_SIZE_512);
 	Draw::LoadImage(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
+	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 
 	//音楽情報読み込み 
 	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
@@ -77,8 +77,12 @@ void CSceneStage::InitScene()
 	GameOver_time = 0;
 
 	//主人公機オブジェクト作成
-	CObjHero* obj_h = new CObjHero(350.0f, 260.0f);
+	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 8);
+
+	//標準オブジェクト作成
+	CObjAiming* obj_ai = new CObjAiming();
+	Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
 
 	//背景オブジェクト作成
 	C0bjBackground * back = new C0bjBackground();
@@ -86,16 +90,42 @@ void CSceneStage::InitScene()
 
 	//ボスオブジェクト作成 272, 400
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
-	Objs::InsertObj(obj_boss, OBJ_BOSS, 3);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
-	Objs::InsertObj(Gen, OBJ_APPARATUS, 6);
+	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
+
+	//敵無力化装置オブジェクト作成
+	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(400, 200);
+	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//アイテムオブジェクト作成	
 	//回復
 	CObjHeal* Heal = new CObjHeal(200, 200);
 	Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	//ショットガン弾補充
+	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
+	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
+	//アサルトライフル弾補充
+	CObjARItem* ARi = new CObjARItem(200, 200);
+	Objs::InsertObj(ARi, OBJ_AR_ITEM, 7);
+	//スナイパーライフル弾補充
+	CObjSniperRifleItem* SRi = new CObjSniperRifleItem(200, 200);
+	Objs::InsertObj(SRi, OBJ_SNIPERRIFLE_ITEM, 7);
+	//ロケットランチャー弾補充
+	CObjRocketLauncherItem* RLi = new CObjRocketLauncherItem(200, 200);
+	Objs::InsertObj(RLi, OBJ_ROCKETLAUNCHER_ITEM, 7);
+	//レールガン弾補充
+	CObjRailGunItem* RGi = new CObjRailGunItem(200, 200);
+	Objs::InsertObj(RGi, OBJ_RAILGUN_ITEM, 7);
+	//グレネード補充
+	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
+	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+
+	//壁オブジェクト作成
+	CObjWall* Wall = new CObjWall(200, 200);
+	Objs::InsertObj(Wall, OBJ_WALL, 7);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
@@ -108,6 +138,10 @@ void CSceneStage::InitScene()
 	//タイムオブジェクト作成
 	CObjTime*objt = new CObjTime();
 	Objs::InsertObj(objt, OBJ_TIME, 20);
+
+	//イベントタイムオブジェクト作成
+	CObjEvent*objev = new CObjEvent();
+	Objs::InsertObj(objev, OBJ_EVENT, 20);
 }
 
 void CSceneStage::Scene()

@@ -21,6 +21,9 @@ bool Menu_flg = false;
 //メニューキー制御用フラグ
 bool m_key_flag_menu = true;
 
+//死亡時動き停止フラグ
+bool Dead_flg = false;
+
 //イニシャライズ
 void CObjMenu::Init()
 {
@@ -203,6 +206,11 @@ void CObjMenu::Draw()
 		//武器所持弾表示
 		swprintf_s(str, L"%d/80",sg_pb_me, 15);
 		Font::StrDraw(str, 200, 205, 37, c);
+		//残り弾数が0の時、文字色を赤にする
+		if (sg_pb_me == 0)
+		{
+			Font::StrDraw(str, 200, 205, 37, r);
+		}
 
 		//アサルトライフル
 		//切り取り位置の設定
@@ -219,6 +227,11 @@ void CObjMenu::Draw()
 		//武器所持弾表示
 		swprintf_s(str, L"%d/300", ar_pb_me, 15);
 		Font::StrDraw(str, 200, 285, 37, c);
+		//残り弾数が0の時、文字色を赤にする
+		if (ar_pb_me == 0)
+		{
+			Font::StrDraw(str, 200, 285, 37, r);
+		}
 
 		//スナイパーライフル
 		//切り取り位置の設定
@@ -235,6 +248,11 @@ void CObjMenu::Draw()
 		//武器所持弾表示
 		swprintf_s(str, L"%d/50", sr_pb_me, 15);
 		Font::StrDraw(str, 200, 360, 37, c);
+		//残り弾数が0の時、文字色を赤にする
+		if (sr_pb_me == 0)
+		{
+			Font::StrDraw(str, 200, 360, 37, r);
+		}
 
 		//ロケットランチャー
 		//切り取り位置の設定
@@ -251,6 +269,11 @@ void CObjMenu::Draw()
 		//武器所持弾表示
 		swprintf_s(str, L"%d/2", rl_pb_me, 15);
 		Font::StrDraw(str, 515, 135, 37, c);
+		//残り弾数が0の時、文字色を赤にする
+		if (rl_pb_me == 0)
+		{
+			Font::StrDraw(str, 515, 135, 37, r);
+		}
 
 		//レールガン
 		//切り取り位置の設定
@@ -267,6 +290,11 @@ void CObjMenu::Draw()
 		//武器所持弾表示
 		swprintf_s(str, L"%d/1", rg_pb_me, 15);
 		Font::StrDraw(str, 515, 210, 37, c);
+		//残り弾数が0の時、文字色を赤にする
+		if (rg_pb_me == 0)
+		{
+			Font::StrDraw(str, 515, 210, 37, r);
+		}
 
 		//グレネード
 		//切り取り位置の設定
@@ -279,10 +307,15 @@ void CObjMenu::Draw()
 		dst.m_left = 405.0f;
 		dst.m_right = 490.0f;
 		dst.m_bottom = 330.0f;
-		Draw::Draw(12, &src, &dst, c, 0.0f);
+		Draw::Draw(29, &src, &dst, c, 0.0f);
 		//武器所持弾表示
 		swprintf_s(str, L"%d/3", gre_pb_me, 15);
 		Font::StrDraw(str, 515, 285, 37, c);
+		//残り弾数が0の時、文字色を赤にする
+		if (gre_pb_me == 0)
+		{
+			Font::StrDraw(str, 515, 285, 37, r);
+		}
 
 		//表示説明用
 		swprintf_s(str, L"残り弾数/最大所持弾数", 15);

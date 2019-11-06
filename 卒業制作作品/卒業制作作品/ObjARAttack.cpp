@@ -31,7 +31,7 @@ void CObjARAttack::Init()
 {
 	//初期化
 	//削除距離最大値
-	Distance_max = 3;
+	m_Distance_max = 3;
 
 	//描画サイズ
 	m_dst_size = 32.0f;
@@ -74,22 +74,22 @@ void CObjARAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
-		if (m_ARx < hx - 64 * Distance_max)
+		if (m_ARx < hx - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARx > hx + 32 + 64 * Distance_max)
+		else if (m_ARx > hx + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_ARy < hy - 64 * Distance_max)
+		if (m_ARy < hy - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARy > hy + 32 + 64 * Distance_max)
+		else if (m_ARy > hy + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -103,7 +103,11 @@ void CObjARAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
+	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
 }
 
 //ドロー

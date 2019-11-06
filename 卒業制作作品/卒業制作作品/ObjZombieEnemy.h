@@ -35,4 +35,5 @@ private:
 	int m_at_max; //攻撃頻度最大値
 
 	int m_damage; //ダメージ量
+	int m_time_d;	//ダメージ点滅時間用
 };

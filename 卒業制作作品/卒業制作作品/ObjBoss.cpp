@@ -88,7 +88,7 @@ void CObjBoss::Action()
 		srand(time(NULL)); // ƒ‰ƒ“ƒ_ƒ€î•ñ‚ğ‰Šú‰»
 
 		e_x = rand() % 192 + m_bx;
-		e_y = rand() % 128 + m_by;
+		e_y = rand() % 64 + m_by;
 		
 		e_x -= hvx;
 		e_y -= hvy;

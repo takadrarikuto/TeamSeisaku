@@ -19,7 +19,6 @@ private:
 	float m_ARvy;
 	float m_ARr; //‰æ‘œŠp“x’²®
 
-	int Distance_max; //íœ‹——£Å‘å’l
-
+	int m_Distance_max; //íœ‹——£Å‘å’l
 
 };

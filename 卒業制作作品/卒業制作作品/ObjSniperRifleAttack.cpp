@@ -31,7 +31,7 @@ void CObjSniperRifleAttack::Init()
 {
 //初期化
 	//削除距離最大値
-	Distance_max = 4;
+	m_Distance_max = 4;
 
 	if (m_SRr == 0 || m_SRr == 180)
 	{
@@ -86,22 +86,22 @@ void CObjSniperRifleAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
-		if (m_SRx < hx - 64 * Distance_max)
+		if (m_SRx < hx - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_SRx > hx + 32 + 64 * Distance_max)
+		else if (m_SRx > hx + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_SRy < hy - 64 * Distance_max)
+		if (m_SRy < hy - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_SRy > hy + 32 + 64 * Distance_max)
+		else if (m_SRy > hy + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -115,7 +115,11 @@ void CObjSniperRifleAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
+	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
 }
 
 //ドロー

@@ -12,7 +12,10 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 	
-	bool GetTS() { return m_Starp_flg; } //時間停止フラグ取得用
+	float GetGenX() { return m_Genx; } //x位置情報取得用
+	float GetGenY() { return m_Geny; } //y位置情報取得用
+	float GetGenHitX() { return m_HitSize_x; } //HitBox xサイズ取得用
+	float GetGenHitY() { return m_HitSize_y; } //HitBox yサイズ取得用
 
 private:
 	float m_Genx; //位置情報
@@ -20,11 +23,7 @@ private:
 	float m_Genvx; //位置更新
 	float m_Genvy;
 
-	bool m_Starp_flg; //計測開始フラグ
+	float m_HitSize_x; //HitBoxサイズ
+	float m_HitSize_y;
 
-	//上下左右別当たり判定確認フラグ
-	bool m_UpHit_flg;    //上
-	bool m_DownHit_flg;	 //下
-	bool m_LeftHit_flg;	 //左
-	bool m_LightHit_flg; //右
 };

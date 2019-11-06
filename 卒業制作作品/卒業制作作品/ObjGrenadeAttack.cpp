@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjGrenadeAttack.h"
@@ -32,7 +33,7 @@ void CObjGrenadeAttack::Init()
 	Stop_max = 3; 
 
 	//ダメージ量
-	GRE_Attack = 100;
+	((UserData*)Save::GetData())->GRE_Attack;
 
 	//爆破時間
 	EXP_time = 0;
@@ -98,7 +99,7 @@ void CObjGrenadeAttack::Action()
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, GRE_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 			this->SetStatus(false); //オブジェクト破棄
@@ -109,7 +110,7 @@ void CObjGrenadeAttack::Action()
 		if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, GRE_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 			this->SetStatus(false); //オブジェクト破棄
