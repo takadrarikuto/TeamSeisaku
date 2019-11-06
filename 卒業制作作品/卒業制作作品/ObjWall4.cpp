@@ -4,37 +4,37 @@
 #include "GameL\Audio.h"
 
 #include "GameHead.h"
-#include "ObjWall.h"
+#include "ObjWall4.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 //コンストラクタ
-CObjWall::CObjWall(float x, float y)
+CObjWall4::CObjWall4(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
 	m_Wallx = -800 - 50;
-	m_Wally = -600;
+	m_Wally = 1200;
 
 }
 
 //イニシャライズ
-void CObjWall::Init()
+void CObjWall4::Init()
 {
 	//初期化
 	//描画サイズ
 	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
-	m_XHitbox_size = 50;
-	m_YHitbox_size = 1800;
+	m_XHitbox_size = 2500;
+	m_YHitbox_size = 50;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL, OBJ_WALL, 7);
+	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL2, OBJ_WALL, 7);
 
 }
 
 //アクション
-void CObjWall::Action()
+void CObjWall4::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -59,7 +59,7 @@ void CObjWall::Action()
 }
 
 //ドロー
-void CObjWall::Draw()
+void CObjWall4::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -76,7 +76,7 @@ void CObjWall::Draw()
 	//描画処理
 	dst.m_top = 0.0f + m_Wally;
 	dst.m_left = 0.0f + m_Wallx;
-	dst.m_right = 50.0f + m_Wallx;
-	dst.m_bottom = 1800.0f + m_Wally;
+	dst.m_right = 2500.0f + m_Wallx;
+	dst.m_bottom = 50.0f + m_Wally;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 }

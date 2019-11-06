@@ -98,6 +98,7 @@ void CObjStage::Draw()
 		if (hg_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"リロード！", 290, 73, 30, r);
 		}
 	}
 	//ショットガン
@@ -108,6 +109,7 @@ void CObjStage::Draw()
 		if (sg_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"リロード！", 290, 73, 30, r);
 		}
 	}
 	//アサルトライフル
@@ -118,6 +120,7 @@ void CObjStage::Draw()
 		if (ar_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"リロード！", 290, 73, 30, r);
 		}
 	}
 	//スナイパーライフル
@@ -128,6 +131,7 @@ void CObjStage::Draw()
 		if (sr_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"リロード！", 290, 73, 30, r);
 		}
 	}
 	//ロケットランチャー
@@ -138,6 +142,7 @@ void CObjStage::Draw()
 		if (rl_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"リロード！", 290, 73, 30, r);
 		}
 	}
 	//レールガン
@@ -148,6 +153,7 @@ void CObjStage::Draw()
 		if (rg_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"リロード！", 290, 73, 30, r);
 		}
 	}
 

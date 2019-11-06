@@ -73,6 +73,9 @@
     <Filter Include="ソース ファイル\チュートリアル">
       <UniqueIdentifier>{700ccc3e-139a-4f2c-ac6b-a41ca4e498b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\ステージ\壁">
+      <UniqueIdentifier>{d0d48bd5-7357-4a40-8851-699fcb90f4eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -265,7 +268,25 @@
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClInclude>
     <ClInclude Include="ObjWall.h">
-      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall2.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall3.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall4.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoHero.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoBg.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoTopback.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -450,7 +471,25 @@
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
     <ClCompile Include="ObjWall.cpp">
-      <Filter>ソース ファイル\ステージメイン\ステージ</Filter>
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall2.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall3.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall4.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoHero.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoBg.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoTopback.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
