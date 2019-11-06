@@ -44,33 +44,33 @@ void CSceneTutorial::InitScene()
 	i_y = 0.0f;
 
 	//背景オブジェクト作成
-	/*C0bjBackground * back = new C0bjBackground();
-	Objs::InsertObj(back, OBJ_BACKGROUND, 1);*/
+	C0bjBackground * back = new C0bjBackground();
+	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
 	//チュートリアルオブジェクト作成
-	/*CObjTutorial* tuto = new CObjTutorial();
-	Objs::InsertObj(tuto, OBJ_TUTORIAL, 3);*/
+	CObjTutorial* tuto = new CObjTutorial();
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 3);
 
 	//主人公機オブジェクト作成
-	/*CObjHero* obj_h = new CObjHero(350.0f, 280.0f);
-	Objs::InsertObj(obj_h, OBJ_HERO, 8);*/
+	CObjHero* obj_h = new CObjHero(350.0f, 280.0f);
+	Objs::InsertObj(obj_h, OBJ_HERO, 8);
 
 	//ステージ上部背景オブジェクト作成
-	/*CObjTopback* objtb = new CObjTopback();
-	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);*/
+	CObjTopback* objtb = new CObjTopback();
+	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
 
 	//ステージオブジェクト作成
-	/*CObjStage* objm = new CObjStage();
-	Objs::InsertObj(objm, OBJ_STAGE, 20);*/
+	CObjStage* objm = new CObjStage();
+	Objs::InsertObj(objm, OBJ_STAGE, 20);
 
 	//音楽情報の読み込み
-	/*Audio::LoadAudio(0, L"選択音.wav", EFFECT);
+	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
 	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
-	Audio::LoadAudio(2, L"タイトルBGM.wav", SOUND_TYPE::BACK_MUSIC);*/
+	Audio::LoadAudio(2, L"タイトルBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(0.5);
-	//Audio::Start(2);    //音楽スタート
+	float Volume = Audio::VolumeMaster(0.5);
+	Audio::Start(2);    //音楽スタート
 }
 
 //ゲームメイン実行中メソッド
