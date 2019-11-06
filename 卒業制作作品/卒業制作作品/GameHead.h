@@ -64,6 +64,7 @@ enum HIT_ELEMENTS
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
 	ELEMENT_WALL,
+	ELEMENT_WALL2,
 };
 //------------------------------------------------
 
@@ -171,7 +172,10 @@ struct UserData
 #include "ObjBackground.h"
 
 //壁
-#include "ObjWall.h"
+#include "ObjWall.h"//左
+#include "ObjWall2.h"//右
+#include "ObjWall3.h"//上
+#include "ObjWall4.h"//下
 
 //ベース設定
 #include "GameHead.h"

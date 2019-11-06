@@ -350,19 +350,19 @@ void CObjHero::Action()
 				{
 					float r = hit_data[i]->r;
 					//角度で上下左右を判定
-					if ((r < 45 && r >= 0) || r > 315)
+					if ((r < 85 && r >= 0) || r > 275)
 					{
 						m_vx = -0.15f; //右
 					}
-					if (r > 45 && r < 135)
+					if (r > 85 && r < 95)
 					{
 						m_vy = 0.15f;//上
 					}
-					if (r > 135 && r < 225)
+					if (r > 95 && r < 265)
 					{
 						m_vx = 0.15f;//左
 					}
-					if (r > 225 && r < 315)
+					if (r > 265 && r < 275)
 					{
 						m_vy = -0.15f; //下
 					}
@@ -404,6 +404,35 @@ void CObjHero::Action()
 						m_y = GenY + 40;
 					}
 				}*/
+			}
+
+			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+			if (hit_h->CheckElementHit(ELEMENT_WALL2) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_WALL2);
+				for (int i = 0; i < hit_h->GetCount(); i++)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r < 5 && r >= 0) || r > 360)
+					{
+						m_vx = -0.15f; //右
+					}
+					if (r > 5 && r < 180)
+					{
+						m_vy = 0.15f;//上
+					}
+					if (r > 180 && r < 190)
+					{
+						m_vx = 0.15f;//左
+					}
+					if (r > 190 && r < 360)
+					{
+						m_vy = -0.15f; //下
+					}
+				}
 			}
 
 			//武器切り替え処理
