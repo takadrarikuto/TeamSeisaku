@@ -19,6 +19,7 @@ public:
 	int GetDMG() { return m_damage; }//攻撃力を取得
 
 private:
+
 	float m_zex; //位置更新
 	float m_zey;
 	float m_zevx; //移動ベクトル

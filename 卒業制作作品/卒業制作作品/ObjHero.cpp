@@ -182,7 +182,7 @@ void CObjHero::Action()
 					m_vy -= m_v_max;
 				}
 				m_UDani_frame = 0;
-				m_ani_time += 1;
+				m_ani_time += ANIMATION;
 			}
 			//'S'を押すと下に移動
 			else if (Input::GetVKey('S') == true)
@@ -192,7 +192,7 @@ void CObjHero::Action()
 					m_vy += m_v_max;
 				}
 				m_UDani_frame = 4;
-				m_ani_time += 1;
+				m_ani_time += ANIMATION;
 			}
 			//'A'を押すと左に移動
 			else if (Input::GetVKey('A') == true)
@@ -202,7 +202,7 @@ void CObjHero::Action()
 					m_vx -= m_v_max;
 				}
 				m_UDani_frame = 6;
-				m_ani_time += 1;
+				m_ani_time += ANIMATION;
 			}
 			//'D'を押すと右移動
 			else if (Input::GetVKey('D') == true)
@@ -212,7 +212,7 @@ void CObjHero::Action()
 					m_vx += m_v_max;
 				}
 				m_UDani_frame = 2;
-				m_ani_time += 1;
+				m_ani_time += ANIMATION;
 			}
 			else
 			{
@@ -223,7 +223,7 @@ void CObjHero::Action()
 			//アニメーション処理
 			if (m_ani_time > 6)
 			{
-				m_LRani_frame += 1;
+				m_LRani_frame += ANIMATION;
 				m_ani_time = 0;
 			}
 
@@ -346,19 +346,19 @@ void CObjHero::Action()
 				{
 					float r = hit_data[i]->r;
 					//角度で上下左右を判定
-					if ((r < 88 && r >= 0) || r > 292)
+					if ((r < 45 && r >= 0) || r > 315)
 					{
 						m_vx = -0.15f; //右
 					}
-					if (r > 88 && r < 92)
+					if (r > 45 && r < 135)
 					{
 						m_vy = 0.15f;//上
 					}
-					if (r > 92 && r < 268)
+					if (r > 135 && r < 225)
 					{
 						m_vx = 0.15f;//左
 					}
-					if (r > 268 && r < 292)
+					if (r > 225 && r < 315)
 					{
 						m_vy = -0.15f; //下
 					}
@@ -400,35 +400,6 @@ void CObjHero::Action()
 						m_y = GenY + 40;
 					}
 				}*/
-			}
-
-			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-			if (hit_h->CheckElementHit(ELEMENT_WALL2) == true)
-			{
-				//主人公と障害物がどの角度で当たっているか調べる
-				HIT_DATA** hit_data;
-				hit_data = hit_h->SearchElementHit(ELEMENT_WALL2);
-				for (int i = 0; i < hit_h->GetCount(); i++)
-				{
-					float r = hit_data[i]->r;
-					//角度で上下左右を判定
-					if ((r < 2 && r >= 0) || r > 358)
-					{
-						m_vx = -0.15f; //右
-					}
-					if (r > 2 && r < 178)
-					{
-						m_vy = 0.15f;//上
-					}
-					if (r > 178 && r < 182)
-					{
-						m_vx = 0.15f;//左
-					}
-					if (r > 182 && r < 358)
-					{
-						m_vy = -0.15f; //下
-					}
-				}
 			}
 
 			//武器切り替え処理

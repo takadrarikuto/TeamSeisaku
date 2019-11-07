@@ -109,34 +109,86 @@ void CObjZombieEnemy::Action()
 		{
 			m_zevy = -m_zev_max;
 			m_UDani_frame = 6;
-			m_ani_time += 1;
+			m_ani_time += ANIMATION;
 		}
 		//主人公が下に居ると下移動
 		if (hy > m_zey)
 		{
 			m_zevy = m_zev_max;
 			m_UDani_frame = 2;
-			m_ani_time += 1;
+			m_ani_time += ANIMATION;
 		}
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
 			m_zevx = -m_zev_max;
 			m_UDani_frame = 0;
-			m_ani_time += 1;
+			m_ani_time += ANIMATION;
 		}
 		//主人公が右に居ると右に移動
 		if (hx > m_zex)
 		{
 			m_zevx = m_zev_max;
 			m_UDani_frame = 4;
-			m_ani_time += 1;
+			m_ani_time += ANIMATION;
 		}
 
 		//斜め移動修正処理
 		float r = 0.0f;
 		r = m_zevx * m_zevx + m_zevy * m_zevy;
 		r = sqrt(r); //ルートを求める
+
+		/* チーム制作から
+		//主人公と追尾で角度を取る
+		CObjHero*obj = (CObjHero*)Objs::GetObj(OBJ_HERO);
+		float x = obj->GetX() - m_px;
+		float y = obj->GetY() - m_py;
+
+		//敵の位置
+		CObjEnemy2*obje = (CObjEnemy2*)Objs::GetObj(OBJ_ENEMY);
+		float ex = obj->GetX() - m_px;
+		float ey = obj->GetY() - m_py;
+		//計算頻度を落とし、斜め移動を防ぐ
+		static int   count = 0;
+		static float br = 0.0f;
+		count++;
+		if (count > 30)
+		{
+			count = 0;
+			int ar = atan2(y, x)*180.0f / 3.14;
+
+			if (ar < 0)
+			{
+				ar = 360 + ar;
+			}
+			br = ar;
+		}
+
+		if (br >= 45 && br < 136)//上 45度以上　136度未満
+		{
+			m_vy += SPEEDPOWER;
+			m_posture = 0.0f;
+			m_ani_time += ANITIME;
+		}
+		else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
+		{
+			m_vx += SPEEDPOWER;
+			m_posture = 1.0f;
+			m_ani_time += ANITIME;
+		}
+		else if (br > 225 && br < 316)//下　225度以上　316未満
+		{
+			m_vy -= SPEEDPOWER;
+			m_posture = 2.0f;
+			m_ani_time += ANITIME;
+		}
+		else if (br >= 135 && br <= 225)//左　135度以上　225度未満
+		{
+			m_vx -= SPEEDPOWER;
+			m_posture = 3.0f;
+			m_ani_time += ANITIME;
+		}
+		*/
 
 		//斜めベクトルを求める
 		if (r == 0.0f)
