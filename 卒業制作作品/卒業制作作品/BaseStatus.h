@@ -7,12 +7,14 @@ class CBaseStatus
 {
 public:
 //削除距離定数
-#define DISTANCE_Gun (3) //ハンドガン
-#define DISTANCE_SHG (2) //ショットガン
-#define DISTANCE_AR (3)  //アサルトライフル
-#define DISTANCE_SR (4)	 //スナイパーライフル
-#define DISTANCE_RL (5)	 //ロケットランチャー
-#define DISTANCE_RG (5)	 //レールガン
+#define DISTANCE_Gun 3 //ハンドガン
+#define DISTANCE_SHG 2 //ショットガン
+#define DISTANCE_AR 3  //アサルトライフル
+#define DISTANCE_SR 4	 //スナイパーライフル
+#define DISTANCE_RL 5	 //ロケットランチャー
+#define DISTANCE_RG 5	 //レールガン
+
+#define ANIMATION 1 //アニメーション速度
 
 	int m_hero_hp; //体力
 	int m_hero_hp_max;
