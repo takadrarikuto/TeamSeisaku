@@ -353,19 +353,19 @@ void CObjHero::Action()
 				{
 					float r = hit_data[i]->r;
 					//角度で上下左右を判定
-					if ((r < 45 && r >= 0) || r > 315)
+					if ((r < 88 && r >= 0) || r > 292)
 					{
 						m_vx = -0.15f; //右
 					}
-					if (r > 45 && r < 135)
+					if (r > 88 && r < 92)
 					{
 						m_vy = 0.15f;//上
 					}
-					if (r > 135 && r < 225)
+					if (r > 92 && r < 268)
 					{
 						m_vx = 0.15f;//左
 					}
-					if (r > 225 && r < 315)
+					if (r > 268 && r < 292)
 					{
 						m_vy = -0.15f; //下
 					}
@@ -407,6 +407,35 @@ void CObjHero::Action()
 						m_y = GenY + 40;
 					}
 				}*/
+			}
+
+			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+			if (hit_h->CheckElementHit(ELEMENT_WALL2) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_WALL2);
+				for (int i = 0; i < hit_h->GetCount(); i++)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r < 2 && r >= 0) || r > 358)
+					{
+						m_vx = -0.15f; //右
+					}
+					if (r > 2 && r < 178)
+					{
+						m_vy = 0.15f;//上
+					}
+					if (r > 178 && r < 182)
+					{
+						m_vx = 0.15f;//左
+					}
+					if (r > 182 && r < 358)
+					{
+						m_vy = -0.15f; //下
+					}
+				}
 			}
 
 			//武器切り替え処理
@@ -785,7 +814,7 @@ void CObjHero::Action()
 			}
 
 			//下キーを押すと弾をリロード
-			if (m_hg_pb == 0 || m_sg_pb == 0 || m_ar_pb == 0 || m_sr_pb == 0 || m_rl_pb == 0 || m_rg_pb == 0 )
+			if (m_hg_pb == 0)
 			{
 				if (Input::GetVKey(VK_DOWN) == true)
 				{
@@ -794,8 +823,15 @@ void CObjHero::Action()
 					{
 						m_hg_pb = 10;//弾数を10増やす
 					}
+
+				}
+			}
+			if (m_sg_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//ショットガン
-					else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+					if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
 					{
 						if (m_sg_flg == true)
 						{
@@ -826,8 +862,14 @@ void CObjHero::Action()
 							m_sg_flg = false;
 						}
 					}
+				}
+			}
+			if (m_ar_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//アサルト
-					else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
+					if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 					{
 						if (m_ar_flg == true)
 						{
@@ -858,8 +900,14 @@ void CObjHero::Action()
 							m_ar_flg = false;
 						}
 					}
+				}
+			}
+			if (m_sr_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//スナイパー
-					else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
+					if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 					{
 						if (m_sr_flg == true)
 						{
@@ -890,8 +938,14 @@ void CObjHero::Action()
 							m_sr_flg = false;
 						}
 					}
+				}
+			}
+			if (m_rl_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//ロケットランチャー
-					else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
+					if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 					{
 						if (m_rl_flg == true)
 						{
@@ -908,8 +962,14 @@ void CObjHero::Action()
 							m_rl_flg = false;
 						}
 					}
+				}
+			}
+			if (m_rg_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//レールガン
-					else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
+					if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 					{
 						if (m_rg_flg == true)
 						{
@@ -927,19 +987,19 @@ void CObjHero::Action()
 						}
 					}
 				}
-				else
-				{
-					m_sg_flg = true;
-					m_ar_flg = true;
-					m_sr_flg = true;
-					m_rl_flg = true;
-					m_rg_flg = true;
-					m_sg_pb_cc = 0;
-					m_ar_pb_cc = 0;
-					m_sr_pb_cc = 0;
-					m_rl_pb_cc = 0;
-					m_rg_pb_cc = 0;
-				}
+			}
+			else
+			{
+				m_sg_flg = true;
+				m_ar_flg = true;
+				m_sr_flg = true;
+				m_rl_flg = true;
+				m_rg_flg = true;
+				m_sg_pb_cc = 0;
+				m_ar_pb_cc = 0;
+				m_sr_pb_cc = 0;
+				m_rl_pb_cc = 0;
+				m_rg_pb_cc = 0;
 			}
 		}
 
@@ -1108,7 +1168,6 @@ void CObjHero::Action()
 		//	//ポイントを獲得
 		//}
 	}
-	
 }
 
 //ドロー

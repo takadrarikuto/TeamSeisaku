@@ -95,5 +95,5 @@ void CObjOperation::Draw()
 
 	float b[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"◆Enterでゲームスタート", 350, 510, 35, b);
+	Font::StrDraw(L"◆Enterでチュートリアルへ", 350, 510, 35, b);
 }
