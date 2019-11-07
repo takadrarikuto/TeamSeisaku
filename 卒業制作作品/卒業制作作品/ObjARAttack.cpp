@@ -103,7 +103,11 @@ void CObjARAttack::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
+	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
 }
 
 //ドロー

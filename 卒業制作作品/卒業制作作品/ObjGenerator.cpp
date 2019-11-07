@@ -26,15 +26,14 @@ void CObjGenerator::Init()
 	m_Genvx = 0.0f; //位置更新
 	m_Genvy = 0.0f;
 
-	m_Start_flg = false; //計測開始フラグ
-
 	//描画サイズ
 	m_dst_size = 100.0f; 
-	//当たり判定サイズ
-	Hitbox_size = 100; 
+
+	m_HitSize_x = 100; //HitBoxサイズ
+	m_HitSize_y = 40;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Genx, m_Geny, Hitbox_size, 40, ELEMENT_FIELD, OBJ_APPARATUS, 6);
+	Hits::SetHitBox(this, m_Genx, m_Geny, m_HitSize_x, m_HitSize_y, ELEMENT_FIELD, OBJ_APPARATUS, 6);
 
 }
 
@@ -52,15 +51,14 @@ void CObjGenerator::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
-	bool Eve_flg = time->GetEve();
 	bool GEN = time->GetGenFlg();
 
 	//HitBoxの内容を更新 
-	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_exp->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
+	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
+	hit_gen->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
 
 	//主人公接触判定処理
-	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
+	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
 			&& GEN == true)
@@ -70,10 +68,6 @@ void CObjGenerator::Action()
 			time->SetTStart(TStart_flg);
 			time->SetGenFlg(GEN);
 		}
-	}
-	else
-	{
-		TStart_flg = false;
 	}
 	
 	//主人公の移動に合わせる
@@ -87,7 +81,7 @@ void CObjGenerator::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool TStop_flg = time->GetTStop();
+	bool GEN = time->GetGenFlg();
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -107,11 +101,11 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	if (TStop_flg == true)
+	if (GEN == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}
-	else if (TStop_flg == false)
+	else if (GEN == false)
 	{
 		Draw::Draw(6, &src, &dst, cD, 0.0f);
 	}

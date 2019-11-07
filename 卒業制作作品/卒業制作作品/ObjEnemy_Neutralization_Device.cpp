@@ -26,10 +26,11 @@ void CObjEnemy_Neutralization_Device::Init()
 	m_Enemy_Neu_Dev_vx = 0.0f; //位置更新
 	m_Enemy_Neu_Dev_vy = 0.0f;
 
-	m_Start_flg = false; //計測開始フラグ
+	m_Enemy_Neu_Dev_HitSize_x = 55;  //HitBoxサイズ
+	m_Enemy_Neu_Dev_HitSize_y = 50;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, 55, 50, ELEMENT_FIELD, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
+	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
 
 }
 
@@ -47,15 +48,14 @@ void CObjEnemy_Neutralization_Device::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
-	bool Eve_flg = time->GetEve();
 	bool END = time->GetENDFlg();
 
 	//HitBoxの内容を更新 
-	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_exp->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
+	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
+	hit_end->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
 
 	//主人公接触判定処理
-	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
+	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
 			&& END == true)
@@ -65,10 +65,6 @@ void CObjEnemy_Neutralization_Device::Action()
 			time->SetTStart(TStart_flg);
 			time->SetENDFlg(END);
 		}
-	}
-	else
-	{
-		TStart_flg = false;
 	}
 
 	//主人公の移動に合わせる
@@ -82,7 +78,7 @@ void CObjEnemy_Neutralization_Device::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool TStop_flg = time->GetTStop();
+	bool END = time->GetENDFlg();
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -102,11 +98,11 @@ void CObjEnemy_Neutralization_Device::Draw()
 	dst.m_left = 0.0f + m_Enemy_Neu_Devx;
 	dst.m_right = 55.0f + m_Enemy_Neu_Devx;
 	dst.m_bottom = 105.0f + m_Enemy_Neu_Devy;
-	if (TStop_flg == true)
+	if (END == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}
-	else if (TStop_flg == false)
+	else if (END == false)
 	{
 		Draw::Draw(6, &src, &dst, cD, 0.0f);
 	}
