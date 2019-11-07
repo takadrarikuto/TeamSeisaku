@@ -807,7 +807,7 @@ void CObjHero::Action()
 			}
 
 			//下キーを押すと弾をリロード
-			if (m_hg_pb == 0 || m_sg_pb == 0 || m_ar_pb == 0 || m_sr_pb == 0 || m_rl_pb == 0 || m_rg_pb == 0 )
+			if (m_hg_pb == 0)
 			{
 				if (Input::GetVKey(VK_DOWN) == true)
 				{
@@ -816,8 +816,15 @@ void CObjHero::Action()
 					{
 						m_hg_pb = 10;//弾数を10増やす
 					}
+
+				}
+			}
+			if (m_sg_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//ショットガン
-					else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+					if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
 					{
 						if (m_sg_flg == true)
 						{
@@ -848,8 +855,14 @@ void CObjHero::Action()
 							m_sg_flg = false;
 						}
 					}
+				}
+			}
+			if (m_ar_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//アサルト
-					else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
+					if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 					{
 						if (m_ar_flg == true)
 						{
@@ -880,8 +893,14 @@ void CObjHero::Action()
 							m_ar_flg = false;
 						}
 					}
+				}
+			}
+			if (m_sr_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//スナイパー
-					else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
+					if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 					{
 						if (m_sr_flg == true)
 						{
@@ -912,8 +931,14 @@ void CObjHero::Action()
 							m_sr_flg = false;
 						}
 					}
+				}
+			}
+			if (m_rl_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//ロケットランチャー
-					else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
+					if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 					{
 						if (m_rl_flg == true)
 						{
@@ -930,8 +955,14 @@ void CObjHero::Action()
 							m_rl_flg = false;
 						}
 					}
+				}
+			}
+			if (m_rg_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
 					//レールガン
-					else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
+					if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 					{
 						if (m_rg_flg == true)
 						{
@@ -949,19 +980,19 @@ void CObjHero::Action()
 						}
 					}
 				}
-				else
-				{
-					m_sg_flg = true;
-					m_ar_flg = true;
-					m_sr_flg = true;
-					m_rl_flg = true;
-					m_rg_flg = true;
-					m_sg_pb_cc = 0;
-					m_ar_pb_cc = 0;
-					m_sr_pb_cc = 0;
-					m_rl_pb_cc = 0;
-					m_rg_pb_cc = 0;
-				}
+			}
+			else
+			{
+				m_sg_flg = true;
+				m_ar_flg = true;
+				m_sr_flg = true;
+				m_rl_flg = true;
+				m_rg_flg = true;
+				m_sg_pb_cc = 0;
+				m_ar_pb_cc = 0;
+				m_sr_pb_cc = 0;
+				m_rl_pb_cc = 0;
+				m_rg_pb_cc = 0;
 			}
 		}
 
@@ -1130,7 +1161,6 @@ void CObjHero::Action()
 		//	//ポイントを獲得
 		//}
 	}
-	
 }
 
 //ドロー
