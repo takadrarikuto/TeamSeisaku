@@ -30,6 +30,10 @@ CObjZombieEnemy::CObjZombieEnemy(float zex, float zey, bool zeaf)
 void CObjZombieEnemy::Init()
 {
 	//初期化
+	//ゾンビ生成位置記録
+	m_zeg_x = m_zex;
+	m_zeg_y = m_zey;
+
 	//移動ベクトル
 	m_zevx = 0.0f;
 	m_zevy = 0.0f;
@@ -76,14 +80,15 @@ void CObjZombieEnemy::Action()
 {
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
-	float hpx = hero->GetPX() - m_zex;
+	float hx = hero->GetX() - m_zex; //位置
+	float hy = hero->GetY()  - m_zey;
+	float hpx = hero->GetPX() - m_zex; //位置更新
 	float hpy = hero->GetPY() - m_zey;
-	float hvx = hero->GetVX();
+	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
-	float h_HitBox = hero->GetHitBox();
-	float h_gel = hero->GetDel();
+	float h_HitBox = hero->GetHitBox(); //当たり判定
+	bool h_gel = hero->GetDel(); //削除チェック
+	
 	
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
@@ -118,13 +123,13 @@ void CObjZombieEnemy::Action()
 		//float ey = obj->GetY() - m_py;
 
 		//計算頻度を落とし、斜め移動を防ぐ
-		static int   count = 30;
+		static int   count = 20;
 		static float br = 0.0f;
 		count++;
-		if (count > 30)
+		if (count > 20)
 		{
 			count = 0;
-			int ar = atan2(hpy, hpx)*180.0f / 3.14;
+			int ar = atan2(hy, hx)*180.0f / 3.14;
 
 			if (ar < 0)
 			{
@@ -135,7 +140,7 @@ void CObjZombieEnemy::Action()
 
 		if (br >= 45 && br < 136)//上 45度以上　136度未満
 		{
-			m_zevy = -m_zev_max;
+			m_zevy = m_zev_max;
 			m_UDani_frame = 6;
 			m_ani_time += ANIMATION;
 		}
@@ -147,7 +152,7 @@ void CObjZombieEnemy::Action()
 		}
 		else if (br > 225 && br < 316)//下　225度以上　316未満
 		{			
-			m_zevy = m_zev_max;
+			m_zevy = -m_zev_max;
 			m_UDani_frame = 2;
 			m_ani_time += ANIMATION;
 		}
