@@ -214,8 +214,6 @@ void CObjZombieEnemy::Action()
 		//m_zey -= hvy;
 		m_zex += (-hvx) + m_zevx;
 		m_zey += (-hvy) + m_zevy;
-
-		
 	}
 
 	//HitBox‚Ì“à—e‚ğXV
