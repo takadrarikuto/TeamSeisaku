@@ -60,7 +60,7 @@ void CObjExplosion::Action()
 		//アニメーション処理
 		if (m_ani_time > 5)
 		{
-			m_ani_flame += ANIMATION;
+			m_ani_flame += 1;
 			m_ani_time = 0;
 		}
 

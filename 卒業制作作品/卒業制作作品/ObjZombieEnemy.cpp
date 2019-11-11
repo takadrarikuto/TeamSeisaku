@@ -80,10 +80,10 @@ void CObjZombieEnemy::Action()
 {
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX() - m_zex; //位置
-	float hy = hero->GetY()  - m_zey;
-	float hpx = hero->GetPX() - m_zex; //位置更新
-	float hpy = hero->GetPY() - m_zey;
+	float hx = hero->GetX(); //位置
+	float hy = hero->GetY();
+	float hpx = hero->GetPX()/* - m_zeg_x*/; //位置更新
+	float hpy = hero->GetPY()/* - m_zeg_y*/;
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
 	float h_HitBox = hero->GetHitBox(); //当たり判定
@@ -129,7 +129,7 @@ void CObjZombieEnemy::Action()
 		if (count > 20)
 		{
 			count = 0;
-			int ar = atan2(hy, hx)*180.0f / 3.14;
+			int ar = atan2(hpy, hpx)*180.0f / 3.14;
 
 			if (ar < 0)
 			{
@@ -140,27 +140,19 @@ void CObjZombieEnemy::Action()
 
 		if (br >= 45 && br < 136)//上 45度以上　136度未満
 		{
-			m_zevy = m_zev_max;
-			m_UDani_frame = 6;
-			m_ani_time += ANIMATION;
+			m_UDani_frame = 6;		
 		}
 		else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
 		{			
-			m_zevx = m_zev_max;
 			m_UDani_frame = 4;
-			m_ani_time += ANIMATION;
 		}
 		else if (br > 225 && br < 316)//下　225度以上　316未満
 		{			
-			m_zevy = -m_zev_max;
 			m_UDani_frame = 2;
-			m_ani_time += ANIMATION;
 		}
 		else if (br >= 135 && br <= 225)//左　135度以上　225度未満
 		{
-			m_zevx = -m_zev_max;
 			m_UDani_frame = 0;
-			m_ani_time += ANIMATION;			
 		}
 
 		//アニメーション処理
@@ -175,63 +167,115 @@ void CObjZombieEnemy::Action()
 			m_LRani_frame = 0;
 		}
 
+		//主人公が上に居ると上に移動
+		if (hy < m_zey)
+		{
+			m_zevy = -m_zev_max;
+			m_ani_time += 1;
+		}
+		//主人公が下に居ると下移動
+		else if (hy > m_zey)
+		{
+			m_zevy = m_zev_max;
+			m_ani_time += 1;
+		}
+		//主人公が左に居ると左に移動
+		if (hx < m_zex)
+		{
+			m_zevx = -m_zev_max;
+			m_ani_time += 1;
+		}
+		//主人公が右に居ると右に移動
+		else if (hx > m_zex)
+		{
+			m_zevx = m_zev_max;
+			m_ani_time += 1;
+		}
+
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_zevx * m_zevx + m_zevy * m_zevy;
+		r = sqrt(r); //ルートを求める
+
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_zevx = m_zev_max / r * m_zevx;
+			m_zevy = m_zev_max / r * m_zevy;
+		}
+
 		//位置更新
-		//移動処理
 		//主人公の移動を適応する
 		//m_zex -= hvx;
 		//m_zey -= hvy;
 		m_zex += (-hvx) + m_zevx;
 		m_zey += (-hvy) + m_zevy;
-
-		////主人公が上に居ると上に移動
-		//if (hy < m_zey)
-		//{
-		//	m_zevy = -m_zev_max;
-		//	m_UDani_frame = 6;
-		//	m_ani_time += ANIMATION;
-		//}
-		////主人公が下に居ると下移動
-		//if (hy > m_zey)
-		//{
-		//	m_zevy = m_zev_max;
-		//	m_UDani_frame = 2;
-		//	m_ani_time += ANIMATION;
-		//}
-		////主人公が左に居ると左に移動
-		//if (hx < m_zex)
-		//{
-		//	m_zevx = -m_zev_max;
-		//	m_UDani_frame = 0;
-		//	m_ani_time += ANIMATION;
-		//}
-		////主人公が右に居ると右に移動
-		//if (hx > m_zex)
-		//{
-		//	m_zevx = m_zev_max;
-		//	m_UDani_frame = 4;
-		//	m_ani_time += ANIMATION;
-		//}
-
-		////斜め移動修正処理
-		//float r = 0.0f;
-		//r = m_zevx * m_zevx + m_zevy * m_zevy;
-		//r = sqrt(r); //ルートを求める
-
-		////斜めベクトルを求める
-		//if (r == 0.0f)
-		//{
-		//	; //0なら何もしない
-		//}
-		//else
-		//{
-		//	m_zevx = m_zev_max / r * m_zevx;
-		//	m_zevy = m_zev_max / r * m_zevy;
-		//}
 	}
 
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
+
+	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL);
+		for (int i = 0; i < hit_ze->GetCount(); i++)
+		{
+			float r = hit_data[i]->r;
+			//角度で上下左右を判定
+			if ((r < 88 && r >= 0) || r > 292)
+			{
+				m_zevx = -0.15f; //右
+			}
+			if (r > 88 && r < 92)
+			{
+				m_zevy = 0.15f;//上
+			}
+			if (r > 92 && r < 268)
+			{
+				m_zevx = 0.15f;//左
+			}
+			if (r > 268 && r < 292)
+			{
+				m_zevy = -0.15f; //下
+			}
+		}
+	}
+
+	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL2);
+		for (int i = 0; i < hit_ze->GetCount(); i++)
+		{
+			float r = hit_data[i]->r;
+			//角度で上下左右を判定
+			if ((r < 2 && r >= 0) || r > 358)
+			{
+				m_zevx = -0.15f; //右
+			}
+			if (r > 2 && r < 178)
+			{
+				m_zevy = 0.15f;//上
+			}
+			if (r > 178 && r < 182)
+			{
+				m_zevx = 0.15f;//左
+			}
+			if (r > 182 && r < 358)
+			{
+				m_zevy = -0.15f; //下
+			}
+		}
+	}
 
 	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
 	//if (hit->CheckElementHit(ELEMENT_FIELD) == true)

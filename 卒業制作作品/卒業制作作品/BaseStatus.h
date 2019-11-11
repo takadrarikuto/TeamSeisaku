@@ -14,8 +14,6 @@ public:
 #define DISTANCE_RL 5	 //ロケットランチャー
 #define DISTANCE_RG 5	 //レールガン
 
-#define ANIMATION 1 //アニメーション速度
-
 	int m_hero_hp; //体力
 	int m_hero_hp_max;
 	int Hitbox_size; //当たり判定サイズ
