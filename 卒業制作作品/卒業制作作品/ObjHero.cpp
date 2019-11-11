@@ -185,7 +185,7 @@ void CObjHero::Action()
 					m_vy -= m_v_max;
 				}
 				m_UDani_frame = 0;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			//'S'を押すと下に移動
 			else if (Input::GetVKey('S') == true)
@@ -195,7 +195,7 @@ void CObjHero::Action()
 					m_vy += m_v_max;
 				}
 				m_UDani_frame = 4;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			//'A'を押すと左に移動
 			else if (Input::GetVKey('A') == true)
@@ -205,7 +205,7 @@ void CObjHero::Action()
 					m_vx -= m_v_max;
 				}
 				m_UDani_frame = 6;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			//'D'を押すと右移動
 			else if (Input::GetVKey('D') == true)
@@ -215,7 +215,7 @@ void CObjHero::Action()
 					m_vx += m_v_max;
 				}
 				m_UDani_frame = 2;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			else
 			{
@@ -226,7 +226,7 @@ void CObjHero::Action()
 			//アニメーション処理
 			if (m_ani_time > 6)
 			{
-				m_LRani_frame += ANIMATION;
+				m_LRani_frame += 1;
 				m_ani_time = 0;
 			}
 

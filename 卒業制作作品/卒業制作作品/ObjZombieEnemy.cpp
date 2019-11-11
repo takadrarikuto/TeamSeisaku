@@ -142,25 +142,25 @@ void CObjZombieEnemy::Action()
 		{
 			m_zevy = m_zev_max;
 			m_UDani_frame = 6;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 		else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
 		{			
 			m_zevx = m_zev_max;
 			m_UDani_frame = 4;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 		else if (br > 225 && br < 316)//下　225度以上　316未満
 		{			
 			m_zevy = -m_zev_max;
 			m_UDani_frame = 2;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 		else if (br >= 135 && br <= 225)//左　135度以上　225度未満
 		{
 			m_zevx = -m_zev_max;
 			m_UDani_frame = 0;
-			m_ani_time += ANIMATION;			
+			m_ani_time += 1;			
 		}
 
 		//アニメーション処理
@@ -188,28 +188,28 @@ void CObjZombieEnemy::Action()
 		//{
 		//	m_zevy = -m_zev_max;
 		//	m_UDani_frame = 6;
-		//	m_ani_time += ANIMATION;
+		//	m_ani_time += 1;
 		//}
 		////主人公が下に居ると下移動
 		//if (hy > m_zey)
 		//{
 		//	m_zevy = m_zev_max;
 		//	m_UDani_frame = 2;
-		//	m_ani_time += ANIMATION;
+		//	m_ani_time += 1;
 		//}
 		////主人公が左に居ると左に移動
 		//if (hx < m_zex)
 		//{
 		//	m_zevx = -m_zev_max;
 		//	m_UDani_frame = 0;
-		//	m_ani_time += ANIMATION;
+		//	m_ani_time += 1;
 		//}
 		////主人公が右に居ると右に移動
 		//if (hx > m_zex)
 		//{
 		//	m_zevx = m_zev_max;
 		//	m_UDani_frame = 4;
-		//	m_ani_time += ANIMATION;
+		//	m_ani_time += 1;
 		//}
 
 		////斜め移動修正処理
