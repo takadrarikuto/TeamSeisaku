@@ -171,25 +171,25 @@ void CObjZombieEnemy::Action()
 		if (hy < m_zey)
 		{
 			m_zevy = -m_zev_max;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 		//主人公が下に居ると下移動
 		if (hy > m_zey)
 		{
 			m_zevy = m_zev_max;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
 			m_zevx = -m_zev_max;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 		//主人公が右に居ると右に移動
 		if (hx > m_zex)
 		{
 			m_zevx = m_zev_max;
-			m_ani_time += ANIMATION;
+			m_ani_time += 1;
 		}
 
 		//斜め移動修正処理
@@ -214,8 +214,6 @@ void CObjZombieEnemy::Action()
 		//m_zey -= hvy;
 		m_zex += (-hvx) + m_zevx;
 		m_zey += (-hvy) + m_zevy;
-
-		
 	}
 
 	//HitBoxの内容を更新
