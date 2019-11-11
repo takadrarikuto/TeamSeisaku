@@ -38,12 +38,13 @@ void CSceneOperation::InitScene()
 	//オブジェクト作成
 	CObjOperation* ope = new CObjOperation();
 	Objs::InsertObj(ope, OBJ_OPERATION, 3);
-
+	/*
 	//音楽情報の読み込み
-	//Audio::LoadAudio(0, L"決定音.wav", EFFECT);
+	Audio::LoadAudio(0, L"決定音.wav", EFFECT);
 
 	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(0.5);
+	float Volume = Audio::VolumeMaster(0.5);
+	*/
 }
 
 //ゲームメイン実行中メソッド

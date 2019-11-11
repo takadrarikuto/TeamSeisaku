@@ -34,7 +34,7 @@ void CSceneClear::InitScene()
 	//出力させる文字のグラフィックを作成
 	Draw::LoadImage(L"ゲームクリア.png", 4, TEX_SIZE_256);
 
-	//クリアオブジェクト作成
+	//クリアオブジェクト作成ss
 	CObjClear* nk = new CObjClear();
 	Objs::InsertObj(nk, OBJ_CLEAR, 4);
 

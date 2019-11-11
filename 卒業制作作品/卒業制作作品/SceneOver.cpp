@@ -41,14 +41,14 @@ void CSceneOver::InitScene()
 	//背景オブジェクト作成
 	CObjOver* go1 = new CObjOver();
 	Objs::InsertObj(go1, OBJ_OVER, 4);
-
+	/*
 	//音楽読み込み
-	//Audio::LoadAudio(0, L"選択音.wav", EFFECT);
-	//Audio::LoadAudio(1, L"決定音.wav", EFFECT);
-	//Audio::LoadAudio(2, L"ゲームオーバーBGM.wav", BACK_MUSIC);
-	////ボリュームを1.0に戻す
-	//float v = Audio::VolumeMaster(0.1);
+	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
+	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
+	Audio::LoadAudio(2, L"ゲームオーバーBGM.wav", BACK_MUSIC);
+	//ボリュームを1.0に戻す
+	float v = Audio::VolumeMaster(0.1);
 
-	////音楽スタート
-	//Audio::Start(2);
+	//音楽スタート
+	Audio::Start(2);*/
 }

@@ -49,17 +49,17 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
-
+	/*
 	//音楽情報読み込み 
-	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
+	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
-	////バックミュージックスタート
-	////ボリュームを0.6にする
-	//float v = Audio::VolumeMaster(0);
-	//v = Audio::VolumeMaster(0.6 - v);
+	//バックミュージックスタート
+	//ボリュームを0.6にする
+	float v = Audio::VolumeMaster(0);
+	v = Audio::VolumeMaster(0.6 - v);
 
-	//Audio::Start(0); //音楽スタート
-
+	Audio::Start(0); //音楽スタート
+	*/
 
 	//エネミー出現タイム初期化
 	e_time = 0;

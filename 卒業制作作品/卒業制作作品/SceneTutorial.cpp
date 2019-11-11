@@ -80,7 +80,7 @@ void CSceneTutorial::InitScene()
 	//ステージオブジェクト作成(チュートリアル用)
 	CObjStage* objm = new CObjStage();
 	Objs::InsertObj(objm, OBJ_STAGE, 20);
-
+	/*
 	//音楽情報の読み込み
 	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
 	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
@@ -88,7 +88,7 @@ void CSceneTutorial::InitScene()
 
 	//バックミュージックスタート
 	float Volume = Audio::VolumeMaster(0.5);
-	Audio::Start(2);    //音楽スタート
+	Audio::Start(2);    //音楽スタート*/
 }
 
 //ゲームメイン実行中メソッド
