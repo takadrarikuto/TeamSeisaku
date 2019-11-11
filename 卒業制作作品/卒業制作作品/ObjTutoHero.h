@@ -3,20 +3,18 @@
 
 using namespace GameL;
 
-class CObjHero : public CObj, public CBaseStatus
+class CObjTutoHero : public CObj, public CBaseStatus
 {
 public:
-	CObjHero(float x, float y);
-	~CObjHero() {};
+	CObjTutoHero(float x, float y);
+	~CObjTutoHero() {};
 
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
-	
+
 	float GetX() { return m_x; }
 	float GetY() { return m_y; }
-	float GetPX() { return m_px; }
-	float GetPY() { return m_py; }
 	float GetVX() { return m_vx; }
 	float GetVY() { return m_vy; }
 	float GetHitBox() { return m_dst_size; }
@@ -26,7 +24,7 @@ public:
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
 	bool GetDel() { return m_del; } //削除チェック
 
-	//上下左右別当たり判定確認フラグ取得用
+									//上下左右別当たり判定確認フラグ取得用
 	bool GetUH() { return m_UpHit_flg; }  //上
 	bool GetDH() { return m_DownHit_flg; } //下
 	bool GetLH() { return m_LeftHit_flg; }	 //左
@@ -66,7 +64,7 @@ public:
 	void SetLeftHit(float leh) { m_LeftHit_flg = leh; }	 //左
 	void SetrightHit(float rih) { m_RightHit_flg = rih; } //右
 
-	void SetSG(int sg) { m_sg_pb_me = sg;}	//ショットガン弾セット用
+	void SetSG(int sg) { m_sg_pb_me = sg; }	//ショットガン弾セット用
 	void SetAR(int ar) { m_ar_pb_me = ar; }	//アサルトライフル弾セット用
 	void SetSR(int sr) { m_sr_pb_me = sr; }	//スナイパーライフル弾セット用
 	void SetRL(int rl) { m_rl_pb_me = rl; }	//ロケットランチャー弾セット用
@@ -76,8 +74,6 @@ public:
 private:
 	float m_x; //位置更新
 	float m_y;
-	float m_px; //位置把握
-	float m_py;
 	float m_vx; //移動ベクトル
 	float m_vy;
 	float m_v_max; //移動ベクトル最大値
@@ -85,7 +81,7 @@ private:
 	float m_ga_vy_max;
 	float m_speed_power; //スピードパワー
 
-	//上下左右別
+						 //上下左右別
 	int m_UDani_frame;	//描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 	int m_LRani_frame;
@@ -98,7 +94,7 @@ private:
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値
 
-	//上下左右別当たり判定確認フラグ
+				  //上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
 	bool m_DownHit_flg;	 //下
 	bool m_LeftHit_flg;	 //左

@@ -43,6 +43,7 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_WALL,
 };
 //------------------------------------------------
 
@@ -62,6 +63,8 @@ enum HIT_ELEMENTS
 	ELEMENT_BLUE,
 	ELEMENT_BLACK,
 	ELEMENT_WHITE,
+	ELEMENT_WALL,
+	ELEMENT_WALL2,
 };
 //------------------------------------------------
 
@@ -70,7 +73,15 @@ enum HIT_ELEMENTS
 struct UserData
 {
 	int mSeveData;	//サンプルセーブデータ
-	
+	//武器別ダメージ
+	int Gun_Attack = 10;  //ハンドガン
+	int SHG_Attack = 30;	//ショットガン
+	int AR_Attack = 20; //アサルトライフル
+	int SR_Attack = 50; //スナイパーライフル
+	int RL_Attack = 150; //ロケットランチャー
+	int RG_Attack = 200; //レールガン
+	int GRE_Attack = 100;	//グレネード
+
 };
 //------------------------------------------------
 
@@ -146,6 +157,10 @@ struct UserData
 
 //チュートリアル
 #include "ObjTutorial.h"
+//チュートリアル用
+#include "ObjTutoHero.h"
+#include "ObjTutoBg.h"
+#include "ObjTutoTopback.h"
 
 //ゲームオーバー
 #include "ObjOver.h"
@@ -167,6 +182,12 @@ struct UserData
 
 //背景
 #include "ObjBackground.h"
+
+//壁
+#include "ObjWall.h"//左
+#include "ObjWall2.h"//右
+#include "ObjWall3.h"//上
+#include "ObjWall4.h"//下
 
 //ベース設定
 #include "GameHead.h"

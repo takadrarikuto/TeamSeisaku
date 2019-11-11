@@ -5,11 +5,11 @@
 using namespace GameL;
 
 //オブジェクト：背景
-class CObjTopback : public CObj
+class CObjTutoTopback : public CObj
 {
 public:
-	CObjTopback() {};
-	~CObjTopback() {};
+	CObjTutoTopback() {};
+	~CObjTutoTopback() {};
 	void Init();	//イニシャライズ
 	void Action();	//アクション
 	void Draw();	//ドロー

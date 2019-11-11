@@ -34,8 +34,11 @@ void CObjBoss::Init()
 	m_scrolly = 0.0f;
 
 	//エネミー出現位置
-	e_x = 272.0f;
-	e_y = 400.0f;
+	e_x = 0.0f;
+	e_y = 0.0f;
+	//ゾンビ生成座標記録
+	m_Enemy_Generation_x = 0.0f;
+	m_Enemy_Generation_y = 0.0f;
 	//ボス移動ベクトル
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
@@ -46,6 +49,8 @@ void CObjBoss::Init()
 	m_Zombie_Restriction = 0;
 	//ゾンビ生成数制限最大値
 	m_Zombie_Restriction_max = 10;
+	//ゾンビ生成タイム最大値
+	m_Zombie_time_max = 240;
 	//ゾンビランダム描画切り替え用
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
@@ -64,13 +69,14 @@ void CObjBoss::Init()
 void CObjBoss::Action()
 {
 	//主人公情報取得
-	CObjHero* boss = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = boss->GetVX();
-	float hvy = boss->GetVY();
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
 
 	//移動停止
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
+
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -88,13 +94,13 @@ void CObjBoss::Action()
 		srand(time(NULL)); // ランダム情報を初期化
 
 		e_x = rand() % 192 + m_bx;
-		e_y = rand() % 128 + m_by;
+		e_y = rand() % 64 + m_by;
 		
 		e_x -= hvx;
 		e_y -= hvy;
 
 		//エネミー生成処理
-		if (m_Enemy_Generation == 240 && m_Zombie_Restriction < m_Zombie_Restriction_max)
+		if (m_Enemy_Generation == m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
 		{
 			//ゾンビの伏せている、立っている描画切り替え処理
 			Ze_dst_flg_num = rand() % 3;
@@ -110,6 +116,10 @@ void CObjBoss::Action()
 			//敵機オブジェクト作成
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
 			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
+
+			//ゾンビ生成座標記録
+			m_Enemy_Generation_x = e_x; 
+			m_Enemy_Generation_y = e_y;
 
 			m_Enemy_Generation = 0; //エネミー生成タイム初期化
 			m_Zombie_Restriction++; //ゾンビ生成数カウント

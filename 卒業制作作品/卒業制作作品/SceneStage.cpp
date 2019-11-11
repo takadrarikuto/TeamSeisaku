@@ -80,7 +80,7 @@ void CSceneStage::InitScene()
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 8);
 
-	//標準オブジェクト作成
+	//照準オブジェクト作成
 	CObjAiming* obj_ai = new CObjAiming();
 	Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
 
@@ -90,15 +90,15 @@ void CSceneStage::InitScene()
 
 	//ボスオブジェクト作成 272, 400
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
-	Objs::InsertObj(obj_boss, OBJ_BOSS, 3);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
-	Objs::InsertObj(Gen, OBJ_APPARATUS, 6);
+	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(400, 200);
-	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
+	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//アイテムオブジェクト作成	
 	//回復
@@ -122,6 +122,20 @@ void CSceneStage::InitScene()
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+
+	//壁オブジェクト作成
+	//左
+	CObjWall* Wall = new CObjWall(200, 200);
+	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	//右
+	CObjWall2* Wall2 = new CObjWall2(200, 200);
+	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	//上
+	CObjWall3* Wall3 = new CObjWall3(200, 200);
+	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	//下
+	CObjWall4* Wall4 = new CObjWall4(200, 200);
+	Objs::InsertObj(Wall4, OBJ_WALL, 7);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();

@@ -81,7 +81,7 @@ void CObjGenerator::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool TStop_flg = time->GetTStop();
+	bool GEN = time->GetGenFlg();
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -101,11 +101,11 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	if (TStop_flg == true)
+	if (GEN == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}
-	else if (TStop_flg == false)
+	else if (GEN == false)
 	{
 		Draw::Draw(6, &src, &dst, cD, 0.0f);
 	}

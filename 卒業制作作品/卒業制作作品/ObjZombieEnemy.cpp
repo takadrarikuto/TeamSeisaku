@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjZombieEnemy.h"
@@ -29,6 +30,10 @@ CObjZombieEnemy::CObjZombieEnemy(float zex, float zey, bool zeaf)
 void CObjZombieEnemy::Init()
 {
 	//初期化
+	//ゾンビ生成位置記録
+	m_zeg_x = m_zex;
+	m_zeg_y = m_zey;
+
 	//移動ベクトル
 	m_zevx = 0.0f;
 	m_zevy = 0.0f;
@@ -40,7 +45,7 @@ void CObjZombieEnemy::Init()
 	m_zev_max = 0.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
-	m_UDani_frame = 4; //静止フレームを初期にする
+	m_UDani_frame = 2; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
 	//攻撃頻度
@@ -48,13 +53,13 @@ void CObjZombieEnemy::Init()
 	//攻撃頻度最大値
 	m_at_max = 5;
 	//ダメージ量
-	Gun_Attack = 10;  //ハンドガン
-	SHG_Attack = 30;  //ショットガン
-	AR_Attack = 20;	  //アサルトライフル
-	SR_Attack = 50;	  //スナイパーライフル
-	RL_Attack = 150;  //ロケットランチャー
-	RG_Attack = 200;  //レールガン
-	GRE_Attack = 100; //グレネード
+	((UserData*)Save::GetData())->Gun_Attack;
+	((UserData*)Save::GetData())->SHG_Attack;
+	((UserData*)Save::GetData())->AR_Attack;
+	((UserData*)Save::GetData())->SR_Attack;
+	((UserData*)Save::GetData())->RL_Attack;
+	((UserData*)Save::GetData())->RG_Attack;
+	((UserData*)Save::GetData())->GRE_Attack;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -75,12 +80,16 @@ void CObjZombieEnemy::Action()
 {
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
-	float hvx = hero->GetVX();
+	float hx = hero->GetX() - m_zex; //位置
+	float hy = hero->GetY()  - m_zey;
+	float hpx = hero->GetPX() - m_zex; //位置更新
+	float hpy = hero->GetPY() - m_zey;
+	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
-	float h_HitBox = hero->GetHitBox();
-	float h_gel = hero->GetDel();
+	float h_HitBox = hero->GetHitBox(); //当たり判定
+	bool h_gel = hero->GetDel(); //削除チェック
+	
+	
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -101,40 +110,107 @@ void CObjZombieEnemy::Action()
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{
-		//移動処理
-		//主人公の移動を適応する
-		m_zex -= hvx;
-		m_zey -= hvy;
+	{		
+		 //チーム制作から
+		//主人公と追尾で角度を取る
+		//CObjHero*obj = (CObjHero*)Objs::GetObj(OBJ_HERO);
+		//float x = obj->GetX() - m_px;
+		//float y = obj->GetY() - m_py;
 
-		//主人公が左に居ると左に移動
-		if (hx < m_zex)
+		////敵の位置
+		//CObjEnemy2*obje = (CObjEnemy2*)Objs::GetObj(OBJ_ENEMY);
+		//float ex = obj->GetX() - m_px;
+		//float ey = obj->GetY() - m_py;
+
+		//計算頻度を落とし、斜め移動を防ぐ
+		static int   count = 20;
+		static float br = 0.0f;
+		count++;
+		if (count > 20)
+		{
+			count = 0;
+			int ar = atan2(hy, hx)*180.0f / 3.14;
+
+			if (ar < 0)
+			{
+				ar = 360 + ar;
+			}
+			br = ar;
+		}
+
+		if (br >= 45 && br < 136)//上 45度以上　136度未満
+		{
+			m_zevy = m_zev_max;
+			m_UDani_frame = 6;
+			m_ani_time += ANIMATION;
+		}
+		else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
+		{			
+			m_zevx = m_zev_max;
+			m_UDani_frame = 4;
+			m_ani_time += ANIMATION;
+		}
+		else if (br > 225 && br < 316)//下　225度以上　316未満
+		{			
+			m_zevy = -m_zev_max;
+			m_UDani_frame = 2;
+			m_ani_time += ANIMATION;
+		}
+		else if (br >= 135 && br <= 225)//左　135度以上　225度未満
 		{
 			m_zevx = -m_zev_max;
 			m_UDani_frame = 0;
-			m_ani_time += 1;
+			m_ani_time += ANIMATION;			
 		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_zex)
+
+		//アニメーション処理
+		if (m_ani_time > 6)
 		{
-			m_zevx = m_zev_max;
-			m_UDani_frame = 4;
-			m_ani_time += 1;
+			m_LRani_frame += 1;
+			m_ani_time = 0;
 		}
-		//主人公が上に居ると上に移動
-		else if (hy < m_zey)
+
+		if (m_LRani_frame == 3)
 		{
-			m_zevy = -m_zev_max;
-			m_UDani_frame = 6;
-			m_ani_time += 1;
+			m_LRani_frame = 0;
 		}
-		//主人公が下に居ると下移動
-		else if (hy > m_zey)
-		{
-			m_zevy = m_zev_max;
-			m_UDani_frame = 2;
-			m_ani_time += 1;
-		}
+
+		//位置更新
+		//移動処理
+		//主人公の移動を適応する
+		//m_zex -= hvx;
+		//m_zey -= hvy;
+		m_zex += (-hvx) + m_zevx;
+		m_zey += (-hvy) + m_zevy;
+
+		////主人公が上に居ると上に移動
+		//if (hy < m_zey)
+		//{
+		//	m_zevy = -m_zev_max;
+		//	m_UDani_frame = 6;
+		//	m_ani_time += ANIMATION;
+		//}
+		////主人公が下に居ると下移動
+		//if (hy > m_zey)
+		//{
+		//	m_zevy = m_zev_max;
+		//	m_UDani_frame = 2;
+		//	m_ani_time += ANIMATION;
+		//}
+		////主人公が左に居ると左に移動
+		//if (hx < m_zex)
+		//{
+		//	m_zevx = -m_zev_max;
+		//	m_UDani_frame = 0;
+		//	m_ani_time += ANIMATION;
+		//}
+		////主人公が右に居ると右に移動
+		//if (hx > m_zex)
+		//{
+		//	m_zevx = m_zev_max;
+		//	m_UDani_frame = 4;
+		//	m_ani_time += ANIMATION;
+		//}
 
 		////斜め移動修正処理
 		//float r = 0.0f;
@@ -151,117 +227,141 @@ void CObjZombieEnemy::Action()
 		//	m_zevx = m_zev_max / r * m_zevx;
 		//	m_zevy = m_zev_max / r * m_zevy;
 		//}
-
-		//アニメーション処理
-		if (m_ani_time > 6)
-		{
-			m_LRani_frame += 1;
-			m_ani_time = 0;
-		}
-
-		if (m_LRani_frame == 3)
-		{
-			m_LRani_frame = 0;
-		}
-
-		//位置更新
-		m_zex += m_zevx;
-		m_zey += m_zevy;
 	}
 
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
 
-	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_PLAYER) == true)
-	{
-		//主人公と障害物がどの角度で当たっているか調べる
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_PLAYER);
+	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
+	//if (hit->CheckElementHit(ELEMENT_FIELD) == true)
+	//{
 
-		float r = hit_data[0]->r;
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit->SearchElementHit(ELEMENT_FIELD);
 
-		//角度で上下左右を判定
-		if (r > 0 && r < 45 || r >= 315)
-		{
-			m_LightHit_flg = true; //右
-		}
-		else if (r >= 45 && r < 136)
-		{
-			m_UpHit_flg = true;    //上
-		}
-		else if (r >= 135 && r <= 225)
-		{
-			m_LeftHit_flg = true;	 //左
-		}
-		else if (r > 225 && r < 316)
-		{
-			m_DownHit_flg = true;	 //下
-		}
+	//	float r = 0;
 
-		if (m_LeftHit_flg == true)//左に当たり判定があった場合
-		{
-			m_zex = hx + h_HitBox;
-			m_zevx = 0.0f;
-		}
-		else if (m_LightHit_flg == true)//右に当たり判定があった場合
-		{
-			m_zex = hx - m_dst_size;
-			m_zevx = 0.0f;
-		}
-		else if (m_DownHit_flg == true)//下に当たり判定があった場合
-		{
-			m_zey = hy - m_dst_size;
-			m_zevy = 0.0f;
-		}
-		else if (m_UpHit_flg == true)//上に当たり判定があった場合
-		{
-			m_zey = hy + h_HitBox;
-			m_zevy = 0.0f;
-		}	
-	}
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		if (hit_data[i] != nullptr)
+	//		{
+	//			r = hit_data[i]->r;
+
+	//			//角度で上下左右を判定
+	//			if (r > 0 && r < 45 || r >= 315)
+	//			{
+	//				//右
+	//				m_hit_right = true;
+	//			}
+	//			else if (r >= 45 && r < 136)
+	//			{
+	//				//上
+	//				m_hit_up = true;
+	//			}
+	//			else if (r >= 135 && r <= 225)
+	//			{
+	//				//左
+	//				m_hit_left = true;
+	//			}
+	//			else if (r > 225 && r < 316)
+	//			{
+	//				//下
+	//				m_hit_down = true;
+	//			}
+
+
+	//			//左に当たり判定があった場合
+	//			if (m_hit_left == true)
+	//			{
+	//				m_vx = m_vx + SPEEDPOWER;
+	//			}
+
+	//			//右に当たり判定があった場合
+	//			if (m_hit_right == true)
+	//			{
+	//				m_vx = m_vx - SPEEDPOWER;
+	//			}
+
+	//			//下に当たり判定があった場合
+	//			if (m_hit_down == true)
+	//			{
+	//				m_vy = m_vy - SPEEDPOWER;
+	//			}
+
+	//			//上に当たり判定があった場合
+	//			if (m_hit_up == true)
+	//			{
+	//				m_vy = m_vy + SPEEDPOWER;
+	//			}
+
+	//			//主人公と敵の間に障害物があった場合
+	//			if ((m_hit_left == true || m_hit_right == true) && Input::GetVKey('W'))
+	//			{
+	//				m_posture = 2.0f;
+	//				m_vy = m_vy - SPEEDPOWER;
+	//			}
+	//			else if ((m_hit_left == true || m_hit_right == true) && Input::GetVKey('S'))
+	//			{
+	//				m_posture = 0.0f;
+	//				m_vy = m_vy + SPEEDPOWER;
+	//			}
+	//			else if ((m_hit_up == true || m_hit_down == true) && Input::GetVKey('A'))
+	//			{
+	//				m_posture = 3.0f;
+	//				m_vx = m_vx - SPEEDPOWER;
+	//			}
+	//			else if ((m_hit_up == true || m_hit_down == true) && Input::GetVKey('D'))
+	//			{
+	//				m_posture = 1.0f;
+	//				m_vx = m_vx + SPEEDPOWER;
+	//			}
+
+	//		}
+	//	}
+	//}
+	
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
-		m_hero_hp -= Gun_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ショットガン
 	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= SHG_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//アサルトライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 	{
-		m_hero_hp -= AR_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//スナイパーライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 	{
-		m_hero_hp -= SR_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ロケットランチャー
 	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 	{
-		m_hero_hp -= RL_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//レールガン
 	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= RG_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}	
 	//グレネード
 	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 	{
-		m_hero_hp -= GRE_Attack;
+		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//爆発

@@ -7,12 +7,14 @@ class CBaseStatus
 {
 public:
 //削除距離定数
-#define DISTANCE_Gun (3) //ハンドガン
-#define DISTANCE_SHG (2) //ショットガン
-#define DISTANCE_AR (3)  //アサルトライフル
-#define DISTANCE_SR (4)	 //スナイパーライフル
-#define DISTANCE_RL (5)	 //ロケットランチャー
-#define DISTANCE_RG (5)	 //レールガン
+#define DISTANCE_Gun 3 //ハンドガン
+#define DISTANCE_SHG 2 //ショットガン
+#define DISTANCE_AR 3  //アサルトライフル
+#define DISTANCE_SR 4	 //スナイパーライフル
+#define DISTANCE_RL 5	 //ロケットランチャー
+#define DISTANCE_RG 5	 //レールガン
+
+#define ANIMATION 1 //アニメーション速度
 
 	int m_hero_hp; //体力
 	int m_hero_hp_max;
@@ -20,21 +22,6 @@ public:
 	float m_dst_size; //描画サイズ
 	int m_sga_pb;	//ショットガン残り弾数
 	float m_exp_blood_dst_size; //爆発・血しぶき用描画サイズ
-
-	//上下左右別当たり判定確認フラグ
-	bool m_UpHit_flg;    //上
-	bool m_DownHit_flg;	 //下
-	bool m_LeftHit_flg;	 //左
-	bool m_LightHit_flg; //右
-
-	//武器別ダメージ
-	int Gun_Attack; ////ハンドガン
-	int SHG_Attack;	//ショットガン
-	int AR_Attack; //アサルトライフル
-	int SR_Attack; //スナイパーライフル
-	int RL_Attack; //ロケットランチャー
-	int RG_Attack; //レールガン
-	int GRE_Attack;	//グレネード
 
 private:
 

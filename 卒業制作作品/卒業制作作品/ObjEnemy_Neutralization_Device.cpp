@@ -78,7 +78,7 @@ void CObjEnemy_Neutralization_Device::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool TStop_flg = time->GetTStop();
+	bool END = time->GetENDFlg();
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -98,11 +98,11 @@ void CObjEnemy_Neutralization_Device::Draw()
 	dst.m_left = 0.0f + m_Enemy_Neu_Devx;
 	dst.m_right = 55.0f + m_Enemy_Neu_Devx;
 	dst.m_bottom = 105.0f + m_Enemy_Neu_Devy;
-	if (TStop_flg == true)
+	if (END == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}
-	else if (TStop_flg == false)
+	else if (END == false)
 	{
 		Draw::Draw(6, &src, &dst, cD, 0.0f);
 	}

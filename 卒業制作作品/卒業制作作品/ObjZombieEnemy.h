@@ -6,7 +6,7 @@ using namespace GameL;
 class CObjZombieEnemy : public CObj, public CBaseStatus
 {
 public:
-	CObjZombieEnemy(float zex, float zey,bool zeaf);
+	CObjZombieEnemy(float zex, float zey, bool zeaf);
 	~CObjZombieEnemy() {};
 
 	void Init(); //イニシャライズ
@@ -19,8 +19,11 @@ public:
 	int GetDMG() { return m_damage; }//攻撃力を取得
 
 private:
+
 	float m_zex; //位置更新
 	float m_zey;
+	float m_zeg_x; //ゾンビ生成位置記録
+	float m_zeg_y;
 	float m_zevx; //移動ベクトル
 	float m_zevy;
 	float m_zev_max; //移動ベクトル最大値

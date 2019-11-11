@@ -36,4 +36,11 @@ class CObjTutorial :public CObj
 		int m_stage_time;	//ステージタイム
 
 		int m_ani_frame;	//描画フレーム
+
+		bool m_key_flag; //キーフラグ
+		bool  m_f;     //弾丸発射制御用
+		float m_and;		//透明度処理用
+		bool m_andf;		//透明度処理用フラグ
+		int choose;
+		int m_time;
 };
