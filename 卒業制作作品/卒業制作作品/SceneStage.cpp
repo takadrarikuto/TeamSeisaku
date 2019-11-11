@@ -80,7 +80,7 @@ void CSceneStage::InitScene()
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 8);
 
-	//標準オブジェクト作成
+	//照準オブジェクト作成
 	CObjAiming* obj_ai = new CObjAiming();
 	Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
 
