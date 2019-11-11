@@ -74,8 +74,8 @@ void CSceneTutorial::InitScene()
 	Objs::InsertObj(obj_h_tu, OBJ_HERO, 8);
 
 	//照準オブジェクト作成
-	CObjAiming* obj_ai = new CObjAiming();
-	Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
+	//CObjAiming* obj_ai = new CObjAiming();
+	//Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
 
 	//ステージ上部背景オブジェクト作成(チュートリアル用)
 	CObjTutoTopback* objtutb = new CObjTutoTopback();
