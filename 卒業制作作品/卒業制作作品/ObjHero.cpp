@@ -30,6 +30,9 @@ CObjHero::CObjHero(float x, float y)
 void CObjHero::Init()
 {
 	//初期化
+	//位置把握
+	m_px = m_x;
+	m_py = m_y;
 	//移動ベクトル
 	m_vx = 0.0f;
 	m_vy = 0.0f;
@@ -231,6 +234,10 @@ void CObjHero::Action()
 			{
 				m_LRani_frame = 0;
 			}
+
+			//位置情報更新
+			m_px += m_vx;
+			m_py += m_vy;
 
 			//HitBoxの内容を更新
 			CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得

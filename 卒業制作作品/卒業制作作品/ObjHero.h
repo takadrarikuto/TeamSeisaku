@@ -15,6 +15,8 @@ public:
 	
 	float GetX() { return m_x; }
 	float GetY() { return m_y; }
+	float GetPX() { return m_px; }
+	float GetPY() { return m_py; }
 	float GetVX() { return m_vx; }
 	float GetVY() { return m_vy; }
 	float GetHitBox() { return m_dst_size; }
@@ -74,6 +76,8 @@ public:
 private:
 	float m_x; //位置更新
 	float m_y;
+	float m_px; //位置把握
+	float m_py;
 	float m_vx; //移動ベクトル
 	float m_vy;
 	float m_v_max; //移動ベクトル最大値
