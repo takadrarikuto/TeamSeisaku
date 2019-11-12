@@ -80,7 +80,7 @@ void CSceneStage::InitScene()
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
 	Objs::InsertObj(obj_h, OBJ_HERO, 8);
 
-	//標準オブジェクト作成
+	//照準オブジェクト作成
 	CObjAiming* obj_ai = new CObjAiming();
 	Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
 
@@ -124,8 +124,18 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
 
 	//壁オブジェクト作成
+	//左
 	CObjWall* Wall = new CObjWall(200, 200);
 	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	//右
+	CObjWall2* Wall2 = new CObjWall2(200, 200);
+	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	//上
+	CObjWall3* Wall3 = new CObjWall3(200, 200);
+	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	//下
+	CObjWall4* Wall4 = new CObjWall4(200, 200);
+	Objs::InsertObj(Wall4, OBJ_WALL, 7);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();

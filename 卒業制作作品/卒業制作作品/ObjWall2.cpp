@@ -4,22 +4,21 @@
 #include "GameL\Audio.h"
 
 #include "GameHead.h"
-#include "ObjWall.h"
+#include "ObjWall2.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 //コンストラクタ
-CObjWall::CObjWall(float x, float y)
+CObjWall2::CObjWall2(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Wallx = -800 - 50;
+	m_Wallx = 1600;
 	m_Wally = -600;
-
 }
 
 //イニシャライズ
-void CObjWall::Init()
+void CObjWall2::Init()
 {
 	//初期化
 	//描画サイズ
@@ -34,7 +33,7 @@ void CObjWall::Init()
 }
 
 //アクション
-void CObjWall::Action()
+void CObjWall2::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -59,7 +58,7 @@ void CObjWall::Action()
 }
 
 //ドロー
-void CObjWall::Draw()
+void CObjWall2::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
