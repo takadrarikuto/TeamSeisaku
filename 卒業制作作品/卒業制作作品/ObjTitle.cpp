@@ -14,7 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//int g_map_chenge = 0;//マップ変更
 bool check = false;
 bool m_c = true;
 
@@ -45,25 +44,28 @@ void CObjTitle::Init()
 //アクション
 void CObjTitle::Action()
 {
+	//上キーで上に移動
 	if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 	{
 		--choose;
 		//Audio::Start(0);
 		m_time = 10;
 	}
+	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 	{
 		++choose;
 		//Audio::Start(0);
 		m_time = 10;
 	}
-
 	if (m_time > 0) {
 		m_time--;
 		if (m_time <= 0) {
 			m_time = 0;
 		}
 	}
+
+	//決定キーで決定
 	if (choose == 0)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
@@ -71,8 +73,6 @@ void CObjTitle::Action()
 			if (m_key_flag == true)
 			{
 				m_andf = true;
-				//g_px = 64.0f;
-				//g_py = 450.0f;
 				//Audio::Start(1);
 				m_key_flag = false;
 
@@ -84,6 +84,7 @@ void CObjTitle::Action()
 		}
 	}
 
+	//ゲーム終了処理
 	if (choose == 1)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
@@ -92,6 +93,7 @@ void CObjTitle::Action()
 		}
 	}
 
+	//あらすじシーンに移動
 	if (m_andf == true)
 	{
 		m_and -= 0.03f;
@@ -99,8 +101,10 @@ void CObjTitle::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneOP());
+			Scene::SetScene(new CSceneOP());
+
+			//デバッグテスト用
+			//Scene::SetScene(new CSceneStage());
 			//Scene::SetScene(new CSceneClear());
 		}
 	}
@@ -112,7 +116,8 @@ void CObjTitle::Draw()
 {
 	//描写カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
-	float bl[4] = { 0.6f,0.6f,0.6f,1.0f, };
+	float bl[4] = { 0.8f,0.8f,0.8f,1.0f, };
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -154,12 +159,12 @@ void CObjTitle::Draw()
 	Font::StrDraw(L"SCP354（仮）", 225, 125, 60, b);
 
 		if (choose == 0)
-			Font::StrDraw(L"◆ゲームスタート", GAME_START_POS_X , GAME_START_POS_Y, GAME_START_FONT_SIZE, b);
+			Font::StrDraw(L"◆ゲームスタート", GAME_START_POS_X , GAME_START_POS_Y, GAME_START_FONT_SIZE, r);
 		else
 			Font::StrDraw(L"　ゲームスタート", GAME_START_POS_X, GAME_START_POS_Y, GAME_START_FONT_SIZE, b);
 
 		if (choose == 1)
-			Font::StrDraw(L"◆ゲーム終了", GAME_EXIT_POS_X , GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, b);
+			Font::StrDraw(L"◆ゲーム終了", GAME_EXIT_POS_X , GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, r);
 		else
 			Font::StrDraw(L"　ゲーム終了", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, b);
 }
