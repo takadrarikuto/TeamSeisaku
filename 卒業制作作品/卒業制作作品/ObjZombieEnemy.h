@@ -28,6 +28,9 @@ private:
 	float m_zevy;
 	float m_zev_max; //移動ベクトル最大値
 
+	bool m_ze_x_flg; //移動フラグ
+	bool m_ze_y_flg;
+
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム
 	int m_LRani_frame;
