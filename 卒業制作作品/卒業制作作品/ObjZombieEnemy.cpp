@@ -172,7 +172,7 @@ void CObjZombieEnemy::Action()
 		}
 		
 		//Î‚ßˆÚ“®–h~ˆ—
-		if (hx - m_zex < hy - m_zey)
+		if (hx - m_zex < hy - m_zey || m_ze_y_flg == true)
 		{
 			//ålŒö‚ªã‚É‹‚é‚Æã‚ÉˆÚ“®
 			if (hy < m_zey)
@@ -187,7 +187,7 @@ void CObjZombieEnemy::Action()
 				m_ani_time += 1;
 			}
 		}
-		else if (hx - m_zex > hy - m_zey)
+		else if (hx - m_zex > hy - m_zey || m_ze_x_flg == true)
 		{
 			//ålŒö‚ª¶‚É‹‚é‚Æ¶‚ÉˆÚ“®
 			if (hx < m_zex)
@@ -204,7 +204,7 @@ void CObjZombieEnemy::Action()
 		}
 		else if (hx == m_zex)
 		{
-			m_ze_x_flg = true;			
+			m_ze_x_flg = true;				
 		}
 		else if (hy == m_zey)
 		{
@@ -214,6 +214,7 @@ void CObjZombieEnemy::Action()
 		{
 			;
 		}
+		
 
 		//Î‚ßˆÚ“®C³ˆ—
 		//float r = 0.0f;
