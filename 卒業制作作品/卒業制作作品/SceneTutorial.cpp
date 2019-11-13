@@ -73,9 +73,13 @@ void CSceneTutorial::InitScene()
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
 	Objs::InsertObj(obj_h_tu, OBJ_HERO, 8);
 
+	//敵機オブジェクト作成(チュートリアル用)
+	CObjTutoZombieEnemy* obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 380.0f);
+	Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
 	//照準オブジェクト作成
-	//CObjAiming* obj_ai = new CObjAiming();
-	//Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
+	CObjAiming* obj_ai = new CObjAiming();
+	Objs::InsertObj(obj_ai, OBJ_AIMING, 12);
 
 	//ステージ上部背景オブジェクト作成(チュートリアル用)
 	CObjTutoTopback* objtutb = new CObjTutoTopback();
