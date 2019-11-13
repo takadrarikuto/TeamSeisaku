@@ -3,18 +3,18 @@
 
 using namespace GameL;
 
-class CObjZombieEnemy : public CObj, public CBaseStatus
+class CObjTutoZombieEnemy : public CObj, public CBaseStatus
 {
 public:
-	CObjZombieEnemy(float zex, float zey, bool zeaf);
-	~CObjZombieEnemy() {};
+	CObjTutoZombieEnemy(float x, float y);
+	~CObjTutoZombieEnemy() {};
 
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	//float GetX() { return m_zex; } //エネミー情報取得用
-	//float GetY() { return m_zey; }
+				 //float GetX() { return m_zex; } //エネミー情報取得用
+				 //float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 	int GetDMG() { return m_damage; }//攻撃力を取得
 
@@ -30,12 +30,6 @@ private:
 
 	bool m_ze_x_flg; //移動フラグ
 	bool m_ze_y_flg;
-
-	//上下左右別当たり判定確認フラグ
-	bool m_UpHit_flg;    //上
-	bool m_DownHit_flg;	 //下
-	bool m_LeftHit_flg;	 //左
-	bool m_RightHit_flg; //右
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム

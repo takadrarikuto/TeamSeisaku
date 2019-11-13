@@ -30,6 +30,9 @@ CObjTutoHero::CObjTutoHero(float x, float y)
 void CObjTutoHero::Init()
 {
 	//初期化
+	//位置把握
+	m_px = m_x;
+	m_py = m_y;
 	//移動ベクトル
 	m_vx = 0.0f;
 	m_vy = 0.0f;
@@ -53,7 +56,7 @@ void CObjTutoHero::Init()
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
-					   //攻撃頻度
+	//攻撃頻度
 	m_bt = 0;
 	//攻撃頻度最大値
 	m_bt_max = 30;
@@ -102,18 +105,18 @@ void CObjTutoHero::Init()
 	m_gre_pb_r = 0;//グレネード
 
 
-				   //------------------------------------------(未使用)
-				   //最大所持弾数
+	//------------------------------------------(未使用)
+	//最大所持弾数
 	m_sg_pb_num = 80; //ショットガン(70)
 	m_ar_pb_num = 300;//アサルトライフル(300)
 	m_sr_pb_num = 50;//スナイパーライフル(50)
 	m_rl_pb_num = 2;//ロケットランチャー(2)
 	m_rg_pb_num = 1;//レールガン(1)
 	m_gre_pb_num = 3;//グレネード(3)
-					 //------------------------------------------
+	//------------------------------------------
 
 
-					 //描画サイズ
+	//描画サイズ
 	m_dst_size = 64.0f;
 	//当たり判定サイズ
 	Hitbox_size = 64;
@@ -129,8 +132,8 @@ void CObjTutoHero::Init()
 
 	m_inputf = true;	// true = 入力可	false = 入力不可
 
-						//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 8);
+	//当たり判定用HitBoxを作成
+	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_TUTO_HERO, 8);
 }
 
 //アクション
@@ -163,6 +166,9 @@ void CObjTutoHero::Action()
 		}
 	}
 
+	//位置固定
+	m_x = 368.0f;
+	m_y = 268.0f;
 	//移動停止
 	m_vx = 0.0f;
 	m_vy = 0.0f;
@@ -231,6 +237,10 @@ void CObjTutoHero::Action()
 			{
 				m_LRani_frame = 0;
 			}
+
+			//位置情報更新
+			m_px += m_vx;
+			m_py += m_vy;
 
 			//HitBoxの内容を更新
 			CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
@@ -807,76 +817,177 @@ void CObjTutoHero::Action()
 			}
 
 			//下キーを押すと弾をリロード
-			if (Input::GetVKey(VK_DOWN) == true)
+			if (m_hg_pb == 0)
 			{
-				//ハンドガン
-				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
+				if (Input::GetVKey(VK_DOWN) == true)
 				{
-					m_hg_pb = 10;//弾数を10増やす
-				}
-				//ショットガン
-				else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
-				{
-					if (m_sg_flg == true)
+					//ハンドガン
+					if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 					{
-						//  8        10         2
-						m_sg_pb_cc = m_sg_pb_c - m_sg_pb;//使った弾数分を全体の弾数から引く
-														 //  52       60         8
-						m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
-						m_sg_pb = m_sg_pb + m_sg_pb_cc;
-						m_sg_flg = false;
+						m_hg_pb = 10;//弾数を10増やす
+					}
+
+				}
+			}
+			if (m_sg_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
+				{
+					//ショットガン
+					if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+					{
+						if (m_sg_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+
+							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+							/*if (m_sg_pb_me <= 0)
+							{
+							//計算後 = 打った数 + 全体初期弾数
+							m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
+							m_sg_pb_me = 0;
+							}
+							else
+							{
+							//計算後 = 現在残り弾数 + 打った数
+							m_sg_pb = m_sg_pb + m_sg_pb_cc;
+							}*/
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_sg_pb = m_sg_pb + m_sg_pb_cc;
+
+							m_sg_flg = false;
+						}
 					}
 				}
-				//アサルト
-				else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
+			}
+			if (m_ar_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
 				{
-					if (m_ar_flg == true)
+					//アサルト
+					if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 					{
-						//  8        10         2
-						m_ar_pb_cc = m_ar_pb_c - m_ar_pb;//使った弾数分を全体の弾数から引く
-														 //  52       60         8
-						m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
-						m_ar_pb = m_ar_pb + m_ar_pb_cc;
-						m_ar_flg = false;
+						if (m_ar_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+
+							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+							/*if (m_ar_pb_me <= 0)
+							{
+							//計算後 = 打った数 + 全体初期弾数
+							m_ar_pb = m_ar_pb_cc + m_ar_pb_me;
+							m_ar_pb_me = 0;
+							}
+							else
+							{
+							//計算後 = 現在残り弾数 + 打った数
+							m_ar_pb = m_ar_pb + m_ar_pb_cc;
+							}*/
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_ar_pb = m_ar_pb + m_ar_pb_cc;
+
+							m_ar_flg = false;
+						}
 					}
 				}
-				//スナイパー
-				else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
+			}
+			if (m_sr_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
 				{
-					if (m_sr_flg == true)
+					//スナイパー
+					if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 					{
-						//  8        10         2
-						m_sr_pb_cc = m_sr_pb_c - m_sr_pb;//使った弾数分を全体の弾数から引く
-														 //  52       60         8
-						m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
-						m_sr_pb = m_sr_pb + m_sr_pb_cc;
-						m_sr_flg = false;
+						if (m_sr_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
+
+							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+							/*if (m_sr_pb_me <= 0)
+							{
+							//計算後 = 打った数 + 全体初期弾数
+							m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
+							m_sr_pb_me = 0;
+							}
+							else
+							{
+							//計算後 = 現在残り弾数 + 打った数
+							m_sr_pb = m_sr_pb + m_sr_pb_cc;
+							}*/
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_sr_pb = m_sr_pb + m_sr_pb_cc;
+
+							m_sr_flg = false;
+						}
 					}
 				}
-				//ロケットランチャー
-				else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
+			}
+			if (m_rl_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
 				{
-					if (m_rl_flg == true)
+					//ロケットランチャー
+					if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 					{
-						//  8        10         2
-						m_rl_pb_cc = m_rl_pb_c - m_rl_pb;//使った弾数分を全体の弾数から引く
-														 //  52       60         8
-						m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
-						m_rl_pb = m_rl_pb + m_rl_pb_cc;
-						m_rl_flg = false;
+						if (m_rl_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_rl_pb = m_rl_pb + m_rl_pb_cc;
+							m_rl_flg = false;
+						}
 					}
 				}
-				//レールガン
-				else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
+			}
+			if (m_rg_pb == 0)
+			{
+				if (Input::GetVKey(VK_DOWN) == true)
 				{
-					if (m_rg_flg == true)
+					//レールガン
+					if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 					{
-						//  8        10         2
-						m_rg_pb_cc = m_rg_pb_c - m_rg_pb;//使った弾数分を全体の弾数から引く
-														 //  52       60         8
-						m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
-						m_rg_pb = m_rg_pb + m_rg_pb_cc;
-						m_rg_flg = false;
+						if (m_rg_flg == true)
+						{
+							//【計算1】
+							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+							m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
+
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
+
+							//計算後 = 現在残り弾数 + 打った数
+							m_rg_pb = m_rg_pb + m_rg_pb_cc;
+							m_rg_flg = false;
+						}
 					}
 				}
 			}
@@ -910,7 +1021,7 @@ void CObjTutoHero::Action()
 		//HitBoxの内容を更新
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 
-												//メニューを開くと行動停止
+		//メニューを開くと行動停止
 		if (Menu_flg == false)
 		{
 			//当たり判定を行うオブジェクト情報群
@@ -988,7 +1099,7 @@ void CObjTutoHero::Action()
 		{
 			hit_h->SetInvincibility(true);	//無敵にする
 			m_eff_flag = true;			//画像切り替え用フラグ
-										//m_speed_power = 0.0f;			//動きを止める
+			//m_speed_power = 0.0f;			//動きを止める
 
 		}
 
@@ -1084,6 +1195,7 @@ void CObjTutoHero::Draw()
 	src.m_left = 145.0f + LRAniData[m_LRani_frame] * 24.0f;
 	src.m_right = 168.0f + LRAniData[m_LRani_frame] * 24.0f;
 	src.m_bottom = 34.0f + m_UDani_frame * 16.0f;
+
 	//描画処理
 	dst.m_top = 0.0f + m_y;
 	dst.m_left = 0.0f + m_x;
