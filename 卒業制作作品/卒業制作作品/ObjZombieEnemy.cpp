@@ -172,7 +172,7 @@ void CObjZombieEnemy::Action()
 		}
 		
 		//斜め移動防止処理
-		if (hx - m_zex < hy - m_zey || m_ze_y_flg == true)
+		if (hx - m_zex < hy - m_zey)
 		{
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
@@ -187,7 +187,7 @@ void CObjZombieEnemy::Action()
 				m_ani_time += 1;
 			}
 		}
-		else if (hx - m_zex > hy - m_zey || m_ze_x_flg == true)
+		else if (hx - m_zex > hy - m_zey)
 		{
 			//主人公が左に居ると左に移動
 			if (hx < m_zex)
@@ -214,23 +214,6 @@ void CObjZombieEnemy::Action()
 		{
 			;
 		}
-		
-
-		//斜め移動修正処理
-		//float r = 0.0f;
-		//r = m_zevx * m_zevx + m_zevy * m_zevy;
-		//r = sqrt(r); //ルートを求める
-
-		////斜めベクトルを求める
-		//if (r == 0.0f)
-		//{
-		//	; //0なら何もしない
-		//}
-		//else
-		//{
-		//	m_zevx = m_zev_max / r * m_zevx;
-		//	m_zevy = m_zev_max / r * m_zevy;
-		//}
 
 		//位置更新
 		//主人公の移動を適応する
