@@ -288,6 +288,9 @@
     <ClInclude Include="ObjTutoTopback.h">
       <Filter>ソース ファイル\チュートリアル</Filter>
     </ClInclude>
+    <ClInclude Include="ObjTutoZombieEnemy.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -489,6 +492,9 @@
       <Filter>ソース ファイル\チュートリアル</Filter>
     </ClCompile>
     <ClCompile Include="ObjTutoTopback.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoZombieEnemy.cpp">
       <Filter>ソース ファイル\チュートリアル</Filter>
     </ClCompile>
   </ItemGroup>
