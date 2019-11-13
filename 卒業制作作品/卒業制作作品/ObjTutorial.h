@@ -53,4 +53,6 @@ class CObjTutorial :public CObj
 		int rl_pb_e;
 		int rg_pb_e;
 		int gre_pb_e;
+
+		int zombie_count;
 };

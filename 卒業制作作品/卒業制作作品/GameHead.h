@@ -165,6 +165,10 @@ struct UserData
 #include "ObjTutoBg.h"
 #include "ObjTutoTopback.h"
 #include "ObjTutoZombieEnemy.h"
+#include "ObjTutoWall.h"
+#include "ObjTutoWall2.h"
+#include "ObjTutoWall3.h"
+#include "ObjTutoWall4.h"
 
 //ゲームオーバー
 #include "ObjOver.h"

@@ -18,6 +18,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //コンストラクタ
 CSceneTutorial::CSceneTutorial()
 {
@@ -43,6 +46,8 @@ void CSceneTutorial::InitScene()
 	i_x = 0.0f;
 	i_y = 0.0f;
 
+	m_tuto_time = 0;
+
 	//グラフィック読み込み
 	Draw::LoadImage(L"ステージ.png", 0, TEX_SIZE_512);
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);
@@ -67,15 +72,11 @@ void CSceneTutorial::InitScene()
 
 	//チュートリアルオブジェクト作成
 	CObjTutorial* tuto = new CObjTutorial();
-	Objs::InsertObj(tuto, OBJ_TUTORIAL, 3);
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 5);
 
 	//主人公機オブジェクト作成(チュートリアル用)
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
 	Objs::InsertObj(obj_h_tu, OBJ_HERO, 8);
-
-	//敵機オブジェクト作成(チュートリアル用)
-	CObjTutoZombieEnemy* obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 380.0f);
-	Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
 
 	//照準オブジェクト作成
 	CObjAiming* obj_ai = new CObjAiming();
@@ -88,6 +89,20 @@ void CSceneTutorial::InitScene()
 	//ステージオブジェクト作成(チュートリアル用)
 	CObjStage* objm = new CObjStage();
 	Objs::InsertObj(objm, OBJ_STAGE, 20);
+
+	//壁オブジェクト作成(チュートリアル用)
+	//左
+	CObjTutoWall* tu_Wall = new CObjTutoWall(200, 200);
+	Objs::InsertObj(tu_Wall, OBJ_WALL, 4);
+	//右
+	CObjTutoWall2* tu_Wall2 = new CObjTutoWall2(200, 200);
+	Objs::InsertObj(tu_Wall2, OBJ_WALL, 4);
+	//上
+	CObjTutoWall3* tu_Wall3 = new CObjTutoWall3(200, 200);
+	Objs::InsertObj(tu_Wall3, OBJ_WALL, 4);
+	//下
+	CObjTutoWall4* tu_Wall4 = new CObjTutoWall4(200, 200);
+	Objs::InsertObj(tu_Wall4, OBJ_WALL, 4);
 
 	//音楽情報の読み込み
 	/*Audio::LoadAudio(0, L"選択音.wav", EFFECT);
@@ -102,5 +117,32 @@ void CSceneTutorial::InitScene()
 //ゲームメイン実行中メソッド
 void CSceneTutorial::Scene()
 {
+	m_tuto_time++;
 
+	//敵機オブジェクト作成(チュートリアル用)
+	if (m_tuto_time == 800)
+	{
+		CObjTutoZombieEnemy* obj_ze_tu;
+		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);
+		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
+		obj_ze_tu = new CObjTutoZombieEnemy(150.0f, 400.0f);
+		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
+		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 200.0f);
+		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
+		obj_ze_tu = new CObjTutoZombieEnemy(150.0f, 200.0f);
+		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
+		obj_ze_tu = new CObjTutoZombieEnemy(360.0f, 500.0f);
+		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
+		obj_ze_tu = new CObjTutoZombieEnemy(360.0f, 100.0f);
+		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
+
+		Tuto_flg = true;
+	}
+
+	
 }

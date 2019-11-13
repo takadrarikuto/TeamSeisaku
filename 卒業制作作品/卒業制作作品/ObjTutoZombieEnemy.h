@@ -18,6 +18,8 @@ public:
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 	int GetDMG() { return m_damage; }//攻撃力を取得
 
+	//int GetCOUNT() { return m_zombie_count_tu; }
+
 private:
 
 	float m_zex; //位置更新
@@ -42,4 +44,5 @@ private:
 
 	int m_damage; //ダメージ量
 	int m_time_d;	//ダメージ点滅時間用
+	int m_zombie_count_tu;
 };
