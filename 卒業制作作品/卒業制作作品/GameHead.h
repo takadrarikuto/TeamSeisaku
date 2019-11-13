@@ -44,6 +44,7 @@ enum OBJ_NAME
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
 	OBJ_WALL,
+	OBJ_TUTO_HERO,
 };
 //------------------------------------------------
 
@@ -115,6 +116,7 @@ struct UserData
 
 //エネミー
 #include "ObjZombieEnemy.h"
+#include "ObjFire_Bird.h"
 
 //中ボス
 //ボス
@@ -161,6 +163,11 @@ struct UserData
 #include "ObjTutoHero.h"
 #include "ObjTutoBg.h"
 #include "ObjTutoTopback.h"
+#include "ObjTutoZombieEnemy.h"
+#include "ObjTutoWall.h"
+#include "ObjTutoWall2.h"
+#include "ObjTutoWall3.h"
+#include "ObjTutoWall4.h"
 
 //ゲームオーバー
 #include "ObjOver.h"

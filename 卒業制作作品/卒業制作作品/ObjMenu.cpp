@@ -24,6 +24,9 @@ bool m_key_flag_menu = true;
 //死亡時動き停止フラグ
 bool Dead_flg = false;
 
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //イニシャライズ
 void CObjMenu::Init()
 {

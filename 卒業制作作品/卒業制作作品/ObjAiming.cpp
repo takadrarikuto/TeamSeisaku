@@ -94,9 +94,6 @@ void CObjAiming::Action()
 		m_Ax = hx - (64 * m_Aiming_Distance_max + m_A_dst_num);
 		m_Ay = hy;
 	}
-	
-	
-	
 }
 
 //ÉhÉçÅ[

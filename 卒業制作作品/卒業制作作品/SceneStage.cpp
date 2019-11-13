@@ -88,9 +88,13 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	//ボスオブジェクト作成 272, 400
+	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
+
+	//火の鳥オブジェクト作成
+	CObjFire_Bird* obj_fb = new CObjFire_Bird(100, 100);
+	Objs::InsertObj(obj_fb, OBJ_ENEMY, 4);
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);

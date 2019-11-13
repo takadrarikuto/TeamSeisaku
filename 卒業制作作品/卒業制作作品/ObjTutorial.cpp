@@ -22,6 +22,9 @@ void CObjTutorial::Init()
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
+	m_tuto_time = 0;
+
+	zombie_count = 0;
 
 	//初期化
 	//描画フレーム
@@ -31,38 +34,34 @@ void CObjTutorial::Init()
 //アクション
 void CObjTutorial::Action()
 {
-	//武器切り替え変数取得
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	int WS = hero->GetWS();
-
-	//武器切り替え変数をアニメーションに同期
-	m_ani_frame = WS;
-
-	//Enterキーで決定
-	if (Input::GetVKey(VK_RETURN) == true)
+	if (zombie_count == 6)
 	{
-		if (m_key_flag == true)
+		//Enterキーで決定
+		if (Input::GetVKey(VK_RETURN) == true)
 		{
-			m_andf = true;
-			//Audio::Start(0);
-			m_key_flag = false;
+			if (m_key_flag == true)
+			{
+				m_andf = true;
+				//Audio::Start(0);
+				m_key_flag = false;
+			}
 		}
-	}
-	else
-	{
-		m_key_flag = true;
-	}
-
-	//ステージに移動
-	if (m_andf == true)
-	{
-		m_and -= 0.03f;
-		if (m_and <= 0.0f)
+		else
 		{
-			m_and = 0.0f;
-			m_andf = false;
-			Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneTutorial());
+			m_key_flag = true;
+		}
+
+		//ステージに移動
+		if (m_andf == true)
+		{
+			m_and -= 0.03f;
+			if (m_and <= 0.0f)
+			{
+				m_and = 0.0f;
+				m_andf = false;
+				Scene::SetScene(new CSceneStage());
+				//Scene::SetScene(new CSceneTutorial());
+			}
 		}
 	}
 }
@@ -70,16 +69,48 @@ void CObjTutorial::Action()
 //ドロー
 void CObjTutorial::Draw()
 {
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	CObjTutoHero* hero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 
-	//描写カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
+	CObjTutoZombieEnemy* zombie_tu = (CObjTutoZombieEnemy*)Objs::GetObj(OBJ_ENEMY);
+	//zombie_count = zombie_tu->GetCOUNT();
+
+	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
+	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+	float a[4] = { 1.0f,1.0f,1.0f,0.5f };
 
-	RECT_F src;//描写元切り取り位置
-	RECT_F dst;//描写先表示位置
+	RECT_F src;	//描画元切り取り位置
+	RECT_F dst;	//描画先表示位置
 
-	float b[4] = { 1,1,1,1 };
+	wchar_t TIME[128];
+	wchar_t HP[128];
+	wchar_t str[128];
 
-	Font::StrDraw(L"◆Enterでゲームスタート", 475, 80, 27, blk);
+	m_tuto_time++;
+
+	if (m_tuto_time < 500)
+	{
+		Font::StrDraw(L"①↑キーで弾を打つことができます。", 100, 150, 20, blk);
+	}
+	else if (m_tuto_time < 500 || m_tuto_time < 800)
+	{
+		Font::StrDraw(L"②←→キーで武器を変更することができます。", 100, 150, 20, blk);
+	}
+	else if (m_tuto_time < 800 || m_tuto_time < 1100)
+	{
+		Font::StrDraw(L"③敵に向けて弾を打ってみましょう。", 100, 150, 20, blk);
+	}
+	else if (m_tuto_time < 1100 || m_tuto_time < 1400)
+	{
+		Font::StrDraw(L"④WASDキーで移動することができます。", 100, 150, 20, blk);
+	}
+
+	if (zombie_count == 6)
+	{
+		Font::StrDraw(L"◆Enterでゲームスタート", 475, 80, 27, blk);
+	}
 }
