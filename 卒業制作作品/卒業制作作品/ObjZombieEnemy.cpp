@@ -48,6 +48,10 @@ void CObjZombieEnemy::Init()
 	m_UDani_frame = 2; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
+	//移動フラグ
+	m_ze_x_flg = false; 
+	m_ze_y_flg = false;
+
 	//攻撃頻度
 	m_at = 0;
 	//攻撃頻度最大値
@@ -166,11 +170,10 @@ void CObjZombieEnemy::Action()
 		{
 			m_LRani_frame = 0;
 		}
-
+		
 		//斜め移動防止処理
-		if (hx - m_zex < hy - m_zey)
+		if (hx - m_zex < hy - m_zey || m_ze_y_flg == true)
 		{
-			m_zevx = 0.0f;
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
@@ -184,9 +187,8 @@ void CObjZombieEnemy::Action()
 				m_ani_time += 1;
 			}
 		}
-		else if (hx - m_zex > hy - m_zey)
+		else if (hx - m_zex > hy - m_zey || m_ze_x_flg == true)
 		{
-			m_zevy = 0.0f;
 			//主人公が左に居ると左に移動
 			if (hx < m_zex)
 			{
@@ -202,16 +204,17 @@ void CObjZombieEnemy::Action()
 		}
 		else if (hx == m_zex)
 		{
-			
+			m_ze_x_flg = true;				
 		}
 		else if (hy == m_zey)
 		{
-			
+			m_ze_y_flg = true;
 		}
 		else
 		{
 			;
 		}
+		
 
 		//斜め移動修正処理
 		//float r = 0.0f;
