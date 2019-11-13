@@ -214,23 +214,6 @@ void CObjZombieEnemy::Action()
 		{
 			;
 		}
-		
-
-		//斜め移動修正処理
-		//float r = 0.0f;
-		//r = m_zevx * m_zevx + m_zevy * m_zevy;
-		//r = sqrt(r); //ルートを求める
-
-		////斜めベクトルを求める
-		//if (r == 0.0f)
-		//{
-		//	; //0なら何もしない
-		//}
-		//else
-		//{
-		//	m_zevx = m_zev_max / r * m_zevx;
-		//	m_zevy = m_zev_max / r * m_zevy;
-		//}
 
 		//位置更新
 		//主人公の移動を適応する

@@ -102,18 +102,18 @@ void CObjTutoHero::Init()
 	m_gre_pb_r = 0;//グレネード
 
 
-				   //------------------------------------------(未使用)
-				   //最大所持弾数
+	//------------------------------------------(未使用)
+	//最大所持弾数
 	m_sg_pb_num = 80; //ショットガン(70)
 	m_ar_pb_num = 300;//アサルトライフル(300)
 	m_sr_pb_num = 50;//スナイパーライフル(50)
 	m_rl_pb_num = 2;//ロケットランチャー(2)
 	m_rg_pb_num = 1;//レールガン(1)
 	m_gre_pb_num = 3;//グレネード(3)
-					 //------------------------------------------
+	//------------------------------------------
 
 
-					 //描画サイズ
+	//描画サイズ
 	m_dst_size = 64.0f;
 	//当たり判定サイズ
 	Hitbox_size = 64;
@@ -129,7 +129,7 @@ void CObjTutoHero::Init()
 
 	m_inputf = true;	// true = 入力可	false = 入力不可
 
-						//当たり判定用HitBoxを作成
+	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 8);
 }
 
