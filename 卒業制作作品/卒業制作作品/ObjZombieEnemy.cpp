@@ -48,6 +48,10 @@ void CObjZombieEnemy::Init()
 	m_UDani_frame = 2; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
+	//移動フラグ
+	m_ze_x_flg = false; 
+	m_ze_y_flg = false;
+
 	//攻撃頻度
 	m_at = 0;
 	//攻撃頻度最大値
@@ -166,47 +170,67 @@ void CObjZombieEnemy::Action()
 		{
 			m_LRani_frame = 0;
 		}
-
-		//主人公が上に居ると上に移動
-		if (hy < m_zey)
+		
+		//斜め移動防止処理
+		if (hx - m_zex < hy - m_zey)
 		{
-			m_zevy = -m_zev_max;
-			m_ani_time += 1;
+			//主人公が上に居ると上に移動
+			if (hy < m_zey)
+			{
+				m_zevy = -m_zev_max;
+				m_ani_time += 1;
+			}
+			//主人公が下に居ると下移動
+			else if (hy > m_zey)
+			{
+				m_zevy = m_zev_max;
+				m_ani_time += 1;
+			}
 		}
-		//主人公が下に居ると下移動
-		else if (hy > m_zey)
+		else if (hx - m_zex > hy - m_zey)
 		{
-			m_zevy = m_zev_max;
-			m_ani_time += 1;
+			//主人公が左に居ると左に移動
+			if (hx < m_zex)
+			{
+				m_zevx = -m_zev_max;
+				m_ani_time += 1;
+			}
+			//主人公が右に居ると右に移動
+			else if (hx > m_zex)
+			{
+				m_zevx = m_zev_max;
+				m_ani_time += 1;
+			}
 		}
-		//主人公が左に居ると左に移動
-		if (hx < m_zex)
+		else if (hx == m_zex)
 		{
-			m_zevx = -m_zev_max;
-			m_ani_time += 1;
+			m_ze_x_flg = true;				
 		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_zex)
+		else if (hy == m_zey)
 		{
-			m_zevx = m_zev_max;
-			m_ani_time += 1;
-		}
-
-		//斜め移動修正処理
-		float r = 0.0f;
-		r = m_zevx * m_zevx + m_zevy * m_zevy;
-		r = sqrt(r); //ルートを求める
-
-		//斜めベクトルを求める
-		if (r == 0.0f)
-		{
-			; //0なら何もしない
+			m_ze_y_flg = true;
 		}
 		else
 		{
-			m_zevx = m_zev_max / r * m_zevx;
-			m_zevy = m_zev_max / r * m_zevy;
+			;
 		}
+		
+
+		//斜め移動修正処理
+		//float r = 0.0f;
+		//r = m_zevx * m_zevx + m_zevy * m_zevy;
+		//r = sqrt(r); //ルートを求める
+
+		////斜めベクトルを求める
+		//if (r == 0.0f)
+		//{
+		//	; //0なら何もしない
+		//}
+		//else
+		//{
+		//	m_zevx = m_zev_max / r * m_zevx;
+		//	m_zevy = m_zev_max / r * m_zevy;
+		//}
 
 		//位置更新
 		//主人公の移動を適応する
