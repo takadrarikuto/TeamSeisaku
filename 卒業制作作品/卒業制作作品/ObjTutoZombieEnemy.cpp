@@ -76,6 +76,8 @@ void CObjTutoZombieEnemy::Init()
 	//ダメージ量
 	m_damage = 5;
 
+	m_zombie_count_tu = 0;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
 }
@@ -94,8 +96,8 @@ void CObjTutoZombieEnemy::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
-	m_zex = 350.0f;
-	m_zey = 500.0f;
+	//m_zex = 350.0f;
+	//m_zey = 500.0f;
 
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
@@ -437,6 +439,8 @@ void CObjTutoZombieEnemy::Action()
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_zombie_count_tu += 1;
 	}
 
 	if (m_time_d > 0)

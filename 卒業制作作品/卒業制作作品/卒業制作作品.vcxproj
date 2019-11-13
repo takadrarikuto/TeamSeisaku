@@ -116,6 +116,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjTutoWall.h" />
+    <ClInclude Include="ObjTutoWall2.h" />
+    <ClInclude Include="ObjTutoWall3.h" />
+    <ClInclude Include="ObjTutoWall4.h" />
     <ClInclude Include="GameHead.h" />
     <ClInclude Include="GameL\Audio.h" />
     <ClInclude Include="GameL\DirectXDevice.h" />
@@ -184,6 +188,10 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjTutoWall.cpp" />
+    <ClCompile Include="ObjTutoWall2.cpp" />
+    <ClCompile Include="ObjTutoWall3.cpp" />
+    <ClCompile Include="ObjTutoWall4.cpp" />
     <ClCompile Include="GameL\Audio.cpp" />
     <ClCompile Include="GameL\DirectXDevice.cpp" />
     <ClCompile Include="GameL\Draw2DTex_Source.cpp" />
