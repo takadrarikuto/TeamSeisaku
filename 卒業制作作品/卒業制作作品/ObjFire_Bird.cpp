@@ -5,7 +5,7 @@
 #include "GameL\UserData.h"
 
 #include "GameHead.h"
-#include "ObjZombieEnemy.h"
+#include "ObjFire_Bird.h"
 
 //使用するネームスペース
 using namespace GameL;
@@ -17,17 +17,15 @@ extern bool Menu_flg;
 extern bool m_key_flag_menu;
 
 //コンストラクタ
-CObjZombieEnemy::CObjZombieEnemy(float zex, float zey, bool zeaf)
+CObjFire_Bird::CObjFire_Bird(float zex, float zey)
 {
 	//位置情報登録(数値=位置調整)
 	m_zex = zex;
 	m_zey = zey;
-	//エネミー描画フレーム切り替えフラグ取得用
-	m_ani_frame_flg = zeaf;
 }
 
 //イニシャライズ
-void CObjZombieEnemy::Init()
+void CObjFire_Bird::Init()
 {
 	//初期化
 	//ゾンビ生成位置記録
@@ -49,7 +47,7 @@ void CObjZombieEnemy::Init()
 	m_LRani_frame = 1; //静止フレームを初期にする
 
 	//移動フラグ
-	m_ze_x_flg = false; 
+	m_ze_x_flg = false;
 	m_ze_y_flg = false;
 
 	//上下左右別当たり判定確認フラグ
@@ -86,7 +84,7 @@ void CObjZombieEnemy::Init()
 }
 
 //アクション
-void CObjZombieEnemy::Action()
+void CObjFire_Bird::Action()
 {
 	//上下左右別当たり判定確認フラグ初期化
 	m_UpHit_flg = false;    //上
@@ -101,11 +99,11 @@ void CObjZombieEnemy::Action()
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
 	float hpx = hero->GetPX() - m_zex; //位置更新
-	float hpy = hero->GetPY() - m_zey;	
+	float hpy = hero->GetPY() - m_zey;
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
-	
-	
+
+
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -126,7 +124,7 @@ void CObjZombieEnemy::Action()
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{				 
+	{
 		////計算頻度を落とし、斜め移動を防ぐ
 		//static int   count = 20;
 		//static float br = 0.0f;
@@ -159,11 +157,11 @@ void CObjZombieEnemy::Action()
 		//{
 		//	m_UDani_frame = 0;
 		//}
-		
+
 		//移動処理
 		//主人公が上に居ると上に移動
 		if (hy < m_zey)
-		{								
+		{
 			m_zevy = -m_zev_max;
 			m_ani_time += 1;
 			m_UDani_frame = 6;
@@ -222,8 +220,8 @@ void CObjZombieEnemy::Action()
 				m_zevx = m_zev_max;
 				m_UDani_frame = 4;
 			}
-		}		
-		
+		}
+
 		//斜め移動修正処理
 		float r = 0.0f;
 		r = m_zevx * m_zevx + m_zevy * m_zevy;
@@ -360,7 +358,7 @@ void CObjZombieEnemy::Action()
 			}
 		}
 	}
-	
+
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
@@ -397,7 +395,7 @@ void CObjZombieEnemy::Action()
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 		m_time_d = 30;		//点滅時間をセット
-	}	
+	}
 	//グレネード
 	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 	{
@@ -431,7 +429,7 @@ void CObjZombieEnemy::Action()
 }
 
 //ドロー
-void CObjZombieEnemy::Draw()
+void CObjFire_Bird::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -446,35 +444,17 @@ void CObjZombieEnemy::Draw()
 	RECT_F src;
 	RECT_F dst;
 
-	//這いずり、立っている描画切り替え
-	//這いずり状態
-	if (m_ani_frame_flg == true)
-	{
-		//切り取り処理
-		src.m_top = 130.0f + m_UDani_frame * 16.0f;
-		src.m_left = 0.0f + LRAniData[m_LRani_frame] * 25.0f;
-		src.m_right = 24.0f + LRAniData[m_LRani_frame] * 25.0f;
-		src.m_bottom = 160.0f + m_UDani_frame * 16.0f;
-	}
-	//直立状態
-	else if (m_ani_frame_flg == false)
-	{
-		//切り取り処理
-		src.m_top = 0.0f + m_UDani_frame * 16.0f;
-		src.m_left = 0.0f + LRAniData[m_LRani_frame] * 25.0f;
-		src.m_right = 24.0f + LRAniData[m_LRani_frame] * 25.0f;
-		src.m_bottom = 30.0f + m_UDani_frame * 16.0f;
-	}	
+	//切り取り処理
+	src.m_top = 130.0f + m_UDani_frame * 16.0f;
+	src.m_left = 0.0f + LRAniData[m_LRani_frame] * 25.0f;
+	src.m_right = 24.0f + LRAniData[m_LRani_frame] * 25.0f;
+	src.m_bottom = 160.0f + m_UDani_frame * 16.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_zey;
 	dst.m_left = 0.0f + m_zex;
 	dst.m_right = m_dst_size + m_zex;
 	dst.m_bottom = m_dst_size + m_zey;
 
-	if (m_time_d > 0) {
-		Draw::Draw(4, &src, &dst, a, 0.0f);
-	}
-	else{
-		Draw::Draw(4, &src, &dst, c, 0.0f);
-	}
+	Draw::Draw(4, &src, &dst, c, 0.0f);
+	
 }

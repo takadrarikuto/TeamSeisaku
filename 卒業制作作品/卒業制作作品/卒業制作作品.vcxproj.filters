@@ -291,6 +291,9 @@
     <ClInclude Include="ObjTutoZombieEnemy.h">
       <Filter>ソース ファイル\チュートリアル</Filter>
     </ClInclude>
+    <ClInclude Include="ObjFire_Bird.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -496,6 +499,9 @@
     </ClCompile>
     <ClCompile Include="ObjTutoZombieEnemy.cpp">
       <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Bird.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

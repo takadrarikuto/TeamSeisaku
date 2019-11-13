@@ -17,6 +17,7 @@ enum OBJ_NAME
 	OBJ_RAILGUNATTACK,
 	OBJ_GRENADEATTACK,
 	OBJ_ENEMY,
+	OBJ_FIRE_BIRD,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
@@ -116,6 +117,7 @@ struct UserData
 
 //エネミー
 #include "ObjZombieEnemy.h"
+#include "ObjFire_Bird.h"
 
 //中ボス
 //ボス
