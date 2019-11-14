@@ -36,7 +36,7 @@ void CObjFire_Bird::Init()
 	m_hero_hp = 1;
 
 	//移動ベクトル最大値
-	m_fbv_max = 2.0f/*2.5f*/;
+	m_fbv_max = 2.5f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 2; //静止フレームを初期にする
@@ -62,7 +62,7 @@ void CObjFire_Bird::Init()
 	m_fb_death_time_max = 600; //死亡タイム最大値 10秒
 
 	//ダメージ
-	((UserData*)Save::GetData())->EXP_Attack = 50; //爆発
+	((UserData*)Save::GetData())->EXP_Attack; //爆発
 
 	//描画サイズ
 	m_dst_size = 96.0f;
@@ -86,8 +86,8 @@ void CObjFire_Bird::Action()
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX(); //位置
-	float hy = hero->GetY();
+	float hx = hero->GetX() - 16; //位置
+	float hy = hero->GetY() - 24;
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
 	float hpx = hero->GetPX() - m_fbx; //位置更新
@@ -103,62 +103,62 @@ void CObjFire_Bird::Action()
 
 		//移動処理
 		//主人公が上に居ると上に移動
-		if (hy - 24 < m_fby)
+		if (hy < m_fby)
 		{
 			m_fbvy = -m_fbv_max;
 			m_ani_time += 1;
 			m_UDani_frame = 0;
 		}
 		//主人公が下に居ると下移動
-		else if (hy - 24 > m_fby)
+		else if (hy > m_fby)
 		{
 			m_fbvy = m_fbv_max;
 			m_ani_time += 1;
 			m_UDani_frame = 2;
 		}
 		//主人公が左に居ると左に移動
-		if (hx - 16 < m_fbx)
+		if (hx < m_fbx)
 		{
 			m_fbvx = -m_fbv_max;
 			m_ani_time += 1;
 			m_UDani_frame = 3;
 		}
 		//主人公が右に居ると右に移動
-		else if (hx - 16 > m_fbx)
+		else if (hx > m_fbx)
 		{
 			m_fbvx = m_fbv_max;
 			m_ani_time += 1;			
 			m_UDani_frame = 1;
 		}
-		if (hx - 16 == m_fbx)
+		if (hx == m_fbx)
 		{
 			m_fbvx = 0.0f;
 			m_ani_time += 1;
 			//主人公が上に居ると上に移動
-			if (hy - 24 < m_fby)
+			if (hy < m_fby)
 			{
 				m_fbvy = -m_fbv_max;
 				m_UDani_frame = 0;
 			}
 			//主人公が下に居ると下移動
-			else if (hy - 24 > m_fby)
+			else if (hy > m_fby)
 			{
 				m_fbvy = m_fbv_max;
 				m_UDani_frame = 2;
 			}
 		}
-		else if (hy - 24 == m_fby)
+		else if (hy == m_fby)
 		{
 			m_fbvy = 0.0f;
 			m_ani_time += 1;
 			//主人公が左に居ると左に移動
-			if (hx - 16 < m_fbx)
+			if (hx < m_fbx)
 			{
 				m_fbvx = -m_fbv_max;
 				m_UDani_frame = 3;
 			}
 			//主人公が右に居ると右に移動
-			else if (hx - 16 > m_fbx)
+			else if (hx > m_fbx)
 			{
 				m_fbvx = m_fbv_max;				
 				m_UDani_frame = 1;
@@ -285,7 +285,6 @@ void CObjFire_Bird::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float a[4] = { 10.0f,0.6f,0.6f,0.7f };
 
 	//モーション
 	int LRAniData[3] =

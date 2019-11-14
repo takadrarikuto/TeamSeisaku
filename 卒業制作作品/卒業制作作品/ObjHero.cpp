@@ -1064,15 +1064,20 @@ void CObjHero::Action()
 						m_hero_hp -= 5;
 						m_time_d = 80;		//無敵時間をセット
 					}
-					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+					else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
 					{
-						m_hero_hp -= 2;
-						m_time_d = 30;		//無敵時間をセット
+						m_hero_hp -= 3;
+						m_time_d = 60;		//無敵時間をセット
 					}
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
 					{
 						m_hero_hp -= 1;
 						m_time_d = 20;		//無敵時間をセット
+					}
+					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
+					{
+						m_hero_hp -= 2;
+						m_time_d = 30;		//無敵時間をセット
 					}
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
