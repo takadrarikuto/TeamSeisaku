@@ -312,6 +312,9 @@
     <ClInclude Include="ObjTutoWall4.h">
       <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
     </ClInclude>
+    <ClInclude Include="ObjFire_Bird.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -529,6 +532,9 @@
     </ClCompile>
     <ClCompile Include="ObjTutoWall4.cpp">
       <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Bird.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

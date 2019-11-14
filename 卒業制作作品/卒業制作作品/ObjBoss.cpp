@@ -45,6 +45,7 @@ void CObjBoss::Init()
 
 	//敵生成頻度
 	m_Enemy_Generation = 0;
+//ゾンビ
 	//ゾンビ生成数制限
 	m_Zombie_Restriction = 0;
 	//ゾンビ生成数制限最大値
@@ -55,6 +56,14 @@ void CObjBoss::Init()
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
 	Ze_dst_flg = false;
+//火の鳥
+	//火の鳥生成タイム最大値
+	m_Frie_Bird_time_max = 360;
+	//火の鳥生成数制限
+	m_Frie_Bird_Restriction = 0;
+	//火の鳥生成数制限最大値
+	m_Frie_Bird_Restriction_max = 2;
+	
 
 	//描画サイズ
 	m_dst_size = 128.0f;
@@ -113,7 +122,7 @@ void CObjBoss::Action()
 				Ze_dst_flg = false;
 			}
 
-			//敵機オブジェクト作成
+			//ゾンビオブジェクト作成
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
 			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
 
@@ -121,8 +130,21 @@ void CObjBoss::Action()
 			m_Enemy_Generation_x = e_x; 
 			m_Enemy_Generation_y = e_y;
 
-			m_Enemy_Generation = 0; //エネミー生成タイム初期化
+			srand(time(NULL)); // ランダム情報を初期化
 			m_Zombie_Restriction++; //ゾンビ生成数カウント
+		}
+		else if (m_Enemy_Generation == m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
+		{
+			//火の鳥オブジェクト作成
+			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
+			Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
+
+			srand(time(NULL)); // ランダム情報を初期化
+			m_Frie_Bird_Restriction++; //火の鳥生成数制限
+		}
+		else if (m_Enemy_Generation == 370)
+		{
+			m_Enemy_Generation = 0; //エネミー生成タイム初期化
 		}
 	}
 

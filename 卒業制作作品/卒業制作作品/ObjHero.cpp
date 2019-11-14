@@ -1069,12 +1069,17 @@ void CObjHero::Action()
 						m_hero_hp -= 2;
 						m_time_d = 30;		//無敵時間をセット
 					}
+					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+					{
+						m_hero_hp -= 1;
+						m_time_d = 20;		//無敵時間をセット
+					}
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
 						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 						int EXPDamage = EXPAttack->GetEXP();
 						m_hero_hp -= EXPDamage;
-						m_time_d = 80;		//無敵時間をセット
+						m_time_d = 90;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
@@ -1125,51 +1130,6 @@ void CObjHero::Action()
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}
 		}
-
-		////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
-		//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
-		//	|| hit_h->CheckObjNameHit(OBJ_BOMB) != nullptr)
-		//	&& hp != 0 && m_ht == 0)
-		//{
-		//	m_hf = true;
-		//	hp -= 1;
-		//}
-		////敵機オブジェクトor敵弾オブジェクトと3回接触したら主人公機削除
-		//else if (hp == 0)
-		//{
-		//	//爆発オブジェクト作成
-		//	CObjExplosion* obj_exp = new CObjExplosion(m_x - 16, m_y - 16, m_exp_dst_size);
-		//	Objs::InsertObj(obj_exp, OBJ_EXPLOSION, 2);
-
-		//	Exp_flg = true; //Explosionフラグtrue
-		//	GameOver_flg = true; //ゲームオーバーフラグtrue
-
-		//	this->SetStatus(false); //自身の削除命令を出す
-		//	Hits::DeleteHitBox(this); //主人公機が所有するHitBoxを削除する		
-		//}
-
-		//HP増減処理
-		//if (hit_h->CheckObjNameHit(OBJ_ITEM) != nullptr)
-		//{
-		//	hp += 1;
-		//}
-		////体力増加限界設定
-		////難易度によって体力増加限界を変更
-		//if (Difficult_flg == true && hp > 3)
-		//{
-		//	hp = 3;
-		//	//ポイントを獲得
-		//}
-		//else if (Usually_flg == true && hp > 5)
-		//{
-		//	hp = 5;
-		//	//ポイントを獲得
-		//}
-		//else if (hp > 10)
-		//{
-		//	hp = 10;
-		//	//ポイントを獲得
-		//}
 	}
 }
 
