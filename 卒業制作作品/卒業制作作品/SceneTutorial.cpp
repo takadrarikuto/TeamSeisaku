@@ -65,6 +65,7 @@ void CSceneTutorial::InitScene()
 	Draw::LoadImage(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
+	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
 
 	//背景オブジェクト作成(チュートリアル用)
 	CObjTutoBg * back_tu = new CObjTutoBg();
@@ -72,7 +73,7 @@ void CSceneTutorial::InitScene()
 
 	//チュートリアルオブジェクト作成
 	CObjTutorial* tuto = new CObjTutorial();
-	Objs::InsertObj(tuto, OBJ_TUTORIAL, 5);
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 13);
 
 	//主人公機オブジェクト作成(チュートリアル用)
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
@@ -117,10 +118,14 @@ void CSceneTutorial::InitScene()
 //ゲームメイン実行中メソッド
 void CSceneTutorial::Scene()
 {
-	m_tuto_time++;
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
+	{
+		m_tuto_time++;
+	}
 
 	//敵機オブジェクト作成(チュートリアル用)
-	if (m_tuto_time == 800)
+	if (m_tuto_time == 2000)
 	{
 		CObjTutoZombieEnemy* obj_ze_tu;
 		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);
