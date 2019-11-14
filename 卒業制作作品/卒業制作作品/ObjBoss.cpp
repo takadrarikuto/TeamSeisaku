@@ -34,22 +34,36 @@ void CObjBoss::Init()
 	m_scrolly = 0.0f;
 
 	//エネミー出現位置
-	e_x = 272.0f;
-	e_y = 400.0f;
+	e_x = 0.0f;
+	e_y = 0.0f;
+	//ゾンビ生成座標記録
+	m_Enemy_Generation_x = 0.0f;
+	m_Enemy_Generation_y = 0.0f;
 	//ボス移動ベクトル
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
 
 	//敵生成頻度
 	m_Enemy_Generation = 0;
+//ゾンビ
 	//ゾンビ生成数制限
 	m_Zombie_Restriction = 0;
 	//ゾンビ生成数制限最大値
 	m_Zombie_Restriction_max = 10;
+	//ゾンビ生成タイム最大値
+	m_Zombie_time_max = 240;
 	//ゾンビランダム描画切り替え用
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
 	Ze_dst_flg = false;
+//火の鳥
+	//火の鳥生成タイム最大値
+	m_Frie_Bird_time_max = 360;
+	//火の鳥生成数制限
+	m_Frie_Bird_Restriction = 0;
+	//火の鳥生成数制限最大値
+	m_Frie_Bird_Restriction_max = 2;
+	
 
 	//描画サイズ
 	m_dst_size = 128.0f;
@@ -64,13 +78,14 @@ void CObjBoss::Init()
 void CObjBoss::Action()
 {
 	//主人公情報取得
-	CObjHero* boss = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = boss->GetVX();
-	float hvy = boss->GetVY();
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
 
 	//移動停止
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
+
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -94,7 +109,7 @@ void CObjBoss::Action()
 		e_y -= hvy;
 
 		//エネミー生成処理
-		if (m_Enemy_Generation == 240 && m_Zombie_Restriction < m_Zombie_Restriction_max)
+		if (m_Enemy_Generation == m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
 		{
 			//ゾンビの伏せている、立っている描画切り替え処理
 			Ze_dst_flg_num = rand() % 3;
@@ -107,12 +122,29 @@ void CObjBoss::Action()
 				Ze_dst_flg = false;
 			}
 
-			//敵機オブジェクト作成
+			//ゾンビオブジェクト作成
 			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
 			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
 
-			m_Enemy_Generation = 0; //エネミー生成タイム初期化
+			//ゾンビ生成座標記録
+			m_Enemy_Generation_x = e_x; 
+			m_Enemy_Generation_y = e_y;
+
+			srand(time(NULL)); // ランダム情報を初期化
 			m_Zombie_Restriction++; //ゾンビ生成数カウント
+		}
+		else if (m_Enemy_Generation == m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
+		{
+			//火の鳥オブジェクト作成
+			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
+			Objs::InsertObj(obj_fb, OBJ_ENEMY, 4);
+
+			srand(time(NULL)); // ランダム情報を初期化
+			m_Frie_Bird_Restriction++; //火の鳥生成数制限
+		}
+		else if (m_Enemy_Generation == 370)
+		{
+			m_Enemy_Generation = 0; //エネミー生成タイム初期化
 		}
 	}
 

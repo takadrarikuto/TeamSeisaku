@@ -166,6 +166,9 @@ void CObjHero::Action()
 		}
 	}
 
+	//位置固定
+	m_x = 368.0f;
+	m_y = 268.0f;
 	//移動停止
 	m_vx = 0.0f;
 	m_vy = 0.0f;
@@ -185,7 +188,7 @@ void CObjHero::Action()
 					m_vy -= m_v_max;
 				}
 				m_UDani_frame = 0;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			//'S'を押すと下に移動
 			else if (Input::GetVKey('S') == true)
@@ -195,7 +198,7 @@ void CObjHero::Action()
 					m_vy += m_v_max;
 				}
 				m_UDani_frame = 4;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			//'A'を押すと左に移動
 			else if (Input::GetVKey('A') == true)
@@ -205,7 +208,7 @@ void CObjHero::Action()
 					m_vx -= m_v_max;
 				}
 				m_UDani_frame = 6;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			//'D'を押すと右移動
 			else if (Input::GetVKey('D') == true)
@@ -215,7 +218,7 @@ void CObjHero::Action()
 					m_vx += m_v_max;
 				}
 				m_UDani_frame = 2;
-				m_ani_time += ANIMATION;
+				m_ani_time += 1;
 			}
 			else
 			{
@@ -226,7 +229,7 @@ void CObjHero::Action()
 			//アニメーション処理
 			if (m_ani_time > 6)
 			{
-				m_LRani_frame += ANIMATION;
+				m_LRani_frame += 1;
 				m_ani_time = 0;
 			}
 
@@ -1122,51 +1125,6 @@ void CObjHero::Action()
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}
 		}
-
-		////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
-		//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
-		//	|| hit_h->CheckObjNameHit(OBJ_BOMB) != nullptr)
-		//	&& hp != 0 && m_ht == 0)
-		//{
-		//	m_hf = true;
-		//	hp -= 1;
-		//}
-		////敵機オブジェクトor敵弾オブジェクトと3回接触したら主人公機削除
-		//else if (hp == 0)
-		//{
-		//	//爆発オブジェクト作成
-		//	CObjExplosion* obj_exp = new CObjExplosion(m_x - 16, m_y - 16, m_exp_dst_size);
-		//	Objs::InsertObj(obj_exp, OBJ_EXPLOSION, 2);
-
-		//	Exp_flg = true; //Explosionフラグtrue
-		//	GameOver_flg = true; //ゲームオーバーフラグtrue
-
-		//	this->SetStatus(false); //自身の削除命令を出す
-		//	Hits::DeleteHitBox(this); //主人公機が所有するHitBoxを削除する		
-		//}
-
-		//HP増減処理
-		//if (hit_h->CheckObjNameHit(OBJ_ITEM) != nullptr)
-		//{
-		//	hp += 1;
-		//}
-		////体力増加限界設定
-		////難易度によって体力増加限界を変更
-		//if (Difficult_flg == true && hp > 3)
-		//{
-		//	hp = 3;
-		//	//ポイントを獲得
-		//}
-		//else if (Usually_flg == true && hp > 5)
-		//{
-		//	hp = 5;
-		//	//ポイントを獲得
-		//}
-		//else if (hp > 10)
-		//{
-		//	hp = 10;
-		//	//ポイントを獲得
-		//}
 	}
 }
 
