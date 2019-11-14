@@ -33,10 +33,10 @@ void CObjFire_Bird::Init()
 	m_fbvy = 0.0f;
 
 	//体力
-	m_hero_hp = 50;
+	m_hero_hp = 1;
 
 	//移動ベクトル最大値
-	m_fbv_max = 0.0f;
+	m_fbv_max = 2.0f/*2.5f*/;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 2; //静止フレームを初期にする
@@ -56,14 +56,13 @@ void CObjFire_Bird::Init()
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
+
+	//死亡処理
+	m_fb_death_time = 0; //死亡タイム
+	m_fb_death_time_max = 600; //死亡タイム最大値 10秒
+
+	//ダメージ
+	((UserData*)Save::GetData())->EXP_Attack = 50; //爆発
 
 	//描画サイズ
 	m_dst_size = 96.0f;
@@ -73,7 +72,7 @@ void CObjFire_Bird::Init()
 	m_exp_blood_dst_size = 160;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_fbx, m_fby, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
+	Hits::SetHitBox(this, m_fbx, m_fby, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_FIRE_BIRD, 4);
 }
 
 //アクション
@@ -96,76 +95,70 @@ void CObjFire_Bird::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
-
-	//爆発
-	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-	int EXPDamage;
-	if (EXPAttack != nullptr)
-	{
-		EXPDamage = EXPAttack->GetEXP();
-	}
-
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
+		//死亡タイム更新
+		m_fb_death_time++;
+
 		//移動処理
 		//主人公が上に居ると上に移動
-		if (hy < m_fby)
+		if (hy - 24 < m_fby)
 		{
 			m_fbvy = -m_fbv_max;
 			m_ani_time += 1;
 			m_UDani_frame = 0;
 		}
 		//主人公が下に居ると下移動
-		else if (hy > m_fby)
+		else if (hy - 24 > m_fby)
 		{
 			m_fbvy = m_fbv_max;
 			m_ani_time += 1;
 			m_UDani_frame = 2;
 		}
 		//主人公が左に居ると左に移動
-		if (hx < m_fbx)
+		if (hx - 16 < m_fbx)
 		{
 			m_fbvx = -m_fbv_max;
 			m_ani_time += 1;
 			m_UDani_frame = 3;
 		}
 		//主人公が右に居ると右に移動
-		else if (hx > m_fbx)
+		else if (hx - 16 > m_fbx)
 		{
 			m_fbvx = m_fbv_max;
 			m_ani_time += 1;			
 			m_UDani_frame = 1;
 		}
-		if (hx == m_fbx)
+		if (hx - 16 == m_fbx)
 		{
 			m_fbvx = 0.0f;
 			m_ani_time += 1;
 			//主人公が上に居ると上に移動
-			if (hy < m_fby)
+			if (hy - 24 < m_fby)
 			{
 				m_fbvy = -m_fbv_max;
 				m_UDani_frame = 0;
 			}
 			//主人公が下に居ると下移動
-			else if (hy > m_fby)
+			else if (hy - 24 > m_fby)
 			{
 				m_fbvy = m_fbv_max;
 				m_UDani_frame = 2;
 			}
 		}
-		else if (hy == m_fby)
+		else if (hy - 24 == m_fby)
 		{
 			m_fbvy = 0.0f;
 			m_ani_time += 1;
 			//主人公が左に居ると左に移動
-			if (hx < m_fbx)
+			if (hx - 16 < m_fbx)
 			{
 				m_fbvx = -m_fbv_max;
 				m_UDani_frame = 3;
 			}
 			//主人公が右に居ると右に移動
-			else if (hx > m_fbx)
+			else if (hx - 16 > m_fbx)
 			{
 				m_fbvx = m_fbv_max;				
 				m_UDani_frame = 1;
@@ -210,8 +203,9 @@ void CObjFire_Bird::Action()
 
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ze->SetPos(m_fbx, m_fby); //当たり判定の位置更新
+	hit_ze->SetPos(m_fbx - 16, m_fby); //当たり判定の位置更新
 
+	//当たり判定処理
 	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -269,12 +263,18 @@ void CObjFire_Bird::Action()
 		}
 	}
 
+	//死亡処理
+	if (m_fb_death_time >= m_fb_death_time_max)
+	{
+		m_hero_hp = 0;
+	}
 	if (m_hero_hp <= 0)
 	{
-		//血しぶきオブジェクト作成
-		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_fbx, m_fby, m_exp_blood_dst_size);
-		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+		//爆発オブジェクト作成
+		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
+		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
+		m_fb_death_time = 0; //死亡タイム初期化
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

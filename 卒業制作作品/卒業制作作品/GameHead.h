@@ -17,6 +17,7 @@ enum OBJ_NAME
 	OBJ_RAILGUNATTACK,
 	OBJ_GRENADEATTACK,
 	OBJ_ENEMY,
+	OBJ_FIRE_BIRD,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
@@ -82,6 +83,7 @@ struct UserData
 	int RL_Attack = 150; //ロケットランチャー
 	int RG_Attack = 200; //レールガン
 	int GRE_Attack = 100;	//グレネード
+	int EXP_Attack = 50; //爆発
 
 };
 //------------------------------------------------

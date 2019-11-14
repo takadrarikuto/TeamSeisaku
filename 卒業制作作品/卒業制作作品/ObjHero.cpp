@@ -1069,12 +1069,17 @@ void CObjHero::Action()
 						m_hero_hp -= 2;
 						m_time_d = 30;		//無敵時間をセット
 					}
+					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+					{
+						m_hero_hp -= 1;
+						m_time_d = 20;		//無敵時間をセット
+					}
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
 						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 						int EXPDamage = EXPAttack->GetEXP();
 						m_hero_hp -= EXPDamage;
-						m_time_d = 80;		//無敵時間をセット
+						m_time_d = 90;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)

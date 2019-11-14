@@ -42,4 +42,9 @@ private:
 
 	int m_at; //UŒ‚•p“x
 	int m_at_max; //UŒ‚•p“xÅ‘å’l
+
+	//€–Sˆ—
+	int m_fb_death_time; //€–Sƒ^ƒCƒ€
+	int m_fb_death_time_max; //€–Sƒ^ƒCƒ€Å‘å’l
+
 };
