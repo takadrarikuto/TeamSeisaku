@@ -98,10 +98,10 @@ void CObjZombieEnemy::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX(); //位置
 	float hy = hero->GetY();
-	float hpx = hero->GetPX()/* - m_zeg_x*/; //位置更新
-	float hpy = hero->GetPY()/* - m_zeg_y*/;
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
+	float hpx = hero->GetPX() - m_zex; //位置更新
+	float hpy = hero->GetPY() - m_zey;	
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 	
@@ -126,50 +126,39 @@ void CObjZombieEnemy::Action()
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
-	{		
-		 //チーム制作から
-		//主人公と追尾で角度を取る
-		//CObjHero*obj = (CObjHero*)Objs::GetObj(OBJ_HERO);
-		//float x = obj->GetX() - m_px;
-		//float y = obj->GetY() - m_py;
+	{				 
+		////計算頻度を落とし、斜め移動を防ぐ
+		//static int   count = 20;
+		//static float br = 0.0f;
+		//count++;
+		//if (count > 20)
+		//{
+		//	count = 0;
+		//	int ar = atan2(hpy, hpx)*180.0f / 3.14;
 
-		////敵の位置
-		//CObjEnemy2*obje = (CObjEnemy2*)Objs::GetObj(OBJ_ENEMY);
-		//float ex = obj->GetX() - m_px;
-		//float ey = obj->GetY() - m_py;
+		//	if (ar < 0)
+		//	{
+		//		ar = 360 + ar;
+		//	}
+		//	br = ar;
+		//}
 
-		//計算頻度を落とし、斜め移動を防ぐ
-		static int   count = 20;
-		static float br = 0.0f;
-		count++;
-		if (count > 20)
-		{
-			count = 0;
-			int ar = atan2(hpy, hpx)*180.0f / 3.14;
-
-			if (ar < 0)
-			{
-				ar = 360 + ar;
-			}
-			br = ar;
-		}
-
-		if (br >= 45 && br < 136)//上 45度以上　136度未満
-		{
-			m_UDani_frame = 6;		
-		}
-		else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
-		{			
-			m_UDani_frame = 4;
-		}
-		else if (br > 225 && br < 316)//下　225度以上　316未満
-		{			
-			m_UDani_frame = 2;
-		}
-		else if (br >= 135 && br <= 225)//左　135度以上　225度未満
-		{
-			m_UDani_frame = 0;
-		}
+		//if (br >= 45 && br < 136)//上 45度以上　136度未満
+		//{
+		//	m_UDani_frame = 6;		
+		//}
+		//else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
+		//{			
+		//	m_UDani_frame = 4;
+		//}
+		//else if (br > 225 && br < 316)//下　225度以上　316未満
+		//{			
+		//	m_UDani_frame = 2;
+		//}
+		//else if (br >= 135 && br <= 225)//左　135度以上　225度未満
+		//{
+		//	m_UDani_frame = 0;
+		//}
 		
 		//移動処理
 		//主人公が上に居ると上に移動
@@ -177,58 +166,63 @@ void CObjZombieEnemy::Action()
 		{								
 			m_zevy = -m_zev_max;
 			m_ani_time += 1;
+			m_UDani_frame = 6;
 		}
 		//主人公が下に居ると下移動
 		else if (hy > m_zey)
 		{
 			m_zevy = m_zev_max;
 			m_ani_time += 1;
+			m_UDani_frame = 2;
 		}
-		else if (hy == m_zey)
-		{
-			m_zevy = 0.0f;
-			//主人公が左に居ると左に移動
-			if (hx < m_zex)
-			{
-				m_zevx = -m_zev_max;
-				m_ani_time += 1;
-			}
-			//主人公が右に居ると右に移動
-			else if (hx > m_zex)
-			{
-				m_zevx = m_zev_max;
-				m_ani_time += 1;
-			}
-		}
-		
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
 			m_zevx = -m_zev_max;
 			m_ani_time += 1;
+			m_UDani_frame = 0;
 		}
 		//主人公が右に居ると右に移動
 		else if (hx > m_zex)
 		{
 			m_zevx = m_zev_max;
 			m_ani_time += 1;
+			m_UDani_frame = 4;
 		}
-		else if (hx == m_zex)
+		if (hx == m_zex)
 		{
 			m_zevx = 0.0f;
+			m_ani_time += 1;
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
 				m_zevy = -m_zev_max;
-				m_ani_time += 1;
+				m_UDani_frame = 6;
 			}
 			//主人公が下に居ると下移動
 			else if (hy > m_zey)
 			{
 				m_zevy = m_zev_max;
-				m_ani_time += 1;
+				m_UDani_frame = 2;
 			}
 		}
+		else if (hy == m_zey)
+		{
+			m_zevy = 0.0f;
+			m_ani_time += 1;
+			//主人公が左に居ると左に移動
+			if (hx < m_zex)
+			{
+				m_zevx = -m_zev_max;
+				m_UDani_frame = 0;
+			}
+			//主人公が右に居ると右に移動
+			else if (hx > m_zex)
+			{
+				m_zevx = m_zev_max;
+				m_UDani_frame = 4;
+			}
+		}		
 		
 		//斜め移動修正処理
 		float r = 0.0f;
@@ -367,7 +361,7 @@ void CObjZombieEnemy::Action()
 		}
 	}
 	
-	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
+	//敵機・敵弾・トラップ系オブジェクトと接触したら敵ダメージ、無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
