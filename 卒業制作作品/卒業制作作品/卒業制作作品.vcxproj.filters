@@ -76,6 +76,15 @@
     <Filter Include="ソース ファイル\ステージメイン\ステージ\壁">
       <UniqueIdentifier>{d0d48bd5-7357-4a40-8851-699fcb90f4eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\チュートリアル\壁%28チュートリアル%29">
+      <UniqueIdentifier>{0fb3556f-a277-4b38-8a6e-440cc04664ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29">
+      <UniqueIdentifier>{c250e594-be39-4e4e-a48b-e4539698978d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\チュートリアル\描画用%28チュートリアル%29">
+      <UniqueIdentifier>{5e1b043a-6fe4-4cd6-8dc0-832cec109b19}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -279,14 +288,35 @@
     <ClInclude Include="ObjWall4.h">
       <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
     </ClInclude>
+    <ClInclude Include="ObjTutoZombieEnemy.h">
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
+    </ClInclude>
     <ClInclude Include="ObjTutoHero.h">
-      <Filter>ソース ファイル\チュートリアル</Filter>
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
     </ClInclude>
     <ClInclude Include="ObjTutoBg.h">
-      <Filter>ソース ファイル\チュートリアル</Filter>
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
     </ClInclude>
     <ClInclude Include="ObjTutoTopback.h">
-      <Filter>ソース ファイル\チュートリアル</Filter>
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall2.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall3.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall4.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjFire_Bird.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjFire_Lizard.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -482,14 +512,35 @@
     <ClCompile Include="ObjWall4.cpp">
       <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
     </ClCompile>
+    <ClCompile Include="ObjTutoZombieEnemy.cpp">
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
+    </ClCompile>
     <ClCompile Include="ObjTutoHero.cpp">
-      <Filter>ソース ファイル\チュートリアル</Filter>
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
     </ClCompile>
     <ClCompile Include="ObjTutoBg.cpp">
-      <Filter>ソース ファイル\チュートリアル</Filter>
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
     </ClCompile>
     <ClCompile Include="ObjTutoTopback.cpp">
-      <Filter>ソース ファイル\チュートリアル</Filter>
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall2.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall3.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall4.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Bird.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Lizard.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

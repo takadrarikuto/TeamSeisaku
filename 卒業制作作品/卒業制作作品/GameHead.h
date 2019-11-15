@@ -17,6 +17,8 @@ enum OBJ_NAME
 	OBJ_RAILGUNATTACK,
 	OBJ_GRENADEATTACK,
 	OBJ_ENEMY,
+	OBJ_FIRE_BIRD,
+	OBJ_FIRE_LIZARD,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
@@ -44,6 +46,7 @@ enum OBJ_NAME
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
 	OBJ_WALL,
+	OBJ_TUTO_HERO,
 };
 //------------------------------------------------
 
@@ -81,6 +84,7 @@ struct UserData
 	int RL_Attack = 150; //ロケットランチャー
 	int RG_Attack = 200; //レールガン
 	int GRE_Attack = 100;	//グレネード
+	int EXP_Attack = 50; //爆発
 
 };
 //------------------------------------------------
@@ -88,7 +92,7 @@ struct UserData
 
 //ゲーム内で使用されるグローバル変数・定数・列挙--
 
-
+extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------
@@ -115,6 +119,8 @@ struct UserData
 
 //エネミー
 #include "ObjZombieEnemy.h"
+#include "ObjFire_Bird.h"
+#include "ObjFire_Lizard.h"
 
 //中ボス
 //ボス
@@ -161,6 +167,11 @@ struct UserData
 #include "ObjTutoHero.h"
 #include "ObjTutoBg.h"
 #include "ObjTutoTopback.h"
+#include "ObjTutoZombieEnemy.h"
+#include "ObjTutoWall.h"
+#include "ObjTutoWall2.h"
+#include "ObjTutoWall3.h"
+#include "ObjTutoWall4.h"
 
 //ゲームオーバー
 #include "ObjOver.h"

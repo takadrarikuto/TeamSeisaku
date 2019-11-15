@@ -109,11 +109,18 @@ void CObjSniperRifleAttack::Action()
 	}
 	
 
-	//敵機オブジェクトと接触するとオブジェクト破棄
-	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	//敵オブジェクトと接触するとオブジェクト破棄
+	if (hit_ga->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		if (hit_ga->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+		{
+			; //火の鳥には当たらない
+		}
+		else
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
 	}
 	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true)
 	{
