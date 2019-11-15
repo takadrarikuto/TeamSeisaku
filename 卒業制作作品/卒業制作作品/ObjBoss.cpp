@@ -137,7 +137,7 @@ void CObjBoss::Action()
 		{
 			//火の鳥オブジェクト作成
 			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
-			Objs::InsertObj(obj_fb, OBJ_ENEMY, 4);
+			Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
 
 			srand(time(NULL)); // ランダム情報を初期化
 			m_Frie_Bird_Restriction++; //火の鳥生成数制限

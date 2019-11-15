@@ -3,11 +3,11 @@
 
 using namespace GameL;
 
-class CObjFire_Bird : public CObj, public CBaseStatus
+class CObjFire_Lizard : public CObj, public CBaseStatus
 {
 public:
-	CObjFire_Bird(float fbx, float fby);
-	~CObjFire_Bird() {};
+	CObjFire_Lizard(float flx, float fly);
+	~CObjFire_Lizard() {};
 
 	void Init(); //イニシャライズ
 	void Action(); //アクション
@@ -19,14 +19,14 @@ public:
 
 private:
 
-	float m_fbx; //位置更新
-	float m_fby;
-	float m_fbvx; //移動ベクトル
-	float m_fbvy;
-	float m_fbv_max; //移動ベクトル最大値
+	float m_flx; //位置更新
+	float m_fly;
+	float m_flvx; //移動ベクトル
+	float m_flvy;
+	float m_flv_max; //移動ベクトル最大値
 
-	bool m_fb_x_flg; //移動フラグ
-	bool m_fb_y_flg;
+	bool m_fl_x_flg; //移動フラグ
+	bool m_fl_y_flg;
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
@@ -43,8 +43,5 @@ private:
 	int m_at; //攻撃頻度
 	int m_at_max; //攻撃頻度最大値
 
-	//死亡処理
-	int m_fb_death_time; //死亡タイム
-	int m_fb_death_time_max; //死亡タイム最大値
-
+	int m_time_d;	//ダメージ点滅時間用
 };
