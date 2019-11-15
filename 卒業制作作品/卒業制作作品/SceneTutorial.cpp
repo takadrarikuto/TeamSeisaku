@@ -103,7 +103,7 @@ void CSceneTutorial::InitScene()
 	//‰º
 	CObjTutoWall4* tu_Wall4 = new CObjTutoWall4(200, 200);
 	Objs::InsertObj(tu_Wall4, OBJ_WALL, 4);
-
+	/*
 	//‰¹Šyî•ñ‚Ì“Ç‚İ‚İ
 	Audio::LoadAudio(0, L"‘I‘ğ‰¹.wav", EFFECT);
 	Audio::LoadAudio(1, L"Œˆ’è‰¹.wav", EFFECT);
