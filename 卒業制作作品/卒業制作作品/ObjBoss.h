@@ -24,14 +24,20 @@ private:
 	float m_bvy;
 
 	int m_Enemy_Generation; //敵生成頻度
+//ゾンビ
 	int m_Zombie_Restriction; //ゾンビ生成数制限
 	int m_Zombie_Restriction_max; //ゾンビ生成数制限最大値
 	int m_Zombie_time_max; //ゾンビ生成タイム最大値
 	int Ze_dst_flg_num; //ゾンビランダム描画切り替え用変数
 	bool Ze_dst_flg;  //ゾンビランダム描画切り替え用フラグ
+//火の鳥
 	int m_Frie_Bird_time_max; //火の鳥生成タイム最大値
 	int m_Frie_Bird_Restriction; //火の鳥生成数制限
 	int m_Frie_Bird_Restriction_max; //火の鳥生成数制限最大値
+//火トカゲ
+	int m_Frie_Lizard_time_max; //火トカゲ生成タイム最大値
+	int m_Frie_Lizard_Restriction; //火トカゲ生成数制限
+	int m_Frie_Lizard_Restriction_max; //火トカゲ生成数制限最大値
 
 	float m_scrollx; //横スクロール
 	float m_scrolly; //縦スクロール
