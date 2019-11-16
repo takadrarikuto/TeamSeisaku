@@ -51,20 +51,22 @@ void CObjBoss::Init()
 	//ゾンビ生成数制限最大値
 	m_Zombie_Restriction_max = 10;
 	//ゾンビ生成タイム最大値
-	m_Zombie_time_max = 240;
+	m_Zombie_time_max = 300;
 	//ゾンビランダム描画切り替え用
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
 	Ze_dst_flg = false;
 //火の鳥
 	//火の鳥生成タイム最大値
-	m_Frie_Bird_time_max = 360;
+	m_Frie_Bird_time_max = 600;
 	//火の鳥生成数制限
 	m_Frie_Bird_Restriction = 0;
 	//火の鳥生成数制限最大値
 	m_Frie_Bird_Restriction_max = 2;
-	
-
+//火トカゲ	
+	m_Frie_Lizard_time_max = 420; //火トカゲ生成タイム最大値
+	m_Frie_Lizard_Restriction = 0; //火トカゲ生成数制限
+	m_Frie_Lizard_Restriction_max = 5; //火トカゲ生成数制限最大値
 	//描画サイズ
 	m_dst_size = 128.0f;
 	//当たり判定サイズ
@@ -100,8 +102,6 @@ void CObjBoss::Action()
 		//エネミー生成処理
 		m_Enemy_Generation++;
 
-		srand(time(NULL)); // ランダム情報を初期化
-
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 64 + m_by;
 		
@@ -109,6 +109,7 @@ void CObjBoss::Action()
 		e_y -= hvy;
 
 		//エネミー生成処理
+		//ゾンビ
 		if (m_Enemy_Generation == m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
 		{
 			//ゾンビの伏せている、立っている描画切り替え処理
@@ -131,18 +132,29 @@ void CObjBoss::Action()
 			m_Enemy_Generation_y = e_y;
 
 			srand(time(NULL)); // ランダム情報を初期化
-			m_Zombie_Restriction++; //ゾンビ生成数カウント
+			m_Zombie_Restriction++; //ゾンビ生成カウント
 		}
+		//火トカゲ
+		else if (m_Enemy_Generation == m_Frie_Lizard_time_max && m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
+		{
+			//火トカゲオブジェクト作成 
+			CObjFire_Lizard * obj_fl = new CObjFire_Lizard(e_x, e_y);
+			Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
+
+			srand(time(NULL)); // ランダム情報を初期化
+			m_Frie_Lizard_Restriction++; //火トカゲ生成カウント		
+		}
+		//火の鳥
 		else if (m_Enemy_Generation == m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
 		{
 			//火の鳥オブジェクト作成
 			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
-			Objs::InsertObj(obj_fb, OBJ_ENEMY, 4);
+			Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
 
 			srand(time(NULL)); // ランダム情報を初期化
-			m_Frie_Bird_Restriction++; //火の鳥生成数制限
+			m_Frie_Bird_Restriction++; //火の鳥生成カウント
 		}
-		else if (m_Enemy_Generation == 370)
+		else if (m_Enemy_Generation == m_Frie_Bird_time_max + 100)
 		{
 			m_Enemy_Generation = 0; //エネミー生成タイム初期化
 		}
