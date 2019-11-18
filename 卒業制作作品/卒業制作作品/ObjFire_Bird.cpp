@@ -202,16 +202,16 @@ void CObjFire_Bird::Action()
 	}
 
 	//HitBoxの内容を更新
-	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ze->SetPos(m_fbx - 16, m_fby); //当たり判定の位置更新
+	CHitBox* hit_fb = Hits::GetHitBox(this); //当たり判定情報取得
+	hit_fb->SetPos(m_fbx - 16, m_fby); //当たり判定の位置更新
 
 	//当たり判定処理
-	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
+	if (hit_fb->CheckElementHit(ELEMENT_WALL) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
+		hit_data = hit_fb->SearchElementHit(ELEMENT_WALL);
+		for (int i = 0; i < hit_fb->GetCount(); i++)
 		{
 			float r = hit_data[i]->r;
 			//角度で上下左右を判定
@@ -235,12 +235,12 @@ void CObjFire_Bird::Action()
 	}
 
 	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
+	if (hit_fb->CheckElementHit(ELEMENT_WALL2) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL2);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
+		hit_data = hit_fb->SearchElementHit(ELEMENT_WALL2);
+		for (int i = 0; i < hit_fb->GetCount(); i++)
 		{
 			float r = hit_data[i]->r;
 			//角度で上下左右を判定

@@ -33,10 +33,10 @@ void CObjBat_Enemy::Init()
 	m_bevy = 0.0f;
 
 	//体力
-	m_hero_hp = 30;
+	m_hero_hp = 10;
 
 	//移動ベクトル最大値
-	m_bev_max = 2.75f;
+	m_bev_max = 3.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 2; //静止フレームを初期にする
@@ -52,7 +52,7 @@ void CObjBat_Enemy::Init()
 	m_LeftHit_flg = false;	 //左
 	m_RightHit_flg = false; //右
 
-							//攻撃頻度
+	//攻撃頻度
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
@@ -109,7 +109,8 @@ void CObjBat_Enemy::Action()
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		//移動処理				
+		//移動処理	
+		m_ani_time += 1;
 		//主人公が上に居ると上に移動
 		if (hy < m_bey)
 		{
@@ -185,13 +186,13 @@ void CObjBat_Enemy::Action()
 		}
 		else
 		{
-			m_bevy = m_bev_max / r * m_bevy;
 			m_bevx = m_bev_max / r * m_bevx;
+			m_bevy = m_bev_max / r * m_bevy;
 		}
 		//位置更新
 		//主人公の移動を適応する
-		m_bex += (-hvx) + m_bevy;
-		m_bey += (-hvy) + m_bevx;
+		m_bex += (-hvx) + m_bevx;
+		m_bey += (-hvy) + m_bevy;
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -389,10 +390,10 @@ void CObjBat_Enemy::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 135.0f + m_UDani_frame * 30.0f;
+	src.m_top = 135.0f + m_UDani_frame * 32.0f;
 	src.m_left = 74.4f + LRAniData[m_LRani_frame] * 24.8f;
 	src.m_right = 98.0f + LRAniData[m_LRani_frame] * 24.8f;
-	src.m_bottom = 170.0f + m_UDani_frame * 30.0f;
+	src.m_bottom = 170.0f + m_UDani_frame * 32.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_bey;
 	dst.m_left = 0.0f + m_bex;

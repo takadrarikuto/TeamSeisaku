@@ -45,6 +45,7 @@ void CObjBoss::Init()
 
 	//敵生成頻度
 	m_Zombie_Generation = 0; //ゾンビ生成頻度
+	m_Bat_Enemy_Generation = 0; //蝙蝠生成頻度
 	m_Frie_Lizard_Generation = 0; //火トカゲ敵生成頻度
 	m_Frie_Bird_Generation = 0; //火の鳥敵生成頻度
 //ゾンビ
@@ -58,6 +59,15 @@ void CObjBoss::Init()
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
 	Ze_dst_flg = false;
+//蝙蝠
+	//蝙蝠生成タイム最大値
+	m_Bat_Enemy_time_max = 240; 
+	//蝙蝠生成数制限
+	m_Bat_Enemy_Restriction = 0; 
+	//蝙蝠生成数制限最大値
+	m_Bat_Enemy_Restriction_max = 30; 
+	//蝙蝠生成数カウント変数
+	m_Bat_Enemy_co_num = 1; 
 //火の鳥
 	//火の鳥生成タイム最大値
 	m_Frie_Bird_time_max = 600;
@@ -103,6 +113,7 @@ void CObjBoss::Action()
 		m_by -= m_bvy;
 		//エネミー生成処理
 		m_Zombie_Generation++; //ゾンビ生成頻度
+		m_Bat_Enemy_Generation++; //蝙蝠生成頻度
 		m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
 		m_Frie_Bird_Generation++; //火の鳥敵生成頻度
 
@@ -138,6 +149,20 @@ void CObjBoss::Action()
 			srand(time(NULL)); // ランダム情報を初期化
 			m_Zombie_Restriction++; //ゾンビ生成カウント
 			m_Zombie_Generation = 0;
+		}
+		if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max && m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
+		{
+			srand(time(NULL)); // ランダム情報を初期化
+			m_Bat_Enemy_co_num = rand() % 3;
+			for (int i = 0; i > m_Bat_Enemy_co_num; i++)
+			{
+				//蝙蝠オブジェクト作成
+				CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x, e_y);
+				Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 4);
+			}			
+
+			m_Bat_Enemy_Generation = 0;
+			m_Bat_Enemy_Restriction += m_Bat_Enemy_co_num; //蝙蝠生成カウント
 		}
 		//火トカゲ
 		if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max && m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
