@@ -33,10 +33,10 @@ void CObjFire_Lizard::Init()
 	m_flvy = 0.0f;
 
 	//体力
-	m_hero_hp = 1;
+	m_hero_hp = 30;
 
 	//移動ベクトル最大値
-	m_flv_max = 2.0f/*2.5f*/;
+	m_flv_max = 3.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 2; //静止フレームを初期にする
@@ -111,95 +111,69 @@ void CObjFire_Lizard::Action()
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		//移動処理
-		m_flvx = 0.0f;
-		m_flvy = 0.0f;
-		m_ani_time += 1;
-		if (Input::GetVKey('W') == true)
+		//移動処理		
+		//主人公が上に居ると上に移動
+		if (hy < m_fly)
 		{
-			m_flvy -= m_flv_max;
+			m_flvy = -m_flv_max;
+			m_ani_time += 1;
 			m_UDani_frame = 0;
 		}
-		//'S'を押すと下に移動
-		else if (Input::GetVKey('S') == true)
+		//主人公が下に居ると下移動
+		else if (hy > m_fly)
 		{
-			m_flvy += m_flv_max;
+			m_flvy = m_flv_max;
+			m_ani_time += 1;
 			m_UDani_frame = 2;
 		}
-		//'A'を押すと左に移動
-		else if (Input::GetVKey('A') == true)
+		//主人公が左に居ると左に移動
+		if (hx < m_flx)
 		{
-			m_flvx -= m_flv_max;
+			m_flvx = -m_flv_max;
+			m_ani_time += 1;
 			m_UDani_frame = 3;
 		}
-		//'D'を押すと右移動
-		else if (Input::GetVKey('D') == true)
+		//主人公が右に居ると右に移動
+		else if (hx > m_flx)
 		{
-			m_flvx += m_flv_max;
+			m_flvx = m_flv_max;
+			m_ani_time += 1;
 			m_UDani_frame = 1;
 		}
-		//主人公が上に居ると上に移動
-		//if (hy < m_fly)
-		//{
-		//	m_flvy = -m_flv_max;
-		//	m_ani_time += 1;
-		//	m_UDani_frame = 0;
-		//}
-		////主人公が下に居ると下移動
-		//else if (hy > m_fly)
-		//{
-		//	m_flvy = m_flv_max;
-		//	m_ani_time += 1;
-		//	m_UDani_frame = 2;
-		//}
-		////主人公が左に居ると左に移動
-		//if (hx < m_flx)
-		//{
-		//	m_flvx = -m_flv_max;
-		//	m_ani_time += 1;
-		//	m_UDani_frame = 3;
-		//}
-		////主人公が右に居ると右に移動
-		//else if (hx > m_flx)
-		//{
-		//	m_flvx = m_flv_max;
-		//	m_ani_time += 1;
-		//	m_UDani_frame = 1;
-		//}
-		//if (hx == m_flx)
-		//{
-		//	m_flvx = 0.0f;
-		//	m_ani_time += 1;
-		//	//主人公が上に居ると上に移動
-		//	if (hy < m_fly)
-		//	{
-		//		m_flvy = -m_flv_max;
-		//		m_UDani_frame = 0;
-		//	}
-		//	//主人公が下に居ると下移動
-		//	else if (hy > m_fly)
-		//	{
-		//		m_flvy = m_flv_max;
-		//		m_UDani_frame = 2;
-		//	}
-		//}
-		//else if (hy == m_fly)
-		//{
-		//	m_flvy = 0.0f;
-		//	m_ani_time += 1;
-		//	//主人公が左に居ると左に移動
-		//	if (hx  < m_flx)
-		//	{
-		//		m_flvx = -m_flv_max;
-		//		m_UDani_frame = 3;
-		//	}
-		//	//主人公が右に居ると右に移動
-		//	else if (hx > m_flx)
-		//	{
-		//		m_flvx = m_flv_max;
-		//		m_UDani_frame = 1;
-		//	}
-		//}
+		if (hx == m_flx)
+		{
+			m_flvx = 0.0f;
+			m_ani_time += 1;
+			//主人公が上に居ると上に移動
+			if (hy < m_fly)
+			{
+				m_flvy = -m_flv_max;
+				m_UDani_frame = 0;
+			}
+			//主人公が下に居ると下移動
+			else if (hy > m_fly)
+			{
+				m_flvy = m_flv_max;
+				m_UDani_frame = 2;
+			}
+		}
+		else if (hy == m_fly)
+		{
+			m_flvy = 0.0f;
+			m_ani_time += 1;
+			//主人公が左に居ると左に移動
+			if (hx  < m_flx)
+			{
+				m_flvx = -m_flv_max;
+				m_UDani_frame = 3;
+			}
+			//主人公が右に居ると右に移動
+			else if (hx > m_flx)
+			{
+				m_flvx = m_flv_max;
+				m_UDani_frame = 1;
+			}
+		}
 
 		//斜め移動修正処理
 		float r = 0.0f;
@@ -219,8 +193,6 @@ void CObjFire_Lizard::Action()
 
 		//位置更新
 		//主人公の移動を適応する
-		//m_zex -= hvx;
-		//m_zey -= hvy;
 		m_flx += (-hvx) + m_flvy;
 		m_fly += (-hvy) + m_flvx;
 
@@ -425,8 +397,8 @@ void CObjFire_Lizard::Draw()
 
 	//切り取り処理
 	src.m_top = 0.0f + m_UDani_frame * 30.0f;
-	src.m_left = 75.0f + LRAniData[m_LRani_frame] * 23.5f;
-	src.m_right = 100.0f + LRAniData[m_LRani_frame] * 23.5f;
+	src.m_left = 74.4f + LRAniData[m_LRani_frame] * 24.8f;
+	src.m_right = 98.0f + LRAniData[m_LRani_frame] * 24.8f;
 	src.m_bottom = 30.0f + m_UDani_frame * 30.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_fly;

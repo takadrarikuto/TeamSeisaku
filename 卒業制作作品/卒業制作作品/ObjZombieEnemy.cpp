@@ -242,8 +242,6 @@ void CObjZombieEnemy::Action()
 
 		//位置更新
 		//主人公の移動を適応する
-		//m_zex -= hvx;
-		//m_zey -= hvy;
 		m_zex += (-hvx) + m_zevx;
 		m_zey += (-hvy) + m_zevy;
 

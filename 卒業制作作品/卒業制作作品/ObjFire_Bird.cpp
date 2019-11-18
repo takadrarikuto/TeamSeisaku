@@ -183,8 +183,6 @@ void CObjFire_Bird::Action()
 
 		//位置更新
 		//主人公の移動を適応する
-		//m_zex -= hvx;
-		//m_zey -= hvy;
 		m_fbx += (-hvx) + m_fbvx;
 		m_fby += (-hvy) + m_fbvy;
 

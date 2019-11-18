@@ -41,7 +41,7 @@ void CObjHero::Init()
 	m_hero_hp = 100;
 
 	//移動ベクトル最大値
-	m_v_max = 3.0f;
+	m_v_max = 4.0f;
 	//武器攻撃移動ベクトル最大値
 	m_ga_vx_max = 5.0f;
 	m_ga_vy_max = 5.0f;
