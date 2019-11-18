@@ -100,9 +100,9 @@ void CObjARAttack::Action()
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ar->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		if (hit_ar->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+		if (hit_ar->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_ar->CheckObjNameHit(OBJ_BOSS) != nullptr)
 		{
-			; //火の鳥には当たらない
+			; //火の鳥、ボスには当たらない
 		}
 		else 
 		{

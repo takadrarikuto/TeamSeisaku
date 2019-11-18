@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjBat_Enemy.h" />
     <ClInclude Include="ObjFire_Lizard.h" />
     <ClInclude Include="ObjTutoWall.h" />
     <ClInclude Include="ObjTutoWall2.h" />
@@ -190,6 +191,7 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjBat_Enemy.cpp" />
     <ClCompile Include="ObjFire_Lizard.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />
     <ClCompile Include="ObjTutoWall2.cpp" />

@@ -5,7 +5,7 @@
 #include "GameL\UserData.h"
 
 #include "GameHead.h"
-#include "ObjFire_Lizard.h"
+#include "ObjBat_Enemy.h"
 
 //使用するネームスペース
 using namespace GameL;
@@ -17,34 +17,34 @@ extern bool Menu_flg;
 extern bool m_key_flag_menu;
 
 //コンストラクタ
-CObjFire_Lizard::CObjFire_Lizard(float flx, float fly)
+CObjBat_Enemy::CObjBat_Enemy(float bex, float bey)
 {
 	//位置情報登録(数値=位置調整)
-	m_flx = flx;
-	m_fly = fly;
+	m_bex = bex;
+	m_bey = bey;
 }
 
 //イニシャライズ
-void CObjFire_Lizard::Init()
+void CObjBat_Enemy::Init()
 {
 	//初期化
 	//移動ベクトル
-	m_flvx = 0.0f;
-	m_flvy = 0.0f;
+	m_bevx = 0.0f;
+	m_bevy = 0.0f;
 
 	//体力
 	m_hero_hp = 30;
 
 	//移動ベクトル最大値
-	m_flv_max = 2.75f;
+	m_bev_max = 2.75f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 2; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
 
 	//移動フラグ
-	m_fl_x_flg = false;
-	m_fl_y_flg = false;
+	m_be_x_flg = false;
+	m_be_y_flg = false;
 
 	//上下左右別当たり判定確認フラグ
 	m_UpHit_flg = false;    //上
@@ -52,7 +52,7 @@ void CObjFire_Lizard::Init()
 	m_LeftHit_flg = false;	 //左
 	m_RightHit_flg = false; //右
 
-	//攻撃頻度
+							//攻撃頻度
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
@@ -67,7 +67,7 @@ void CObjFire_Lizard::Init()
 	((UserData*)Save::GetData())->GRE_Attack;
 
 	//ダメージ点滅時間用
-	m_time_d = 0;	
+	m_time_d = 0;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -77,11 +77,11 @@ void CObjFire_Lizard::Init()
 	m_exp_blood_dst_size = 64;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_flx, m_fly, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_FIRE_LIZARD, 4);
+	Hits::SetHitBox(this, m_bex, m_bey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_BAT_ENEMY, 4);
 }
 
 //アクション
-void CObjFire_Lizard::Action()
+void CObjBat_Enemy::Action()
 {
 	//上下左右別当たり判定確認フラグ初期化
 	m_UpHit_flg = false;    //上
@@ -95,8 +95,8 @@ void CObjFire_Lizard::Action()
 	float hy = hero->GetY();
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
-	float hpx = hero->GetPX() - m_flx; //位置更新
-	float hpy = hero->GetPY() - m_fly;
+	float hpx = hero->GetPX() - m_bex; //位置更新
+	float hpy = hero->GetPY() - m_bey;
 
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
@@ -111,71 +111,71 @@ void CObjFire_Lizard::Action()
 	{
 		//移動処理				
 		//主人公が上に居ると上に移動
-		if (hy < m_fly)
+		if (hy < m_bey)
 		{
-			m_flvy = -m_flv_max;
+			m_bevy = -m_bev_max;
 			m_ani_time += 1;
 			m_UDani_frame = 0;
 		}
 		//主人公が下に居ると下移動
-		else if (hy > m_fly)
+		else if (hy > m_bey)
 		{
-			m_flvy = m_flv_max;
+			m_bevy = m_bev_max;
 			m_ani_time += 1;
 			m_UDani_frame = 2;
 		}
 		//主人公が左に居ると左に移動
-		if (hx < m_flx)
+		if (hx < m_bex)
 		{
-			m_flvx = -m_flv_max;
+			m_bevx = -m_bev_max;
 			m_ani_time += 1;
 			m_UDani_frame = 3;
 		}
 		//主人公が右に居ると右に移動
-		else if (hx > m_flx)
+		else if (hx > m_bex)
 		{
-			m_flvx = m_flv_max;
+			m_bevx = m_bev_max;
 			m_ani_time += 1;
 			m_UDani_frame = 1;
 		}
-		if (hx == m_flx)
+		if (hx == m_bex)
 		{
-			m_flvx = 0.0f;
+			m_bevx = 0.0f;
 			m_ani_time += 1;
 			//主人公が上に居ると上に移動
-			if (hy < m_fly)
+			if (hy < m_bey)
 			{
-				m_flvy = -m_flv_max;
+				m_bevy = -m_bev_max;
 				m_UDani_frame = 0;
 			}
 			//主人公が下に居ると下移動
-			else if (hy > m_fly)
+			else if (hy > m_bey)
 			{
-				m_flvy = m_flv_max;
+				m_bevy = m_bev_max;
 				m_UDani_frame = 2;
 			}
 		}
-		else if (hy == m_fly)
+		else if (hy == m_bey)
 		{
-			m_flvy = 0.0f;
+			m_bevy = 0.0f;
 			m_ani_time += 1;
 			//主人公が左に居ると左に移動
-			if (hx < m_flx)
+			if (hx < m_bex)
 			{
-				m_flvx = -m_flv_max;
+				m_bevx = -m_bev_max;
 				m_UDani_frame = 3;
 			}
 			//主人公が右に居ると右に移動
-			else if (hx > m_flx)
+			else if (hx > m_bex)
 			{
-				m_flvx = m_flv_max;
+				m_bevx = m_bev_max;
 				m_UDani_frame = 1;
 			}
 		}
-		
+
 		//斜め移動修正処理
 		float r = 0.0f;
-		r = m_flvy * m_flvy + m_flvx * m_flvx;
+		r = m_bevy * m_bevy + m_bevx * m_bevx;
 		r = sqrt(r); //ルートを求める
 
 		//斜めベクトルを求める
@@ -185,13 +185,13 @@ void CObjFire_Lizard::Action()
 		}
 		else
 		{
-			m_flvy = m_flv_max / r * m_flvy;
-			m_flvx = m_flv_max / r * m_flvx;
+			m_bevy = m_bev_max / r * m_bevy;
+			m_bevx = m_bev_max / r * m_bevx;
 		}
 		//位置更新
 		//主人公の移動を適応する
-		m_flx += (-hvx) + m_flvy;
-		m_fly += (-hvy) + m_flvx;
+		m_bex += (-hvx) + m_bevy;
+		m_bey += (-hvy) + m_bevx;
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -208,9 +208,9 @@ void CObjFire_Lizard::Action()
 
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ze->SetPos(m_flx, m_fly); //当たり判定の位置更新
+	hit_ze->SetPos(m_bex, m_bey); //当たり判定の位置更新
 
-	//当たり判定処理
+								  //当たり判定処理
 	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -222,19 +222,19 @@ void CObjFire_Lizard::Action()
 			//角度で上下左右を判定
 			if ((r < 88 && r >= 0) || r > 292)
 			{
-				m_flvx = -0.15f; //右
+				m_bevx = -0.15f; //右
 			}
 			if (r > 88 && r < 92)
 			{
-				m_flvy = 0.15f;//上
+				m_bevy = 0.15f;//上
 			}
 			if (r > 92 && r < 268)
 			{
-				m_flvx = 0.15f;//左
+				m_bevx = 0.15f;//左
 			}
 			if (r > 268 && r < 292)
 			{
-				m_flvy = -0.15f; //下
+				m_bevy = -0.15f; //下
 			}
 		}
 	}
@@ -251,19 +251,19 @@ void CObjFire_Lizard::Action()
 			//角度で上下左右を判定
 			if ((r < 2 && r >= 0) || r > 358)
 			{
-				m_flvx = -0.15f; //右
+				m_bevx = -0.15f; //右
 			}
 			if (r > 2 && r < 178)
 			{
-				m_flvy = 0.15f;//上
+				m_bevy = 0.15f;//上
 			}
 			if (r > 178 && r < 182)
 			{
-				m_flvx = 0.15f;//左
+				m_bevx = 0.15f;//左
 			}
 			if (r > 182 && r < 358)
 			{
-				m_flvy = -0.15f; //下
+				m_bevy = -0.15f; //下
 			}
 		}
 	}
@@ -285,19 +285,19 @@ void CObjFire_Lizard::Action()
 				//角度で上下左右を判定
 				if ((r < 4 && r >= 0) || r > 356)
 				{
-					m_flvx = m_flvx - m_flv_max;
+					m_bevx = m_bevx - m_bev_max;
 				}
 				else if (r > 2 && r < 178)
 				{
-					m_flvy = m_flvy + m_flv_max;
+					m_bevy = m_bevy + m_bev_max;
 				}
 				else if (r > 176 && r < 184)
 				{
-					m_flvx = m_flvx + m_flv_max;
+					m_bevx = m_bevx + m_bev_max;
 				}
 				else if (r > 182 && r < 358)
 				{
-					m_flvy = m_flvy - m_flv_max;
+					m_bevy = m_bevy - m_bev_max;
 				}
 			}
 		}
@@ -364,7 +364,7 @@ void CObjFire_Lizard::Action()
 	if (m_hero_hp <= 0)
 	{
 		//血しぶきオブジェクト作成
-		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_flx, m_fly, m_exp_blood_dst_size);
+		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_bex, m_bey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 
 		this->SetStatus(false); //オブジェクト破棄
@@ -373,7 +373,7 @@ void CObjFire_Lizard::Action()
 }
 
 //ドロー
-void CObjFire_Lizard::Draw()
+void CObjBat_Enemy::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -389,15 +389,15 @@ void CObjFire_Lizard::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 0.0f + m_UDani_frame * 30.0f;
+	src.m_top = 135.0f + m_UDani_frame * 30.0f;
 	src.m_left = 74.4f + LRAniData[m_LRani_frame] * 24.8f;
 	src.m_right = 98.0f + LRAniData[m_LRani_frame] * 24.8f;
-	src.m_bottom = 30.0f + m_UDani_frame * 30.0f;
+	src.m_bottom = 170.0f + m_UDani_frame * 30.0f;
 	//描画処理
-	dst.m_top = 0.0f + m_fly;
-	dst.m_left = 0.0f + m_flx;
-	dst.m_right = m_dst_size + m_flx;
-	dst.m_bottom = m_dst_size + m_fly;
+	dst.m_top = 0.0f + m_bey;
+	dst.m_left = 0.0f + m_bex;
+	dst.m_right = m_dst_size + m_bex;
+	dst.m_bottom = m_dst_size + m_bey;
 
 	if (m_time_d > 0) {
 		Draw::Draw(4, &src, &dst, a, 0.0f);

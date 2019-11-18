@@ -19,6 +19,7 @@ enum OBJ_NAME
 	OBJ_ENEMY,
 	OBJ_FIRE_BIRD,
 	OBJ_FIRE_LIZARD,
+	OBJ_BAT_ENEMY,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
@@ -121,6 +122,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjZombieEnemy.h"
 #include "ObjFire_Bird.h"
 #include "ObjFire_Lizard.h"
+#include "ObjBat_Enemy.h"
 
 //中ボス
 //ボス

@@ -3,30 +3,28 @@
 
 using namespace GameL;
 
-class CObjFire_Bird : public CObj, public CBaseStatus
+class CObjBat_Enemy : public CObj, public CBaseStatus
 {
 public:
-	CObjFire_Bird(float fbx, float fby);
-	~CObjFire_Bird() {};
+	CObjBat_Enemy(float bex, float bey);
+	~CObjBat_Enemy() {};
 
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	//float GetX() { return m_zex; } //エネミー情報取得用
-	//float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 
 private:
 
-	float m_fbx; //位置更新
-	float m_fby;
-	float m_fbvx; //移動ベクトル
-	float m_fbvy;
-	float m_fbv_max; //移動ベクトル最大値
+	float m_bex; //位置更新
+	float m_bey;
+	float m_bevx; //移動ベクトル
+	float m_bevy;
+	float m_bev_max; //移動ベクトル最大値
 
-	bool m_fb_x_flg; //移動フラグ
-	bool m_fb_y_flg;
+	bool m_be_x_flg; //移動フラグ
+	bool m_be_y_flg;
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
@@ -34,7 +32,7 @@ private:
 	bool m_LeftHit_flg;	 //左
 	bool m_RightHit_flg; //右
 
-	//上下左右別
+						 //上下左右別
 	int m_UDani_frame;	//描画フレーム
 	int m_LRani_frame;
 	bool m_ani_frame_flg; 	//描画フレーム切り替えフラグ
@@ -43,9 +41,5 @@ private:
 	int m_at; //攻撃頻度
 	int m_at_max; //攻撃頻度最大値
 
-	//死亡処理
-	int m_fb_death_time; //死亡タイム
-	int m_fb_death_time_max; //死亡タイム最大値
-	int m_fb_Flashing_time; //点滅タイム
-	bool m_fb_Flashing_flg; //点滅フラグ
+	int m_time_d;	//ダメージ点滅時間用
 };

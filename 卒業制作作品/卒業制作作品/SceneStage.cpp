@@ -93,6 +93,10 @@ void CSceneStage::InitScene()
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
+	//蝙蝠オブジェクト作成(仮)
+	CObjBat_Enemy* obj_be = new CObjBat_Enemy(100, 100);
+	Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 4);
+
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
 	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
