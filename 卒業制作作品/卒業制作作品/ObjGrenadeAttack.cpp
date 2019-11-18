@@ -83,13 +83,14 @@ void CObjGrenadeAttack::Action()
 
 
 		//HitBoxの内容を更新 
-		CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
-		hit_ga->SetPos(m_Grex, m_Grey); //当たり判定の位置更新
+		CHitBox* hit_gre = Hits::GetHitBox(this); //当たり判定情報取得
+		hit_gre->SetPos(m_Grex, m_Grey); //当たり判定の位置更新
 
 
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
-			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max)
+			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true)
 		{
 			//移動停止
 			m_Grevx = 0.0f;
@@ -107,14 +108,21 @@ void CObjGrenadeAttack::Action()
 		}
 
 		//敵オブジェクトと接触するとオブジェクト破棄
-		if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+		if (hit_gre->CheckElementHit(ELEMENT_ENEMY) == true)
 		{
-			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
-			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+			{
+				; //火の鳥には当たらない
+			}
+			else
+			{
+				//爆発オブジェクト作成
+				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+				this->SetStatus(false); //オブジェクト破棄
+				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			}
 		}
 	}
 }
