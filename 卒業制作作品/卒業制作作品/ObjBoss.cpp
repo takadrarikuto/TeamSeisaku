@@ -114,7 +114,7 @@ void CObjBoss::Action()
 
 		//エネミー生成処理
 		//ゾンビ
-		if (m_Zombie_Generation == m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
+		if (m_Zombie_Generation >= m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
 		{
 			//ゾンビの伏せている、立っている描画切り替え処理
 			Ze_dst_flg_num = rand() % 3;
@@ -140,7 +140,7 @@ void CObjBoss::Action()
 			m_Zombie_Generation = 0;
 		}
 		//火トカゲ
-		else if (m_Frie_Lizard_Generation == m_Frie_Lizard_time_max && m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
+		if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max && m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
 		{
 			//火トカゲオブジェクト作成 
 			CObjFire_Lizard * obj_fl = new CObjFire_Lizard(e_x, e_y);
@@ -151,7 +151,7 @@ void CObjBoss::Action()
 			m_Frie_Lizard_Generation = 0;
 		}
 		//火の鳥
-		else if (m_Frie_Bird_Generation == m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
+		if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
 		{
 			//火の鳥オブジェクト作成
 			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);

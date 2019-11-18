@@ -53,27 +53,6 @@ void CObjEvent::Action()
 		time->SetTStart(TStart_flg);		
 	}
 
-	/*if (ST_flg == true)
-	{
-		m_Event_time--;
-	}
-	if (m_Event_time == 0)
-	{
-		ST_flg = false;
-		m_Start_flg = true;
-		m_Event_time = 1800;
-	}*/
-
-	/*if (m_Evetime_flg == true)
-	{
-		m_Event_time--;
-	}
-	if (m_Event_time == 0)
-	{
-		m_Start_flg = true;
-		m_Evetime_flg = false;
-		m_Event_time = 1850;
-	}*/
 }
 
 //ƒhƒ[

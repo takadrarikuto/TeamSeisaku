@@ -274,25 +274,26 @@ void CObjHero::Action()
 				if (hit_data != nullptr)
 				{					
 					//角度で上下左右を判定
-					if ((r > 0 && r < 45) || r >= 315)
+					if ((r > 0 && r < 30) || r >= 330)
 					{
 						m_RightHit_flg = true; //右
 					}
-					else if (r >= 45 && r < 136)
+					else if (r >= 30 && r < 150)
 					{
 						m_UpHit_flg = true;    //上
 					}
-					else if (r >= 135 && r <= 225)
+					else if (r >= 150 && r <= 210)
 					{
 						m_LeftHit_flg = true;	 //左
 					}
-					else if (r > 225 && r < 316)
+					else if (r > 210 && r < 330)
 					{
 						m_DownHit_flg = true;	 //下
 					}
-				}				
+				}
+				//----------------------------------------ここ
 				//当たり判定処理
-				if (m_LeftHit_flg == true)//左に当たり判定があった場合
+				/*if (m_LeftHit_flg == true)//左に当たり判定があった場合
 				{
 					//発電機
 					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
@@ -343,7 +344,8 @@ void CObjHero::Action()
 					{
 						m_y = EndY + EndHitY;
 					}						
-				}			
+				}*/
+				//--------------------------------------------
 			}			
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）

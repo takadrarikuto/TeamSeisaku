@@ -16,6 +16,9 @@ using namespace GameL;
 extern float g_px;
 extern float g_py;
 
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //イニシャライズ
 void CObjOver::Init()
 {
@@ -95,7 +98,15 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneStage());
+			if (Tuto_flg == true)
+			{
+				Tuto_flg = false;
+				Scene::SetScene(new CSceneTutorial());
+			}
+			else
+			{
+				Scene::SetScene(new CSceneStage());
+			}
 		}
 	}
 	//タイトルに戻る処理
@@ -106,6 +117,7 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf2 = false;
+			Tuto_flg = false;
 			Scene::SetScene(new CSceneTitle());
 		}
 	}

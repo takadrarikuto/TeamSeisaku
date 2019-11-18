@@ -60,6 +60,8 @@ void CObjFire_Bird::Init()
 	//死亡処理
 	m_fb_death_time = 0; //死亡タイム
 	m_fb_death_time_max = 600; //死亡タイム最大値 10秒
+	m_fb_Flashing_time = 0; //点滅タイム
+	m_fb_Flashing_flg = false; //点滅フラグ
 
 	//ダメージ
 	((UserData*)Save::GetData())->EXP_Attack; //爆発
@@ -187,7 +189,7 @@ void CObjFire_Bird::Action()
 		m_fby += (-hvy) + m_fbvy;
 
 		//アニメーション処理
-		if (m_ani_time > 6)
+		if (m_ani_time > 12)
 		{
 			m_LRani_frame += 1;
 			m_ani_time = 0;
@@ -261,10 +263,21 @@ void CObjFire_Bird::Action()
 		}
 	}
 
-	//死亡処理
+	if (m_fb_death_time >= 420)
+	{
+		m_fb_Flashing_flg = true;
+	}	
 	if (m_fb_death_time >= m_fb_death_time_max)
 	{
 		m_hero_hp = 0;
+	}
+	if (m_fb_Flashing_flg == true)
+	{
+		m_fb_Flashing_time++;
+		if (m_fb_Flashing_time >= 60)
+		{
+			m_fb_Flashing_time = 0;
+		}
 	}
 	if (m_hero_hp <= 0)
 	{
@@ -283,6 +296,7 @@ void CObjFire_Bird::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float a[4] = { 10.0f,0.6f,0.6f,0.7f };
 
 	//モーション
 	int LRAniData[3] =
@@ -304,6 +318,11 @@ void CObjFire_Bird::Draw()
 	dst.m_right = m_dst_size + m_fbx;
 	dst.m_bottom = m_dst_size + m_fby;
 
-	Draw::Draw(4, &src, &dst, c, 0.0f);
+	if (m_fb_Flashing_time >= 40) {
+		Draw::Draw(4, &src, &dst, a, 0.0f);
+	}
+	else {
+		Draw::Draw(4, &src, &dst, c, 0.0f);
+	}
 	
 }
