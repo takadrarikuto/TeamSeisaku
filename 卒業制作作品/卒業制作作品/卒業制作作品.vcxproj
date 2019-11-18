@@ -116,6 +116,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjFire_Lizard.h" />
+    <ClInclude Include="ObjTutoWall.h" />
+    <ClInclude Include="ObjTutoWall2.h" />
+    <ClInclude Include="ObjTutoWall3.h" />
+    <ClInclude Include="ObjTutoWall4.h" />
     <ClInclude Include="GameHead.h" />
     <ClInclude Include="GameL\Audio.h" />
     <ClInclude Include="GameL\DirectXDevice.h" />
@@ -141,6 +146,7 @@
     <ClInclude Include="ObjED.h" />
     <ClInclude Include="ObjEvent.h" />
     <ClInclude Include="ObjExplosion.h" />
+    <ClInclude Include="ObjFire_Bird.h" />
     <ClInclude Include="ObjGenerator.h" />
     <ClInclude Include="ObjGrenadeAttack.h" />
     <ClInclude Include="ObjGrenadeItem.h" />
@@ -184,6 +190,11 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjFire_Lizard.cpp" />
+    <ClCompile Include="ObjTutoWall.cpp" />
+    <ClCompile Include="ObjTutoWall2.cpp" />
+    <ClCompile Include="ObjTutoWall3.cpp" />
+    <ClCompile Include="ObjTutoWall4.cpp" />
     <ClCompile Include="GameL\Audio.cpp" />
     <ClCompile Include="GameL\DirectXDevice.cpp" />
     <ClCompile Include="GameL\Draw2DTex_Source.cpp" />
@@ -208,6 +219,7 @@
     <ClCompile Include="ObjED.cpp" />
     <ClCompile Include="ObjEvent.cpp" />
     <ClCompile Include="ObjExplosion.cpp" />
+    <ClCompile Include="ObjFire_Bird.cpp" />
     <ClCompile Include="ObjGenerator.cpp" />
     <ClCompile Include="ObjGrenadeAttack.cpp" />
     <ClCompile Include="ObjGrenadeItem.cpp" />

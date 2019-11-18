@@ -18,6 +18,9 @@ extern bool m_key_flag_menu;
 //死亡時動き停止フラグ
 extern bool Dead_flg;
 
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //コンストラクタ
 CObjTutoHero::CObjTutoHero(float x, float y)
 {
@@ -178,52 +181,55 @@ void CObjTutoHero::Action()
 	{
 		if (Dead_flg == false)
 		{
-			//移動処理
-			//当たり判定にあたっていない時に移動できる
-			//'W'を押すと上に移動
-			if (Input::GetVKey('W') == true)
+			if (Tuto_flg == true)
 			{
-				if (m_UpHit_flg == false)
+				//移動処理
+				//当たり判定にあたっていない時に移動できる
+				//'W'を押すと上に移動
+				if (Input::GetVKey('W') == true)
 				{
-					m_vy -= m_v_max;
+					if (m_UpHit_flg == false)
+					{
+						m_vy -= m_v_max;
+					}
+					m_UDani_frame = 0;
+					m_ani_time += 1;
 				}
-				m_UDani_frame = 0;
-				m_ani_time += 1;
-			}
-			//'S'を押すと下に移動
-			else if (Input::GetVKey('S') == true)
-			{
-				if (m_DownHit_flg == false)
+				//'S'を押すと下に移動
+				else if (Input::GetVKey('S') == true)
 				{
-					m_vy += m_v_max;
+					if (m_DownHit_flg == false)
+					{
+						m_vy += m_v_max;
+					}
+					m_UDani_frame = 4;
+					m_ani_time += 1;
 				}
-				m_UDani_frame = 4;
-				m_ani_time += 1;
-			}
-			//'A'を押すと左に移動
-			else if (Input::GetVKey('A') == true)
-			{
-				if (m_LeftHit_flg == false)
+				//'A'を押すと左に移動
+				else if (Input::GetVKey('A') == true)
 				{
-					m_vx -= m_v_max;
+					if (m_LeftHit_flg == false)
+					{
+						m_vx -= m_v_max;
+					}
+					m_UDani_frame = 6;
+					m_ani_time += 1;
 				}
-				m_UDani_frame = 6;
-				m_ani_time += 1;
-			}
-			//'D'を押すと右移動
-			else if (Input::GetVKey('D') == true)
-			{
-				if (m_RightHit_flg == false)
+				//'D'を押すと右移動
+				else if (Input::GetVKey('D') == true)
 				{
-					m_vx += m_v_max;
+					if (m_RightHit_flg == false)
+					{
+						m_vx += m_v_max;
+					}
+					m_UDani_frame = 2;
+					m_ani_time += 1;
 				}
-				m_UDani_frame = 2;
-				m_ani_time += 1;
-			}
-			else
-			{
-				m_ani_time = 0.0f;
-				m_LRani_frame = 0;
+				else
+				{
+					m_ani_time = 0.0f;
+					m_LRani_frame = 0;
+				}
 			}
 
 			//アニメーション処理
@@ -439,6 +445,7 @@ void CObjTutoHero::Action()
 						m_vy = -0.15f; //下
 					}
 				}
+
 			}
 
 			//武器切り替え処理
