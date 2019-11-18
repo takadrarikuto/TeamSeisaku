@@ -17,6 +17,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //イニシャライズ
 void CObjTutorial::Init()
 {
@@ -60,6 +63,7 @@ void CObjTutorial::Action()
 			{
 				m_and = 0.0f;
 				m_andf = false;
+				Tuto_flg = false;
 				Scene::SetScene(new CSceneStage());
 				//Scene::SetScene(new CSceneTutorial());
 			}
@@ -125,10 +129,9 @@ void CObjTutorial::Draw()
 		Font::StrDraw(L"⑤WASDキーで移動することができます。", 100, 150, 20, blk);
 	}
 	
-
 	if (g_zombie_count_tu >= 6)
 	{
-		Font::StrDraw(L"チュートリアルクリア！", 100, 150, 30, r);
+		Font::StrDraw(L"チュートリアルクリア！", 100, 200, 30, r);
 		Font::StrDraw(L"◆Enterでゲームスタート", 475, 80, 27, blk);
 	}
 }
