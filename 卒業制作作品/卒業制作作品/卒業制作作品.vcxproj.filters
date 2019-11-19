@@ -324,6 +324,12 @@
     <ClInclude Include="ObjSphere_Type_Enemy.h">
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClInclude>
+    <ClInclude Include="ObjGenerator2.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjEnemy_Neutralization_Device2.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -553,6 +559,12 @@
     </ClCompile>
     <ClCompile Include="ObjSphere_Type_Enemy.cpp">
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGenerator2.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
