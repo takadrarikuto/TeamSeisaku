@@ -247,3 +247,4 @@ void CSceneStage::Scene()
 		//	i_time = 0;
 		//}
 	}
+}
