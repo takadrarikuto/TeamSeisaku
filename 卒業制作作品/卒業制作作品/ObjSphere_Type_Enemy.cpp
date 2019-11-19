@@ -60,9 +60,9 @@ void CObjSphere_Type_Enemy::Init()
 	((UserData*)Save::GetData())->EXP_Attack = 100; //爆発
 
 	//描画サイズ
-	m_dst_size = 64.0f;
+	m_dst_size = 32.0f;
 	//当たり判定サイズ
-	Hitbox_size = 64;
+	Hitbox_size = 32;
 	//爆発用描画サイズ
 	m_exp_blood_dst_size = 192;
 
@@ -81,8 +81,8 @@ void CObjSphere_Type_Enemy::Action()
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX(); //位置
-	float hy = hero->GetY();
+	float hx = hero->GetX() + 16; //位置
+	float hy = hero->GetY() + 16;
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
 	float hpx = hero->GetPX() - m_st_ex; //位置更新
@@ -233,7 +233,7 @@ void CObjSphere_Type_Enemy::Action()
 	if (m_fb_death_flg == true)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_st_ex, m_st_ey, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
 		m_fb_death_flg = false; //死亡フラグ

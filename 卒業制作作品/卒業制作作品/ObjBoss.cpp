@@ -48,6 +48,7 @@ void CObjBoss::Init()
 	m_Bat_Enemy_Generation = 0; //åžå•¶¬•p“x
 	m_Frie_Lizard_Generation = 0; //‰ÎƒgƒJƒQ“G¶¬•p“x
 	m_Frie_Bird_Generation = 0; //‰Î‚Ì’¹“G¶¬•p“x
+	m_Sphere_Type_Enemy_Generation = 0; //‹…‘ÌŒ^“G“G¶¬•p“x
 //ƒ]ƒ“ƒr
 	//ƒ]ƒ“ƒr¶¬”§ŒÀ
 	m_Zombie_Restriction = 0;
@@ -79,6 +80,11 @@ void CObjBoss::Init()
 	m_Frie_Lizard_time_max = 420; //‰ÎƒgƒJƒQ¶¬ƒ^ƒCƒ€Å‘å’l
 	m_Frie_Lizard_Restriction = 0; //‰ÎƒgƒJƒQ¶¬”§ŒÀ
 	m_Frie_Lizard_Restriction_max = 5; //‰ÎƒgƒJƒQ¶¬”§ŒÀÅ‘å’l
+//‹…‘ÌŒ^“G	
+	m_Sphere_Type_Enemy_time_max = 300/*3000*/; //‹…‘ÌŒ^“G¶¬ƒ^ƒCƒ€Å‘å’l
+	m_Sphere_Type_Enemy_Restriction = 0; //‹…‘ÌŒ^“G¶¬”§ŒÀ
+	m_Sphere_Type_Enemy_Restriction_max = 5; //‹…‘ÌŒ^“G¶¬”§ŒÀÅ‘å’l
+
 	//•`‰æƒTƒCƒY
 	m_dst_size = 128.0f;
 	//“–‚½‚è”»’èƒTƒCƒY
@@ -116,6 +122,7 @@ void CObjBoss::Action()
 		m_Bat_Enemy_Generation++; //åžå•¶¬•p“x
 		m_Frie_Lizard_Generation++; //‰ÎƒgƒJƒQ“G¶¬•p“x
 		m_Frie_Bird_Generation++; //‰Î‚Ì’¹“G¶¬•p“x
+		m_Sphere_Type_Enemy_Generation++; //‹…‘ÌŒ^“G“G¶¬•p“x
 
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 64 + m_by;
@@ -150,6 +157,7 @@ void CObjBoss::Action()
 			m_Zombie_Restriction++; //ƒ]ƒ“ƒr¶¬ƒJƒEƒ“ƒg
 			m_Zombie_Generation = 0;
 		}
+		//åžå•
 		if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max && m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
 		{
 			srand(time(NULL)); // ƒ‰ƒ“ƒ_ƒ€î•ñ‚ð‰Šú‰»
@@ -185,6 +193,17 @@ void CObjBoss::Action()
 			srand(time(NULL)); // ƒ‰ƒ“ƒ_ƒ€î•ñ‚ð‰Šú‰»
 			m_Frie_Bird_Restriction++; //‰Î‚Ì’¹¶¬ƒJƒEƒ“ƒg
 			m_Frie_Bird_Generation = 0;
+		}
+		//‹…‘ÌŒ^“G
+		if (m_Sphere_Type_Enemy_Generation >= m_Sphere_Type_Enemy_time_max && m_Sphere_Type_Enemy_Restriction < m_Sphere_Type_Enemy_Restriction_max)
+		{
+			//‹…‘ÌŒ^“GƒIƒuƒWƒFƒNƒgì¬
+			CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
+			Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
+			
+			srand(time(NULL)); // ƒ‰ƒ“ƒ_ƒ€î•ñ‚ð‰Šú‰»
+			m_Sphere_Type_Enemy_Restriction++; //‹…‘ÌŒ^“G¶¬ƒJƒEƒ“ƒg
+			m_Sphere_Type_Enemy_Generation = 0;
 		}
 	}
 

@@ -321,6 +321,9 @@
     <ClInclude Include="ObjBat_Enemy.h">
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClInclude>
+    <ClInclude Include="ObjSphere_Type_Enemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -546,6 +549,9 @@
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClCompile>
     <ClCompile Include="ObjBat_Enemy.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSphere_Type_Enemy.cpp">
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClCompile>
   </ItemGroup>
