@@ -143,7 +143,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //設置物
 #include "ObjGenerator.h"
+#include "ObjGenerator2.h"
 #include "ObjEnemy_Neutralization_Device.h"
+#include "ObjEnemy_Neutralization_Device2.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
