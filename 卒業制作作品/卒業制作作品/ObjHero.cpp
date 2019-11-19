@@ -1085,6 +1085,14 @@ void CObjHero::Action()
 						m_hero_hp -= 1;
 						m_time_d = 20;		//–³“GŽžŠÔ‚ðƒZƒbƒg
 					}
+					//‹…‘ÌŒ^“G
+					else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
+					{
+						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+						int EXPDamage = EXPAttack->GetEXP();
+						m_hero_hp -= EXPDamage;
+						m_time_d = 90;		//–³“GŽžŠÔ‚ðƒZƒbƒg
+					}
 					//ƒ{ƒX
 					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
 					{

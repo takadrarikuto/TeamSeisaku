@@ -78,10 +78,6 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	//球体型敵オブジェクト作成(敵)
-	CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(100, 150);
-	Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
-
 	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
