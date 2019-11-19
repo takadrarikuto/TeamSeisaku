@@ -78,10 +78,6 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	//球体型敵オブジェクト作成(敵)
-	CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(100, 150);
-	Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
-
 	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
@@ -90,9 +86,15 @@ void CSceneStage::InitScene()
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
 	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
 
+	CObjGenerator2* Gen2 = new CObjGenerator2(500, 200);
+	Objs::InsertObj(Gen2, OBJ_APPARATUS, 2);
+
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(400, 200);
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
+
+	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(700, 200);
+	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//アイテムオブジェクト作成	
 	//回復

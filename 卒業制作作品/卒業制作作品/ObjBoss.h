@@ -28,6 +28,7 @@ private:
 	int m_Bat_Enemy_Generation; //åå•¶¬•p“x
 	int m_Frie_Lizard_Generation; //‰ÎƒgƒJƒQ“G¶¬•p“x
 	int m_Frie_Bird_Generation; //‰Î‚Ì’¹“G¶¬•p“x
+	int m_Sphere_Type_Enemy_Generation; //‹…‘ÌŒ^“G“G¶¬•p“x
 //ƒ]ƒ“ƒr
 	int m_Zombie_Restriction; //ƒ]ƒ“ƒr¶¬”§ŒÀ
 	int m_Zombie_Restriction_max; //ƒ]ƒ“ƒr¶¬”§ŒÀÅ‘å’l
@@ -47,6 +48,10 @@ private:
 	int m_Frie_Bird_time_max; //‰Î‚Ì’¹¶¬ƒ^ƒCƒ€Å‘å’l
 	int m_Frie_Bird_Restriction; //‰Î‚Ì’¹¶¬”§ŒÀ
 	int m_Frie_Bird_Restriction_max; //‰Î‚Ì’¹¶¬”§ŒÀÅ‘å’l
+//‹…‘ÌŒ^“G
+	int m_Sphere_Type_Enemy_time_max; //‹…‘ÌŒ^“G¶¬ƒ^ƒCƒ€Å‘å’l
+	int m_Sphere_Type_Enemy_Restriction; //‹…‘ÌŒ^“G¶¬”§ŒÀ
+	int m_Sphere_Type_Enemy_Restriction_max; //‹…‘ÌŒ^“G¶¬”§ŒÀÅ‘å’l
 
 	float m_scrollx; //‰¡ƒXƒNƒ[ƒ‹
 	float m_scrolly; //cƒXƒNƒ[ƒ‹

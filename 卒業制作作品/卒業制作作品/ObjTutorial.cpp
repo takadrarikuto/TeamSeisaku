@@ -77,7 +77,6 @@ void CObjTutorial::Draw()
 	CObjTutoHero* hero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 
 	CObjTutoZombieEnemy* zombie_tu = (CObjTutoZombieEnemy*)Objs::GetObj(OBJ_ENEMY);
-	//zombie_count = zombie_tu->GetCOUNT();
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 

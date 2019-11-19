@@ -5,29 +5,29 @@
 #include "GameL\WinInputs.h"
 
 #include "GameHead.h"
-#include "ObjGenerator.h"
+#include "ObjGenerator2.h"
 
 //使用するネームスペース
 using namespace GameL;
 
 //コンストラクタ
-CObjGenerator::CObjGenerator(float x, float y)
+CObjGenerator2::CObjGenerator2(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
 	m_Genx = x;
 	m_Geny = y;
-	
+
 }
 
 //イニシャライズ
-void CObjGenerator::Init()
+void CObjGenerator2::Init()
 {
 	//初期化
 	m_Genvx = 0.0f; //位置更新
 	m_Genvy = 0.0f;
 
 	//描画サイズ
-	m_dst_size = 100.0f; 
+	m_dst_size = 100.0f;
 
 	m_HitSize_x = 100; //HitBoxサイズ
 	m_HitSize_y = 40;
@@ -38,7 +38,7 @@ void CObjGenerator::Init()
 }
 
 //アクション
-void CObjGenerator::Action()
+void CObjGenerator2::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -46,7 +46,7 @@ void CObjGenerator::Action()
 	float hy = hero->GetY();
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
-	
+
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
@@ -69,7 +69,7 @@ void CObjGenerator::Action()
 			time->SetGenFlg(GEN);
 		}
 	}
-	
+
 	//主人公の移動に合わせる
 	m_Genx -= hvx;
 	m_Geny -= hvy;
@@ -77,7 +77,7 @@ void CObjGenerator::Action()
 }
 
 //ドロー
-void CObjGenerator::Draw()
+void CObjGenerator2::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);

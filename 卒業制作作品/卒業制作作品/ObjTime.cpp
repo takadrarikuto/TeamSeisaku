@@ -4,6 +4,8 @@
 #include "GameL\SceneManager.h"
 #include "GameL\DrawFont.h"
 
+#include <time.h>
+
 #include "GameHead.h"
 #include "ObjTime.h"
 
@@ -21,6 +23,8 @@ void CObjTime::Init()
 {
 	//初期化
 	m_time = 10850; //10850 = 3分
+	 //イベントランダム変数
+	m_Event_Rand_num = 0;
 
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
@@ -40,7 +44,7 @@ void CObjTime::Action()
 	//bool ST_flg = time->GetTS();
 	////イベント情報取得
 	//CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_HEAL);
-	//bool Start_flg = Event->GetStartT();
+	//bool Start_flg = Event->GetStartT();	
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
@@ -52,43 +56,29 @@ void CObjTime::Action()
 	}
 	//イベント開始、計測停止処理
 	if (m_time == 9050 || m_time == 7250)
-	{
-		if (m_time == 9050)
+	{		
+		m_Event_Rand_num = rand() % 100;
+		//イベントランダム選択処理
+		if (m_Event_Rand_num <= 50)
 		{
 			m_Gen_flg = true;
 		}
-		if (m_time == 7250)
+		else if (m_Event_Rand_num > 50)
 		{
 			m_END_flg = true;
 		}
 		m_Stop_flg = true;
-		//m_Evetime_flg = true;
 	}
+	//タイム再スタート処理
 	if (m_Start_flg == true)
 	{
+		//初期化処理
 		m_Stop_flg = false;
 		m_Start_flg = false;
-		m_Gen_flg = false;
-		m_END_flg = false;
+		m_Gen_flg = true;
+		m_END_flg = true;
+		srand(time(NULL)); // ランダム情報を初期化
 	}
-	////制限時間カウントダウン
-	//if (Menu_flg == false && m_Stop_flg == false)
-	//{
-	//	if (m_time > 0)
-	//	{
-	//		m_time--;		
-	//	}
-	//}
-	////イベント開始、計測停止処理
-	//if (m_time == 9050 && m_Start_num == 0)
-	//{
-	//	m_Stop_flg = true;
-	//	m_Start_num = 1;
-	//}
-	//if (ST_flg == true)
-	//{
-	//	m_Stop_flg = false;
-	//}
 	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)
 	{
