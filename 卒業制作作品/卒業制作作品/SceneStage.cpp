@@ -49,17 +49,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"image.png", 30, TEX_SIZE_512);
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
-
-	//音楽情報読み込み 
-	//Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
-
-	////バックミュージックスタート
-	////ボリュームを0.6にする
-	//float v = Audio::VolumeMaster(0);
-	//v = Audio::VolumeMaster(0.6 - v);
-
-	//Audio::Start(0); //音楽スタート
-
+	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
 
 	//エネミー出現タイム初期化
 	e_time = 0;
@@ -88,9 +78,13 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	//ボスオブジェクト作成 272, 400
+	//球体型敵オブジェクト作成(敵)
+	CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(100, 150);
+	Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
+
+	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
-	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);
+	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(200, 200);
@@ -152,6 +146,15 @@ void CSceneStage::InitScene()
 	//イベントタイムオブジェクト作成
 	CObjEvent*objev = new CObjEvent();
 	Objs::InsertObj(objev, OBJ_EVENT, 20);
+
+	//音楽情報読み込み 
+	//Audio::LoadAudio(0, L"ステージBGM.wav",BACK_MUSIC);
+
+	//バックミュージックスタート
+	//ボリュームを0.6にする
+	//float v = Audio::VolumeMaster(0.6);
+
+	//Audio::Start(0); //音楽スタート
 }
 
 void CSceneStage::Scene()

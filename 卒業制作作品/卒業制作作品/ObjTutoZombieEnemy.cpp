@@ -440,7 +440,7 @@ void CObjTutoZombieEnemy::Action()
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 
-		m_zombie_count_tu += 1;
+		g_zombie_count_tu += 1;
 	}
 
 	if (m_time_d > 0)

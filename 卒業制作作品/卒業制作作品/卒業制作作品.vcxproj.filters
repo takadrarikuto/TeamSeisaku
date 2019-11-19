@@ -315,6 +315,12 @@
     <ClInclude Include="ObjFire_Bird.h">
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClInclude>
+    <ClInclude Include="ObjFire_Lizard.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBat_Enemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -534,6 +540,12 @@
       <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
     </ClCompile>
     <ClCompile Include="ObjFire_Bird.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Lizard.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBat_Enemy.cpp">
       <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
     </ClCompile>
   </ItemGroup>

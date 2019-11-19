@@ -153,15 +153,22 @@ void CObjRocketLauncherAttack::Action()
 	}
 
 	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_rl->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	if (hit_rl->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
-		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+		if (hit_rl->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_rl->CheckObjNameHit(OBJ_BOSS) != nullptr)
+		{
+			; //火の鳥、ボスには当たらない
+		}
+		else
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+	}	
 	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		//爆発オブジェクト作成

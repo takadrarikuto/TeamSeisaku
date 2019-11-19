@@ -98,10 +98,17 @@ void CObjGunAttack::Action()
 	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	if (hit_ga->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		if (hit_ga->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_ga->CheckObjNameHit(OBJ_BOSS) != nullptr)
+		{
+			; //火の鳥、ボスには当たらない
+		}
+		else
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
 	}
 	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true)
 	{
