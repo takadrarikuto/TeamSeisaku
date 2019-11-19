@@ -70,14 +70,14 @@ void CObjSniperRifleAttack::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
 	//HitBoxの内容を更新 
-	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
+	CHitBox* hit_sr = Hits::GetHitBox(this); //当たり判定情報取得
 	if (m_SRr == 0 || m_SRr == 180)
 	{
-		hit_ga->SetPos(m_SRx, m_SRy); //当たり判定の位置更新
+		hit_sr->SetPos(m_SRx, m_SRy); //当たり判定の位置更新
 	}
 	else if (m_SRr == 90 || m_SRr == 270)
 	{
-		hit_ga->SetPos(m_SRx - 10.0f, m_SRy + 10.0f); //当たり判定の位置更新
+		hit_sr->SetPos(m_SRx - 10.0f, m_SRy + 10.0f); //当たり判定の位置更新
 	}
 
 	if (hero != nullptr)
@@ -110,11 +110,11 @@ void CObjSniperRifleAttack::Action()
 	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_ga->CheckElementHit(ELEMENT_ENEMY) == true)
+	if (hit_sr->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		if (hit_ga->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+		if (hit_sr->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_sr->CheckObjNameHit(OBJ_BOSS) != nullptr)
 		{
-			; //火の鳥には当たらない
+			; //火の鳥、ボスには当たらない
 		}
 		else
 		{
@@ -122,7 +122,7 @@ void CObjSniperRifleAttack::Action()
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
 	}
-	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_sr->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

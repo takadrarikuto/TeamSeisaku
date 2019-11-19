@@ -155,9 +155,9 @@ void CObjRocketLauncherAttack::Action()
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_rl->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		if (hit_rl->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+		if (hit_rl->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_rl->CheckObjNameHit(OBJ_BOSS) != nullptr)
 		{
-			; //火の鳥には当たらない
+			; //火の鳥、ボスには当たらない
 		}
 		else
 		{

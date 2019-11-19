@@ -274,25 +274,26 @@ void CObjHero::Action()
 				if (hit_data != nullptr)
 				{					
 					//角度で上下左右を判定
-					if ((r > 0 && r < 45) || r >= 315)
+					if ((r > 0 && r < 30) || r >= 330)
 					{
 						m_RightHit_flg = true; //右
 					}
-					else if (r >= 45 && r < 136)
+					else if (r >= 30 && r < 150)
 					{
 						m_UpHit_flg = true;    //上
 					}
-					else if (r >= 135 && r <= 225)
+					else if (r >= 150 && r <= 210)
 					{
 						m_LeftHit_flg = true;	 //左
 					}
-					else if (r > 225 && r < 316)
+					else if (r > 210 && r < 330)
 					{
 						m_DownHit_flg = true;	 //下
 					}
-				}				
+				}
+				//----------------------------------------ここ
 				//当たり判定処理
-				if (m_LeftHit_flg == true)//左に当たり判定があった場合
+				/*if (m_LeftHit_flg == true)//左に当たり判定があった場合
 				{
 					//発電機
 					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
@@ -343,7 +344,8 @@ void CObjHero::Action()
 					{
 						m_y = EndY + EndHitY;
 					}						
-				}			
+				}*/
+				//--------------------------------------------
 			}			
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
@@ -1059,26 +1061,45 @@ void CObjHero::Action()
 					//Audio::Start(3);	//ダメージ音	
 					hit_h->SetInvincibility(true);	//無敵オン
 					
+					//ゾンビ
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
 						m_hero_hp -= 5;
 						m_time_d = 80;		//無敵時間をセット
 					}
+					//コウモリ
+					else if (hit_h->CheckObjNameHit(OBJ_BAT_ENEMY) != nullptr)
+					{
+						m_hero_hp -= 2;
+						m_time_d = 80;		//無敵時間をセット
+					}
+					//火トカゲ
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
 					{
 						m_hero_hp -= 3;
 						m_time_d = 60;		//無敵時間をセット
 					}
+					//火の鳥
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
 					{
 						m_hero_hp -= 1;
 						m_time_d = 20;		//無敵時間をセット
 					}
+					//球体型敵
+					else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
+					{
+						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+						int EXPDamage = EXPAttack->GetEXP();
+						m_hero_hp -= EXPDamage;
+						m_time_d = 90;		//無敵時間をセット
+					}
+					//ボス
 					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
 					{
 						m_hero_hp -= 2;
 						m_time_d = 30;		//無敵時間をセット
 					}
+					//爆発
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
 						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);

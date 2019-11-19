@@ -100,9 +100,9 @@ void CObjGunAttack::Action()
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ga->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		if (hit_ga->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+		if (hit_ga->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_ga->CheckObjNameHit(OBJ_BOSS) != nullptr)
 		{
-			; //火の鳥には当たらない
+			; //火の鳥、ボスには当たらない
 		}
 		else
 		{

@@ -116,7 +116,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjBat_Enemy.h" />
+    <ClInclude Include="ObjEnemy_Neutralization_Device2.h" />
     <ClInclude Include="ObjFire_Lizard.h" />
+    <ClInclude Include="ObjGenerator2.h" />
+    <ClInclude Include="ObjSphere_Type_Enemy.h" />
     <ClInclude Include="ObjTutoWall.h" />
     <ClInclude Include="ObjTutoWall2.h" />
     <ClInclude Include="ObjTutoWall3.h" />
@@ -190,7 +194,11 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjBat_Enemy.cpp" />
+    <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp" />
     <ClCompile Include="ObjFire_Lizard.cpp" />
+    <ClCompile Include="ObjGenerator2.cpp" />
+    <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />
     <ClCompile Include="ObjTutoWall2.cpp" />
     <ClCompile Include="ObjTutoWall3.cpp" />

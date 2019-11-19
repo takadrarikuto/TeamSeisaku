@@ -70,16 +70,13 @@ void CObjGrenadeAttack::Action()
 		float hy = hero->GetY();
 		float hvx = hero->GetVX();
 		float hvy = hero->GetVY();
-
-		//主人公の移動に合わせる
-		m_Grex -= hvx;
-		m_Grey -= hvy;
-
+		
 		//爆破処理
 		EXP_time++;
 		//位置更新
-		m_Grex += m_Grevx;
-		m_Grey += m_Grevy;
+		//主人公の移動に合わせる
+		m_Grex += (-hvx) + m_Grevx;
+		m_Grey += (-hvy) + m_Grevy;
 
 
 		//HitBoxの内容を更新 
@@ -110,9 +107,9 @@ void CObjGrenadeAttack::Action()
 		//敵オブジェクトと接触するとオブジェクト破棄
 		if (hit_gre->CheckElementHit(ELEMENT_ENEMY) == true)
 		{
-			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_gre->CheckObjNameHit(OBJ_BOSS) != nullptr)
 			{
-				; //火の鳥には当たらない
+				; //火の鳥、ボスには当たらない
 			}
 			else
 			{
