@@ -108,12 +108,12 @@ void CSceneTutorial::InitScene()
 	//音楽情報の読み込み
 	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
 	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
-	/*Audio::LoadAudio(2, L"チュートリアルBGM.wav", SOUND_TYPE::BACK_MUSIC);
+	Audio::LoadAudio(2, L"チュートリアルBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	//バックミュージックスタート
 	float Volume = Audio::VolumeMaster(0.5);
 	Audio::Start(2);    //音楽スタート
-	*/
+	
 }
 
 //ゲームメイン実行中メソッド
