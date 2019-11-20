@@ -18,7 +18,7 @@ void CObjEvent::Init()
 {
 	//初期化
 	//イベント時間
-	m_Event_time = 1850; //1850 ＝ 30秒
+	m_Event_time = 0; 
 
 	//m_Stop_flg = false;
 	//測定スタートフラグ
@@ -38,19 +38,36 @@ void CObjEvent::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
+	bool Gen_flg = time->GetGenFlg();
+	bool END_flg = time->GetENDFlg();
 
+	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{
 		m_Event_time--;
 	}
+	//イベント別タイム設定
 	else if(Menu_flg == false && TStop_flg == false)
 	{
-		m_Event_time = 1850;
+		//発電機イベント
+		if (Gen_flg == true)
+		{
+			m_Event_time = 1850; //1850 ＝ 30秒
+		}
+		//敵無力化装置イベント
+		if (END_flg == true)
+		{
+			m_Event_time = 3600; //3600 ＝ 60秒
+		}
 	}
 	if (m_Event_time == 0 || h_hp <= 0)
 	{
 		TStart_flg = true;
+		Gen_flg = false;
+		END_flg = false;
 		time->SetTStart(TStart_flg);		
+		time->SetGenFlg(Gen_flg);
+		time->SetENDFlg(END_flg);
 	}
 
 }

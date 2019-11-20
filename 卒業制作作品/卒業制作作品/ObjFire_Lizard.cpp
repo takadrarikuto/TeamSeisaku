@@ -109,7 +109,7 @@ void CObjFire_Lizard::Action()
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
-		//移動処理				
+		//移動処理		
 		//主人公が上に居ると上に移動
 		if (hy < m_fly)
 		{
@@ -185,13 +185,13 @@ void CObjFire_Lizard::Action()
 		}
 		else
 		{
-			m_flvy = m_flv_max / r * m_flvy;
 			m_flvx = m_flv_max / r * m_flvx;
+			m_flvy = m_flv_max / r * m_flvy;
 		}
 		//位置更新
 		//主人公の移動を適応する
-		m_flx += (-hvx) + m_flvy;
-		m_fly += (-hvy) + m_flvx;
+		m_flx += (-hvx) + m_flvx;
+		m_fly += (-hvy) + m_flvy;
 
 		//アニメーション処理
 		if (m_ani_time > 6)
@@ -207,16 +207,16 @@ void CObjFire_Lizard::Action()
 	}
 
 	//HitBoxの内容を更新
-	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ze->SetPos(m_flx, m_fly); //当たり判定の位置更新
+	CHitBox* hit_fl = Hits::GetHitBox(this); //当たり判定情報取得
+	hit_fl->SetPos(m_flx, m_fly); //当たり判定の位置更新
 
 	//当たり判定処理
-	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_WALL) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
+		hit_data = hit_fl->SearchElementHit(ELEMENT_WALL);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			float r = hit_data[i]->r;
 			//角度で上下左右を判定
@@ -240,12 +240,12 @@ void CObjFire_Lizard::Action()
 	}
 
 	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_WALL2) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL2);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
+		hit_data = hit_fl->SearchElementHit(ELEMENT_WALL2);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			float r = hit_data[i]->r;
 			//角度で上下左右を判定
@@ -269,10 +269,10 @@ void CObjFire_Lizard::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
+		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD);
 
 		float r = 0;
 
@@ -305,49 +305,49 @@ void CObjFire_Lizard::Action()
 
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	//ハンドガン
-	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+	if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ショットガン
-	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//アサルトライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//スナイパーライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ロケットランチャー
-	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//レールガン
-	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//グレネード
-	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 	{
 		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//爆発
-	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+	else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 	{
 		m_hero_hp -= EXPDamage;
 	}
