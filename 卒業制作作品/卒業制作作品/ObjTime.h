@@ -29,6 +29,8 @@ public:
 	void SetTimeFlag(bool b) { m_flag_time = b; } 
 private:
 	int m_time;		//時間
+	int m_Event_Rand_num; //イベントランダム変数
+
 	bool m_flag_time;//時間計測スタートフラグ
 	bool m_Stop_flg; //計測停止フラグ
 	bool m_Start_flg; //測定開始フラグ
