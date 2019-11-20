@@ -64,9 +64,7 @@ void CObjGenerator2::Action()
 			&& GEN == true)
 		{
 			TStart_flg = true;
-			GEN = false;
 			time->SetTStart(TStart_flg);
-			time->SetGenFlg(GEN);
 		}
 	}
 
