@@ -18,5 +18,4 @@ private:
 	float i_x; //アイテム出現位置
 	float i_y;
 	int GameOver_time; //ゲームオーバー移動時間
-
 };

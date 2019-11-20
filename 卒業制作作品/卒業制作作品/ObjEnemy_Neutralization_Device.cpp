@@ -61,9 +61,7 @@ void CObjEnemy_Neutralization_Device::Action()
 			&& END == true)
 		{
 			TStart_flg = true;
-			END = false;
 			time->SetTStart(TStart_flg);
-			time->SetENDFlg(END);
 		}
 	}
 

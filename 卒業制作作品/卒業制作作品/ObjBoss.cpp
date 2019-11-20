@@ -106,7 +106,6 @@ void CObjBoss::Action()
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
 
-
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
@@ -117,94 +116,94 @@ void CObjBoss::Action()
 		//移動処理
 		m_bx -= m_bvx;
 		m_by -= m_bvy;
-		//エネミー生成処理
-		m_Zombie_Generation++; //ゾンビ生成頻度
-		m_Bat_Enemy_Generation++; //蝙蝠生成頻度
-		m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
-		m_Frie_Bird_Generation++; //火の鳥敵生成頻度
-		m_Sphere_Type_Enemy_Generation++; //球体型敵敵生成頻度
+		////エネミー生成処理
+		//m_Zombie_Generation++; //ゾンビ生成頻度
+		//m_Bat_Enemy_Generation++; //蝙蝠生成頻度
+		//m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
+		//m_Frie_Bird_Generation++; //火の鳥敵生成頻度
+		//m_Sphere_Type_Enemy_Generation++; //球体型敵敵生成頻度
 
-		e_x = rand() % 192 + m_bx;
-		e_y = rand() % 64 + m_by;
-		
-		e_x -= hvx;
-		e_y -= hvy;
+		//e_x = rand() % 192 + m_bx;
+		//e_y = rand() % 64 + m_by;
+		//
+		//e_x -= hvx;
+		//e_y -= hvy;
 
-		//エネミー生成処理
-		//ゾンビ
-		if (m_Zombie_Generation >= m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
-		{
-			//ゾンビの伏せている、立っている描画切り替え処理
-			Ze_dst_flg_num = rand() % 3;
-			if (Ze_dst_flg_num % 2 == 0)
-			{
-				Ze_dst_flg = true;
-			}
-			else if (Ze_dst_flg_num % 2 != 0)
-			{
-				Ze_dst_flg = false;
-			}
+		////エネミー生成処理
+		////ゾンビ
+		//if (m_Zombie_Generation >= m_Zombie_time_max && m_Zombie_Restriction < m_Zombie_Restriction_max)
+		//{
+		//	//ゾンビの伏せている、立っている描画切り替え処理
+		//	Ze_dst_flg_num = rand() % 3;
+		//	if (Ze_dst_flg_num % 2 == 0)
+		//	{
+		//		Ze_dst_flg = true;
+		//	}
+		//	else if (Ze_dst_flg_num % 2 != 0)
+		//	{
+		//		Ze_dst_flg = false;
+		//	}
 
-			//ゾンビオブジェクト作成
-			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
+		//	//ゾンビオブジェクト作成
+		//	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
+		//	Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
 
-			//ゾンビ生成座標記録
-			m_Enemy_Generation_x = e_x; 
-			m_Enemy_Generation_y = e_y;
+		//	//ゾンビ生成座標記録
+		//	m_Enemy_Generation_x = e_x; 
+		//	m_Enemy_Generation_y = e_y;
 
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Zombie_Restriction++; //ゾンビ生成カウント
-			m_Zombie_Generation = 0;
-		}
-		//蝙蝠
-		if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max && m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
-		{
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Bat_Enemy_co_num = rand() % 3;
-			for (int i = 0; i > m_Bat_Enemy_co_num; i++)
-			{
-				//蝙蝠オブジェクト作成
-				CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x, e_y);
-				Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 4);
-			}			
+		//	srand(time(NULL)); // ランダム情報を初期化
+		//	m_Zombie_Restriction++; //ゾンビ生成カウント
+		//	m_Zombie_Generation = 0;
+		//}
+		////蝙蝠
+		//if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max && m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
+		//{
+		//	srand(time(NULL)); // ランダム情報を初期化
+		//	m_Bat_Enemy_co_num = rand() % 3;
+		//	for (int i = 0; i > m_Bat_Enemy_co_num; i++)
+		//	{
+		//		//蝙蝠オブジェクト作成
+		//		CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x, e_y);
+		//		Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 4);
+		//	}			
 
-			m_Bat_Enemy_Generation = 0;
-			m_Bat_Enemy_Restriction += m_Bat_Enemy_co_num; //蝙蝠生成カウント
-		}
-		//火トカゲ
-		if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max && m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
-		{
-			//火トカゲオブジェクト作成 
-			CObjFire_Lizard * obj_fl = new CObjFire_Lizard(e_x, e_y);
-			Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
+		//	m_Bat_Enemy_Generation = 0;
+		//	m_Bat_Enemy_Restriction += m_Bat_Enemy_co_num; //蝙蝠生成カウント
+		//}
+		////火トカゲ
+		//if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max && m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
+		//{
+		//	//火トカゲオブジェクト作成 
+		//	CObjFire_Lizard * obj_fl = new CObjFire_Lizard(e_x, e_y);
+		//	Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
 
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Frie_Lizard_Restriction++; //火トカゲ生成カウント	
-			m_Frie_Lizard_Generation = 0;
-		}
-		//火の鳥
-		if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
-		{
-			//火の鳥オブジェクト作成
-			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
-			Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
+		//	srand(time(NULL)); // ランダム情報を初期化
+		//	m_Frie_Lizard_Restriction++; //火トカゲ生成カウント	
+		//	m_Frie_Lizard_Generation = 0;
+		//}
+		////火の鳥
+		//if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max && m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
+		//{
+		//	//火の鳥オブジェクト作成
+		//	CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
+		//	Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
 
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Frie_Bird_Restriction++; //火の鳥生成カウント
-			m_Frie_Bird_Generation = 0;
-		}
-		//球体型敵
-		if (m_Sphere_Type_Enemy_Generation >= m_Sphere_Type_Enemy_time_max && m_Sphere_Type_Enemy_Restriction < m_Sphere_Type_Enemy_Restriction_max)
-		{
-			//球体型敵オブジェクト作成
-			CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
-			Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
-			
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Sphere_Type_Enemy_Restriction++; //球体型敵生成カウント
-			m_Sphere_Type_Enemy_Generation = 0;
-		}
+		//	srand(time(NULL)); // ランダム情報を初期化
+		//	m_Frie_Bird_Restriction++; //火の鳥生成カウント
+		//	m_Frie_Bird_Generation = 0;
+		//}
+		////球体型敵
+		//if (m_Sphere_Type_Enemy_Generation >= m_Sphere_Type_Enemy_time_max && m_Sphere_Type_Enemy_Restriction < m_Sphere_Type_Enemy_Restriction_max)
+		//{
+		//	//球体型敵オブジェクト作成
+		//	CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
+		//	Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
+		//	
+		//	srand(time(NULL)); // ランダム情報を初期化
+		//	m_Sphere_Type_Enemy_Restriction++; //球体型敵生成カウント
+		//	m_Sphere_Type_Enemy_Generation = 0;
+		//}
 	}
 
 	//HitBoxの内容を更新
