@@ -40,6 +40,9 @@ void CObjHero::Init()
 	//体力
 	m_hero_hp = 100;
 
+	//耐久力
+	m_hero_en = 150;
+
 	//移動ベクトル最大値
 	m_v_max = 4.0f;
 	//武器攻撃移動ベクトル最大値
@@ -1057,24 +1060,28 @@ void CObjHero::Action()
 					//ゾンビ
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
+						m_hero_en -= 5;
 						m_hero_hp -= 5;
 						m_time_d = 80;		//無敵時間をセット
 					}
 					//コウモリ
 					else if (hit_h->CheckObjNameHit(OBJ_BAT_ENEMY) != nullptr)
 					{
+						m_hero_en -= 2;
 						m_hero_hp -= 2;
 						m_time_d = 80;		//無敵時間をセット
 					}
 					//火トカゲ
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
 					{
+						m_hero_en -= 6;
 						m_hero_hp -= 3;
 						m_time_d = 60;		//無敵時間をセット
 					}
 					//火の鳥
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
 					{
+						m_hero_en -= 2;
 						m_hero_hp -= 1;
 						m_time_d = 20;		//無敵時間をセット
 					}
@@ -1089,6 +1096,7 @@ void CObjHero::Action()
 					//ボス
 					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
 					{
+						m_hero_en -= 6;
 						m_hero_hp -= 2;
 						m_time_d = 30;		//無敵時間をセット
 					}
@@ -1102,7 +1110,11 @@ void CObjHero::Action()
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
-						m_hero_hp = 0;	//HPを0にする					
+						m_hero_hp = 0;	//HPを0にする
+
+					//敵の攻撃によって耐久力が0以下になった場合
+					if (m_hero_en <= 0)
+						m_hero_en = 0;	//HPを0にする
 				}
 			}
 		
