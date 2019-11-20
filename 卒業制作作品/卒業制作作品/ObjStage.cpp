@@ -7,10 +7,15 @@
 #include "GameHead.h"
 #include "GameL\Audio.h"
 
+#include <time.h>
+
 #include "ObjStage.h"
 
 //使用するネームスペース
 using namespace GameL;
+
+//メニューONOFFフラグ
+extern bool Menu_flg;
 
 //イニシャライズ
 void CObjStage::Init()
@@ -18,6 +23,32 @@ void CObjStage::Init()
 	//初期化
 	//描画フレーム
 	m_ani_frame = 0;
+
+	//エネミー出現位置
+	e_x = 0.0f;
+	e_y = 0.0f;
+	//ゾンビ生成座標記録
+	m_Item_Generation_x = 0.0f;
+	m_Item_Generation_y = 0.0f;
+	//ボス移動ベクトル
+	m_bvx = 0.0f;
+	m_bvy = 0.0f;
+
+	//敵生成頻度
+	m_Heal_Generation = 0; //回復アイテム生成頻度
+	//m_Bat_Enemy_Generation = 0; //蝙蝠生成頻度
+	//m_Frie_Lizard_Generation = 0; //火トカゲ敵生成頻度
+	//m_Frie_Bird_Generation = 0; //火の鳥敵生成頻度
+	//m_Sphere_Type_Enemy_Generation = 0; //球体型敵敵生成頻度
+	//蝙蝠
+	//蝙蝠生成タイム最大値
+	m_Heal_Item_time_max = 240;
+	//蝙蝠生成数制限
+	m_Heal_Item_Restriction = 0;
+	//蝙蝠生成数制限最大値
+	m_Heal_Item_Restriction_max = 30;
+	//蝙蝠生成数カウント変数
+	m_Heal_Item_co_num = 1;
 }
 
 //アクション
@@ -26,9 +57,56 @@ void CObjStage::Action()
 	//武器切り替え変数取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	int WS = hero->GetWS();
+	float hvx = hero->GetVX();
+	float hvy = hero->GetVY();
 
 	//武器切り替え変数をアニメーションに同期
 	m_ani_frame = WS;
+
+	//移動停止
+	m_bvx = 0.0f;
+	m_bvy = 0.0f;
+
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
+	{
+		//主人公の移動ベクトルをボスの移動ベクトルに入れる
+		m_bvx += hvx;
+		m_bvy += hvy;
+
+		//移動処理
+		m_bx -= m_bvx;
+		m_by -= m_bvy;
+		//エネミー生成処理
+		m_Heal_Generation++; //回復アイテム生成頻度
+		//m_Bat_Enemy_Generation++; //蝙蝠生成頻度
+		//m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
+		//m_Frie_Bird_Generation++; //火の鳥敵生成頻度
+		//m_Sphere_Type_Enemy_Generation++; //球体型敵敵生成頻度
+
+		e_x = rand() % 192 + m_bx;
+		e_y = rand() % 64 + m_by;
+
+		e_x -= hvx;
+		e_y -= hvy;
+
+		//アイテム生成処理
+		//回復
+		if (m_Heal_Generation >= m_Heal_Item_time_max && m_Heal_Item_Restriction < m_Heal_Item_Restriction_max)
+		{
+			srand(time(NULL)); // ランダム情報を初期化
+			m_Heal_Item_co_num = rand() % 3;
+			for (int i = 0; i > m_Heal_Item_co_num; i++)
+			{
+				//回復
+				CObjHeal* Heal = new CObjHeal(e_x, e_y);
+				Objs::InsertObj(Heal, OBJ_HEAL, 7);
+			}
+
+			m_Heal_Generation = 0;
+			m_Heal_Item_Restriction += m_Heal_Item_co_num; //回復アイテム生成カウント
+		}
+	}
 }
 
 //ドロー
