@@ -106,7 +106,6 @@ void CObjBoss::Action()
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
 
-
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{

@@ -60,4 +60,25 @@ private:
 	int rl_pb_e;
 	int rg_pb_e;
 	int gre_pb_e;
+
+	float m_bx; //位置更新
+	float m_by;
+	float e_x; //エネミー出現位置
+	float e_y;
+	float m_Item_Generation_x; //ゾンビ生成座標記録
+	float m_Item_Generation_y;
+	float m_bvx; //ボス移動ベクトル
+	float m_bvy;
+
+	//敵生成頻度
+	int m_Heal_Generation; //回復アイテム生成頻度
+	//int m_Bat_Enemy_Generation; //蝙蝠生成頻度
+	//int m_Frie_Lizard_Generation; //火トカゲ敵生成頻度
+	//int m_Frie_Bird_Generation; //火の鳥敵生成頻度
+	//int m_Sphere_Type_Enemy_Generation; //球体型敵敵生成頻度
+
+	int m_Heal_Item_time_max; //回復アイテム生成タイム最大値
+	int m_Heal_Item_Restriction; //回復アイテム生成数制限
+	int m_Heal_Item_Restriction_max; //回復アイテム生成数制限最大値
+	int m_Heal_Item_co_num; //回復アイテム生成数カウント変数
 };

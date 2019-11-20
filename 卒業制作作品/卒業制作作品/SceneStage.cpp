@@ -98,8 +98,8 @@ void CSceneStage::InitScene()
 
 	//アイテムオブジェクト作成	
 	//回復
-	CObjHeal* Heal = new CObjHeal(200, 200);
-	Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	//CObjHeal* Heal = new CObjHeal(200, 200);
+	//Objs::InsertObj(Heal, OBJ_HEAL, 7);
 	//ショットガン弾補充
 	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
 	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
