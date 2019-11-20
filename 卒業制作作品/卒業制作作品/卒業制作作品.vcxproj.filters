@@ -85,6 +85,9 @@
     <Filter Include="ソース ファイル\チュートリアル\描画用%28チュートリアル%29">
       <UniqueIdentifier>{5e1b043a-6fe4-4cd6-8dc0-832cec109b19}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\中ボス">
+      <UniqueIdentifier>{285887c9-7b4b-4e14-b049-8e5820b5e0af}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -330,6 +333,9 @@
     <ClInclude Include="ObjEnemy_Neutralization_Device2.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
+    <ClInclude Include="ObjMeme_Medium_Boss.h">
+      <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -565,6 +571,9 @@
     </ClCompile>
     <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMeme_Medium_Boss.cpp">
+      <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

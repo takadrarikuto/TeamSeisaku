@@ -18,7 +18,7 @@ void CObjEvent::Init()
 {
 	//‰Šú‰»
 	//ƒCƒxƒ“ƒgŠÔ
-	m_Event_time = 0; 
+	m_Event_time = 3600; 
 
 }
 

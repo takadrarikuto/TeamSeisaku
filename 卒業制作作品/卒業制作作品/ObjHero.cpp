@@ -1008,20 +1008,13 @@ void CObjHero::Action()
 			}
 		}
 
-		//設置物オブジェクト情報作成
-		CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-		float GenX = Gen->GetGenX();
-		float GenY = Gen->GetGenY();
-		float GenHitX = Gen->GetGenHitX();
-		float GenHitY = Gen->GetGenHitY();
-		CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-		float EndX = End->GetEndX();
-		float EndY = End->GetEndY();
-		float EndHitX = End->GetEndHitX();
-		float EndHitY = End->GetEndHitY();
-
 		//HitBoxの内容を更新
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
+		
+		//ミーム実態(中ボス)情報取得
+		CObjMeme_Medium_Boss* MMB = (CObjMeme_Medium_Boss*)Objs::GetObj(OBJ_MEME_MEDIUM_BOSS);
+		float MMB_x;
+		float MMB_y;
 
 		//メニューを開くと行動停止
 		if (Menu_flg == false)
@@ -1112,7 +1105,30 @@ void CObjHero::Action()
 						m_hero_hp = 0;	//HPを0にする					
 				}
 			}
-		}
+		
+			//ミーム実態(中ボス)ダメージ処理
+			if (MMB != nullptr)
+			{
+				MMB_x = MMB->GetX();
+				MMB_y = MMB->GetY();
+			}
+			//敵との距離を測る
+			if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
+			{
+				m_hero_hp -= 1;
+				m_time_d = 20;		//無敵時間をセット
+			}
+			else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
+			{
+				m_hero_hp -= 1;
+				m_time_d = 20;		//無敵時間をセット
+			}
+			else if (MMB_x == m_x && MMB_y == m_y)
+			{
+				m_hero_hp -= 1;
+				m_time_d = 10;		//無敵時間をセット
+			}
+		}		
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{

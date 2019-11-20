@@ -78,6 +78,10 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
+	//ミーム実態(中ボス)オブジェクト作成
+	CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
+	Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
+
 	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(832, 632);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
@@ -157,6 +161,7 @@ void CSceneStage::InitScene()
 	//float v = Audio::VolumeMaster(0.6);
 
 	//Audio::Start(0); //音楽スタート
+	
 }
 
 void CSceneStage::Scene()
@@ -174,7 +179,7 @@ void CSceneStage::Scene()
 	//	//ゲームオーバー画面移動
 	//	Scene::SetScene(new CSceneGameOver());
 	//}
-
+	
 	//メニュー画面閲覧時行動停止処理
 	if (Menu_flg == false)
 	{
