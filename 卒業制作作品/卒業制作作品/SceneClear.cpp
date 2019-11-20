@@ -37,11 +37,11 @@ void CSceneClear::InitScene()
 	//クリアオブジェクト作成ss
 	CObjClear* nk = new CObjClear();
 	Objs::InsertObj(nk, OBJ_CLEAR, 4);
-	/*
+	
 	//音楽読み込み
-	Audio::LoadAudio(0, L"ゲームクリアBGM.wav", BACK_MUSIC);
+	//Audio::LoadAudio(0, L"ゲームクリアBGM.wav", BACK_MUSIC);
 	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
-
+	/*
 	//ボリュームを1.0に戻す
 	float v = Audio::VolumeMaster(-0.1);
 
