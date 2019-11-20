@@ -7,7 +7,7 @@ using namespace GameL;
 //定数
 //描画関係の定数
 #define GAME_HP_POS_X     (78)
-#define GAME_HP_POS_Y     (15)
+#define GAME_HP_POS_Y     (5)
 #define GAME_HP_FONT_SIZE (25)
 
 #define GAME_MP_POS_X     (0)
@@ -47,6 +47,7 @@ private:
 	float m_py;			//プレイヤーの座標X
 	int m_posture;		//姿勢
 	int hero_hp;	//HP
+	int hero_en;	//耐久力
 	int m_boss_hp;	//HP
 	int m_stage_time;	//ステージタイム
 

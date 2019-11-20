@@ -25,14 +25,11 @@ void CObjStage::Init()
 	m_ani_frame = 0;
 
 	//エネミー出現位置
-	e_x = 0.0f;
-	e_y = 0.0f;
+	e_x = 200.0f;
+	e_y = 200.0f;
 	//ゾンビ生成座標記録
 	m_Item_Generation_x = 0.0f;
 	m_Item_Generation_y = 0.0f;
-	//ボス移動ベクトル
-	m_bvx = 0.0f;
-	m_bvy = 0.0f;
 
 	//敵生成頻度
 	m_Heal_Generation = 0; //回復アイテム生成頻度
@@ -40,14 +37,15 @@ void CObjStage::Init()
 	//m_Frie_Lizard_Generation = 0; //火トカゲ敵生成頻度
 	//m_Frie_Bird_Generation = 0; //火の鳥敵生成頻度
 	//m_Sphere_Type_Enemy_Generation = 0; //球体型敵敵生成頻度
-	//蝙蝠
-	//蝙蝠生成タイム最大値
+
+	//回復アイテム
+	//回復アイテム生成タイム最大値
 	m_Heal_Item_time_max = 240;
-	//蝙蝠生成数制限
+	//回復アイテム生成数制限
 	m_Heal_Item_Restriction = 0;
-	//蝙蝠生成数制限最大値
+	//回復アイテム生成数制限最大値
 	m_Heal_Item_Restriction_max = 30;
-	//蝙蝠生成数カウント変数
+	//回復アイテム生成数カウント変数
 	m_Heal_Item_co_num = 1;
 }
 
@@ -63,10 +61,6 @@ void CObjStage::Action()
 	//武器切り替え変数をアニメーションに同期
 	m_ani_frame = WS;
 
-	//移動停止
-	m_bvx = 0.0f;
-	m_bvy = 0.0f;
-
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
@@ -77,6 +71,7 @@ void CObjStage::Action()
 		//移動処理
 		m_bx -= m_bvx;
 		m_by -= m_bvy;
+
 		//エネミー生成処理
 		m_Heal_Generation++; //回復アイテム生成頻度
 		//m_Bat_Enemy_Generation++; //蝙蝠生成頻度
@@ -114,6 +109,7 @@ void CObjStage::Draw()
 {
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
 
 	//各残り弾数情報を取得(装備分)
 	hg_pb_e = hero->GetHG_E();	//ハンドガン
@@ -144,6 +140,7 @@ void CObjStage::Draw()
 
 	wchar_t TIME[128];
 	wchar_t HP[128];
+	wchar_t EN[128];
 	wchar_t str[128];
 
 	//画面上部のメニュー画面
@@ -164,8 +161,33 @@ void CObjStage::Draw()
 	Font::StrDraw(L"TIME", 12, 2, 26, c);
 
 	//HPを表示
-	swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
-	Font::StrDraw(HP, GAME_HP_POS_X, GAME_HP_POS_Y, 37, c);
+	if (hero_hp < 100)
+	{
+		//HP100以下の場合の表示
+		swprintf_s(HP, L"HP: %d/100", hero_hp, 15);
+		Font::StrDraw(HP, 130, 5, 26, c);
+	}
+	else
+	{
+		//それ以外
+		swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
+		Font::StrDraw(HP, 130, 5, 26, c);
+	}
+	
+
+	//耐久力を表示
+	if (hero_en < 100)
+	{
+		swprintf_s(EN, L"耐久力: %d/150", hero_en, 15);
+		Font::StrDraw(EN, 78, 33, 26, c);
+	}
+	else
+	{
+		swprintf_s(EN, L"耐久力:%d/150", hero_en, 15);
+		Font::StrDraw(EN, 78, 33, 26, c);
+	}
+
+	
 
 	//武器使用可数を表示
 	//ハンドガン
