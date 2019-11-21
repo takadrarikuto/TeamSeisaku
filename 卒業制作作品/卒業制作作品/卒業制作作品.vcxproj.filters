@@ -336,6 +336,9 @@
     <ClInclude Include="ObjMeme_Medium_Boss.h">
       <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
     </ClInclude>
+    <ClInclude Include="ObjArmor.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -574,6 +577,9 @@
     </ClCompile>
     <ClCompile Include="ObjMeme_Medium_Boss.cpp">
       <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjArmor.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

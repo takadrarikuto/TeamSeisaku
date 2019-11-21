@@ -118,6 +118,9 @@ void CSceneStage::InitScene()
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+	//アーマー
+	CObjArmor* Armor = new CObjArmor(200, 200);
+	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
 
 	//壁オブジェクト作成
 	//左

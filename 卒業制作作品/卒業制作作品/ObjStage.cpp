@@ -17,6 +17,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //イニシャライズ
 void CObjStage::Init()
 {
@@ -161,13 +164,19 @@ void CObjStage::Draw()
 	Font::StrDraw(L"TIME", 12, 2, 26, c);
 
 	//HPを表示
-	if (hero_hp < 100)
+	if (hero_hp < 100 && hero_hp >= 10)
 	{
 		//HP100以下の場合の表示
 		swprintf_s(HP, L"HP: %d/100", hero_hp, 15);
 		Font::StrDraw(HP, 130, 5, 26, c);
 	}
-	else
+	if (hero_hp < 10)
+	{
+		//HP10以下の場合の表示
+		swprintf_s(HP, L"HP:  %d/100", hero_hp, 15);
+		Font::StrDraw(HP, 130, 5, 26, c);
+	}
+	if (hero_hp == 100)
 	{
 		//それ以外
 		swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
@@ -176,17 +185,24 @@ void CObjStage::Draw()
 	
 
 	//耐久力を表示
-	if (hero_en < 100)
+	if (hero_en < 100 && hero_en >= 10)
 	{
+		//耐久力100以下の場合の表示
 		swprintf_s(EN, L"耐久力: %d/150", hero_en, 15);
 		Font::StrDraw(EN, 78, 33, 26, c);
 	}
-	else
+	if (hero_en < 10)
 	{
+		//耐久力10以下の場合の表示
+		swprintf_s(EN, L"耐久力:  %d/150", hero_en, 15);
+		Font::StrDraw(EN, 78, 33, 26, c);
+	}
+	if(hero_en <= 150 && hero_en >= 100)
+	{
+		//それ以外
 		swprintf_s(EN, L"耐久力:%d/150", hero_en, 15);
 		Font::StrDraw(EN, 78, 33, 26, c);
 	}
-
 	
 
 	//武器使用可数を表示
