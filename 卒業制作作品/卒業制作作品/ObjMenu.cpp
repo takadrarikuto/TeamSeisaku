@@ -24,6 +24,12 @@ bool m_key_flag_menu = true;
 //死亡時動き停止フラグ
 bool Dead_flg = false;
 
+//HP ONOFFフラグ
+bool Hp_flg = true;
+
+//耐久力ONOFFフラグ
+bool En_flg = false;
+
 //チュートリアルONOFFフラグ
 extern bool Tuto_flg;
 

@@ -17,20 +17,21 @@ extern bool Menu_flg;
 void CObjEvent::Init()
 {
 	//初期化
-	//イベント時間
-	m_Event_time = 0; 
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool Gen_flg = time->GetGenFlg();
+	bool END_flg = time->GetENDFlg();
 
-	//m_Stop_flg = false;
-	//測定スタートフラグ
-	//m_Start_flg = false;
+	//イベント時間
+	m_Event_time = 1200; 
+	//イベントフラグ
+	m_Event_time_flg = false;
+
 }
 
 //アクション
 void CObjEvent::Action()
 {
-	////発電機情報取得
-	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-	//bool ST_flg = time->GetTS();
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	int h_hp = hero->GetHP();
@@ -43,31 +44,33 @@ void CObjEvent::Action()
 
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
-	{
+	{		
+		//イベント別タイム設定
+		//発電機イベント
+		if (m_Event_time_flg == false)
+		{
+			if (Gen_flg == true)
+			{
+				m_Event_time = 1850; //1850 ＝ 30秒
+			}
+			//敵無力化装置イベント
+			else if (END_flg == true)
+			{
+				m_Event_time = 3600; //3600 ＝ 60秒
+			}
+			m_Event_time_flg = true;
+		}	
 		m_Event_time--;
-	}
-	//イベント別タイム設定
+	}	
 	else if(Menu_flg == false && TStop_flg == false)
 	{
-		//発電機イベント
-		if (Gen_flg == true)
-		{
-			m_Event_time = 1850; //1850 ＝ 30秒
-		}
-		//敵無力化装置イベント
-		if (END_flg == true)
-		{
-			m_Event_time = 3600; //3600 ＝ 60秒
-		}
+		m_Event_time_flg = false;
 	}
 	if (m_Event_time == 0 || h_hp <= 0)
 	{
-		TStart_flg = true;
-		Gen_flg = false;
-		END_flg = false;
+		m_Event_time_flg = false;
+		TStart_flg = true;		
 		time->SetTStart(TStart_flg);		
-		time->SetGenFlg(Gen_flg);
-		time->SetENDFlg(END_flg);
 	}
 
 }

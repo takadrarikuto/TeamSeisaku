@@ -32,20 +32,11 @@ void CObjTime::Init()
 
 	m_Gen_flg = false; //発電機起動フラグ
 	m_END_flg = false; //敵無力化装置フラグ
-
-
 }
 
 //アクション
 void CObjTime::Action()
 {
-	////発電機情報取得
-	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-	//bool ST_flg = time->GetTS();
-	////イベント情報取得
-	//CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_HEAL);
-	//bool Start_flg = Event->GetStartT();	
-
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
@@ -55,15 +46,15 @@ void CObjTime::Action()
 		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == 9050 || m_time == 7250)
+	if ((m_time == 9050 || m_time == 7250) && m_Stop_flg == false)
 	{		
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
-		if (m_Event_Rand_num <= 50)
+		if (m_Event_Rand_num < 50)
 		{
 			m_Gen_flg = true;
 		}
-		else if (m_Event_Rand_num > 50)
+		else if (m_Event_Rand_num >= 50)
 		{
 			m_END_flg = true;
 		}
@@ -75,9 +66,8 @@ void CObjTime::Action()
 		//初期化処理
 		m_Stop_flg = false;
 		m_Start_flg = false;
-		m_Gen_flg = true;
-		m_END_flg = true;
-		srand(time(NULL)); // ランダム情報を初期化
+		m_Gen_flg = false;
+		m_END_flg = false;
 	}
 	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)

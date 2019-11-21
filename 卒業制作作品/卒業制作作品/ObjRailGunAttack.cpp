@@ -112,9 +112,10 @@ void CObjRailGunAttack::Action()
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_rg->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
-		if (hit_rg->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_rg->CheckObjNameHit(OBJ_BOSS) != nullptr)
+		if (hit_rg->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_rg->CheckObjNameHit(OBJ_BOSS) != nullptr
+			|| hit_rg->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
 		{
-			; //火の鳥、ボスには当たらない
+			; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
 		}
 		else
 		{

@@ -43,6 +43,9 @@ void CObjTutoHero::Init()
 	//体力
 	m_hero_hp = 100;
 
+	//耐久力
+	m_hero_en = 0;
+
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
 	//武器攻撃移動ベクトル最大値
