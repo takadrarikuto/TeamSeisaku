@@ -12,6 +12,8 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
+	int GetRGDistance() { return m_Distance_max; } //削除距離最大値取得用
+
 private:
 	float m_RGx; //位置情報
 	float m_RGy;
@@ -19,6 +21,6 @@ private:
 	float m_RGvy;
 	float m_RGr; //画像角度調整
 
-	int Distance_max; //削除距離最大値
+	int m_Distance_max; //削除距離最大値
 
 };

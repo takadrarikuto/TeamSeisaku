@@ -3,12 +3,16 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\SceneObjManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjGrenadeAttack.h"
 
 //使用するネームスペース
 using namespace GameL;
+
+//メニューONOFFフラグ
+extern bool Menu_flg;
 
 //コンストラクタ
 CObjGrenadeAttack::CObjGrenadeAttack(float x, float y, float vx, float vy)
@@ -29,32 +33,27 @@ void CObjGrenadeAttack::Init()
 	Stop_max = 3; 
 
 	//ダメージ量
-	GRE_Attack = 100;
+	((UserData*)Save::GetData())->GRE_Attack;
 
 	//爆破時間
 	EXP_time = 0;
+
+	//描画サイズ
+	m_dst_size = 15.0f;
+	//当たり判定サイズ
+	Hitbox_size = 15;
 
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 192.0f;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Grex, m_Grey, 10, 10, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 3);
+	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 
 }
 
 //アクション
 void CObjGrenadeAttack::Action()
 {
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
-	//爆破処理
-	EXP_time++;
-	//位置更新
-	m_Grex += m_Grevx;
-	m_Grey += m_Grevy;
-	//}
-
 	////SE処理
 	//if (Attack_flg == true)
 	//{
@@ -62,49 +61,68 @@ void CObjGrenadeAttack::Action()
 	//	Attack_flg = false; //Attackフラグfalse
 	//}	
 
-	//主人公位置取得
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-
-	//HitBoxの内容を更新 
-	CHitBox* hit_ga = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ga->SetPos(m_Grex, m_Grey); //当たり判定の位置更新
-
-	if (hero != nullptr)
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
 	{
+		//主人公位置取得
+		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 		float hx = hero->GetX();
 		float hy = hero->GetY();
+		float hvx = hero->GetVX();
+		float hvy = hero->GetVY();
+		
+		//爆破処理
+		EXP_time++;
+		//位置更新
+		//主人公の移動に合わせる
+		m_Grex += (-hvx) + m_Grevx;
+		m_Grey += (-hvy) + m_Grevy;
+
+
+		//HitBoxの内容を更新 
+		CHitBox* hit_gre = Hits::GetHitBox(this); //当たり判定情報取得
+		hit_gre->SetPos(m_Grex, m_Grey); //当たり判定の位置更新
+
 
 		//主人公から離れるとオブジェクト移動停止
-		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 64 * Stop_max 
-			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 64 * Stop_max)
+		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
+			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true)
 		{
 			//移動停止
 			m_Grevx = 0.0f;
 			m_Grevy = 0.0f;
 		}
+
+		if (EXP_time >= 180)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+
+		//敵オブジェクトと接触するとオブジェクト破棄
+		if (hit_gre->CheckElementHit(ELEMENT_ENEMY) == true)
+		{
+			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_gre->CheckObjNameHit(OBJ_BOSS) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+			{
+				; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+			}
+			else
+			{
+				//爆発オブジェクト作成
+				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+
+				this->SetStatus(false); //オブジェクト破棄
+				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			}
+		}
 	}
-
-	if (EXP_time >= 180)
-	{
-		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 140, m_Grey - 140, m_exp_blood_dst_size, GRE_Attack);
-		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-
-	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_ga->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-	{
-		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 140, m_Grey - 140, m_exp_blood_dst_size, GRE_Attack);
-		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-
 }
 
 //ドロー
@@ -117,16 +135,16 @@ void CObjGrenadeAttack::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 300.0f;
-	src.m_left = 0.0f;
-	src.m_right = 28.0f;
-	src.m_bottom = 325.0f;
+	src.m_top = 320.0f;
+	src.m_left = 15.0f;
+	src.m_right = 30.0f;
+	src.m_bottom = 330.0f;
 	//描画処理
 	dst.m_top = 0.0f + m_Grey;
 	dst.m_left = 0.0f + m_Grex;
-	dst.m_right = 32.0f + m_Grex;
-	dst.m_bottom = 70.0f + m_Grey;
+	dst.m_right = m_dst_size + m_Grex;
+	dst.m_bottom = m_dst_size + m_Grey;
 
-	Draw::Draw(3, &src, &dst, c, 0.0f);
+	Draw::Draw(2, &src, &dst, c, 0.0f);
 
 }

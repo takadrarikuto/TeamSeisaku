@@ -10,6 +10,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjARAttack::CObjARAttack(float x, float y, float vx, float vy, float r)
 {
@@ -28,23 +31,28 @@ void CObjARAttack::Init()
 {
 	//初期化
 	//削除距離最大値
-	Distance_max = 3;
+	m_Distance_max = 3;
+
+	//描画サイズ
+	m_dst_size = 32.0f;
+	//当たり判定サイズ
+	Hitbox_size = 10;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_ARx, m_ARy, 10, 10, ELEMENT_RED, OBJ_ARATTACK, 3);
+	Hits::SetHitBox(this, m_ARx, m_ARy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ARATTACK, 2);
 
 }
 
 //アクション
 void CObjARAttack::Action()
 {
-	//メニューを開くと行動停止
-	//if (Menu_flg == false)
-	//{
+	//メニューを開くと停止
+	if (Menu_flg == false)
+	{
 	//位置更新
 	m_ARx += m_ARvx;
 	m_ARy += m_ARvy;
-	//}
+	}
 
 	////SE処理
 	//if (Attack_flg == true)
@@ -52,7 +60,6 @@ void CObjARAttack::Action()
 	//	Audio::Start(1); //音楽スタート
 	//	Attack_flg = false; //Attackフラグfalse
 	//}
-
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -67,22 +74,22 @@ void CObjARAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
-		if (m_ARx < hx - 64 * Distance_max)
+		if (m_ARx < hx - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARx > hx + 64 * Distance_max)
+		else if (m_ARx > hx + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_ARy < hy - 64 * Distance_max)
+		if (m_ARy < hy - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARy > hy + 64 * Distance_max)
+		else if (m_ARy > hy + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
@@ -91,12 +98,24 @@ void CObjARAttack::Action()
 	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_ar->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	if (hit_ar->CheckElementHit(ELEMENT_ENEMY) == true)
+	{
+		if (hit_ar->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_ar->CheckObjNameHit(OBJ_BOSS) != nullptr
+			|| hit_ar->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+		{
+			; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+		}
+		else 
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+	}
+	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
 }
 
 //ドロー
@@ -116,9 +135,9 @@ void CObjARAttack::Draw()
 	//描画処理
 	dst.m_top = 0.0f + m_ARy;
 	dst.m_left = 0.0f + m_ARx;
-	dst.m_right = 32.0f + m_ARx;
-	dst.m_bottom = 32.0f + m_ARy;
+	dst.m_right = m_dst_size + m_ARx;
+	dst.m_bottom = m_dst_size + m_ARy;
 
-	Draw::Draw(3, &src, &dst, c, m_ARr);
+	Draw::Draw(2, &src, &dst, c, m_ARr);
 
 }

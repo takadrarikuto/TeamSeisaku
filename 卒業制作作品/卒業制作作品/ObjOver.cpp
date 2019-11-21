@@ -16,6 +16,9 @@ using namespace GameL;
 extern float g_px;
 extern float g_py;
 
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //イニシャライズ
 void CObjOver::Init()
 {
@@ -95,7 +98,15 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneStage());
+			if (Tuto_flg == true)
+			{
+				Tuto_flg = false;
+				Scene::SetScene(new CSceneTutorial());
+			}
+			else
+			{
+				Scene::SetScene(new CSceneStage());
+			}
 		}
 	}
 	//タイトルに戻る処理
@@ -106,13 +117,14 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf2 = false;
+			Tuto_flg = false;
 			Scene::SetScene(new CSceneTitle());
 		}
 	}
 }
+
 //ドロー
 void CObjOver::Draw()
-
 {
 	//描写カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
@@ -128,8 +140,8 @@ void CObjOver::Draw()
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 702.0f;
-	src.m_bottom = 599.0f;
+	src.m_right = 800.0f;
+	src.m_bottom = 600.0f;
 
 	//表示位置の設定
 	dst.m_top = 0.0f;
@@ -138,7 +150,7 @@ void CObjOver::Draw()
 	dst.m_bottom = 600.0f;
 
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
-	Draw::Draw(4, &src, &dst, c, 0.0f);
+	Draw::Draw(3, &src, &dst, c, 0.0f);
 
 	float p[4] = { 1,1,1,1 };
 
@@ -153,5 +165,4 @@ void CObjOver::Draw()
 		Font::StrDraw(L"◆タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, r);
 	else
 		Font::StrDraw(L"　タイトルへ", GAME_NO_X, GAME_NO_Y, GAME_NO_FONT_SIZE, c);
-
 }

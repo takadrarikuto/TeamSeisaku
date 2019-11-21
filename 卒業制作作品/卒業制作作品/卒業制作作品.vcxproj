@@ -41,8 +41,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -116,6 +116,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjBat_Enemy.h" />
+    <ClInclude Include="ObjEnemy_Neutralization_Device2.h" />
+    <ClInclude Include="ObjFire_Lizard.h" />
+    <ClInclude Include="ObjGenerator2.h" />
+    <ClInclude Include="ObjMeme_Medium_Boss.h" />
+    <ClInclude Include="ObjSphere_Type_Enemy.h" />
+    <ClInclude Include="ObjTutoWall.h" />
+    <ClInclude Include="ObjTutoWall2.h" />
+    <ClInclude Include="ObjTutoWall3.h" />
+    <ClInclude Include="ObjTutoWall4.h" />
     <ClInclude Include="GameHead.h" />
     <ClInclude Include="GameL\Audio.h" />
     <ClInclude Include="GameL\DirectXDevice.h" />
@@ -131,28 +141,49 @@
     <ClInclude Include="GameL\WICTextureLoader.h" />
     <ClInclude Include="GameL\WinInputs.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="ObjAiming.h" />
     <ClInclude Include="ObjARAttack.h" />
+    <ClInclude Include="ObjARItem.h" />
     <ClInclude Include="ObjBackground.h" />
     <ClInclude Include="ObjBlood_splash.h" />
     <ClInclude Include="ObjBoss.h" />
     <ClInclude Include="ObjClear.h" />
     <ClInclude Include="ObjED.h" />
+    <ClInclude Include="ObjEvent.h" />
     <ClInclude Include="ObjExplosion.h" />
+    <ClInclude Include="ObjFire_Bird.h" />
+    <ClInclude Include="ObjGenerator.h" />
     <ClInclude Include="ObjGrenadeAttack.h" />
+    <ClInclude Include="ObjGrenadeItem.h" />
     <ClInclude Include="ObjGunAttack.h" />
+    <ClInclude Include="ObjHeal.h" />
     <ClInclude Include="ObjHero.h" />
     <ClInclude Include="ObjMenu.h" />
+    <ClInclude Include="ObjEnemy_Neutralization_Device.h" />
     <ClInclude Include="ObjOP.h" />
     <ClInclude Include="ObjOperation.h" />
     <ClInclude Include="ObjOver.h" />
     <ClInclude Include="ObjRailGunAttack.h" />
+    <ClInclude Include="ObjRailGunItem.h" />
     <ClInclude Include="ObjRocketLauncherAttack.h" />
+    <ClInclude Include="ObjRocketLauncherItem.h" />
     <ClInclude Include="ObjShotGunAttack.h" />
+    <ClInclude Include="ObjShotGunItem.h" />
     <ClInclude Include="ObjSniperRifleAttack.h" />
+    <ClInclude Include="ObjSniperRifleItem.h" />
     <ClInclude Include="ObjStage.h" />
     <ClInclude Include="ObjTime.h" />
     <ClInclude Include="ObjTitle.h" />
     <ClInclude Include="ObjTopback.h" />
+    <ClInclude Include="ObjTutoBg.h" />
+    <ClInclude Include="ObjTutoHero.h" />
+    <ClInclude Include="ObjTutorial.h" />
+    <ClInclude Include="ObjTutoTopback.h" />
+    <ClInclude Include="ObjTutoZombieEnemy.h" />
+    <ClInclude Include="ObjWall.h" />
+    <ClInclude Include="ObjWall2.h" />
+    <ClInclude Include="ObjWall3.h" />
+    <ClInclude Include="ObjWall4.h" />
     <ClInclude Include="ObjZombieEnemy.h" />
     <ClInclude Include="SceneClear.h" />
     <ClInclude Include="SceneED.h" />
@@ -161,8 +192,19 @@
     <ClInclude Include="SceneOver.h" />
     <ClInclude Include="SceneStage.h" />
     <ClInclude Include="SceneTitle.h" />
+    <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjBat_Enemy.cpp" />
+    <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp" />
+    <ClCompile Include="ObjFire_Lizard.cpp" />
+    <ClCompile Include="ObjGenerator2.cpp" />
+    <ClCompile Include="ObjMeme_Medium_Boss.cpp" />
+    <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
+    <ClCompile Include="ObjTutoWall.cpp" />
+    <ClCompile Include="ObjTutoWall2.cpp" />
+    <ClCompile Include="ObjTutoWall3.cpp" />
+    <ClCompile Include="ObjTutoWall4.cpp" />
     <ClCompile Include="GameL\Audio.cpp" />
     <ClCompile Include="GameL\DirectXDevice.cpp" />
     <ClCompile Include="GameL\Draw2DTex_Source.cpp" />
@@ -177,28 +219,49 @@
     <ClCompile Include="GameL\UserData.cpp" />
     <ClCompile Include="GameL\WICTextureLoader.cpp" />
     <ClCompile Include="GameL\WinInputs.cpp" />
+    <ClCompile Include="ObjAiming.cpp" />
     <ClCompile Include="ObjARAttack.cpp" />
+    <ClCompile Include="ObjARItem.cpp" />
     <ClCompile Include="ObjBackground.cpp" />
     <ClCompile Include="ObjBlood_splash.cpp" />
     <ClCompile Include="ObjBoss.cpp" />
     <ClCompile Include="ObjClear.cpp" />
     <ClCompile Include="ObjED.cpp" />
+    <ClCompile Include="ObjEvent.cpp" />
     <ClCompile Include="ObjExplosion.cpp" />
+    <ClCompile Include="ObjFire_Bird.cpp" />
+    <ClCompile Include="ObjGenerator.cpp" />
     <ClCompile Include="ObjGrenadeAttack.cpp" />
+    <ClCompile Include="ObjGrenadeItem.cpp" />
     <ClCompile Include="ObjGunAttack.cpp" />
+    <ClCompile Include="ObjHeal.cpp" />
     <ClCompile Include="ObjHero.cpp" />
     <ClCompile Include="ObjMenu.cpp" />
+    <ClCompile Include="ObjEnemy_Neutralization_Device.cpp" />
     <ClCompile Include="ObjOP.cpp" />
     <ClCompile Include="ObjOperation.cpp" />
     <ClCompile Include="ObjOver.cpp" />
     <ClCompile Include="ObjRailGunAttack.cpp" />
+    <ClCompile Include="ObjRailGunItem.cpp" />
     <ClCompile Include="ObjRocketLauncherAttack.cpp" />
+    <ClCompile Include="ObjRocketLauncherItem.cpp" />
     <ClCompile Include="ObjShotGunAttack.cpp" />
+    <ClCompile Include="ObjShotGunItem.cpp" />
     <ClCompile Include="ObjSniperRifleAttack.cpp" />
+    <ClCompile Include="ObjSniperRifleItem.cpp" />
     <ClCompile Include="ObjStage.cpp" />
     <ClCompile Include="ObjTime.cpp" />
     <ClCompile Include="ObjTitle.cpp" />
     <ClCompile Include="ObjTopback.cpp" />
+    <ClCompile Include="ObjTutoBg.cpp" />
+    <ClCompile Include="ObjTutoHero.cpp" />
+    <ClCompile Include="ObjTutorial.cpp" />
+    <ClCompile Include="ObjTutoTopback.cpp" />
+    <ClCompile Include="ObjTutoZombieEnemy.cpp" />
+    <ClCompile Include="ObjWall.cpp" />
+    <ClCompile Include="ObjWall2.cpp" />
+    <ClCompile Include="ObjWall3.cpp" />
+    <ClCompile Include="ObjWall4.cpp" />
     <ClCompile Include="ObjZombieEnemy.cpp" />
     <ClCompile Include="SceneClear.cpp" />
     <ClCompile Include="SceneED.cpp" />
@@ -207,6 +270,7 @@
     <ClCompile Include="SceneOver.cpp" />
     <ClCompile Include="SceneStage.cpp" />
     <ClCompile Include="SceneTitle.cpp" />
+    <ClCompile Include="SceneTutorial.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="GameL\DirectXTex.inl" />

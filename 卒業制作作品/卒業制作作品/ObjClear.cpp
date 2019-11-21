@@ -50,7 +50,7 @@ void CObjClear::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneTitle());
+			Scene::SetScene(new CSceneED());
 		}
 	}
 }
@@ -72,21 +72,21 @@ void CObjClear::Draw()
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 1600.0f;
-	src.m_bottom = 909.0f;
+	src.m_right = 800.0f;
+	src.m_bottom = 600.0f;
 
 	//表示位置の設定
 	dst.m_top = 0.0f;
 	dst.m_left = 0.0f;
-	dst.m_right = 1600.0f;
-	dst.m_bottom = 920.0f;
+	dst.m_right = 800.0f;
+	dst.m_bottom = 600.0f;
 
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
 	Draw::Draw(4, &src, &dst, c, 0.0f);
 
 	float p[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"ゲームクリア", 200, 200, 60, y);
+	Font::StrDraw(L"ゲームクリア", 350, 190, 60, y);
 
-	Font::StrDraw(L"◆タイトルへ", 255, 375, 40, b);
+	Font::StrDraw(L"◆次へ", 450, 350, 40, b);
 }
