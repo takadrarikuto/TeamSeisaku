@@ -60,6 +60,7 @@ public:
 	void SetVX(float vx) { m_vx = vx; }
 	void SetVY(float vy) { m_vy = vy; }
 	void SetHP(int hp) { m_hero_hp = hp; }
+	void SetEN(int en) { m_hero_en = en; }
 
 	//上下左右別当たり判定確認フラグ設定用
 	void SetUpHit(float uh) { m_UpHit_flg = uh; }    //上

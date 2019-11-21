@@ -79,8 +79,8 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
 	//ミーム実態(中ボス)オブジェクト作成
-	CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
-	Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
+	/*CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
+	Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);*/
 
 	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
@@ -122,6 +122,9 @@ void CSceneStage::InitScene()
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+	//アーマー
+	CObjArmor* Armor = new CObjArmor(200, 200);
+	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
 
 	//壁オブジェクト作成
 	//左

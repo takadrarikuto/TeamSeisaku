@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjArmor.h" />
     <ClInclude Include="ObjBat_Enemy.h" />
     <ClInclude Include="ObjEnemy_Neutralization_Device2.h" />
     <ClInclude Include="ObjFire_Lizard.h" />
@@ -195,6 +196,7 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjArmor.cpp" />
     <ClCompile Include="ObjBat_Enemy.cpp" />
     <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp" />
     <ClCompile Include="ObjFire_Lizard.cpp" />
