@@ -21,6 +21,7 @@ enum OBJ_NAME
 	OBJ_FIRE_LIZARD,
 	OBJ_BAT_ENEMY,
 	OBJ_SPHERE_TYPE_ENEMY,
+	OBJ_MEME_MEDIUM_BOSS,
 	OBJ_BOSS,
 	OBJ_APPARATUS,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
@@ -47,6 +48,7 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
 };
@@ -127,6 +129,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjSphere_Type_Enemy.h"
 
 //中ボス
+#include "ObjMeme_Medium_Boss.h"
 
 //ボス
 #include "ObjBoss.h"
@@ -155,6 +158,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjRocketLauncherItem.h"//ロケットランチャー補充用
 #include "ObjRailGunItem.h"//レールガン補充用
 #include "ObjGrenadeItem.h"//グレネード補充用
+#include "ObjArmor.h"//アーマー
 
 //イベント
 #include "ObjEvent.h"

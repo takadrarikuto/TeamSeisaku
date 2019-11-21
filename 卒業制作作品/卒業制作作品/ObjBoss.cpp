@@ -204,6 +204,11 @@ void CObjBoss::Action()
 		//	m_Sphere_Type_Enemy_Restriction++; //球体型敵生成カウント
 		//	m_Sphere_Type_Enemy_Generation = 0;
 		//}
+		/*
+		//ミーム実態(中ボス)オブジェクト作成
+		CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
+		Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
+		*/
 	}
 
 	//HitBoxの内容を更新
