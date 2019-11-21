@@ -234,10 +234,6 @@ void CObjSphere_Type_Enemy::Action()
 	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr || end_d == true || end_d2 == true)
 	{
 		m_st_e_death_flg = true; //死亡フラグ
-		end_d = false;
-		end_d2 = false;
-		END_D->SetDeath(end_d);
-		END_D2->SetDeath(end_d2);
 	}	
 	if (m_st_e_death_flg == true)
 	{
@@ -245,6 +241,10 @@ void CObjSphere_Type_Enemy::Action()
 		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
+		end_d = false;
+		end_d2 = false;
+		END_D->SetDeath(end_d);
+		END_D2->SetDeath(end_d2);
 		m_st_e_death_flg = false; //死亡フラグ
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
