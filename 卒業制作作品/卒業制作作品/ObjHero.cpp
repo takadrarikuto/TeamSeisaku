@@ -1021,9 +1021,9 @@ void CObjHero::Action()
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 		
 		//ミーム実態(中ボス)情報取得
-		/*CObjMeme_Medium_Boss* MMB = (CObjMeme_Medium_Boss*)Objs::GetObj(OBJ_MEME_MEDIUM_BOSS);
+		CObjMeme_Medium_Boss* MMB = (CObjMeme_Medium_Boss*)Objs::GetObj(OBJ_MEME_MEDIUM_BOSS);
 		float MMB_x;
-		float MMB_y;*/
+		float MMB_y;
 
 		//メニューを開くと行動停止
 		if (Menu_flg == false)
@@ -1177,7 +1177,7 @@ void CObjHero::Action()
 			}
 		
 			//ミーム実態(中ボス)ダメージ処理
-			/*if (MMB != nullptr)
+			if (MMB != nullptr)
 			{
 				MMB_x = MMB->GetX();
 				MMB_y = MMB->GetY();
