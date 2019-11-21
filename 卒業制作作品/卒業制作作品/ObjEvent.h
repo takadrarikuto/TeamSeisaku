@@ -14,6 +14,6 @@ public:
 
 private:
 	int m_Event_time;	//イベント時間
-	
+	bool m_Event_time_flg; //イベントフラグ
 
 };
