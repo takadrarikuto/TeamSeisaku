@@ -1181,23 +1181,24 @@ void CObjHero::Action()
 			{
 				MMB_x = MMB->GetX();
 				MMB_y = MMB->GetY();
-			}
-			//敵との距離を測る
-			if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
-			{
-				m_hero_hp -= 1;
-				m_time_d = 20;		//無敵時間をセット
-			}
-			else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
-			{
-				m_hero_hp -= 1;
-				m_time_d = 20;		//無敵時間をセット
-			}
-			else if (MMB_x == m_x && MMB_y == m_y)
-			{
-				m_hero_hp -= 1;
-				m_time_d = 10;		//無敵時間をセット
-			}*/
+
+				//敵との距離を測る
+				if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
+				{
+					m_hero_hp -= 1;
+					m_time_d = 20;		//無敵時間をセット
+				}
+				else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
+				{
+					m_hero_hp -= 1;
+					m_time_d = 20;		//無敵時間をセット
+				}
+				else if (MMB_x == m_x && MMB_y == m_y)
+				{
+					m_hero_hp -= 1;
+					m_time_d = 10;		//無敵時間をセット
+				}
+			}			
 		}		
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)

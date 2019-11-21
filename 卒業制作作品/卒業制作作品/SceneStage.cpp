@@ -78,10 +78,6 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	//ミーム実態(中ボス)オブジェクト作成
-	/*CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
-	Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);*/
-
 	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	

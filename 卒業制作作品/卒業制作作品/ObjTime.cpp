@@ -46,7 +46,7 @@ void CObjTime::Action()
 		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == 9050 || m_time == 7250)
+	if ((m_time == 9050 || m_time == 7250) && m_Stop_flg == false)
 	{		
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
