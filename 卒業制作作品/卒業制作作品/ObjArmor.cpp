@@ -19,8 +19,8 @@ extern bool En_flg;
 CObjArmor::CObjArmor(float x, float y)
 {
 	//ˆÊ’uî•ñ“o˜^(”’l=ˆÊ’u’²®)
-	m_Armorx = 700;
-	m_Armory = 500;
+	m_Armorx = 100;
+	m_Armory = 100;
 
 }
 

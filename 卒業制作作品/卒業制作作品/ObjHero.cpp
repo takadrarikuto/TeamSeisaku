@@ -1021,9 +1021,9 @@ void CObjHero::Action()
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 		
 		//ミーム実態(中ボス)情報取得
-		/*CObjMeme_Medium_Boss* MMB = (CObjMeme_Medium_Boss*)Objs::GetObj(OBJ_MEME_MEDIUM_BOSS);
+		CObjMeme_Medium_Boss* MMB = (CObjMeme_Medium_Boss*)Objs::GetObj(OBJ_MEME_MEDIUM_BOSS);
 		float MMB_x;
-		float MMB_y;*/
+		float MMB_y;
 
 		//メニューを開くと行動停止
 		if (Menu_flg == false)
@@ -1126,9 +1126,20 @@ void CObjHero::Action()
 					//球体型敵
 					else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
 					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage_En = EXPAttack->GetEXP();
+							m_hero_en -= EXPDamage_En;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage = EXPAttack->GetEXP();
+							m_hero_hp -= EXPDamage;
+						}
 						m_time_d = 90;		//無敵時間をセット
 					}
 					//ボス
@@ -1149,10 +1160,36 @@ void CObjHero::Action()
 					//爆発
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage_En = EXPAttack->GetEXP();
+							m_hero_en -= EXPDamage_En;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage = EXPAttack->GetEXP();
+							m_hero_hp -= EXPDamage;
+						}
 						m_time_d = 90;		//無敵時間をセット
+					}
+					//有刺鉄線(スモール)
+					else if (hit_h->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+					{
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 1;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 2;
+						}
+						m_time_d = 30;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
@@ -1177,7 +1214,7 @@ void CObjHero::Action()
 			}
 		}
 			//ミーム実態(中ボス)ダメージ処理
-			/*if (MMB != nullptr)
+			if (MMB != nullptr)
 			{
 				MMB_x = MMB->GetX();
 				MMB_y = MMB->GetY();

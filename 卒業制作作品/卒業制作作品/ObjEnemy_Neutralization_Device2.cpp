@@ -49,6 +49,13 @@ void CObjEnemy_Neutralization_Device2::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool END = time->GetENDFlg();
+	//‹…‘ÌŒ^“Gî•ñŽæ“¾
+	CObjSphere_Type_Enemy* ST_Enemy = (CObjSphere_Type_Enemy*)Objs::GetObj(OBJ_ENEMY);
+	bool ST_Enemy_Death_flg;
+	if (ST_Enemy != nullptr)
+	{
+		ST_Enemy_Death_flg = ST_Enemy->GetDeath();
+	}
 
 	//HitBox‚Ì“à—e‚ðXV 
 	CHitBox* hit_end = Hits::GetHitBox(this); //“–‚½‚è”»’èî•ñŽæ“¾ 
@@ -61,7 +68,9 @@ void CObjEnemy_Neutralization_Device2::Action()
 			&& END == true)
 		{
 			TStart_flg = true;
+			ST_Enemy_Death_flg = true;
 			time->SetTStart(TStart_flg);
+			ST_Enemy->SetDeath(ST_Enemy_Death_flg);
 		}
 	}
 

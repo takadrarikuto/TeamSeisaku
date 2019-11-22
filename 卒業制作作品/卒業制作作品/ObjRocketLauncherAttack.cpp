@@ -14,6 +14,12 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, float vy, float r)
 {
@@ -40,7 +46,16 @@ void CObjRocketLauncherAttack::Init()
 	m_Distance_max = 5;
 
 	//ダメージ量
-	((UserData*)Save::GetData())->RL_Attack;
+	//耐久力フラグがオンの時
+	if (En_flg == true)
+	{
+		((UserData*)Save::GetData())->RL_Attack = 75; //爆発
+	}
+	//体力フラグがオンの時
+	if (Hp_flg == true)
+	{
+		((UserData*)Save::GetData())->RL_Attack = 150; //爆発
+	}
 
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 320.0f;

@@ -112,6 +112,15 @@ void CSceneStage::InitScene()
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
+	//有刺鉄線オブジェクト作成
+	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
+	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
+	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+	//網オブジェクト作成
+	CObjNet* Net = new CObjNet(200, 200);
+	Objs::InsertObj(Net, OBJ_NET, 7);
+
 	//アイテムオブジェクト作成	
 	//回復
 	CObjHeal* Heal = new CObjHeal(200, 200);

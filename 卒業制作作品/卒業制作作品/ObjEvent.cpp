@@ -41,7 +41,7 @@ void CObjEvent::Action()
 	bool TStart_flg = time->GetTStart();
 	bool Gen_flg = time->GetGenFlg();
 	bool END_flg = time->GetENDFlg();
-
+	
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{		
@@ -66,11 +66,14 @@ void CObjEvent::Action()
 	{
 		m_Event_time_flg = false;
 	}
+	//イベントタイムが0になるor主人公の体力が0になる時初期化
 	if (m_Event_time == 0 || h_hp <= 0)
 	{
+		//イベントタイム
 		m_Event_time_flg = false;
 		TStart_flg = true;		
-		time->SetTStart(TStart_flg);		
+		time->SetTStart(TStart_flg);	
+
 	}
 
 }
