@@ -56,9 +56,7 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	//バックミュージックスタート
-	//ボリュームを0.6にする
-	float v = Audio::VolumeMaster(0);
-	v = Audio::VolumeMaster(0.6 - v);
+	float Volume = Audio::VolumeMaster(-0.3);
 
 	Audio::Start(0); //音楽スタート
 	

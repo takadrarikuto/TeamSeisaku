@@ -111,7 +111,7 @@ void CSceneTutorial::InitScene()
 	Audio::LoadAudio(2, L"チュートリアルBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	//バックミュージックスタート
-	float Volume = Audio::VolumeMaster(0.5);
+	float Volume = Audio::VolumeMaster(-0.1);
 	Audio::Start(2);    //音楽スタート
 	
 }
