@@ -16,6 +16,12 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjSphere_Type_Enemy::CObjSphere_Type_Enemy(float st_ex, float st_ey)
 {
@@ -57,7 +63,16 @@ void CObjSphere_Type_Enemy::Init()
 	m_st_e_death_flg = false; //死亡フラグ
 
 	//ダメージ
-	((UserData*)Save::GetData())->EXP_Attack = 100; //爆発
+	//耐久力フラグがオンの時
+	if (En_flg == true)
+	{
+		((UserData*)Save::GetData())->EXP_Attack = 25; //爆発
+	}
+	//体力フラグがオンの時
+	if (Hp_flg == true)
+	{
+		((UserData*)Save::GetData())->EXP_Attack = 50; //爆発
+	}
 
 	//描画サイズ
 	m_dst_size = 32.0f;
