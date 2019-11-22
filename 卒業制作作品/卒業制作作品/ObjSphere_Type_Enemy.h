@@ -16,7 +16,10 @@ public:
 	//float GetX() { return m_zex; } //エネミー情報取得用
 	//float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
+	bool GetDeath() { return m_st_e_death_flg; } //無力化装置起動フラグ取得用
 
+	void SetDeath(bool ST_E_De_flg) { m_st_e_death_flg = ST_E_De_flg; } //無力化装置起動フラグ設定用
+																						 
 private:
 
 	float m_st_ex; //位置更新
