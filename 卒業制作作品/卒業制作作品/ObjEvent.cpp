@@ -17,8 +17,15 @@ extern bool Menu_flg;
 void CObjEvent::Init()
 {
 	//初期化
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool Gen_flg = time->GetGenFlg();
+	bool END_flg = time->GetENDFlg();
+
 	//イベント時間
-	m_Event_time = 3600; 
+	m_Event_time = 1200; 
+	//イベントフラグ
+	m_Event_time_flg = false;
 
 }
 
@@ -34,30 +41,39 @@ void CObjEvent::Action()
 	bool TStart_flg = time->GetTStart();
 	bool Gen_flg = time->GetGenFlg();
 	bool END_flg = time->GetENDFlg();
-
+	
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{		
+		//イベント別タイム設定
+		//発電機イベント
+		if (m_Event_time_flg == false)
+		{
+			if (Gen_flg == true)
+			{
+				m_Event_time = 1850; //1850 ＝ 30秒
+			}
+			//敵無力化装置イベント
+			else if (END_flg == true)
+			{
+				m_Event_time = 3600; //3600 ＝ 60秒
+			}
+			m_Event_time_flg = true;
+		}	
 		m_Event_time--;
-	}
-	//イベント別タイム設定
+	}	
 	else if(Menu_flg == false && TStop_flg == false)
 	{
-		//発電機イベント
-		if (Gen_flg == true)
-		{
-			m_Event_time = 1850; //1850 ＝ 30秒
-		}
-		//敵無力化装置イベント
-		else if (END_flg == true)
-		{
-			m_Event_time = 3600; //3600 ＝ 60秒
-		}
+		m_Event_time_flg = false;
 	}
+	//イベントタイムが0になるor主人公の体力が0になる時初期化
 	if (m_Event_time == 0 || h_hp <= 0)
 	{
+		//イベントタイム
+		m_Event_time_flg = false;
 		TStart_flg = true;		
-		time->SetTStart(TStart_flg);		
+		time->SetTStart(TStart_flg);	
+
 	}
 
 }

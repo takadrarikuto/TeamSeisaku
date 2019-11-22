@@ -48,6 +48,10 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE_SMALL,
+	OBJ_NET,
+	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
 };
@@ -148,6 +152,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjGenerator2.h"
 #include "ObjEnemy_Neutralization_Device.h"
 #include "ObjEnemy_Neutralization_Device2.h"
+#include "ObjBarbedWire.h"
+#include "ObjBarbedWireSmall.h"
+#include "ObjNet.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -157,6 +164,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjRocketLauncherItem.h"//ロケットランチャー補充用
 #include "ObjRailGunItem.h"//レールガン補充用
 #include "ObjGrenadeItem.h"//グレネード補充用
+#include "ObjArmor.h"//アーマー
 
 //イベント
 #include "ObjEvent.h"

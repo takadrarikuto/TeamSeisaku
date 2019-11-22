@@ -78,10 +78,6 @@ void CSceneStage::InitScene()
 	C0bjBackground * back = new C0bjBackground();
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
-	//ミーム実態(中ボス)オブジェクト作成
-	CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
-	Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
-
 	//ボスオブジェクト作成 
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
@@ -99,6 +95,15 @@ void CSceneStage::InitScene()
 
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
+
+	//有刺鉄線オブジェクト作成
+	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
+	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
+	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+	//網オブジェクト作成
+	CObjNet* Net = new CObjNet(200, 200);
+	Objs::InsertObj(Net, OBJ_NET, 7);
 
 	//アイテムオブジェクト作成	
 	//回復
@@ -122,6 +127,9 @@ void CSceneStage::InitScene()
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+	//アーマー
+	CObjArmor* Armor = new CObjArmor(200, 200);
+	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
 
 	//壁オブジェクト作成
 	//左

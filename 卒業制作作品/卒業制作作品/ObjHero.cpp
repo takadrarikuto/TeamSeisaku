@@ -18,6 +18,12 @@ extern bool m_key_flag_menu;
 //死亡時動き停止フラグ
 extern bool Dead_flg;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -41,7 +47,7 @@ void CObjHero::Init()
 	m_hero_hp = 100;
 
 	//耐久力
-	m_hero_en = 150;
+	m_hero_en = 0;
 
 	//移動ベクトル最大値
 	m_v_max = 4.0f;
@@ -1060,61 +1066,150 @@ void CObjHero::Action()
 					//ゾンビ
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
-						m_hero_en -= 5;
-						m_hero_hp -= 5;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 5;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 5;
+						}
 						m_time_d = 80;		//無敵時間をセット
 					}
 					//コウモリ
 					else if (hit_h->CheckObjNameHit(OBJ_BAT_ENEMY) != nullptr)
 					{
-						m_hero_en -= 2;
-						m_hero_hp -= 2;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 2;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 2;
+						}
 						m_time_d = 80;		//無敵時間をセット
 					}
 					//火トカゲ
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
 					{
-						m_hero_en -= 6;
-						m_hero_hp -= 3;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 6;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 3;
+						}
 						m_time_d = 60;		//無敵時間をセット
 					}
 					//火の鳥
 					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
 					{
-						m_hero_en -= 2;
-						m_hero_hp -= 1;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 2;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 1;
+						}
 						m_time_d = 20;		//無敵時間をセット
 					}
 					//球体型敵
 					else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
 					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage_En = EXPAttack->GetEXP();
+							m_hero_en -= EXPDamage_En;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage = EXPAttack->GetEXP();
+							m_hero_hp -= EXPDamage;
+						}
 						m_time_d = 90;		//無敵時間をセット
 					}
 					//ボス
 					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
 					{
-						m_hero_en -= 6;
-						m_hero_hp -= 2;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 6;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 2;
+						}
 						m_time_d = 30;		//無敵時間をセット
 					}
 					//爆発
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage_En = EXPAttack->GetEXP();
+							m_hero_en -= EXPDamage_En;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage = EXPAttack->GetEXP();
+							m_hero_hp -= EXPDamage;
+						}
 						m_time_d = 90;		//無敵時間をセット
+					}
+					//有刺鉄線(スモール)
+					else if (hit_h->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+					{
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 1;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 2;
+						}
+						m_time_d = 30;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
 						m_hero_hp = 0;	//HPを0にする
+					//体力0の場合、耐久力フラグをオン
+					if (m_hero_hp == 0)
+					{
+						Hp_flg = true;
+						En_flg = false;
+					}
 
 					//敵の攻撃によって耐久力が0以下になった場合
 					if (m_hero_en <= 0)
 						m_hero_en = 0;	//HPを0にする
+					//耐久力0の場合、体力フラグをオン
+					if (m_hero_en == 0)
+					{
+						Hp_flg = true;
+						En_flg = false;
+					}
 				}
 			}
 		
@@ -1123,23 +1218,24 @@ void CObjHero::Action()
 			{
 				MMB_x = MMB->GetX();
 				MMB_y = MMB->GetY();
-			}
-			//敵との距離を測る
-			if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
-			{
-				m_hero_hp -= 1;
-				m_time_d = 20;		//無敵時間をセット
-			}
-			else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
-			{
-				m_hero_hp -= 1;
-				m_time_d = 20;		//無敵時間をセット
-			}
-			else if (MMB_x == m_x && MMB_y == m_y)
-			{
-				m_hero_hp -= 1;
-				m_time_d = 10;		//無敵時間をセット
-			}
+
+				//敵との距離を測る
+				if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
+				{
+					m_hero_hp -= 1;
+					m_time_d = 20;		//無敵時間をセット
+				}
+				else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
+				{
+					m_hero_hp -= 1;
+					m_time_d = 20;		//無敵時間をセット
+				}
+				else if (MMB_x == m_x && MMB_y == m_y)
+				{
+					m_hero_hp -= 1;
+					m_time_d = 10;		//無敵時間をセット
+				}
+			}			
 		}		
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)

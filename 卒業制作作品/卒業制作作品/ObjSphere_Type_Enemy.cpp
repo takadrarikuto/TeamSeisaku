@@ -16,6 +16,12 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjSphere_Type_Enemy::CObjSphere_Type_Enemy(float st_ex, float st_ey)
 {
@@ -54,10 +60,19 @@ void CObjSphere_Type_Enemy::Init()
 	m_at_max = 5;
 
 	//死亡処理
-	m_fb_death_flg = false; //死亡フラグ
+	m_st_e_death_flg = false; //死亡フラグ
 
 	//ダメージ
-	((UserData*)Save::GetData())->EXP_Attack = 100; //爆発
+	//耐久力フラグがオンの時
+	if (En_flg == true)
+	{
+		((UserData*)Save::GetData())->EXP_Attack = 25; //爆発
+	}
+	//体力フラグがオンの時
+	if (Hp_flg == true)
+	{
+		((UserData*)Save::GetData())->EXP_Attack = 50; //爆発
+	}
 
 	//描画サイズ
 	m_dst_size = 32.0f;
@@ -228,15 +243,15 @@ void CObjSphere_Type_Enemy::Action()
 	}
 	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		m_fb_death_flg = true; //死亡フラグ
+		m_st_e_death_flg = true; //死亡フラグ
 	}	
-	if (m_fb_death_flg == true)
+	if (m_st_e_death_flg == true)
 	{
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
-		m_fb_death_flg = false; //死亡フラグ
+		m_st_e_death_flg = false;
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
