@@ -1237,7 +1237,7 @@ void CObjHero::Action()
 				}
 			}			
 		}		
-
+		/*
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{
 			hit_h->SetInvincibility(true);	//ñ≥ìGÇ…Ç∑ÇÈ
@@ -1281,7 +1281,7 @@ void CObjHero::Action()
 			}
 		}*/
 	}
-}
+
 
 //ÉhÉçÅ[
 void CObjHero::Draw()
