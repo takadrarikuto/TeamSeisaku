@@ -41,7 +41,12 @@ void CObjEvent::Action()
 	bool TStart_flg = time->GetTStart();
 	bool Gen_flg = time->GetGenFlg();
 	bool END_flg = time->GetENDFlg();
-
+	//無力化装置情報取得
+	CObjEnemy_Neutralization_Device* END_D = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	CObjEnemy_Neutralization_Device2* END_D2 = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	bool end_d = END_D->GetDeath();
+	bool end_d2 = END_D2->GetDeath();
+	
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{		
@@ -66,11 +71,19 @@ void CObjEvent::Action()
 	{
 		m_Event_time_flg = false;
 	}
+	//イベントタイムが0になるor主人公の体力が0になる時初期化
 	if (m_Event_time == 0 || h_hp <= 0)
 	{
+		//イベントタイム
 		m_Event_time_flg = false;
 		TStart_flg = true;		
-		time->SetTStart(TStart_flg);		
+		time->SetTStart(TStart_flg);	
+
+		//無力化装置
+		end_d = false;
+		end_d2 = false;
+		END_D->SetDeath(end_d);
+		END_D2->SetDeath(end_d2);
 	}
 
 }
