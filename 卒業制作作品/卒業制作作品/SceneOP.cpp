@@ -38,15 +38,15 @@ void CSceneOP::InitScene()
 	//オブジェクト作成
 	CObjOP* back = new CObjOP();
 	Objs::InsertObj(back, OBJ_OP, 3);
-
+	
 	//音楽読み込み
-	//Audio::LoadAudio(0, L"あらすじBGM.wav", BACK_MUSIC);
+	Audio::LoadAudio(0, L"あらすじBGM.wav", BACK_MUSIC);
 	//ボリュームを1.0に戻す
-	//float v = Audio::VolumeMaster(1.5);
+	float v = Audio::VolumeMaster(1.5);
 
 	//音楽スタート
-	//Audio::Start(0);
-
+	Audio::Start(0);
+	
 }
 
 //ゲームメイン実行中メソッド

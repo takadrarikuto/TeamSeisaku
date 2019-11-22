@@ -33,7 +33,7 @@ void CObjClear::Action()
 		{
 			m_andf = true;
 			//g_hero_max_hp = 0;
-			//Audio::Start(1);
+			Audio::Start(1);
 			m_key_flag = false;
 		}
 	}

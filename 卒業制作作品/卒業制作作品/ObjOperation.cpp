@@ -46,7 +46,7 @@ void CObjOperation::Action()
 		if (m_key_flag == true)
 		{
 			m_andf = true;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_key_flag = false;
 		}
 	}

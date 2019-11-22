@@ -1062,7 +1062,7 @@ void CObjHero::Action()
 
 					//Audio::Start(3);	//ダメージ音	
 					hit_h->SetInvincibility(true);	//無敵オン
-					
+
 					//ゾンビ
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
@@ -1212,7 +1212,7 @@ void CObjHero::Action()
 					}
 				}
 			}
-		
+		}
 			//ミーム実態(中ボス)ダメージ処理
 			if (MMB != nullptr)
 			{
@@ -1237,7 +1237,7 @@ void CObjHero::Action()
 				}
 			}			
 		}		
-
+		/*
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{
 			hit_h->SetInvincibility(true);	//無敵にする
@@ -1279,9 +1279,9 @@ void CObjHero::Action()
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}
-		}
+		}*/
 	}
-}
+
 
 //ドロー
 void CObjHero::Draw()

@@ -1,3 +1,4 @@
+
 #define _SECURE_SCL (0)
 #define _HAS_ITERATOR_DEBUGGING (0)
 
@@ -50,6 +51,17 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
+	
+	//音楽情報読み込み 
+	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
+
+	//バックミュージックスタート
+	//ボリュームを0.6にする
+	float v = Audio::VolumeMaster(0);
+	v = Audio::VolumeMaster(0.6 - v);
+
+	Audio::Start(0); //音楽スタート
+	
 
 	//エネミー出現タイム初期化
 	e_time = 0;
@@ -82,6 +94,10 @@ void CSceneStage::InitScene()
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
+	//火トカゲオブジェクト作成 
+	CObjFire_Lizard * obj_fl = new CObjFire_Lizard(100, 100);
+	Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
+
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(-300, -300);//(200,200)
 	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
@@ -107,8 +123,8 @@ void CSceneStage::InitScene()
 
 	//アイテムオブジェクト作成	
 	//回復
-	//CObjHeal* Heal = new CObjHeal(200, 200);
-	//Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	CObjHeal* Heal = new CObjHeal(200, 200);
+	Objs::InsertObj(Heal, OBJ_HEAL, 7);
 	//ショットガン弾補充
 	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
 	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
@@ -259,4 +275,5 @@ void CSceneStage::Scene()
 		//	i_time = 0;
 		//}
 	}
+
 }

@@ -29,9 +29,6 @@ void CObjEnemy_Neutralization_Device2::Init()
 	m_Enemy_Neu_Dev_HitSize_x = 55;  //HitBoxサイズ
 	m_Enemy_Neu_Dev_HitSize_y = 50;
 
-	//無力化装置起動フラグ
-	m_Enemy_Neu_Dev_Start_Up = false;
-
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
 
@@ -52,6 +49,13 @@ void CObjEnemy_Neutralization_Device2::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool END = time->GetENDFlg();
+	//球体型敵情報取得
+	CObjSphere_Type_Enemy* ST_Enemy = (CObjSphere_Type_Enemy*)Objs::GetObj(OBJ_ENEMY);
+	bool ST_Enemy_Death_flg;
+	if (ST_Enemy != nullptr)
+	{
+		ST_Enemy_Death_flg = ST_Enemy->GetDeath();
+	}
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -64,8 +68,9 @@ void CObjEnemy_Neutralization_Device2::Action()
 			&& END == true)
 		{
 			TStart_flg = true;
-			m_Enemy_Neu_Dev_Start_Up = true;
+			ST_Enemy_Death_flg = true;
 			time->SetTStart(TStart_flg);
+			ST_Enemy->SetDeath(ST_Enemy_Death_flg);
 		}
 	}
 

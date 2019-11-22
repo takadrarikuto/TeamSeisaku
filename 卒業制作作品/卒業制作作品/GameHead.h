@@ -252,4 +252,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
-#define SET_GAME_START  CSceneStage
+
+#define SET_GAME_START  CSceneTitle
+
