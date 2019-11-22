@@ -367,19 +367,19 @@ void CObjHero::Action()
 				{
 					float r = hit_data[i]->r;
 					//Šp“x‚Åã‰º¶‰E‚ð”»’è
-					if ((r < 88 && r >= 0) || r > 292)
+					if ((r < 89 && r >= 0) || r > 271)
 					{
 						m_vx = -0.15f; //‰E
 					}
-					if (r > 88 && r < 92)
+					if (r > 89 && r < 91)
 					{
 						m_vy = 0.15f;//ã
 					}
-					if (r > 92 && r < 268)
+					if (r > 91 && r < 269)
 					{
 						m_vx = 0.15f;//¶
 					}
-					if (r > 268 && r < 292)
+					if (r > 269 && r < 271)
 					{
 						m_vy = -0.15f; //‰º
 					}
