@@ -36,14 +36,14 @@ void CObjOver::Action()
 	if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 	{
 		--choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	//â∫ÉLÅ[Ç≈â∫Ç…à⁄ìÆ
 	if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 	{
 		++choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	if (m_time > 0) {
@@ -63,7 +63,7 @@ void CObjOver::Action()
 			{
 				m_andf = true;
 				m_key_flag = false;
-				//Audio::Start(1);
+				Audio::Start(1);
 				//g_hero_max_hp = 0;
 			}
 		}
@@ -80,7 +80,7 @@ void CObjOver::Action()
 			{
 				m_andf2 = true;
 				//g_hero_max_hp = 0;
-				//Audio::Start(1);
+				Audio::Start(1);
 				m_key_flag = false;
 			}
 		}

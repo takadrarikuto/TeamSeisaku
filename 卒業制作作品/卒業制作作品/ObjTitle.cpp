@@ -50,14 +50,14 @@ void CObjTitle::Action()
 	if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 	{
 		--choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 	{
 		++choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	if (m_time > 0) {
@@ -75,7 +75,7 @@ void CObjTitle::Action()
 			if (m_key_flag == true)
 			{
 				m_andf = true;
-				//Audio::Start(1);
+				Audio::Start(1);
 				m_key_flag = false;
 
 			}
@@ -104,10 +104,11 @@ void CObjTitle::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			Scene::SetScene(new CSceneOP());
-
+			/*
 			//デバッグテスト用
-			//Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneClear());
+			Scene::SetScene(new CSceneStage());
+			Scene::SetScene(new CSceneClear());
+			*/
 		}
 	}
 
