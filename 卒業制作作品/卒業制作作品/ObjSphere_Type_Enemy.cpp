@@ -54,7 +54,7 @@ void CObjSphere_Type_Enemy::Init()
 	m_at_max = 5;
 
 	//死亡処理
-	m_fb_death_flg = false; //死亡フラグ
+	m_st_e_death_flg = false; //死亡フラグ
 
 	//ダメージ
 	((UserData*)Save::GetData())->EXP_Attack = 100; //爆発
@@ -89,6 +89,11 @@ void CObjSphere_Type_Enemy::Action()
 	float hpy = hero->GetPY() - m_st_ey;
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
+	//無力化装置情報取得
+	CObjEnemy_Neutralization_Device* END_D = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	CObjEnemy_Neutralization_Device2* END_D2 = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	bool end_d = END_D->GetDeath();
+	bool end_d2 = END_D2->GetDeath();
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
@@ -226,17 +231,21 @@ void CObjSphere_Type_Enemy::Action()
 			}
 		}
 	}
-	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
+	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr || end_d == true || end_d2 == true)
 	{
-		m_fb_death_flg = true; //死亡フラグ
+		m_st_e_death_flg = true; //死亡フラグ
 	}	
-	if (m_fb_death_flg == true)
+	if (m_st_e_death_flg == true)
 	{
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
-		m_fb_death_flg = false; //死亡フラグ
+		end_d = false;
+		end_d2 = false;
+		END_D->SetDeath(end_d);
+		END_D2->SetDeath(end_d2);
+		m_st_e_death_flg = false; //死亡フラグ
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

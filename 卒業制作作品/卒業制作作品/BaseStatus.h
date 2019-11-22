@@ -15,6 +15,7 @@ public:
 #define DISTANCE_RG 5	 //レールガン
 
 	int m_hero_hp; //体力
+	int m_hero_en; //耐久力
 	int m_hero_hp_max;
 	int Hitbox_size; //当たり判定サイズ
 	float m_dst_size; //描画サイズ

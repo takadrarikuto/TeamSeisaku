@@ -79,21 +79,21 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
 	//ボスオブジェクト作成 
-	CObjBoss*obj_boss = new CObjBoss(832, 632);
+	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
 	//発電機オブジェクト作成	
-	CObjGenerator* Gen = new CObjGenerator(200, 200);
+	CObjGenerator* Gen = new CObjGenerator(-300, -300);//(200,200)
 	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
 
-	CObjGenerator2* Gen2 = new CObjGenerator2(500, 200);
+	CObjGenerator2* Gen2 = new CObjGenerator2(1200, 900);//(500,200)
 	Objs::InsertObj(Gen2, OBJ_APPARATUS, 2);
 
 	//敵無力化装置オブジェクト作成
-	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(400, 200);
+	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1200, -300);//(400,200)
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
-	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(700, 200);
+	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//アイテムオブジェクト作成	
@@ -118,6 +118,9 @@ void CSceneStage::InitScene()
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+	//アーマー
+	CObjArmor* Armor = new CObjArmor(200, 200);
+	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
 
 	//壁オブジェクト作成
 	//左
@@ -157,6 +160,7 @@ void CSceneStage::InitScene()
 	//float v = Audio::VolumeMaster(0.6);
 
 	//Audio::Start(0); //音楽スタート
+	
 }
 
 void CSceneStage::Scene()
@@ -174,7 +178,7 @@ void CSceneStage::Scene()
 	//	//ゲームオーバー画面移動
 	//	Scene::SetScene(new CSceneGameOver());
 	//}
-
+	
 	//メニュー画面閲覧時行動停止処理
 	if (Menu_flg == false)
 	{
