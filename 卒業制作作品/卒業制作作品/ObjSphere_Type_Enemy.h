@@ -16,7 +16,7 @@ public:
 	//float GetX() { return m_zex; } //エネミー情報取得用
 	//float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
-
+																						 
 private:
 
 	float m_st_ex; //位置更新

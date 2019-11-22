@@ -29,8 +29,8 @@ void CObjEnemy_Neutralization_Device2::Init()
 	m_Enemy_Neu_Dev_HitSize_x = 55;  //HitBoxサイズ
 	m_Enemy_Neu_Dev_HitSize_y = 50;
 
-	//無力化装置起動フラグ
-	m_Enemy_Neu_Dev_Start_Up = false;
+	//死亡処理
+	m_END_death_flg = false; //死亡フラグ
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
@@ -64,9 +64,13 @@ void CObjEnemy_Neutralization_Device2::Action()
 			&& END == true)
 		{
 			TStart_flg = true;
-			m_Enemy_Neu_Dev_Start_Up = true;
+			m_END_death_flg = true;
 			time->SetTStart(TStart_flg);
 		}
+	}
+	else
+	{
+		m_END_death_flg = false;
 	}
 
 	//主人公の移動に合わせる

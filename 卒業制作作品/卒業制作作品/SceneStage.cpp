@@ -1,3 +1,4 @@
+
 #define _SECURE_SCL (0)
 #define _HAS_ITERATOR_DEBUGGING (0)
 
@@ -50,6 +51,15 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
+	
+	//音楽情報読み込み 
+	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
+
+	//バックミュージックスタート
+	float Volume = Audio::VolumeMaster(-0.3);
+
+	Audio::Start(0); //音楽スタート
+	
 
 	//エネミー出現タイム初期化
 	e_time = 0;
@@ -82,6 +92,10 @@ void CSceneStage::InitScene()
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
+	//火トカゲオブジェクト作成 
+	CObjFire_Lizard * obj_fl = new CObjFire_Lizard(100, 100);
+	Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
+
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(-300, -300);//(200,200)
 	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
@@ -96,10 +110,19 @@ void CSceneStage::InitScene()
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
+	//有刺鉄線オブジェクト作成
+	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
+	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
+	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+	//網オブジェクト作成
+	CObjNet* Net = new CObjNet(200, 200);
+	Objs::InsertObj(Net, OBJ_NET, 7);
+
 	//アイテムオブジェクト作成	
 	//回復
-	//CObjHeal* Heal = new CObjHeal(200, 200);
-	//Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	CObjHeal* Heal = new CObjHeal(200, 200);
+	Objs::InsertObj(Heal, OBJ_HEAL, 7);
 	//ショットガン弾補充
 	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
 	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
@@ -250,4 +273,5 @@ void CSceneStage::Scene()
 		//	i_time = 0;
 		//}
 	}
+
 }

@@ -281,7 +281,7 @@ void CObjHero::Action()
 				hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
 				float r = hit_data[0]->r;
 				if (hit_data != nullptr)
-				{					
+				{
 					//角度で上下左右を判定
 					if ((r > 0 && r < 30) || r >= 330)
 					{
@@ -313,7 +313,7 @@ void CObjHero::Action()
 					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
 					{
 						m_x = EndX + EndHitX;
-					}						
+					}
 				}
 				else if (m_RightHit_flg == true)//右に当たり判定があった場合
 				{
@@ -326,7 +326,7 @@ void CObjHero::Action()
 					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
 					{
 						m_x = EndX - m_dst_size;
-					}						
+					}
 				}
 				else if (m_DownHit_flg == true)//下に当たり判定があった場合
 				{
@@ -339,7 +339,7 @@ void CObjHero::Action()
 					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
 					{
 						m_y = EndY - m_dst_size;
-					}						
+					}
 				}
 				else if (m_UpHit_flg == true)//上に当たり判定があった場合
 				{
@@ -352,10 +352,10 @@ void CObjHero::Action()
 					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
 					{
 						m_y = EndY + EndHitY;
-					}						
+					}
 				}*/
 				//--------------------------------------------
-			}			
+			}
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 			if (hit_h->CheckElementHit(ELEMENT_WALL) == true)
@@ -367,19 +367,19 @@ void CObjHero::Action()
 				{
 					float r = hit_data[i]->r;
 					//角度で上下左右を判定
-					if ((r < 88 && r >= 0) || r > 292)
+					if ((r < 89 && r >= 0) || r > 271)
 					{
 						m_vx = -0.15f; //右
 					}
-					if (r > 88 && r < 92)
+					if (r > 89 && r < 91)
 					{
 						m_vy = 0.15f;//上
 					}
-					if (r > 92 && r < 268)
+					if (r > 91 && r < 269)
 					{
 						m_vx = 0.15f;//左
 					}
-					if (r > 268 && r < 292)
+					if (r > 269 && r < 271)
 					{
 						m_vy = -0.15f; //下
 					}
@@ -1019,7 +1019,7 @@ void CObjHero::Action()
 
 		//HitBoxの内容を更新
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
-		
+
 		//ミーム実態(中ボス)情報取得
 		CObjMeme_Medium_Boss* MMB = (CObjMeme_Medium_Boss*)Objs::GetObj(OBJ_MEME_MEDIUM_BOSS);
 		float MMB_x;
@@ -1062,7 +1062,7 @@ void CObjHero::Action()
 
 					//Audio::Start(3);	//ダメージ音	
 					hit_h->SetInvincibility(true);	//無敵オン
-					
+
 					//ゾンビ
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
@@ -1126,9 +1126,20 @@ void CObjHero::Action()
 					//球体型敵
 					else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
 					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage_En = EXPAttack->GetEXP();
+							m_hero_en -= EXPDamage_En;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage = EXPAttack->GetEXP();
+							m_hero_hp -= EXPDamage;
+						}
 						m_time_d = 90;		//無敵時間をセット
 					}
 					//ボス
@@ -1149,10 +1160,36 @@ void CObjHero::Action()
 					//爆発
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
-						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage_En = EXPAttack->GetEXP();
+							m_hero_en -= EXPDamage_En;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+							int EXPDamage = EXPAttack->GetEXP();
+							m_hero_hp -= EXPDamage;
+						}
 						m_time_d = 90;		//無敵時間をセット
+					}
+					//有刺鉄線(スモール)
+					else if (hit_h->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+					{
+						//耐久力フラグがオンの時、耐久力を減らす
+						if (En_flg == true)
+						{
+							m_hero_en -= 1;
+						}
+						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+						if (Hp_flg == true)
+						{
+							m_hero_hp -= 2;
+						}
+						m_time_d = 30;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
@@ -1175,31 +1212,30 @@ void CObjHero::Action()
 					}
 				}
 			}
-		
-			//ミーム実態(中ボス)ダメージ処理
-			if (MMB != nullptr)
-			{
-				MMB_x = MMB->GetX();
-				MMB_y = MMB->GetY();
+		}
+		//ミーム実態(中ボス)ダメージ処理
+		if (MMB != nullptr)
+		{
+			MMB_x = MMB->GetX();
+			MMB_y = MMB->GetY();
 
-				//敵との距離を測る
-				if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
-				{
-					m_hero_hp -= 1;
-					m_time_d = 20;		//無敵時間をセット
-				}
-				else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
-				{
-					m_hero_hp -= 1;
-					m_time_d = 20;		//無敵時間をセット
-				}
-				else if (MMB_x == m_x && MMB_y == m_y)
-				{
-					m_hero_hp -= 1;
-					m_time_d = 10;		//無敵時間をセット
-				}
-			}			
-		}		
+			//敵との距離を測る
+			if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
+			{
+				m_hero_hp -= 1;
+				m_time_d = 20;		//無敵時間をセット
+			}
+			else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
+			{
+				m_hero_hp -= 1;
+				m_time_d = 20;		//無敵時間をセット
+			}
+			else if (MMB_x == m_x && MMB_y == m_y)
+			{
+				m_hero_hp -= 1;
+				m_time_d = 10;		//無敵時間をセット
+			}
+		}
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{
@@ -1245,6 +1281,7 @@ void CObjHero::Action()
 		}
 	}
 }
+
 
 //ドロー
 void CObjHero::Draw()
