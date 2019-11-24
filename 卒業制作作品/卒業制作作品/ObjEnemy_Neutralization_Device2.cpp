@@ -68,10 +68,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 			time->SetTStart(TStart_flg);
 		}
 	}
-	else
-	{
-		m_END_death_flg = false;
-	}
+	
 
 	//ålŒö‚ÌˆÚ“®‚É‡‚í‚¹‚é
 	m_Enemy_Neu_Devx -= hvx;
