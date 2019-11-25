@@ -57,14 +57,14 @@ void CObjMenu::Action()
 		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 		{
 			--choose;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_time = 10;
 		}
 		//â∫ÉLÅ[Ç≈â∫Ç…à⁄ìÆ
 		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 		{
 			++choose;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_time = 10;
 		}
 		if (m_time > 0) {

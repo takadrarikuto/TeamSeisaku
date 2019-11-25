@@ -105,6 +105,12 @@ void CObjSphere_Type_Enemy::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
+	//敵無力化装置情報取得
+	CObjEnemy_Neutralization_Device* END_D = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	CObjEnemy_Neutralization_Device2* END_D2 = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	bool END_D_flg = END_D->GetDeath();
+	bool END_D2_flg = END_D2->GetDeath();
+	
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
@@ -245,13 +251,20 @@ void CObjSphere_Type_Enemy::Action()
 	{
 		m_st_e_death_flg = true; //死亡フラグ
 	}	
-	if (m_st_e_death_flg == true)
+	if (m_st_e_death_flg == true || END_D_flg == true || END_D2_flg == true)
 	{
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
+		//初期化
 		m_st_e_death_flg = false;
+		END_D_flg = false;
+		END_D2_flg = false;
+		//セット処理
+		END_D->SetDeath(END_D_flg);
+		END_D2->SetDeath(END_D2_flg);
+
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

@@ -23,7 +23,8 @@ enum OBJ_NAME
 	OBJ_SPHERE_TYPE_ENEMY,
 	OBJ_MEME_MEDIUM_BOSS,
 	OBJ_BOSS,
-	OBJ_APPARATUS,
+	OBJ_GENERATOR,
+	OBJ_GENERATOR2,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
@@ -252,4 +253,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
+
 #define SET_GAME_START  CSceneStage
+
