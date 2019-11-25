@@ -52,6 +52,10 @@ private:
 	int m_Sphere_Type_Enemy_time_max; //球体型敵生成タイム最大値
 	int m_Sphere_Type_Enemy_Restriction; //球体型敵生成数制限
 	int m_Sphere_Type_Enemy_Restriction_max; //球体型敵生成数制限最大値
+	int m_Sphere_Type_Enemy_Restriction_Rand; //球体型敵生成数ランダム
+	bool m_Sphere_Type_Enemy_Restriction_Stop_flg; //球体型生成停止フラグ
+//ミーム実態
+	bool m_Meme_Medium_Boss_Restriction_Stop_flg; //ミーム実態生成停止フラグ
 
 	float m_scrollx; //横スクロール
 	float m_scrolly; //縦スクロール
