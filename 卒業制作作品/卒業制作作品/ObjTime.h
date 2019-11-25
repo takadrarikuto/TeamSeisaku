@@ -29,6 +29,7 @@ public:
 	void SetTimeFlag(bool b) { m_flag_time = b; } 
 private:
 	int m_time;		//時間
+	int m_time_event; //イベント開始時間
 	int m_Event_Rand_num; //イベントランダム変数
 
 	bool m_flag_time;//時間計測スタートフラグ
@@ -37,5 +38,8 @@ private:
 
 	bool m_Gen_flg; //発電機起動フラグ
 	bool m_END_flg; //敵無力化装置フラグ
+	 
+	int m_Time_CutBack_num; //タイム減少量
+	int m_Time_CutBack_Gen_num_max; //タイム減少量(発電気イベント)最大値
 
 };

@@ -1,4 +1,3 @@
-
 #define _SECURE_SCL (0)
 #define _HAS_ITERATOR_DEBUGGING (0)
 
@@ -92,16 +91,16 @@ void CSceneStage::InitScene()
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
-	//火トカゲオブジェクト作成 
-	CObjFire_Lizard * obj_fl = new CObjFire_Lizard(100, 100);
-	Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
+	//ミーム実態(中ボス)オブジェクト作成
+	CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
+	Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
 
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(-300, -300);//(200,200)
-	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
+	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
 	CObjGenerator2* Gen2 = new CObjGenerator2(1200, 900);//(500,200)
-	Objs::InsertObj(Gen2, OBJ_APPARATUS, 2);
+	Objs::InsertObj(Gen2, OBJ_GENERATOR2, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1200, -300);//(400,200)

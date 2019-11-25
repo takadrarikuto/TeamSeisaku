@@ -121,7 +121,7 @@ void CObjBoss::Action()
 		//m_Bat_Enemy_Generation++; //åžå•¶¬•p“x
 		//m_Frie_Lizard_Generation++; //‰ÎƒgƒJƒQ“G¶¬•p“x
 		//m_Frie_Bird_Generation++; //‰Î‚Ì’¹“G¶¬•p“x
-		m_Sphere_Type_Enemy_Generation++; //‹…‘ÌŒ^“G“G¶¬•p“x
+		//m_Sphere_Type_Enemy_Generation++; //‹…‘ÌŒ^“G“G¶¬•p“x
 
 		//e_x = rand() % 192 + m_bx;
 		//e_y = rand() % 64 + m_by;
@@ -194,16 +194,16 @@ void CObjBoss::Action()
 		//	m_Frie_Bird_Generation = 0;
 		//}
 		//‹…‘ÌŒ^“G
-		if (m_Sphere_Type_Enemy_Generation >= m_Sphere_Type_Enemy_time_max && m_Sphere_Type_Enemy_Restriction < m_Sphere_Type_Enemy_Restriction_max)
-		{
-			//‹…‘ÌŒ^“GƒIƒuƒWƒFƒNƒgì¬
-			CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
-			Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
-			
-			srand(time(NULL)); // ƒ‰ƒ“ƒ_ƒ€î•ñ‚ð‰Šú‰»
-			m_Sphere_Type_Enemy_Restriction++; //‹…‘ÌŒ^“G¶¬ƒJƒEƒ“ƒg
-			m_Sphere_Type_Enemy_Generation = 0;
-		}
+		//if (m_Sphere_Type_Enemy_Generation >= m_Sphere_Type_Enemy_time_max && m_Sphere_Type_Enemy_Restriction < m_Sphere_Type_Enemy_Restriction_max)
+		//{
+		//	//‹…‘ÌŒ^“GƒIƒuƒWƒFƒNƒgì¬
+		//	CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
+		//	Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
+		//	
+		//	srand(time(NULL)); // ƒ‰ƒ“ƒ_ƒ€î•ñ‚ð‰Šú‰»
+		//	m_Sphere_Type_Enemy_Restriction++; //‹…‘ÌŒ^“G¶¬ƒJƒEƒ“ƒg
+		//	m_Sphere_Type_Enemy_Generation = 0;
+		//}
 		/*
 		//ƒ~[ƒ€ŽÀ‘Ô(’†ƒ{ƒX)ƒIƒuƒWƒFƒNƒgì¬
 		CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
