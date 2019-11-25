@@ -114,8 +114,9 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
 	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+	
 	//網オブジェクト作成
-	CObjNet* Net = new CObjNet(200, 200);
+	CObjNet* Net = new CObjNet(200,200);
 	Objs::InsertObj(Net, OBJ_NET, 7);
 
 	//アイテムオブジェクト作成	
@@ -200,7 +201,6 @@ void CSceneStage::Scene()
 	//	//ゲームオーバー画面移動
 	//	Scene::SetScene(new CSceneGameOver());
 	//}
-	
 	//メニュー画面閲覧時行動停止処理
 	if (Menu_flg == false)
 	{
