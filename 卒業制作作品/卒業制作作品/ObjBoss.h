@@ -49,9 +49,6 @@ private:
 	int m_Frie_Bird_Restriction; //‰Î‚Ì’¹¶¬”§ŒÀ
 	int m_Frie_Bird_Restriction_max; //‰Î‚Ì’¹¶¬”§ŒÀÅ‘å’l
 //‹…‘ÌŒ^“G
-	int m_Sphere_Type_Enemy_time_max; //‹…‘ÌŒ^“G¶¬ƒ^ƒCƒ€Å‘å’l
-	int m_Sphere_Type_Enemy_Restriction; //‹…‘ÌŒ^“G¶¬”§ŒÀ
-	int m_Sphere_Type_Enemy_Restriction_max; //‹…‘ÌŒ^“G¶¬”§ŒÀÅ‘å’l
 	int m_Sphere_Type_Enemy_Restriction_Rand; //‹…‘ÌŒ^“G¶¬”ƒ‰ƒ“ƒ_ƒ€
 	bool m_Sphere_Type_Enemy_Restriction_Stop_flg; //‹…‘ÌŒ^¶¬’â~ƒtƒ‰ƒO
 //ƒ~[ƒ€À‘Ô
