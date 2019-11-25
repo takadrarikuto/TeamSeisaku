@@ -84,6 +84,10 @@ void CObjBoss::Init()
 	m_Sphere_Type_Enemy_time_max = 300/*3000*/; //球体型敵生成タイム最大値
 	m_Sphere_Type_Enemy_Restriction = 0; //球体型敵生成数制限
 	m_Sphere_Type_Enemy_Restriction_max = 5; //球体型敵生成数制限最大値
+	m_Sphere_Type_Enemy_Restriction_Rand = 5; //球体型敵生成数ランダム
+	m_Sphere_Type_Enemy_Restriction_Stop_flg = false; //球体型生成停止フラグ
+//ミーム実態
+	m_Meme_Medium_Boss_Restriction_Stop_flg = false; //ミーム実態生成停止フラグ
 
 	//描画サイズ
 	m_dst_size = 128.0f;
@@ -101,6 +105,10 @@ void CObjBoss::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool END_flg = time->GetENDFlg();
+	bool MND_flg = time->GetMNDFlg();
 
 	//移動停止
 	m_bvx = 0.0f;
@@ -209,6 +217,26 @@ void CObjBoss::Action()
 		CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
 		Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
 		*/
+		//敵無力化イベント時敵生成
+		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
+		{
+			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 10;
+			for (int c = 0; c > m_Sphere_Type_Enemy_Restriction_Rand; c++)
+			{
+				//球体型敵オブジェクト作成
+				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
+				Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
+			}
+			m_Sphere_Type_Enemy_Restriction_Stop_flg = true; 
+		}
+		if (MND_flg == true && m_Meme_Medium_Boss_Restriction_Stop_flg == false)
+		{
+			//ミーム実態(中ボス)オブジェクト作成
+			CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
+			Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
+
+			m_Meme_Medium_Boss_Restriction_Stop_flg = true; //ミーム実態生成停止フラグ
+		}
 	}
 
 	//HitBoxの内容を更新

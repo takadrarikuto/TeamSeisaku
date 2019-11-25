@@ -19,12 +19,14 @@ public:
 
 	bool GetGenFlg() { return m_Gen_flg; } //発電機起動フラグ取得用
 	bool GetENDFlg() { return m_END_flg; } //敵無力化装置フラグ取得用
+	bool GetMNDFlg() { return m_MND_flg; } //ミーム実態無力化装置フラグ取得用
 
 	void SetTStop(bool stop_t) { m_Stop_flg = stop_t; }  //時間停止フラグ設定用
 	void SetTStart(bool start_t) { m_Start_flg = start_t; } //測定開始フラグ設定用
 
 	void SetGenFlg(bool gen_f) { m_Gen_flg = gen_f; } //発電機起動フラグ設定用
 	void SetENDFlg(bool end_f) { m_END_flg = end_f; } //敵無力化装置フラグ設定用
+	void SetMNDFlg(bool mnd_f) { m_MND_flg = mnd_f; } //ミーム実態無力化装置フラグ設定用
 
 	void SetTimeFlag(bool b) { m_flag_time = b; } 
 private:
@@ -38,6 +40,7 @@ private:
 
 	bool m_Gen_flg; //発電機起動フラグ
 	bool m_END_flg; //敵無力化装置フラグ
+	bool m_MND_flg; //ミーム実態無力化装置フラグ
 	 
 	int m_Time_CutBack_num; //タイム減少量
 	int m_Time_CutBack_Gen_num_max; //タイム減少量(発電気イベント)最大値

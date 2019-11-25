@@ -16,6 +16,9 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
+//死亡処理
+extern bool m_Meme_death_flg; //死亡フラグ
+
 //コンストラクタ
 CObjMeme_Medium_Boss::CObjMeme_Medium_Boss(float mmbx, float mmby)
 {
@@ -239,7 +242,7 @@ void CObjMeme_Medium_Boss::Action()
 		}
 	}
 
-	if (m_hero_hp <= 0)
+	if (m_Meme_death_flg == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

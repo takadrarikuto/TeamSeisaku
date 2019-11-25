@@ -10,6 +10,8 @@
 //使用するネームスペース
 using namespace GameL;
 
+bool m_Time_GenEve_CutBack_flg = false; //タイム減少フラグ
+
 //コンストラクタ
 CObjGenerator::CObjGenerator(float x, float y)
 {
@@ -33,9 +35,6 @@ void CObjGenerator::Init()
 	m_HitSize_x = 100; 
 	m_HitSize_y = 40;
 
-	//タイム減少フラグ
-	m_Time_CutBack_flg = false;
-
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Genx, m_Geny, m_HitSize_x, m_HitSize_y, ELEMENT_FIELD, OBJ_GENERATOR, 6);
 
@@ -43,8 +42,7 @@ void CObjGenerator::Init()
 
 //アクション
 void CObjGenerator::Action()
-{
-	m_Time_CutBack_flg = false;
+{	
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -70,9 +68,13 @@ void CObjGenerator::Action()
 			&& GEN == true)
 		{
 			TStart_flg = true;
-			m_Time_CutBack_flg = true;
+			m_Time_GenEve_CutBack_flg = true;
 			time->SetTStart(TStart_flg);
 		}
+	}
+	else
+	{
+		m_Time_GenEve_CutBack_flg = false;
 	}
 
 	//主人公の移動に合わせる

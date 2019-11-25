@@ -124,6 +124,7 @@
     <ClInclude Include="ObjFire_Lizard.h" />
     <ClInclude Include="ObjGenerator2.h" />
     <ClInclude Include="ObjMeme_Medium_Boss.h" />
+    <ClInclude Include="ObjMeme_Neutralization_Device.h" />
     <ClInclude Include="ObjNet.h" />
     <ClInclude Include="ObjSphere_Type_Enemy.h" />
     <ClInclude Include="ObjTutoWall.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="ObjFire_Lizard.cpp" />
     <ClCompile Include="ObjGenerator2.cpp" />
     <ClCompile Include="ObjMeme_Medium_Boss.cpp" />
+    <ClCompile Include="ObjMeme_Neutralization_Device.cpp" />
     <ClCompile Include="ObjNet.cpp" />
     <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />

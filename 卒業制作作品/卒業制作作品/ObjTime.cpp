@@ -14,6 +14,9 @@ using namespace GameL;
 
 //メニューONOFFフラグ
 extern bool Menu_flg;
+//タイム減少フラグ
+extern bool m_Time_GenEve_CutBack_flg;
+extern bool m_Time_Gen2Eve_CutBack_flg;
 
 //イベント用タイムONOFFフラグ
 //bool m_Evetime_flg = false;
@@ -37,36 +40,27 @@ void CObjTime::Init()
 
 	m_Gen_flg = false; //発電機起動フラグ
 	m_END_flg = false; //敵無力化装置フラグ
+	m_MND_flg = false; //ミーム実態無力化装置フラグ
 }
 
 //アクション
 void CObjTime::Action()
 {
-	//発電機情報取得
-	CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
-	CObjGenerator2* Gen2 = (CObjGenerator2*)Objs::GetObj(OBJ_GENERATOR2);
-	bool Time_CutBack;
-	bool Time_CutBack2;
-	if (Gen != nullptr || Gen2 != nullptr)
-	{
-		Time_CutBack = Gen->GetTimeCutBack();
-		Time_CutBack2 = Gen2->GetTimeCutBack();
-	}
-	if (Time_CutBack == true || Time_CutBack2 == true)
+	//タイム減少処理
+	if (m_Time_GenEve_CutBack_flg == true || m_Time_Gen2Eve_CutBack_flg == true)
 	{
 		m_Time_CutBack_Gen_num_max = 2400; //20秒減らす
 		m_Time_CutBack_num = m_Time_CutBack_Gen_num_max;
 		m_time -= m_Time_CutBack_num; //タイム20秒を減らす
 		m_time_event -= m_Time_CutBack_num;//イベントタイム20秒を減らす
-		if (Time_CutBack == true)
+		//フラグ初期化
+		if (m_Time_GenEve_CutBack_flg == true)
 		{
-			Time_CutBack = false;
-			Gen->SetStatus(Time_CutBack);
+			m_Time_GenEve_CutBack_flg = false;
 		}
-		if (Time_CutBack2 == true)
+		if (m_Time_Gen2Eve_CutBack_flg == true)
 		{
-			Time_CutBack2 = false;
-			Gen2->SetStatus(Time_CutBack2);
+			m_Time_Gen2Eve_CutBack_flg = false;
 		}
 	}
 	else
@@ -86,14 +80,18 @@ void CObjTime::Action()
 	if (m_time == m_time_event && m_Stop_flg == false)
 	{		
 		m_Event_Rand_num = rand() % 100;
-		//イベントランダム選択処理
-		if (m_Event_Rand_num < 50)
-		{
-			m_Gen_flg = true;
-		}
-		else if (m_Event_Rand_num >= 50)
+		////イベントランダム選択処理
+		//if (m_Event_Rand_num < 50)
+		//{
+		//	m_Gen_flg = true;
+		//}
+		/*else if (m_Event_Rand_num >= 50)
 		{
 			m_END_flg = true;
+		}*/
+		if (m_Event_Rand_num >= 0)
+		{
+			m_MND_flg = true;
 		}
 		m_Stop_flg = true;
 	}
@@ -103,10 +101,13 @@ void CObjTime::Action()
 		//イベント開始時間減少
 		m_time_event -= 1850; //30秒減少
 		//初期化処理
+		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;
+		//設置物フラグ
 		m_Gen_flg = false;
-		m_END_flg = false;		
+		m_END_flg = false;	
+		m_MND_flg = false;
 	}
 	else
 	{
