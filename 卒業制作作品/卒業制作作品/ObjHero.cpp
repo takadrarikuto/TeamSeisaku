@@ -247,13 +247,9 @@ void CObjHero::Action()
 				m_LRani_frame = 0;
 			}
 
-			//位置情報更新
-			m_px += m_vx;
-			m_py += m_vy;
-
 			//HitBoxの内容を更新
 			CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
-			hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
+			
 
 			//設置物オブジェクト情報作成
 			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
@@ -286,18 +282,22 @@ void CObjHero::Action()
 					if ((r > 0 && r < 30) || r >= 330)
 					{
 						m_RightHit_flg = true; //右
+						m_vx = -0.65f;
 					}
 					else if (r >= 30 && r < 150)
 					{
 						m_UpHit_flg = true;    //上
+						m_vy = 0.65f;
 					}
 					else if (r >= 150 && r <= 210)
 					{
 						m_LeftHit_flg = true;	 //左
+						m_vx = 0.65f;
 					}
 					else if (r > 210 && r < 330)
 					{
 						m_DownHit_flg = true;	 //下
+						m_vy = -0.65f;
 					}
 				}
 				//----------------------------------------ここ
@@ -369,19 +369,19 @@ void CObjHero::Action()
 					//角度で上下左右を判定
 					if ((r < 89 && r >= 0) || r > 271)
 					{
-						m_vx = -0.15f; //右
+						m_vx = -0.65f; //右
 					}
 					if (r > 89 && r < 91)
 					{
-						m_vy = 0.15f;//上
+						m_vy = 0.65f;//上
 					}
 					if (r > 91 && r < 269)
 					{
-						m_vx = 0.15f;//左
+						m_vx = 0.65f;//左
 					}
 					if (r > 269 && r < 271)
 					{
-						m_vy = -0.15f; //下
+						m_vy = -0.65f; //下
 					}
 				}
 
@@ -435,22 +435,32 @@ void CObjHero::Action()
 					//角度で上下左右を判定
 					if ((r < 2 && r >= 0) || r > 358)
 					{
-						m_vx = -0.15f; //右
+						m_vx = -0.65f; //右
 					}
 					if (r > 2 && r < 178)
 					{
-						m_vy = 0.15f;//上
+						m_vy = 0.65f;//上
 					}
 					if (r > 178 && r < 182)
 					{
-						m_vx = 0.15f;//左
+						m_vx = 0.65f;//左
 					}
 					if (r > 182 && r < 358)
 					{
-						m_vy = -0.15f; //下
+						m_vy = -0.65f; //下
 					}
 				}
 			}
+
+			//摩擦
+			m_vx += -(m_vx * 0.098f);
+			m_vy += -(m_vy * 0.098f);
+
+			//位置情報更新
+			m_px += m_vx;
+			m_py += m_vy;
+
+			hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
 			//武器切り替え処理
 			if (Input::GetVKey(VK_LEFT) == true)

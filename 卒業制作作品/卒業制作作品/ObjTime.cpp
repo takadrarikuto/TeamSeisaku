@@ -101,7 +101,7 @@ void CObjTime::Action()
 	if (m_Start_flg == true)
 	{
 		//イベント開始時間減少
-		m_time_event -= 1850; //30秒減少
+		m_time_event -= 1800; //30秒減少
 		//初期化処理
 		m_Stop_flg = false;
 		m_Start_flg = false;
