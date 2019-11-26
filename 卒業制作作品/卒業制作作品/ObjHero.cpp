@@ -1229,7 +1229,6 @@ void CObjHero::Action()
 				}
 			}
 		}
-		
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{
