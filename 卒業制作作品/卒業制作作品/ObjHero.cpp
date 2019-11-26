@@ -1261,7 +1261,7 @@ void CObjHero::Action()
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}
-		}*/
+		}
 	}
 }
 
