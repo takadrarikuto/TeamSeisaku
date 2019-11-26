@@ -225,9 +225,6 @@
     <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ObjZombieEnemy.h">
-      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
-    </ClInclude>
     <ClInclude Include="ObjBoss.h">
       <Filter>ソース ファイル\ステージメイン\ボス</Filter>
     </ClInclude>
@@ -350,6 +347,12 @@
     </ClInclude>
     <ClInclude Include="ObjNet.h">
       <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjZombieEnemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMeme_Neutralization_Device.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -601,6 +604,9 @@
     </ClCompile>
     <ClCompile Include="ObjNet.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMeme_Neutralization_Device.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

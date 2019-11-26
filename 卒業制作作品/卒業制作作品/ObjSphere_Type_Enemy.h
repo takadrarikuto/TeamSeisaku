@@ -37,7 +37,5 @@ private:
 	int m_at; //UŒ‚•p“x
 	int m_at_max; //UŒ‚•p“xÅ‘å’l
 
-	//€–Sˆ—
-	bool m_st_e_death_flg; //€–Sƒtƒ‰ƒO
 	
 };

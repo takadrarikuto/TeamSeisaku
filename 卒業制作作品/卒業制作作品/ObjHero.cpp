@@ -256,7 +256,7 @@ void CObjHero::Action()
 			hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
 			//設置物オブジェクト情報作成
-			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
+			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
 			float GenX = Gen->GetGenX();
 			float GenY = Gen->GetGenY();
 			float GenHitX = Gen->GetGenHitX();
@@ -305,7 +305,7 @@ void CObjHero::Action()
 				/*if (m_LeftHit_flg == true)//左に当たり判定があった場合
 				{
 					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
+					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
 					{
 						m_x = GenX + GenHitX;
 					}
@@ -318,7 +318,7 @@ void CObjHero::Action()
 				else if (m_RightHit_flg == true)//右に当たり判定があった場合
 				{
 					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
+					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
 					{
 						m_x = GenX - m_dst_size;
 					}
@@ -331,7 +331,7 @@ void CObjHero::Action()
 				else if (m_DownHit_flg == true)//下に当たり判定があった場合
 				{
 					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
+					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
 					{
 						m_y = GenY - m_dst_size;
 					}
@@ -344,7 +344,7 @@ void CObjHero::Action()
 				else if (m_UpHit_flg == true)//上に当たり判定があった場合
 				{
 					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
+					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
 					{
 						m_y = GenY + GenHitY;
 					}
@@ -1142,9 +1142,15 @@ void CObjHero::Action()
 						}
 						m_time_d = 90;		//無敵時間をセット
 					}
+					//ミーム実態(中ボス)本体ダメージ処理
+					else if (hit_h->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+					{
+							m_hero_hp -= 1;
+							m_time_d = 10;		//無敵時間をセット						
+					}
 					//ボス
 					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-					{
+					{						
 						//耐久力フラグがオンの時、耐久力を減らす
 						if (En_flg == true)
 						{
@@ -1213,29 +1219,7 @@ void CObjHero::Action()
 				}
 			}
 		}
-		//ミーム実態(中ボス)ダメージ処理
-		if (MMB != nullptr)
-		{
-			MMB_x = MMB->GetX();
-			MMB_y = MMB->GetY();
-
-			//敵との距離を測る
-			if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
-			{
-				m_hero_hp -= 1;
-				m_time_d = 20;		//無敵時間をセット
-			}
-			else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
-			{
-				m_hero_hp -= 1;
-				m_time_d = 20;		//無敵時間をセット
-			}
-			else if (MMB_x == m_x && MMB_y == m_y)
-			{
-				m_hero_hp -= 1;
-				m_time_d = 10;		//無敵時間をセット
-			}
-		}
+		
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{

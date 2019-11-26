@@ -20,7 +20,7 @@ CObjArmor::CObjArmor(float x, float y)
 {
 	//ˆÊ’uî•ñ“o˜^(”’l=ˆÊ’u’²®)
 	m_Armorx = 100;
-	m_Armory = 100;
+	m_Armory = 300;
 
 }
 

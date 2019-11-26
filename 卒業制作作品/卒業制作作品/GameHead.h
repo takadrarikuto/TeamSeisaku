@@ -23,8 +23,9 @@ enum OBJ_NAME
 	OBJ_SPHERE_TYPE_ENEMY,
 	OBJ_MEME_MEDIUM_BOSS,
 	OBJ_BOSS,
-	OBJ_APPARATUS,
+	OBJ_GENERATOR,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
+	OBJ_MEME_NEUTRALIZATION_DEVICE,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
@@ -152,6 +153,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjGenerator2.h"
 #include "ObjEnemy_Neutralization_Device.h"
 #include "ObjEnemy_Neutralization_Device2.h"
+#include "ObjMeme_Neutralization_Device.h"
 #include "ObjBarbedWire.h"
 #include "ObjBarbedWireSmall.h"
 #include "ObjNet.h"

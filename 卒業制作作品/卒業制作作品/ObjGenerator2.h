@@ -25,4 +25,5 @@ private:
 
 	float m_HitSize_x; //HitBoxÉTÉCÉY
 	float m_HitSize_y;
+
 };
