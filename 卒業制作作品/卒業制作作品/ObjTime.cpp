@@ -30,9 +30,6 @@ void CObjTime::Init()
 	m_Event_Rand_num = 0;
 	//イベント開始時間
 	m_time_event = 9050;
-
-	m_Time_CutBack_num = 0; //タイム減少量
-	m_Time_CutBack_Gen_num_max = 0; //タイム減少量(発電気イベント)最大値
 	
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
@@ -46,27 +43,9 @@ void CObjTime::Init()
 //アクション
 void CObjTime::Action()
 {
-	//タイム減少処理
-	if (m_Time_GenEve_CutBack_flg == true || m_Time_Gen2Eve_CutBack_flg == true)
-	{
-		m_Time_CutBack_Gen_num_max = 2400; //20秒減らす
-		m_Time_CutBack_num = m_Time_CutBack_Gen_num_max;
-		m_time -= m_Time_CutBack_num; //タイム20秒を減らす
-		m_time_event -= m_Time_CutBack_num;//イベントタイム20秒を減らす
-		//フラグ初期化
-		if (m_Time_GenEve_CutBack_flg == true)
-		{
-			m_Time_GenEve_CutBack_flg = false;
-		}
-		if (m_Time_Gen2Eve_CutBack_flg == true)
-		{
-			m_Time_Gen2Eve_CutBack_flg = false;
-		}
-	}
-	else
-	{
-		m_Time_CutBack_num = 0;
-	}
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	bool Time_Pena = Event->GetEveTimPena;
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
@@ -81,14 +60,14 @@ void CObjTime::Action()
 	{		
 		m_Event_Rand_num = rand() % 100;
 		////イベントランダム選択処理
-		//if (m_Event_Rand_num < 50)
-		//{
-		//	m_Gen_flg = true;
-		//}
-		/*else */if (m_Event_Rand_num > 0/*>= 50*/)
+		if (m_Event_Rand_num > 0/*< 50*/)
+		{
+			m_Gen_flg = true;
+		}
+		/*else if (m_Event_Rand_num>= 50)
 		{
 			m_END_flg = true;
-		}
+		}*/
 		/*if (m_Event_Rand_num >= 0)
 		{
 			m_MND_flg = true;
@@ -97,9 +76,16 @@ void CObjTime::Action()
 	}
 	//タイム再スタート処理
 	if (m_Start_flg == true)
-	{
+	{		
 		//イベント開始時間減少
-		m_time_event -= 1850; //30秒減少
+		m_time_event -= 1800; //30秒減少
+		//発電機イベント失敗時タイム増加
+		if (Time_Pena == true)
+		{
+			m_time += 1800; //30秒増加
+			Time_Pena = false;
+			Event->SetEveTimPena(Time_Pena);
+		}
 		//初期化処理
 		//タイムストップorスタート
 		m_Stop_flg = false;
@@ -107,7 +93,7 @@ void CObjTime::Action()
 		//設置物フラグ
 		m_Gen_flg = false;
 		m_END_flg = false;	
-		m_MND_flg = false;
+		m_MND_flg = false;		
 	}
 	else
 	{
