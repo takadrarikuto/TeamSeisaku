@@ -84,7 +84,7 @@ void CObjMenu::Action()
 				{
 					m_andf = true;
 					m_key_flag = false;
-					Audio::Start(1);
+					//Audio::Start(1);
 					//g_hero_max_hp = 0;
 				}
 			}
@@ -101,7 +101,7 @@ void CObjMenu::Action()
 				{
 					m_andf2 = true;
 					//g_hero_max_hp = 0;
-					Audio::Start(1);
+					//Audio::Start(1);
 					m_key_flag = false;
 				}
 			}
