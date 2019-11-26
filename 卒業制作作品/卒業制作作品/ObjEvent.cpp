@@ -41,6 +41,7 @@ void CObjEvent::Action()
 	bool TStart_flg = time->GetTStart();
 	bool Gen_flg = time->GetGenFlg();
 	bool END_flg = time->GetENDFlg();
+	bool MND_flg = time->GetMNDFlg();
 
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
@@ -58,6 +59,11 @@ void CObjEvent::Action()
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
 			}
+			//ミーム実態
+			else if (MND_flg == true)
+			{
+				m_Event_time = 3600; //3600 ＝ 60秒
+			}
 			m_Event_time_flg = true;
 		}	
 		m_Event_time--;
@@ -66,11 +72,13 @@ void CObjEvent::Action()
 	{
 		m_Event_time_flg = false;
 	}
+	//イベントタイムが0になるor主人公の体力が0になる時初期化
 	if (m_Event_time == 0 || h_hp <= 0)
 	{
+		//イベントタイム
 		m_Event_time_flg = false;
 		TStart_flg = true;		
-		time->SetTStart(TStart_flg);		
+		time->SetTStart(TStart_flg);	
 	}
 
 }

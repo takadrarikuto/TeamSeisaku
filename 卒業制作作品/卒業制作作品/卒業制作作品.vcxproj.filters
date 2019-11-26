@@ -88,6 +88,9 @@
     <Filter Include="ソース ファイル\ステージメイン\中ボス">
       <UniqueIdentifier>{285887c9-7b4b-4e14-b049-8e5820b5e0af}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\その他">
+      <UniqueIdentifier>{b2fb2f55-4129-4fcd-a629-dc5a13cbc5c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -222,9 +225,6 @@
     <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ObjZombieEnemy.h">
-      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
-    </ClInclude>
     <ClInclude Include="ObjBoss.h">
       <Filter>ソース ファイル\ステージメイン\ボス</Filter>
     </ClInclude>
@@ -338,6 +338,21 @@
     </ClInclude>
     <ClInclude Include="ObjArmor.h">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBarbedWire.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBarbedWireSmall.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjNet.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjZombieEnemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMeme_Neutralization_Device.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -580,6 +595,18 @@
     </ClCompile>
     <ClCompile Include="ObjArmor.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBarbedWire.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBarbedWireSmall.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjNet.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMeme_Neutralization_Device.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,6 +16,9 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
+//死亡処理
+extern bool m_Meme_death_flg; //死亡フラグ
+
 //コンストラクタ
 CObjMeme_Medium_Boss::CObjMeme_Medium_Boss(float mmbx, float mmby)
 {
@@ -27,11 +30,10 @@ CObjMeme_Medium_Boss::CObjMeme_Medium_Boss(float mmbx, float mmby)
 //イニシャライズ
 void CObjMeme_Medium_Boss::Init()
 {
-	//初期化
+	//初期化	
 	//移動ベクトル
 	m_mmbvx = 0.0f;
 	m_mmbvy = 0.0f;
-
 	//体力
 	m_hero_hp = 1;
 
@@ -47,9 +49,6 @@ void CObjMeme_Medium_Boss::Init()
 	m_DownHit_flg = false;	 //下
 	m_LeftHit_flg = false;	 //左
 	m_RightHit_flg = false; //右
-
-	//ダメージ
-	((UserData*)Save::GetData())->EXP_Attack; //爆発
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -243,7 +242,7 @@ void CObjMeme_Medium_Boss::Action()
 		}
 	}
 
-	if (m_hero_hp <= 0)
+	if (m_Meme_death_flg == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

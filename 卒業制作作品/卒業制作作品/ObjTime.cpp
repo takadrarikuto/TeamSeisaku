@@ -14,6 +14,9 @@ using namespace GameL;
 
 //メニューONOFFフラグ
 extern bool Menu_flg;
+//タイム減少フラグ
+extern bool m_Time_GenEve_CutBack_flg;
+extern bool m_Time_Gen2Eve_CutBack_flg;
 
 //イベント用タイムONOFFフラグ
 //bool m_Evetime_flg = false;
@@ -25,18 +28,46 @@ void CObjTime::Init()
 	m_time = 10850; //10850 = 3分
 	 //イベントランダム変数
 	m_Event_Rand_num = 0;
+	//イベント開始時間
+	m_time_event = 9050;
 
+	m_Time_CutBack_num = 0; //タイム減少量
+	m_Time_CutBack_Gen_num_max = 0; //タイム減少量(発電気イベント)最大値
+	
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
 
 	m_Gen_flg = false; //発電機起動フラグ
 	m_END_flg = false; //敵無力化装置フラグ
+	m_MND_flg = false; //ミーム実態無力化装置フラグ
 }
 
 //アクション
 void CObjTime::Action()
 {
+	//タイム減少処理
+	if (m_Time_GenEve_CutBack_flg == true || m_Time_Gen2Eve_CutBack_flg == true)
+	{
+		m_Time_CutBack_Gen_num_max = 2400; //20秒減らす
+		m_Time_CutBack_num = m_Time_CutBack_Gen_num_max;
+		m_time -= m_Time_CutBack_num; //タイム20秒を減らす
+		m_time_event -= m_Time_CutBack_num;//イベントタイム20秒を減らす
+		//フラグ初期化
+		if (m_Time_GenEve_CutBack_flg == true)
+		{
+			m_Time_GenEve_CutBack_flg = false;
+		}
+		if (m_Time_Gen2Eve_CutBack_flg == true)
+		{
+			m_Time_Gen2Eve_CutBack_flg = false;
+		}
+	}
+	else
+	{
+		m_Time_CutBack_num = 0;
+	}
+
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
@@ -46,28 +77,41 @@ void CObjTime::Action()
 		}
 	}
 	//イベント開始、計測停止処理
-	if ((m_time == 9050 || m_time == 7250) && m_Stop_flg == false)
+	if (m_time == m_time_event && m_Stop_flg == false)
 	{		
 		m_Event_Rand_num = rand() % 100;
-		//イベントランダム選択処理
-		if (m_Event_Rand_num < 50)
-		{
-			m_Gen_flg = true;
-		}
-		else if (m_Event_Rand_num >= 50)
+		////イベントランダム選択処理
+		//if (m_Event_Rand_num < 50)
+		//{
+		//	m_Gen_flg = true;
+		//}
+		/*else */if (m_Event_Rand_num > 0/*>= 50*/)
 		{
 			m_END_flg = true;
 		}
+		/*if (m_Event_Rand_num >= 0)
+		{
+			m_MND_flg = true;
+		}*/
 		m_Stop_flg = true;
 	}
 	//タイム再スタート処理
 	if (m_Start_flg == true)
 	{
+		//イベント開始時間減少
+		m_time_event -= 1850; //30秒減少
 		//初期化処理
+		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;
+		//設置物フラグ
 		m_Gen_flg = false;
-		m_END_flg = false;
+		m_END_flg = false;	
+		m_MND_flg = false;
+	}
+	else
+	{
+		m_time_event -= 0;
 	}
 	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)
