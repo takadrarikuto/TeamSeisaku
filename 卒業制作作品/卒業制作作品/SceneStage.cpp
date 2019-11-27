@@ -1,4 +1,3 @@
-
 #define _SECURE_SCL (0)
 #define _HAS_ITERATOR_DEBUGGING (0)
 
@@ -56,9 +55,7 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
 	//バックミュージックスタート
-	//ボリュームを0.6にする
-	float v = Audio::VolumeMaster(0);
-	v = Audio::VolumeMaster(0.6 - v);
+	float Volume = Audio::VolumeMaster(-0.3);
 
 	Audio::Start(0); //音楽スタート
 	
@@ -94,16 +91,12 @@ void CSceneStage::InitScene()
 	CObjBoss*obj_boss = new CObjBoss(300, 400);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
-	//火トカゲオブジェクト作成 
-	CObjFire_Lizard * obj_fl = new CObjFire_Lizard(100, 100);
-	Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
-
 	//発電機オブジェクト作成	
 	CObjGenerator* Gen = new CObjGenerator(-300, -300);//(200,200)
-	Objs::InsertObj(Gen, OBJ_APPARATUS, 2);
+	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
 	CObjGenerator2* Gen2 = new CObjGenerator2(1200, 900);//(500,200)
-	Objs::InsertObj(Gen2, OBJ_APPARATUS, 2);
+	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1200, -300);//(400,200)
@@ -111,6 +104,20 @@ void CSceneStage::InitScene()
 
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
+
+	//ミーム実態無力化装置オブジェクト作成
+	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(300, -400);
+	Objs::InsertObj(MND, OBJ_MEME_NEUTRALIZATION_DEVICE, 2);
+
+	//有刺鉄線オブジェクト作成
+	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
+	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
+	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+	
+	//網オブジェクト作成
+	CObjNet* Net = new CObjNet(200,200);
+	Objs::InsertObj(Net, OBJ_NET, 7);
 
 	//アイテムオブジェクト作成	
 	//回復
@@ -137,6 +144,9 @@ void CSceneStage::InitScene()
 	//アーマー
 	CObjArmor* Armor = new CObjArmor(200, 200);
 	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
+	//工具箱
+	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
+	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
 	//壁オブジェクト作成
 	//左
@@ -194,7 +204,6 @@ void CSceneStage::Scene()
 	//	//ゲームオーバー画面移動
 	//	Scene::SetScene(new CSceneGameOver());
 	//}
-	
 	//メニュー画面閲覧時行動停止処理
 	if (Menu_flg == false)
 	{

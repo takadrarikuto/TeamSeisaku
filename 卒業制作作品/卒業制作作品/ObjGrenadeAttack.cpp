@@ -14,6 +14,12 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjGrenadeAttack::CObjGrenadeAttack(float x, float y, float vx, float vy)
 {
@@ -33,7 +39,16 @@ void CObjGrenadeAttack::Init()
 	Stop_max = 3; 
 
 	//ダメージ量
-	((UserData*)Save::GetData())->GRE_Attack;
+	//耐久力フラグがオンの時
+	if (En_flg == true)
+	{
+		((UserData*)Save::GetData())->GRE_Attack = 50; //爆発
+	}
+	//体力フラグがオンの時
+	if (Hp_flg == true)
+	{
+		((UserData*)Save::GetData())->GRE_Attack = 100; //爆発
+	}
 
 	//爆破時間
 	EXP_time = 0;
@@ -87,13 +102,14 @@ void CObjGrenadeAttack::Action()
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
 			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
-			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true)
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true
+			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true || 
+			hit_gre->CheckElementHit(ELEMENT_WALL2) == true)
 		{
 			//移動停止
 			m_Grevx = 0.0f;
 			m_Grevy = 0.0f;
-		}
-
+		}		
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成

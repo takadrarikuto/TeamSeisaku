@@ -23,8 +23,9 @@ enum OBJ_NAME
 	OBJ_SPHERE_TYPE_ENEMY,
 	OBJ_MEME_MEDIUM_BOSS,
 	OBJ_BOSS,
-	OBJ_APPARATUS,
+	OBJ_GENERATOR,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
+	OBJ_MEME_NEUTRALIZATION_DEVICE,
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
@@ -48,9 +49,13 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE_SMALL,
+	OBJ_NET,
 	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
+	OBJ_TOOLBOX,
 };
 //------------------------------------------------
 
@@ -72,6 +77,8 @@ enum HIT_ELEMENTS
 	ELEMENT_WHITE,
 	ELEMENT_WALL,
 	ELEMENT_WALL2,
+	ELEMENT_FIELD2,
+	ELEMENT_MEME_ND,
 };
 //------------------------------------------------
 
@@ -149,6 +156,10 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjGenerator2.h"
 #include "ObjEnemy_Neutralization_Device.h"
 #include "ObjEnemy_Neutralization_Device2.h"
+#include "ObjMeme_Neutralization_Device.h"
+#include "ObjBarbedWire.h"
+#include "ObjBarbedWireSmall.h"
+#include "ObjNet.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -159,6 +170,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjRailGunItem.h"//レールガン補充用
 #include "ObjGrenadeItem.h"//グレネード補充用
 #include "ObjArmor.h"//アーマー
+#include "ObjToolBox.h"//工具箱
 
 //イベント
 #include "ObjEvent.h"
@@ -247,5 +259,5 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 
-#define SET_GAME_START  CSceneTitle
+#define SET_GAME_START  CSceneStage
 
