@@ -56,7 +56,7 @@ void CObjTime::Action()
 		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == m_time_event && m_Stop_flg == false)
+	if (m_time == m_time_event && m_time > 50 && m_Stop_flg == false)
 	{		
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
