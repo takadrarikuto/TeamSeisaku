@@ -127,6 +127,7 @@
     <ClInclude Include="ObjMeme_Neutralization_Device.h" />
     <ClInclude Include="ObjNet.h" />
     <ClInclude Include="ObjSphere_Type_Enemy.h" />
+    <ClInclude Include="ObjToolBox.h" />
     <ClInclude Include="ObjTutoWall.h" />
     <ClInclude Include="ObjTutoWall2.h" />
     <ClInclude Include="ObjTutoWall3.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="ObjMeme_Neutralization_Device.cpp" />
     <ClCompile Include="ObjNet.cpp" />
     <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
+    <ClCompile Include="ObjToolBox.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />
     <ClCompile Include="ObjTutoWall2.cpp" />
     <ClCompile Include="ObjTutoWall3.cpp" />
