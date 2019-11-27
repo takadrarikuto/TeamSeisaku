@@ -68,7 +68,10 @@ void CObjEvent::Action()
 			}
 			m_Event_time_flg = true;
 		}	
-		m_Event_time--;
+		if (m_Event_time > 0)
+		{
+			m_Event_time--;
+		}		
 	}	
 	else if(Menu_flg == false && TStop_flg == false)
 	{
@@ -76,7 +79,7 @@ void CObjEvent::Action()
 		m_Event_TimePenalty = false;
 	}
 	//イベントタイムが0になるor主人公の体力が0になる時初期化
-	if (m_Event_time == 0 || h_hp <= 0)
+	if (m_Event_time <= 0 || h_hp <= 0)
 	{
 		//イベントタイム
 		m_Event_time_flg = false;

@@ -185,6 +185,16 @@ void CObjRocketLauncherAttack::Action()
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
 	}	
+	//壁オブジェクトと接触するとオブジェクト破棄
+	if (hit_rl->CheckElementHit(ELEMENT_WALL) == true || hit_rl->CheckElementHit(ELEMENT_WALL2) == true)
+	{
+		//爆発オブジェクト作成
+		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
 	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		//爆発オブジェクト作成

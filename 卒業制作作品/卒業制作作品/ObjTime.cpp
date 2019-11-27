@@ -45,7 +45,7 @@ void CObjTime::Action()
 {
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	bool Time_Pena = Event->GetEveTimPena;
+	bool Time_Pena = Event->GetEveTimPena();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
@@ -59,7 +59,7 @@ void CObjTime::Action()
 	if (m_time == m_time_event && m_Stop_flg == false)
 	{		
 		m_Event_Rand_num = rand() % 100;
-		////イベントランダム選択処理
+		//イベントランダム選択処理
 		if (m_Event_Rand_num > 0/*< 50*/)
 		{
 			m_Gen_flg = true;
@@ -95,10 +95,7 @@ void CObjTime::Action()
 		m_END_flg = false;	
 		m_MND_flg = false;		
 	}
-	else
-	{
-		m_time_event -= 0;
-	}
+
 	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)
 	{
