@@ -87,7 +87,7 @@ void CObjMeme_Neutralization_Device::Draw()
 
 	//•`‰æƒJƒ‰[î•ñ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.7f };
 
 	RECT_F src;
 	RECT_F dst;

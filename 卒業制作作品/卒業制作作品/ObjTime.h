@@ -42,7 +42,4 @@ private:
 	bool m_END_flg; //敵無力化装置フラグ
 	bool m_MND_flg; //ミーム実態無力化装置フラグ
 	 
-	int m_Time_CutBack_num; //タイム減少量
-	int m_Time_CutBack_Gen_num_max; //タイム減少量(発電気イベント)最大値
-
 };

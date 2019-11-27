@@ -17,4 +17,5 @@ private:
 	float m_Barbedy;
 	float m_XHitbox_size; //XY“–‚½‚è”»’èƒTƒCƒY
 	float m_YHitbox_size;
+
 };
