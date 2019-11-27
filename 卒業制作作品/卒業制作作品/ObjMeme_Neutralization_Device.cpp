@@ -32,7 +32,7 @@ void CObjMeme_Neutralization_Device::Init()
 	Hitbox_size = 50;
 
 	//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-	Hits::SetHitBox(this, m_Meme_Neu_Devx, m_Meme_Neu_Devy, Hitbox_size, Hitbox_size, ELEMENT_FIELD, OBJ_MEME_NEUTRALIZATION_DEVICE, 7);
+	Hits::SetHitBox(this, m_Meme_Neu_Devx, m_Meme_Neu_Devy, Hitbox_size, Hitbox_size, ELEMENT_MEME_ND, OBJ_MEME_NEUTRALIZATION_DEVICE, 7);
 
 }
 

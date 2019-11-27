@@ -55,6 +55,7 @@ enum OBJ_NAME
 	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
+	OBJ_TOOLBOX,
 };
 //------------------------------------------------
 
@@ -76,6 +77,8 @@ enum HIT_ELEMENTS
 	ELEMENT_WHITE,
 	ELEMENT_WALL,
 	ELEMENT_WALL2,
+	ELEMENT_FIELD2,
+	ELEMENT_MEME_ND,
 };
 //------------------------------------------------
 
@@ -167,6 +170,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjRailGunItem.h"//レールガン補充用
 #include "ObjGrenadeItem.h"//グレネード補充用
 #include "ObjArmor.h"//アーマー
+#include "ObjToolBox.h"//工具箱
 
 //イベント
 #include "ObjEvent.h"

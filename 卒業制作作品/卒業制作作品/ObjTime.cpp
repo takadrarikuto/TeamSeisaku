@@ -45,7 +45,7 @@ void CObjTime::Action()
 {
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	bool Time_Pena = Event->GetEveTimPena;
+	bool Time_Pena = Event->GetEveTimPena();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)

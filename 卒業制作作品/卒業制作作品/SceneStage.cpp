@@ -144,6 +144,9 @@ void CSceneStage::InitScene()
 	//アーマー
 	CObjArmor* Armor = new CObjArmor(200, 200);
 	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
+	//工具箱
+	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
+	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
 	//壁オブジェクト作成
 	//左
