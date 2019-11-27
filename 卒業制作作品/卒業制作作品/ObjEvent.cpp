@@ -91,7 +91,7 @@ void CObjEvent::Action()
 			m_Event_TimePenalty = true;
 		}		
 	}
-
+	
 }
 
 //ƒhƒ[
