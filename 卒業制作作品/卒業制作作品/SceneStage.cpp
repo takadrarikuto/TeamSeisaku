@@ -154,6 +154,12 @@ void CSceneStage::InitScene()
 	//設置型アサルトライフル弾補充
 	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1175, -650);
 	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
+	//設置型スナイパーライフル弾補充
+	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-300, 800);
+	Objs::InsertObj(obj_it_sr, OBJ_INSTALL_TYPE_SR, 6);
+	//設置型ランダムアイテムボックス
+	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1200, 800);
+	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 6);
 
 	//壁オブジェクト作成
 	//左

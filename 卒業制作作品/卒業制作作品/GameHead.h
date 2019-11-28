@@ -51,6 +51,8 @@ enum OBJ_NAME
 	OBJ_GRENADE_ITEM,
 	OBJ_INSTALL_TYPE_SHG,
 	OBJ_INSTALL_TYPE_AR,
+	OBJ_INSTALL_TYPE_SR,
+	OBJ_INSTALL_TYPE_RANDBOX,
 	OBJ_BARBED_WIRE,
 	OBJ_BARBED_WIRE_SMALL,
 	OBJ_NET,
@@ -175,6 +177,8 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjToolBox.h"//工具箱
 #include "ObjInstallation_Type_ShotGun.h" //設置型ショットガン補充用
 #include "ObjInstallation_Type_AR.h" //設置型アサルトライフル補充用
+#include "ObjInstallation_Type_SR.h" //設置型スナイパーライフル補充用
+#include "ObjInstallation_Type_RandBox.h" //設置型ランダムアイテムボックス
 
 //イベント
 #include "ObjEvent.h"

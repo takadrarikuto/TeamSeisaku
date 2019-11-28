@@ -363,6 +363,12 @@
     <ClInclude Include="ObjInstallation_Type_ShotGun.h">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_RandBox.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_SR.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -624,6 +630,12 @@
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
     <ClCompile Include="ObjInstallation_Type_ShotGun.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_RandBox.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_SR.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
   </ItemGroup>

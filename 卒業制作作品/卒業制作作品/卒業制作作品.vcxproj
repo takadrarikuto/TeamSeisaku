@@ -124,7 +124,9 @@
     <ClInclude Include="ObjFire_Lizard.h" />
     <ClInclude Include="ObjGenerator2.h" />
     <ClInclude Include="ObjInstallation_Type_AR.h" />
+    <ClInclude Include="ObjInstallation_Type_RandBox.h" />
     <ClInclude Include="ObjInstallation_Type_ShotGun.h" />
+    <ClInclude Include="ObjInstallation_Type_SR.h" />
     <ClInclude Include="ObjMeme_Medium_Boss.h" />
     <ClInclude Include="ObjMeme_Neutralization_Device.h" />
     <ClInclude Include="ObjNet.h" />
@@ -211,7 +213,9 @@
     <ClCompile Include="ObjFire_Lizard.cpp" />
     <ClCompile Include="ObjGenerator2.cpp" />
     <ClCompile Include="ObjInstallation_Type_AR.cpp" />
+    <ClCompile Include="ObjInstallation_Type_RandBox.cpp" />
     <ClCompile Include="ObjInstallation_Type_ShotGun.cpp" />
+    <ClCompile Include="ObjInstallation_Type_SR.cpp" />
     <ClCompile Include="ObjMeme_Medium_Boss.cpp" />
     <ClCompile Include="ObjMeme_Neutralization_Device.cpp" />
     <ClCompile Include="ObjNet.cpp" />
