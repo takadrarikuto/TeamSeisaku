@@ -44,7 +44,9 @@ void CObjMenu::Init()
 	m_andf2 = false;
 	//シーン移動フラグ
 	m_Scene_flg = false;
-
+	//音楽情報の読み込み
+	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
+	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
 }
 
 //アクション
@@ -57,14 +59,14 @@ void CObjMenu::Action()
 		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 		{
 			--choose;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_time = 10;
 		}
 		//下キーで下に移動
 		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 		{
 			++choose;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_time = 10;
 		}
 		if (m_time > 0) {
@@ -84,7 +86,7 @@ void CObjMenu::Action()
 				{
 					m_andf = true;
 					m_key_flag = false;
-					//Audio::Start(1);
+					Audio::Start(1);
 					//g_hero_max_hp = 0;
 				}
 			}
@@ -101,7 +103,7 @@ void CObjMenu::Action()
 				{
 					m_andf2 = true;
 					//g_hero_max_hp = 0;
-					//Audio::Start(1);
+					Audio::Start(1);
 					m_key_flag = false;
 				}
 			}

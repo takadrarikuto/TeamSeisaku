@@ -81,9 +81,10 @@ void CObjBoss::Init()
 	m_Frie_Lizard_Restriction = 0; //火トカゲ生成数制限
 	m_Frie_Lizard_Restriction_max = 5; //火トカゲ生成数制限最大値
 //球体型敵	
-	m_Sphere_Type_Enemy_time_max = 300/*3000*/; //球体型敵生成タイム最大値
-	m_Sphere_Type_Enemy_Restriction = 0; //球体型敵生成数制限
-	m_Sphere_Type_Enemy_Restriction_max = 5; //球体型敵生成数制限最大値
+	m_Sphere_Type_Enemy_Restriction_Rand = 5; //球体型敵生成数ランダム
+	m_Sphere_Type_Enemy_Restriction_Stop_flg = false; //球体型生成停止フラグ
+//ミーム実態
+	m_Meme_Medium_Boss_Restriction_Stop_flg = false; //ミーム実態生成停止フラグ
 
 	//描画サイズ
 	m_dst_size = 128.0f;
@@ -101,6 +102,10 @@ void CObjBoss::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	bool END_flg = time->GetENDFlg();
+	bool MND_flg = time->GetMNDFlg();
 
 	//移動停止
 	m_bvx = 0.0f;
@@ -121,13 +126,12 @@ void CObjBoss::Action()
 		//m_Bat_Enemy_Generation++; //蝙蝠生成頻度
 		//m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
 		//m_Frie_Bird_Generation++; //火の鳥敵生成頻度
-		m_Sphere_Type_Enemy_Generation++; //球体型敵敵生成頻度
 
-		//e_x = rand() % 192 + m_bx;
-		//e_y = rand() % 64 + m_by;
-		//
-		//e_x -= hvx;
-		//e_y -= hvy;
+		e_x = rand() % 192 + m_bx;
+		e_y = rand() % 64 + m_by;
+		
+		e_x -= hvx;
+		e_y -= hvy;
 
 		//エネミー生成処理
 		//ゾンビ
@@ -193,36 +197,42 @@ void CObjBoss::Action()
 		//	m_Frie_Bird_Restriction++; //火の鳥生成カウント
 		//	m_Frie_Bird_Generation = 0;
 		//}
-		//球体型敵
-		if (m_Sphere_Type_Enemy_Generation >= m_Sphere_Type_Enemy_time_max && m_Sphere_Type_Enemy_Restriction < m_Sphere_Type_Enemy_Restriction_max)
+		//敵無力化イベント時敵生成
+		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
-			//球体型敵オブジェクト作成
-			CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
-			Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
-			
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Sphere_Type_Enemy_Restriction++; //球体型敵生成カウント
-			m_Sphere_Type_Enemy_Generation = 0;
+			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 10;
+			for (int c = 0; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
+			{
+				//球体型敵オブジェクト作成
+				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
+				Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 4);
+			}
+			m_Sphere_Type_Enemy_Restriction_Stop_flg = true; //球体型生成停止フラグ
+		}		
+		if (MND_flg == true && m_Meme_Medium_Boss_Restriction_Stop_flg == false)
+		{
+			//ミーム実態(中ボス)オブジェクト作成
+			CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(e_x, e_y);
+			Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
+
+			m_Meme_Medium_Boss_Restriction_Stop_flg = true; //ミーム実態生成停止フラグ
 		}
-		/*
-		//ミーム実態(中ボス)オブジェクト作成
-		CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(100, 150);
-		Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 4);
-		*/
+		//初期化処理
+		if (END_flg == false)
+		{
+			m_Sphere_Type_Enemy_Restriction_Stop_flg = false; //球体型生成停止フラグ
+			m_Sphere_Type_Enemy_Restriction_Rand = 5;
+		}
+		if (MND_flg == false)
+		{
+			m_Meme_Medium_Boss_Restriction_Stop_flg = false; //ミーム実態生成停止フラグ
+		}
 	}
 
 	//HitBoxの内容を更新
 	CHitBox* hit_boss = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_boss->SetPos(m_bx, m_by); //当たり判定の位置更新
 
-	////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
-	//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
-	//	|| hit_h->CheckObjNameHit(OBJ_BOMB) != nullptr)
-	//	&& hp != 0 && m_ht == 0)
-	//{
-	//	m_hf = true;
-	//	hp -= 1;
-	//}
 }
 
 //ドロー

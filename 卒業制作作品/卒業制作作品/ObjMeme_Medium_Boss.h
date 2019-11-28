@@ -24,7 +24,7 @@ private:
 	float m_mmbvx; //移動ベクトル
 	float m_mmbvy;
 	float m_mmbv_max; //移動ベクトル最大値
-
+	
 	bool m_mmb_x_flg; //移動フラグ
 	bool m_mmb_y_flg;
 
