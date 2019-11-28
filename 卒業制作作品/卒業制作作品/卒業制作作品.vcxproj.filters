@@ -91,6 +91,9 @@
     <Filter Include="ソース ファイル\ステージメイン\設置物\その他">
       <UniqueIdentifier>{b2fb2f55-4129-4fcd-a629-dc5a13cbc5c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム\設置型">
+      <UniqueIdentifier>{c2b56165-f432-4f03-af40-c595367bf517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -358,16 +361,16 @@
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClInclude>
     <ClInclude Include="ObjInstallation_Type_AR.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjInstallation_Type_ShotGun.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClInclude>
     <ClInclude Include="ObjInstallation_Type_RandBox.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_ShotGun.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClInclude>
     <ClInclude Include="ObjInstallation_Type_SR.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -627,16 +630,16 @@
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
     <ClCompile Include="ObjInstallation_Type_AR.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjInstallation_Type_ShotGun.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClCompile>
     <ClCompile Include="ObjInstallation_Type_RandBox.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_ShotGun.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClCompile>
     <ClCompile Include="ObjInstallation_Type_SR.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
