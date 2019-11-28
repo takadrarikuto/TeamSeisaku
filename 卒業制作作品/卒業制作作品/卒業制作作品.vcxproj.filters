@@ -372,6 +372,9 @@
     <ClInclude Include="ObjInstallation_Type_SR.h">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClInclude>
+    <ClInclude Include="ObjAitemDrop.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -640,6 +643,9 @@
     </ClCompile>
     <ClCompile Include="ObjInstallation_Type_SR.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjAitemDrop.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

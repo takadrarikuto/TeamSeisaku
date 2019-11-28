@@ -281,6 +281,10 @@ void CObjFire_Bird::Action()
 	}
 	if (m_hero_hp <= 0)
 	{
+		//アイテムドロップ情報取得
+		CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+		AitemDrop->SetAitemDrop(true);
+
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);

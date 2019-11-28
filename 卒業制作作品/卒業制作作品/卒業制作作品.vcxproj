@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjAitemDrop.h" />
     <ClInclude Include="ObjArmor.h" />
     <ClInclude Include="ObjBarbedWire.h" />
     <ClInclude Include="ObjBarbedWireSmall.h" />
@@ -205,6 +206,7 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjAitemDrop.cpp" />
     <ClCompile Include="ObjArmor.cpp" />
     <ClCompile Include="ObjBarbedWire.cpp" />
     <ClCompile Include="ObjBarbedWireSmall.cpp" />

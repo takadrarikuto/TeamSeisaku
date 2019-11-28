@@ -148,6 +148,10 @@ void CSceneStage::InitScene()
 	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
 	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
+	//アイテムドロップオブジェクト作成	
+	CObjAitemDrop* obj_ad = new CObjAitemDrop();
+	Objs::InsertObj(obj_ad, OBJ_AITEMDROP, 8);
+
 	//設置型ショットガン弾補充
 	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -650);
 	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 6);
