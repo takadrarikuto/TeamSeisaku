@@ -49,6 +49,8 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_INSTALL_TYPE_SHG,
+	OBJ_INSTALL_TYPE_AR,
 	OBJ_BARBED_WIRE,
 	OBJ_BARBED_WIRE_SMALL,
 	OBJ_NET,
@@ -171,6 +173,8 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjGrenadeItem.h"//グレネード補充用
 #include "ObjArmor.h"//アーマー
 #include "ObjToolBox.h"//工具箱
+#include "ObjInstallation_Type_ShotGun.h" //設置型ショットガン補充用
+#include "ObjInstallation_Type_AR.h" //設置型アサルトライフル補充用
 
 //イベント
 #include "ObjEvent.h"

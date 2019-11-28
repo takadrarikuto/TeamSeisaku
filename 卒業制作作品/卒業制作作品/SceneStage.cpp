@@ -148,19 +148,26 @@ void CSceneStage::InitScene()
 	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
 	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
+	//設置型ショットガン弾補充
+	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -650);
+	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 6);
+	//設置型アサルトライフル弾補充
+	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1175, -650);
+	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
+
 	//壁オブジェクト作成
 	//左
 	CObjWall* Wall = new CObjWall(200, 200);
-	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	Objs::InsertObj(Wall, OBJ_WALL, 5);
 	//右
 	CObjWall2* Wall2 = new CObjWall2(200, 200);
-	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	Objs::InsertObj(Wall2, OBJ_WALL, 5);
 	//上
 	CObjWall3* Wall3 = new CObjWall3(200, 200);
-	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	Objs::InsertObj(Wall3, OBJ_WALL, 5);
 	//下
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
-	Objs::InsertObj(Wall4, OBJ_WALL, 7);
+	Objs::InsertObj(Wall4, OBJ_WALL, 5);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
