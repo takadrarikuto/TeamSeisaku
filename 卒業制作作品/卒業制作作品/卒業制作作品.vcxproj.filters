@@ -354,6 +354,9 @@
     <ClInclude Include="ObjMeme_Neutralization_Device.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
+    <ClInclude Include="ObjToolBox.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -607,6 +610,9 @@
     </ClCompile>
     <ClCompile Include="ObjMeme_Neutralization_Device.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjToolBox.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

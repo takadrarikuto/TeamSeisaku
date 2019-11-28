@@ -102,13 +102,14 @@ void CObjGrenadeAttack::Action()
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
 			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
-			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true)
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true
+			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true || 
+			hit_gre->CheckElementHit(ELEMENT_WALL2) == true)
 		{
 			//移動停止
 			m_Grevx = 0.0f;
 			m_Grevy = 0.0f;
-		}
-
+		}		
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成

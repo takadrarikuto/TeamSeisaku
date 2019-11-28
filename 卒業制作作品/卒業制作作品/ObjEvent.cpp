@@ -26,6 +26,8 @@ void CObjEvent::Init()
 	m_Event_time = 1200; 
 	//イベントフラグ
 	m_Event_time_flg = false;
+	//イベントタイムペナルティ
+	m_Event_TimePenalty = false;
 
 }
 
@@ -46,10 +48,10 @@ void CObjEvent::Action()
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{		
-		//イベント別タイム設定
-		//発電機イベント
+		//イベント別タイム設定		
 		if (m_Event_time_flg == false)
 		{
+			//発電機イベント
 			if (Gen_flg == true)
 			{
 				m_Event_time = 1850; //1850 ＝ 30秒
@@ -66,21 +68,30 @@ void CObjEvent::Action()
 			}
 			m_Event_time_flg = true;
 		}	
-		m_Event_time--;
+		if (m_Event_time > 0)
+		{
+			m_Event_time--;
+		}		
 	}	
 	else if(Menu_flg == false && TStop_flg == false)
 	{
 		m_Event_time_flg = false;
+		m_Event_TimePenalty = false;
 	}
 	//イベントタイムが0になるor主人公の体力が0になる時初期化
-	if (m_Event_time == 0 || h_hp <= 0)
+	if (m_Event_time <= 0 || h_hp <= 0)
 	{
 		//イベントタイム
 		m_Event_time_flg = false;
 		TStart_flg = true;		
-		time->SetTStart(TStart_flg);	
+		time->SetTStart(TStart_flg);
+		//イベントタイムペナルティ
+		if (Gen_flg == true)
+		{
+			m_Event_TimePenalty = true;
+		}		
 	}
-
+	
 }
 
 //ドロー

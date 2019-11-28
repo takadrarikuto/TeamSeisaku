@@ -247,13 +247,9 @@ void CObjHero::Action()
 				m_LRani_frame = 0;
 			}
 
-			//位置情報更新
-			m_px += m_vx;
-			m_py += m_vy;
-
 			//HitBoxの内容を更新
 			CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
-			hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
+			
 
 			//設置物オブジェクト情報作成
 			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
@@ -286,18 +282,22 @@ void CObjHero::Action()
 					if ((r > 0 && r < 30) || r >= 330)
 					{
 						m_RightHit_flg = true; //右
+						m_vx = -0.65f;
 					}
 					else if (r >= 30 && r < 150)
 					{
 						m_UpHit_flg = true;    //上
+						m_vy = 0.65f;
 					}
 					else if (r >= 150 && r <= 210)
 					{
 						m_LeftHit_flg = true;	 //左
+						m_vx = 0.65f;
 					}
 					else if (r > 210 && r < 330)
 					{
 						m_DownHit_flg = true;	 //下
+						m_vy = -0.65f;
 					}
 				}
 				//----------------------------------------ここ
@@ -358,6 +358,72 @@ void CObjHero::Action()
 			}
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+			if (hit_h->CheckElementHit(ELEMENT_FIELD2) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_FIELD2);
+				float r = hit_data[0]->r;
+				if (hit_data != nullptr)
+				{
+					//角度で上下左右を判定
+					if ((r > 0 && r < 45) || r >= 315)
+					{
+						m_RightHit_flg = true; //右
+						m_vx = -0.65f;
+					}
+					else if (r >= 45 && r < 135)
+					{
+						m_UpHit_flg = true;    //上
+						m_vy = 0.65f;
+					}
+					else if (r >= 135 && r <= 225)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_vx = 0.65f;
+					}
+					else if (r > 225 && r < 315)
+					{
+						m_DownHit_flg = true;	 //下
+						m_vy = -0.65f;
+					}
+				}
+			}
+
+			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+			if (hit_h->CheckElementHit(ELEMENT_MEME_ND) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_MEME_ND);
+				float r = hit_data[0]->r;
+				if (hit_data != nullptr)
+				{
+					//角度で上下左右を判定
+					if ((r > 0 && r < 45) || r >= 315)
+					{
+						m_RightHit_flg = true; //右
+						m_vx = -0.65f;
+					}
+					else if (r >= 45 && r < 135)
+					{
+						m_UpHit_flg = true;    //上
+						m_vy = 0.65f;
+					}
+					else if (r >= 135 && r <= 225)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_vx = 0.65f;
+					}
+					else if (r > 225 && r < 315)
+					{
+						m_DownHit_flg = true;	 //下
+						m_vy = -0.65f;
+					}
+				}
+			}
+
+			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 			if (hit_h->CheckElementHit(ELEMENT_WALL) == true)
 			{
 				//主人公と障害物がどの角度で当たっているか調べる
@@ -369,19 +435,19 @@ void CObjHero::Action()
 					//角度で上下左右を判定
 					if ((r < 89 && r >= 0) || r > 271)
 					{
-						m_vx = -0.15f; //右
+						m_vx = -0.65f; //右
 					}
 					if (r > 89 && r < 91)
 					{
-						m_vy = 0.15f;//上
+						m_vy = 0.65f;//上
 					}
 					if (r > 91 && r < 269)
 					{
-						m_vx = 0.15f;//左
+						m_vx = 0.65f;//左
 					}
 					if (r > 269 && r < 271)
 					{
-						m_vy = -0.15f; //下
+						m_vy = -0.65f; //下
 					}
 				}
 
@@ -435,22 +501,32 @@ void CObjHero::Action()
 					//角度で上下左右を判定
 					if ((r < 2 && r >= 0) || r > 358)
 					{
-						m_vx = -0.15f; //右
+						m_vx = -0.65f; //右
 					}
 					if (r > 2 && r < 178)
 					{
-						m_vy = 0.15f;//上
+						m_vy = 0.65f;//上
 					}
 					if (r > 178 && r < 182)
 					{
-						m_vx = 0.15f;//左
+						m_vx = 0.65f;//左
 					}
 					if (r > 182 && r < 358)
 					{
-						m_vy = -0.15f; //下
+						m_vy = -0.65f; //下
 					}
 				}
 			}
+
+			//摩擦
+			m_vx += -(m_vx * 0.098f);
+			m_vy += -(m_vy * 0.098f);
+
+			//位置情報更新
+			m_px += m_vx;
+			m_py += m_vy;
+
+			hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
 
 			//武器切り替え処理
 			if (Input::GetVKey(VK_LEFT) == true)
@@ -1219,7 +1295,30 @@ void CObjHero::Action()
 				}
 			}
 		}
-		
+			//ミーム実態(中ボス)ダメージ処理
+			/*if (MMB != nullptr)
+			{
+				MMB_x = MMB->GetX();
+				MMB_y = MMB->GetY();
+
+				//敵との距離を測る
+				if ((MMB_x < m_x && m_UDani_frame == 6) || (MMB_x > m_x && m_UDani_frame == 2))
+				{
+					m_hero_hp -= 1;
+					m_time_d = 20;		//無敵時間をセット
+				}
+				else if ((MMB_y < m_y && m_UDani_frame == 0) || (MMB_y > m_y && m_UDani_frame == 4))
+				{
+					m_hero_hp -= 1;
+					m_time_d = 20;		//無敵時間をセット
+				}
+				else if (MMB_x == m_x && MMB_y == m_y)
+				{
+					m_hero_hp -= 1;
+					m_time_d = 10;		//無敵時間をセット
+				}
+			}
+		}
 
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{
@@ -1262,7 +1361,7 @@ void CObjHero::Action()
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
 			}
-		}
+		}*/
 	}
 }
 

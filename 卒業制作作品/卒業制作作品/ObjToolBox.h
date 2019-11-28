@@ -3,18 +3,18 @@
 
 using namespace GameL;
 
-class CObjBarbedWire :public CObj, public CBaseStatus
+class CObjToolBox :public CObj, public CBaseStatus
 {
 public:
-	CObjBarbedWire(float x, float y);
-	~CObjBarbedWire() {};
+	CObjToolBox(float x, float y);
+	~CObjToolBox() {};
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
 
 private:
-	float m_Barbedx; //位置情報
-	float m_Barbedy;
+	float m_Healx; //位置情報
+	float m_Healy;
 	float m_XHitbox_size; //XY当たり判定サイズ
 	float m_YHitbox_size;
 
