@@ -51,8 +51,6 @@ enum OBJ_NAME
 	OBJ_GRENADE_ITEM,
 	OBJ_BARBED_WIRE,
 	OBJ_BARBED_WIRE_SMALL,
-	OBJ_INSTALL_TYPE_SHG,
-	OBJ_INSTALL_TYPE_AR,
 	OBJ_NET,
 	OBJ_ARMOR,
 	OBJ_WALL,
@@ -81,8 +79,6 @@ enum HIT_ELEMENTS
 	ELEMENT_WALL2,
 	ELEMENT_FIELD2,
 	ELEMENT_MEME_ND,
-	ELEMENT_NET_V,
-	ELEMENT_NET_S,
 };
 //------------------------------------------------
 
@@ -164,7 +160,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjBarbedWire.h"
 #include "ObjBarbedWireSmall.h"
 #include "ObjNet.h"
-#include "ObjNetV.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -176,8 +171,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjGrenadeItem.h"//グレネード補充用
 #include "ObjArmor.h"//アーマー
 #include "ObjToolBox.h"//工具箱
-#include "ObjInstallation_Type_ShotGun.h" //設置型ショットガン補充用
-#include "ObjInstallation_Type_AR.h" //設置型アサルトライフル補充用
 
 //イベント
 #include "ObjEvent.h"

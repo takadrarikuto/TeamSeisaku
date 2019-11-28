@@ -13,39 +13,23 @@ using namespace GameL;
 CObjNet::CObjNet(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Netx = x;
-	m_Nety = y;
+	m_Barbedx = 100;
+	m_Barbedy = 800;
+
 }
 
 //イニシャライズ
 void CObjNet::Init()
 {
 	//初期化
-	//位置情報登録(数値=位置調整)
-	//m_Netx = 0.0f;
-	//m_Nety = 0.0f;
-
 	//描画サイズ
-	m_dst_size = 50.0f;	
-
+	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 202;
 	m_YHitbox_size = 72;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Netx, m_Nety, m_XHitbox_size, m_YHitbox_size, ELEMENT_NET_V, OBJ_NET, 7);
-	////Y軸用
-	//if (m_r == 90.0f)
-	//{
-	//	//XY当たり判定サイズ
-	//	m_XHitbox_size = 72;
-	//	m_YHitbox_size = 202;
-	//	Hits::SetHitBox(this, m_Netx, m_Nety, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_NET, 7);
-	//}
-	//else if (m_r == 90.0f)
-	//{
-	//	hit_exp->SetPos(m_Netx + 66, m_Nety - 70); //当たり判定の位置更新
-	//}
+	Hits::SetHitBox(this, m_Barbedx, m_Barbedy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_NET, 7);
 }
 
 //アクション
@@ -56,16 +40,13 @@ void CObjNet::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//主人公の移動に合わせる
+	m_Barbedx -= hvx;
+	m_Barbedy -= hvy;
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_exp->SetPos(m_Netx + 1, m_Nety + 1); //当たり判定の位置更新
-	
-	
-	
-
-	//主人公の移動に合わせる
-	m_Netx -= hvx;
-	m_Nety -= hvy;
+	hit_exp->SetPos(m_Barbedx + 1, m_Barbedy + 1); //当たり判定の位置更新
 }
 
 //ドロー
@@ -84,9 +65,9 @@ void CObjNet::Draw()
 	src.m_bottom = 246.0f;
 
 	//描画処理(101*36)
-	dst.m_top = 0.0f + m_Nety;
-	dst.m_left = 0.0f + m_Netx;
-	dst.m_right = 202.0f + m_Netx;
-	dst.m_bottom = 72.0f + m_Nety;
+	dst.m_top = 0.0f + m_Barbedy;
+	dst.m_left = 0.0f + m_Barbedx;
+	dst.m_right = 202.0f + m_Barbedx;
+	dst.m_bottom = 72.0f + m_Barbedy;
 	Draw::Draw(7, &src, &dst, c, 0.0f);
 }
