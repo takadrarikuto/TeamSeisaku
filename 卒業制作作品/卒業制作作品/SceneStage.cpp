@@ -64,11 +64,9 @@ void CSceneStage::InitScene()
 	e_time = 0;
 	//アイテム出現タイム初期化
 	i_time = 0;
-	//アイテム出現位置初期化
-	i_x = 0.0f;
 	//アイテム出現位置
-	i_x = 0.0f;
-	i_y = 0.0f;
+	i_x1 = -602.0f; //左側
+	i_y1 = -100.0f;
 
 	//シーン切り替えタイム
 	Scene_time = 0;
@@ -106,7 +104,7 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
-	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(300, -400);
+	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(375, -400);
 	Objs::InsertObj(MND, OBJ_MEME_NEUTRALIZATION_DEVICE, 2);
 
 	//有刺鉄線オブジェクト作成
@@ -158,20 +156,26 @@ void CSceneStage::InitScene()
 	//工具箱
 	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
 	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
+	//設置型ショットガン弾補充
+	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -640);
+	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 6);
+	//設置型アサルトライフル弾補充
+	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1180, -640);
+	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
 
 	//壁オブジェクト作成
 	//左
 	CObjWall* Wall = new CObjWall(200, 200);
-	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	Objs::InsertObj(Wall, OBJ_WALL, 5);
 	//右
 	CObjWall2* Wall2 = new CObjWall2(200, 200);
-	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	Objs::InsertObj(Wall2, OBJ_WALL, 5);
 	//上
 	CObjWall3* Wall3 = new CObjWall3(200, 200);
-	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	Objs::InsertObj(Wall3, OBJ_WALL, 5);
 	//下
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
-	Objs::InsertObj(Wall4, OBJ_WALL, 7);
+	Objs::InsertObj(Wall4, OBJ_WALL, 5);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
@@ -202,89 +206,10 @@ void CSceneStage::InitScene()
 
 void CSceneStage::Scene()
 {
-	//ゲームオーバーシーン移動処理
-	//if (GameOver_flg == true)
-	//{
-	//	GameOver_time++;
-	//}
-	//if (GameOver_time == 60)
-	//{
-	//	//フラグ・タイム初期化
-	//	GameOver_flg = false;
-	//	GameOver_time = 0;
-	//	//ゲームオーバー画面移動
-	//	Scene::SetScene(new CSceneGameOver());
-	//}
 	//メニュー画面閲覧時行動停止処理
 	if (Menu_flg == false)
-	{
-		//ボスを倒したら少し時間を空けてからシーン移動する
-		/*if (boss_count == 1)
-		{
-			Scene_time++;
-		}*/
-		if (Scene_time == 60)
-		{
-			//ボスカウント・シーンタイム初期化
-			//boss_count = 0;
-			Scene_time = 0;
-		}
+	{		
 
-		//e_time++;
-		//if (e_time == 90)
-		//{
-		//	e_x = rand() % 736;
-		//	e_y = rand() % 536;
-		//	//敵機オブジェクト作成
-		//	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y);
-		//	Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
-		//}		
-
-	//メニュー画面閲覧時行動停止処理
-	//if (Menu_flg == false)
-	//{
-		//各タイム増加
-		//e_time++;
-		//i_time++;
-
-		////敵機オブジェクト作成
-		//CObjEnemy* obj_e;
-		////連結敵機オブジェクト作成
-		//CObjLinkingEnemy* obj_le;
-		////カーブ敵機オブジェクト生成
-		//CObjCurveEnemy* obj_ce;
-		////拡散敵機オブジェクト生成
-		//CObjDiffusionEnemy* obj_de;
-		////爆弾オブジェクト作成
-		//CObjBomd* obj_b;
-
-		//敵出現処理
-		//if (e_time == 90)
-		//{
-		//	//敵機オブジェクト作成
-		//	obj_e = new CObjEnemy(378.0f, -32.0f);
-		//	Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-		//	if (Usually_flg == true)
-		//	{
-		//		//敵機オブジェクト作成
-		//		obj_e = new CObjEnemy(178.0f, -32.0f);
-		//		Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-		//		obj_e = new CObjEnemy(578.0f, -32.0f);
-		//		Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-		//	}
-		//}
-
-		//i_x = rand() % 770;
-
-		//if (i_time == 600)
-		//{
-		//	//HP回復アイテムオブジェクト作成
-		//	CObjHPupItem* obj_hi = new CObjHPupItem(i_x, -30.0f);
-		//	Objs::InsertObj(obj_hi, OBJ_ITEM, 2);
-
-		//	srand(time(NULL)); // ランダム情報を初期化
-		//	i_time = 0;
-		//}
 	}
 
 }

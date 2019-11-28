@@ -91,6 +91,9 @@
     <Filter Include="ソース ファイル\ステージメイン\設置物\その他">
       <UniqueIdentifier>{b2fb2f55-4129-4fcd-a629-dc5a13cbc5c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム\設置型">
+      <UniqueIdentifier>{16948790-9dc9-4bd2-a5af-7c377876046e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -357,6 +360,12 @@
     <ClInclude Include="ObjToolBox.h">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_AR.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_ShotGun.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -613,6 +622,12 @@
     </ClCompile>
     <ClCompile Include="ObjToolBox.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_AR.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_ShotGun.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
