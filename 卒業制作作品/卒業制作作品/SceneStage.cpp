@@ -115,10 +115,21 @@ void CSceneStage::InitScene()
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
 	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
 	
-	//網オブジェクト作成
-	CObjNet* Net = new CObjNet(200,200);
+	//網オブジェクト作成 x=202 y=72
+	CObjNet* Net = new CObjNet(800, 200);
 	Objs::InsertObj(Net, OBJ_NET, 7);
-
+	//網オブジェクト作成
+	//左上
+	for (int x = -602; x < 206; x += 202)
+	{
+		Net = new CObjNet(x, -100);
+		Objs::InsertObj(Net, OBJ_NET, 7);
+	}
+	/*CObjNet* Net2 = new CObjNet(-400, -100);
+	Objs::InsertObj(Net2, OBJ_NET, 7);
+	Net = new CObjNet(-602, -100);
+	Objs::InsertObj(Net, OBJ_NET, 7);*/
+	
 	//アイテムオブジェクト作成	
 	//回復
 	CObjHeal* Heal = new CObjHeal(200, 200);
