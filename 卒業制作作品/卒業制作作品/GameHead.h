@@ -79,6 +79,8 @@ enum HIT_ELEMENTS
 	ELEMENT_WALL2,
 	ELEMENT_FIELD2,
 	ELEMENT_MEME_ND,
+	ELEMENT_NET_V,
+	ELEMENT_NET_S,
 };
 //------------------------------------------------
 
@@ -160,6 +162,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjBarbedWire.h"
 #include "ObjBarbedWireSmall.h"
 #include "ObjNet.h"
+#include "ObjNetV.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
