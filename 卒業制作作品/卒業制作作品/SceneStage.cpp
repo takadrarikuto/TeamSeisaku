@@ -144,20 +144,40 @@ void CSceneStage::InitScene()
 	//アーマー
 	CObjArmor* Armor = new CObjArmor(200, 200);
 	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
+	//工具箱
+	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
+	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
+
+	//アイテムドロップオブジェクト作成	
+	CObjAitemDrop* obj_ad = new CObjAitemDrop();
+	Objs::InsertObj(obj_ad, OBJ_AITEMDROP, 8);
+
+	//設置型ショットガン弾補充
+	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -650);
+	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 6);
+	//設置型アサルトライフル弾補充
+	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1175, -650);
+	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
+	//設置型スナイパーライフル弾補充
+	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-300, 800);
+	Objs::InsertObj(obj_it_sr, OBJ_INSTALL_TYPE_SR, 6);
+	//設置型ランダムアイテムボックス
+	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1200, 800);
+	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 6);
 
 	//壁オブジェクト作成
 	//左
 	CObjWall* Wall = new CObjWall(200, 200);
-	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	Objs::InsertObj(Wall, OBJ_WALL, 5);
 	//右
 	CObjWall2* Wall2 = new CObjWall2(200, 200);
-	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	Objs::InsertObj(Wall2, OBJ_WALL, 5);
 	//上
 	CObjWall3* Wall3 = new CObjWall3(200, 200);
-	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	Objs::InsertObj(Wall3, OBJ_WALL, 5);
 	//下
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
-	Objs::InsertObj(Wall4, OBJ_WALL, 7);
+	Objs::InsertObj(Wall4, OBJ_WALL, 5);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();

@@ -363,6 +363,10 @@ void CObjFire_Lizard::Action()
 
 	if (m_hero_hp <= 0)
 	{
+		//アイテムドロップ情報取得
+		CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+		AitemDrop->SetAitemDrop(true);
+
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_flx, m_fly, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);

@@ -44,7 +44,6 @@ void CObjMenu::Init()
 	m_andf2 = false;
 	//シーン移動フラグ
 	m_Scene_flg = false;
-
 	//音楽情報の読み込み
 	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
 	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
