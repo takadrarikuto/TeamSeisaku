@@ -109,9 +109,53 @@ void CSceneStage::InitScene()
 	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(300, -400);
 	Objs::InsertObj(MND, OBJ_MEME_NEUTRALIZATION_DEVICE, 2);
 
-	//有刺鉄線オブジェクト作成
+	//有刺鉄線オブジェクト作成 x=202 y=72(横)
 	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
 	//Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	//左上
+	for (int x = -402; x < 0; x += 202)
+	{
+		Barbed = new CObjBarbedWire(x, -300);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	for (int x = -400; x < -103; x += 101)
+	{
+		Barbed = new CObjBarbedWire(x, -500);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	//左下
+	for (int x = -425; x < -23; x += 202)
+	{
+		Barbed = new CObjBarbedWire(x, 800);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	for (int x = -427; x < -130; x += 101)
+	{
+		Barbed = new CObjBarbedWire(x, 1000);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	//右上
+	for (int x = 973; x < 1375; x += 202)
+	{
+		Barbed = new CObjBarbedWire(x, -300);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	for (int x = 975; x < 1278; x += 101)
+	{
+		Barbed = new CObjBarbedWire(x, -500);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	//右下
+	for (int x = 998; x < 1400; x += 202)
+	{
+		Barbed = new CObjBarbedWire(x, 800);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
+	for (int x = 1000; x < 1303; x += 101)
+	{
+		Barbed = new CObjBarbedWire(x, 1000);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	}
 
 	//有刺鉄線オブジェクト作成 x=68 y=53
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
