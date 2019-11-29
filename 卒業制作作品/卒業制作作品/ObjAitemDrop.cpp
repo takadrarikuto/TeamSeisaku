@@ -21,6 +21,12 @@ void CObjAitemDrop::Init()
 	//アイテムランダム選択変数
 	m_Aitem_Rand_num = 0; 
 
+//どのエネミーからドロップするか確認するフラグ
+	m_Zombie_Drop_flg = false; //ゾンビ
+	m_Fire_Bird_Drop_flg = false; //火の鳥
+	m_Fire_Lizard_Drop_flg = false; //火トカゲ
+	Bat_Drop_flg = false; //蝙蝠
+
 }
 
 //アクション
