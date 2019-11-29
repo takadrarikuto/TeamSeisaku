@@ -98,6 +98,9 @@ void CObjBat_Enemy::Action()
 	float hpx = hero->GetPX() - m_bex; //位置更新
 	float hpy = hero->GetPY() - m_bey;
 
+	//アイテムドロップ情報取得
+	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -364,9 +367,8 @@ void CObjBat_Enemy::Action()
 
 	if (m_hero_hp <= 0)
 	{
-		//アイテムドロップ情報取得
-		CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 		AitemDrop->SetAitemDrop(true);
+		AitemDrop->SetBatDrop(true);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_bex, m_bey, m_exp_blood_dst_size);
