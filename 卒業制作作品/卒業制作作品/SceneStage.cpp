@@ -121,31 +121,31 @@ void CSceneStage::InitScene()
 
 	//アイテムオブジェクト作成	
 	//回復
-	CObjHeal* Heal = new CObjHeal(200, 200);
-	Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	/*CObjHeal* Heal = new CObjHeal(200, 200);
+	Objs::InsertObj(Heal, OBJ_HEAL, 7);*/
 	//ショットガン弾補充
-	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
-	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
+	//CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
+	//Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
 	//アサルトライフル弾補充
-	CObjARItem* ARi = new CObjARItem(200, 200);
-	Objs::InsertObj(ARi, OBJ_AR_ITEM, 7);
+	//CObjARItem* ARi = new CObjARItem(200, 200);
+	//Objs::InsertObj(ARi, OBJ_AR_ITEM, 7);
 	//スナイパーライフル弾補充
-	CObjSniperRifleItem* SRi = new CObjSniperRifleItem(200, 200);
-	Objs::InsertObj(SRi, OBJ_SNIPERRIFLE_ITEM, 7);
+	//CObjSniperRifleItem* SRi = new CObjSniperRifleItem(200, 200);
+	//Objs::InsertObj(SRi, OBJ_SNIPERRIFLE_ITEM, 7);
 	//ロケットランチャー弾補充
 	CObjRocketLauncherItem* RLi = new CObjRocketLauncherItem(200, 200);
 	Objs::InsertObj(RLi, OBJ_ROCKETLAUNCHER_ITEM, 7);
 	//レールガン弾補充
-	CObjRailGunItem* RGi = new CObjRailGunItem(200, 200);
+	CObjRailGunItem* RGi = new CObjRailGunItem(400, 200);
 	Objs::InsertObj(RGi, OBJ_RAILGUN_ITEM, 7);
 	//グレネード補充
-	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
+	CObjGrenadeItem* GREi = new CObjGrenadeItem(600, 200);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
 	//アーマー
-	CObjArmor* Armor = new CObjArmor(200, 200);
-	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
+	//CObjArmor* Armor = new CObjArmor(200, 200);
+	//Objs::InsertObj(Armor, OBJ_ARMOR, 7);
 	//工具箱
-	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
+	CObjToolBox* Toolbox = new CObjToolBox(800, 200);
 	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
 	//アイテムドロップオブジェクト作成	
@@ -159,10 +159,10 @@ void CSceneStage::InitScene()
 	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1175, -650);
 	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
 	//設置型スナイパーライフル弾補充
-	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-300, 800);
+	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-300, 700);
 	Objs::InsertObj(obj_it_sr, OBJ_INSTALL_TYPE_SR, 6);
 	//設置型ランダムアイテムボックス
-	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1200, 800);
+	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1200, 700);
 	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 6);
 
 	//壁オブジェクト作成

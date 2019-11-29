@@ -104,8 +104,10 @@ void CObjZombieEnemy::Action()
 	float hpy = hero->GetPY() - m_zey;	
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
-	
-	
+
+	//アイテムドロップ情報取得
+	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -407,13 +409,11 @@ void CObjZombieEnemy::Action()
 	{
 		m_hero_hp -= EXPDamage;
 	}
-
 	if (m_hero_hp <= 0)
-	{
-		//アイテムドロップ情報取得
-		CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+	{		
 		AitemDrop->SetAitemDrop(true);
-
+		AitemDrop->SetZombieDrop(true);
+		
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);

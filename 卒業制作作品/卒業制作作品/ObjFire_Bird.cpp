@@ -97,6 +97,9 @@ void CObjFire_Bird::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
+	//アイテムドロップ情報取得
+	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
@@ -281,9 +284,8 @@ void CObjFire_Bird::Action()
 	}
 	if (m_hero_hp <= 0)
 	{
-		//アイテムドロップ情報取得
-		CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 		AitemDrop->SetAitemDrop(true);
+		AitemDrop->SetFire_BirdDrop(true);
 
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
