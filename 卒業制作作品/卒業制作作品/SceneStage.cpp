@@ -92,14 +92,14 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
 	//発電機オブジェクト作成	
-	CObjGenerator* Gen = new CObjGenerator(-300, -400);//(200,200)
+	CObjGenerator* Gen = new CObjGenerator(-300, -300);//(200,200)
 	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
-	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);//(500,200)
+	CObjGenerator2* Gen2 = new CObjGenerator2(1200, 900);//(500,200)
 	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
 
 	//敵無力化装置オブジェクト作成
-	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);//(400,200)
+	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1200, -300);//(400,200)
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
@@ -112,115 +112,13 @@ void CSceneStage::InitScene()
 	//有刺鉄線オブジェクト作成
 	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
 	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
-
-
-	//有刺鉄線オブジェクト作成 x=68 y=53
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
-	//Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	//左内
-	for (int y = 120; y < 650; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(-25, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	}
-	//左外
-	for (int y = -30; y < 500; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(-425, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	}
-	//右内
-	for (int y = -30; y < 500; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(775, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	}
-	//右外
-	for (int y = 120; y < 650; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(1175, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	}
-	//上
-	for (int x = 302; x < 504; x += 68)
-	{
-		BarbedS = new CObjBarbedWireSmall(x, -225);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	}
-	//下
-	for (int x = 302; x < 504; x += 68)
-	{
-		BarbedS = new CObjBarbedWireSmall(x, 800);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
-	}
-
-	//網オブジェクト作成(横) x=202 y=72
-	CObjNet* Net = new CObjNet(0, 0);
-	//Objs::InsertObj(Net, OBJ_NET, 7);
-	//横---------------------------------------
-	//左上
-	for (int x = -602; x < 206; x += 202)
-	{
-		Net = new CObjNet(x, -100);
-		Objs::InsertObj(Net, OBJ_NET, 7);
-	}
-	//左下
-	for (int x = -602; x < 206; x += 202)
-	{
-		Net = new CObjNet(x, 650);
-		Objs::InsertObj(Net, OBJ_NET, 7);
-	}
-	//右上
-	for (int x = 602; x < 1408; x += 202)
-	{
-		Net = new CObjNet(x, -100);
-		Objs::InsertObj(Net, OBJ_NET, 7);
-	}
-	//右下
-	for (int x = 602; x < 1408; x += 202)
-	{
-		Net = new CObjNet(x, 650);
-		Objs::InsertObj(Net, OBJ_NET, 7);
-	}
-	//------------------------------------------
-
-	//網オブジェクト作成(縦) x=72 y=202
-	CObjNetV* NetV = new CObjNetV(800, 200);
-	//Objs::InsertObj(NetV, OBJ_NET, 7);
-	//縦----------------------------------------
-	//左上
-	for (int y = -302; y < -100; y += 202)
-	{
-		NetV = new CObjNetV(134, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
-	}
-	//左下
-	for (int y = 722; y < 924; y += 202)
-	{
-		NetV = new CObjNetV(134, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
-	}
-	//右上
-	for (int y = -302; y < -100; y += 202)
-	{
-		NetV = new CObjNetV(602, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
-	}
-	//右下
-	for (int y = 722; y < 924; y += 202)
-	{
-		NetV = new CObjNetV(602, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
-	}
-	//------------------------------------------
-
+	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
 	
+	//網オブジェクト作成
+	CObjNet* Net = new CObjNet(200,200);
+	Objs::InsertObj(Net, OBJ_NET, 7);
 
-	/*CObjNet* Net2 = new CObjNet(-400, -100);
-	Objs::InsertObj(Net2, OBJ_NET, 7);
-	Net = new CObjNet(-602, -100);
-	Objs::InsertObj(Net, OBJ_NET, 7);*/
-	
 	//アイテムオブジェクト作成	
 	//回復
 	CObjHeal* Heal = new CObjHeal(200, 200);
@@ -250,19 +148,36 @@ void CSceneStage::InitScene()
 	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
 	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
+	//アイテムドロップオブジェクト作成	
+	CObjAitemDrop* obj_ad = new CObjAitemDrop();
+	Objs::InsertObj(obj_ad, OBJ_AITEMDROP, 8);
+
+	//設置型ショットガン弾補充
+	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -650);
+	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 6);
+	//設置型アサルトライフル弾補充
+	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1175, -650);
+	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
+	//設置型スナイパーライフル弾補充
+	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-300, 800);
+	Objs::InsertObj(obj_it_sr, OBJ_INSTALL_TYPE_SR, 6);
+	//設置型ランダムアイテムボックス
+	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1200, 800);
+	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 6);
+
 	//壁オブジェクト作成
 	//左
 	CObjWall* Wall = new CObjWall(200, 200);
-	Objs::InsertObj(Wall, OBJ_WALL, 7);
+	Objs::InsertObj(Wall, OBJ_WALL, 5);
 	//右
 	CObjWall2* Wall2 = new CObjWall2(200, 200);
-	Objs::InsertObj(Wall2, OBJ_WALL, 7);
+	Objs::InsertObj(Wall2, OBJ_WALL, 5);
 	//上
 	CObjWall3* Wall3 = new CObjWall3(200, 200);
-	Objs::InsertObj(Wall3, OBJ_WALL, 7);
+	Objs::InsertObj(Wall3, OBJ_WALL, 5);
 	//下
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
-	Objs::InsertObj(Wall4, OBJ_WALL, 7);
+	Objs::InsertObj(Wall4, OBJ_WALL, 5);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
