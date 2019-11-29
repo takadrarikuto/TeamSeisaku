@@ -69,6 +69,7 @@ enum OBJ_NAME
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
 	OBJ_TOOLBOX,
+	OBJ_AITEM_FONT,
 };
 //------------------------------------------------
 
@@ -204,6 +205,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //操作説明
 #include "ObjOperation.h"
+
+//フォント
+#include "ObjAitemFont.h"
 
 //チュートリアル
 #include "ObjTutorial.h"

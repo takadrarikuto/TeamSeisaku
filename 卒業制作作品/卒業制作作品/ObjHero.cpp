@@ -1202,142 +1202,144 @@ void CObjHero::Action()
 					//	m_vx -= 6;
 					//}
 
-					//Audio::Start(3);	//ダメージ音	
-					hit_h->SetInvincibility(true);	//無敵オン
+					//Audio::Start(3);	//ダメージ音
 
-					//ゾンビ
-					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+					if (m_time_d <= 0)
 					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
+						//ゾンビ
+						if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 						{
-							m_hero_en -= 5;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								m_hero_en -= 5;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								m_hero_hp -= 5;
+							}
+							m_time_d = 80;		//無敵時間をセット
 						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
+						//コウモリ
+						else if (hit_h->CheckObjNameHit(OBJ_BAT_ENEMY) != nullptr)
 						{
-							m_hero_hp -= 5;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								m_hero_en -= 2;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								m_hero_hp -= 2;
+							}
+							m_time_d = 80;		//無敵時間をセット
 						}
-						m_time_d = 80;		//無敵時間をセット
-					}
-					//コウモリ
-					else if (hit_h->CheckObjNameHit(OBJ_BAT_ENEMY) != nullptr)
-					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
+						//火トカゲ
+						else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
 						{
-							m_hero_en -= 2;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								m_hero_en -= 6;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								m_hero_hp -= 3;
+							}
+							m_time_d = 60;		//無敵時間をセット
 						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
+						//火の鳥
+						else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
 						{
-							m_hero_hp -= 2;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								m_hero_en -= 2;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								m_hero_hp -= 1;
+							}
+							m_time_d = 20;		//無敵時間をセット
 						}
-						m_time_d = 80;		//無敵時間をセット
-					}
-					//火トカゲ
-					else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
-					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
+						//球体型敵
+						else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
 						{
-							m_hero_en -= 6;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+								int EXPDamage_En = EXPAttack->GetEXP();
+								m_hero_en -= EXPDamage_En;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+								int EXPDamage = EXPAttack->GetEXP();
+								m_hero_hp -= EXPDamage;
+							}
+							m_time_d = 90;		//無敵時間をセット
 						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
+						//ミーム実態(中ボス)本体ダメージ処理
+						else if (hit_h->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
 						{
-							m_hero_hp -= 3;
-						}
-						m_time_d = 60;		//無敵時間をセット
-					}
-					//火の鳥
-					else if (hit_h->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
-					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
-						{
-							m_hero_en -= 2;
-						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
-						{
-							m_hero_hp -= 1;
-						}
-						m_time_d = 20;		//無敵時間をセット
-					}
-					//球体型敵
-					else if (hit_h->CheckObjNameHit(OBJ_SPHERE_TYPE_ENEMY) != nullptr)
-					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
-						{
-							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-							int EXPDamage_En = EXPAttack->GetEXP();
-							m_hero_en -= EXPDamage_En;
-						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
-						{
-							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-							int EXPDamage = EXPAttack->GetEXP();
-							m_hero_hp -= EXPDamage;
-						}
-						m_time_d = 90;		//無敵時間をセット
-					}
-					//ミーム実態(中ボス)本体ダメージ処理
-					else if (hit_h->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
-					{
 							m_hero_hp -= 1;
 							m_time_d = 10;		//無敵時間をセット						
-					}
-					//ボス
-					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-					{						
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
-						{
-							m_hero_en -= 6;
 						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
+						//ボス
+						else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
 						{
-							m_hero_hp -= 2;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								m_hero_en -= 6;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								m_hero_hp -= 2;
+							}
+							m_time_d = 30;		//無敵時間をセット
 						}
-						m_time_d = 30;		//無敵時間をセット
-					}
-					//爆発
-					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
+						//爆発
+						else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 						{
-							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-							int EXPDamage_En = EXPAttack->GetEXP();
-							m_hero_en -= EXPDamage_En;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+								int EXPDamage_En = EXPAttack->GetEXP();
+								m_hero_en -= EXPDamage_En;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
+								int EXPDamage = EXPAttack->GetEXP();
+								m_hero_hp -= EXPDamage;
+							}
+							m_time_d = 90;		//無敵時間をセット
 						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
+						//有刺鉄線(スモール)
+						else if (hit_h->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 						{
-							CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-							int EXPDamage = EXPAttack->GetEXP();
-							m_hero_hp -= EXPDamage;
+							//耐久力フラグがオンの時、耐久力を減らす
+							if (En_flg == true)
+							{
+								m_hero_en -= 1;
+							}
+							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
+							if (Hp_flg == true)
+							{
+								m_hero_hp -= 2;
+							}
+							m_time_d = 30;		//無敵時間をセット
 						}
-						m_time_d = 90;		//無敵時間をセット
-					}
-					//有刺鉄線(スモール)
-					else if (hit_h->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
-					{
-						//耐久力フラグがオンの時、耐久力を減らす
-						if (En_flg == true)
-						{
-							m_hero_en -= 1;
-						}
-						//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
-						if (Hp_flg == true)
-						{
-							m_hero_hp -= 2;
-						}
-						m_time_d = 30;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
@@ -1359,12 +1361,15 @@ void CObjHero::Action()
 						En_flg = false;
 					}
 				}
+				
 			}
 		}
-
+		if (m_time_d > 0)
+		{
+			m_time_d--;
+		}
 		if (m_hero_hp <= 0 && m_blood_flg == false)
 		{
-			hit_h->SetInvincibility(true);	//無敵にする
 			Dead_flg = true;
 			m_eff_flag = true;			//画像切り替え用フラグ
 			m_speed_power = 0.0f;			//動きを止める	
@@ -1376,20 +1381,8 @@ void CObjHero::Action()
 
 		if (m_del == true)
 		{
-			hit_h->SetInvincibility(true);	//無敵にする
 			m_eff_flag = true;			//画像切り替え用フラグ
 			//m_speed_power = 0.0f;			//動きを止める
-
-		}
-
-		if (m_time_d > 0)
-		{
-			m_time_d--;
-			if (m_time_d <= 0)
-			{
-				m_time_d = 0;
-				hit_h->SetInvincibility(false);	//無敵オフ
-			}
 		}
 
 		if (m_time_dead > 0)

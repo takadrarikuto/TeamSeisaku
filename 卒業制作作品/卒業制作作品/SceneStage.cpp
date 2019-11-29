@@ -317,6 +317,11 @@ void CSceneStage::InitScene()
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
 	Objs::InsertObj(Wall4, OBJ_WALL, 5);
 
+	//フォント
+	//アイテム獲得フォントオブジェクト作成
+	CObjAitemFont* obj_af = new CObjAitemFont();
+	Objs::InsertObj(obj_af, OBJ_AITEM_FONT, 19);
+
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
 	Objs::InsertObj(objtb, OBJ_TOPBACK, 19);
