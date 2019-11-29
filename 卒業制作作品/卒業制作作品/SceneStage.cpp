@@ -111,8 +111,7 @@ void CSceneStage::InitScene()
 
 	//有刺鉄線オブジェクト作成
 	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
-	Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
-
+	//Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
 
 	//有刺鉄線オブジェクト作成 x=68 y=53
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
