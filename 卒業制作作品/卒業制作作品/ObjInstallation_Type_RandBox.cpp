@@ -54,6 +54,9 @@ void CObjInstallation_Type_RandBox::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_IT_Rand_Box_x, m_IT_Rand_Box_y); //当たり判定の位置更新
@@ -82,22 +85,32 @@ void CObjInstallation_Type_RandBox::Action()
 	{
 		if (m_Rand_aitem_num == 1)
 		{
+			aitemfont->SetAGF(7);
+			aitemfont->SetGunNum(100);
 			hero->SetHP(100); //体力
 		}
 		else if (m_Rand_aitem_num == 2)
 		{
+			aitemfont->SetAGF(8);
+			aitemfont->SetGunNum(150);
 			hero->SetEN(150); //アーマー
 		}
 		else if (m_Rand_aitem_num == 3)
 		{
+			aitemfont->SetAGF(4);
+			aitemfont->SetGunNum(2);
 			hero->SetRL(2);	//ロケットランチャー弾
 		}
 		else if (m_Rand_aitem_num == 4)
 		{
+			aitemfont->SetAGF(5);
+			aitemfont->SetGunNum(1);
 			hero->SetRG(1);	//レールガン弾
 		}
 		else if (m_Rand_aitem_num == 5)
 		{
+			aitemfont->SetAGF(6);
+			aitemfont->SetGunNum(3);
 			hero->SetGRE(3); //グレネード
 		}
 		m_Rand_aitem_num = 0;

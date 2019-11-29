@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
     <ClInclude Include="ObjAitemDrop.h" />
+    <ClInclude Include="ObjAitemFont.h" />
     <ClInclude Include="ObjArmor.h" />
     <ClInclude Include="ObjBarbedWire.h" />
     <ClInclude Include="ObjBarbedWireSmall.h" />
@@ -131,6 +132,7 @@
     <ClInclude Include="ObjMeme_Medium_Boss.h" />
     <ClInclude Include="ObjMeme_Neutralization_Device.h" />
     <ClInclude Include="ObjNet.h" />
+    <ClInclude Include="ObjNetV.h" />
     <ClInclude Include="ObjSphere_Type_Enemy.h" />
     <ClInclude Include="ObjToolBox.h" />
     <ClInclude Include="ObjTutoWall.h" />
@@ -207,6 +209,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ObjAitemDrop.cpp" />
+    <ClCompile Include="ObjAitemFont.cpp" />
     <ClCompile Include="ObjArmor.cpp" />
     <ClCompile Include="ObjBarbedWire.cpp" />
     <ClCompile Include="ObjBarbedWireSmall.cpp" />
@@ -221,6 +224,7 @@
     <ClCompile Include="ObjMeme_Medium_Boss.cpp" />
     <ClCompile Include="ObjMeme_Neutralization_Device.cpp" />
     <ClCompile Include="ObjNet.cpp" />
+    <ClCompile Include="ObjNetV.cpp" />
     <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
     <ClCompile Include="ObjToolBox.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />

@@ -13,8 +13,8 @@ using namespace GameL;
 CObjHeal::CObjHeal(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Healx = 100;
-	m_Healy = 100;
+	m_Healx = x;
+	m_Healy = y;
 
 }
 
@@ -30,7 +30,7 @@ void CObjHeal::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Healx, m_Healy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_HEAL, 7);
-
+	
 }
 
 //アクション

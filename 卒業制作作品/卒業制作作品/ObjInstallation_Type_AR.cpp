@@ -53,6 +53,9 @@ void CObjInstallation_Type_AR::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_IT_ARx, m_IT_ARy); //当たり判定の位置更新
@@ -64,6 +67,8 @@ void CObjInstallation_Type_AR::Action()
 			&& m_Replenishment_time == 0)
 		{
 			hero->SetAR(90);
+			aitemfont->SetGunNum(90);
+			aitemfont->SetAGF(2); 
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム

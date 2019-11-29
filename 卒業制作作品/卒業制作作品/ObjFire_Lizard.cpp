@@ -98,6 +98,9 @@ void CObjFire_Lizard::Action()
 	float hpx = hero->GetPX() - m_flx; //位置更新
 	float hpy = hero->GetPY() - m_fly;
 
+	//アイテムドロップ情報取得
+	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -362,10 +365,9 @@ void CObjFire_Lizard::Action()
 	}
 
 	if (m_hero_hp <= 0)
-	{
-		//アイテムドロップ情報取得
-		CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+	{	
 		AitemDrop->SetAitemDrop(true);
+		AitemDrop->SetFire_LizardDrop(true);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_flx, m_fly, m_exp_blood_dst_size);

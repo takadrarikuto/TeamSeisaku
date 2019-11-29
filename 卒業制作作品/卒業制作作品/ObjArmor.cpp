@@ -19,8 +19,8 @@ extern bool En_flg;
 CObjArmor::CObjArmor(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Armorx = 100;
-	m_Armory = 300;
+	m_Armorx = x;
+	m_Armory = y;
 
 }
 
@@ -36,7 +36,7 @@ void CObjArmor::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Armorx, m_Armory, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_ARMOR, 7);
-
+	
 }
 
 //アクション

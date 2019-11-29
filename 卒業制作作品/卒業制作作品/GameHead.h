@@ -69,6 +69,7 @@ enum OBJ_NAME
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
 	OBJ_TOOLBOX,
+	OBJ_AITEM_FONT,
 };
 //------------------------------------------------
 
@@ -92,6 +93,8 @@ enum HIT_ELEMENTS
 	ELEMENT_WALL2,
 	ELEMENT_FIELD2,
 	ELEMENT_MEME_ND,
+	ELEMENT_NET_V,
+	ELEMENT_NET_S,
 };
 //------------------------------------------------
 
@@ -173,6 +176,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjBarbedWire.h"
 #include "ObjBarbedWireSmall.h"
 #include "ObjNet.h"
+#include "ObjNetV.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -201,6 +205,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //操作説明
 #include "ObjOperation.h"
+
+//フォント
+#include "ObjAitemFont.h"
 
 //チュートリアル
 #include "ObjTutorial.h"

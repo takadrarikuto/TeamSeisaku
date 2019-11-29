@@ -13,8 +13,8 @@ using namespace GameL;
 CObjSniperRifleItem::CObjSniperRifleItem(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_SR_Item_x = 400;
-	m_SR_Item_y = 100;
+	m_SR_Item_x = x;
+	m_SR_Item_y = y;
 }
 
 //イニシャライズ
@@ -29,7 +29,7 @@ void CObjSniperRifleItem::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SR_Item_x, m_SR_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_SNIPERRIFLE_ITEM, 7);
-
+	
 }
 
 //アクション

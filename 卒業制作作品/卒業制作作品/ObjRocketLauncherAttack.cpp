@@ -171,9 +171,10 @@ void CObjRocketLauncherAttack::Action()
 	if (hit_rl->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
 		if (hit_rl->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_rl->CheckObjNameHit(OBJ_BOSS) != nullptr
-			|| hit_rl->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+			|| hit_rl->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr
+			|| hit_rl->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
-			; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+			; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
 		}
 		else
 		{
@@ -197,12 +198,23 @@ void CObjRocketLauncherAttack::Action()
 	}
 	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
-		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
-		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+		if (hit_rl->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_rl->CheckObjNameHit(OBJ_ARMOR) != nullptr
+			|| hit_rl->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_rl->CheckObjNameHit(OBJ_HEAL) != nullptr
+			|| hit_rl->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_rl->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+			|| hit_rl->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_rl->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+			|| hit_rl->CheckObjNameHit(OBJ_TOOLBOX) != nullptr)
+		{
+			; //アイテム系には当たらない
+		}
+		else
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
 	}
 }
 

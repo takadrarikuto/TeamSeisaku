@@ -70,13 +70,13 @@ void CObjWall4::Draw()
 	//Ø‚èæ‚èˆ—
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 100.0f;
-	src.m_bottom = 100.0f;
+	src.m_right = 1700.0f;
+	src.m_bottom = 150.0f;
 
 	//•`‰æˆ—
 	dst.m_top = 0.0f + m_Wally;
 	dst.m_left = 0.0f + m_Wallx;
 	dst.m_right = 2500.0f + m_Wallx;
-	dst.m_bottom = 50.0f + m_Wally;
+	dst.m_bottom = 150.0f + m_Wally;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 }
