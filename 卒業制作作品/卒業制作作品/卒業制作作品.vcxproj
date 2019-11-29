@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BaseStatus.h" />
+    <ClInclude Include="ObjAitemDrop.h" />
     <ClInclude Include="ObjArmor.h" />
     <ClInclude Include="ObjBarbedWire.h" />
     <ClInclude Include="ObjBarbedWireSmall.h" />
@@ -123,10 +124,13 @@
     <ClInclude Include="ObjEnemy_Neutralization_Device2.h" />
     <ClInclude Include="ObjFire_Lizard.h" />
     <ClInclude Include="ObjGenerator2.h" />
+    <ClInclude Include="ObjInstallation_Type_AR.h" />
+    <ClInclude Include="ObjInstallation_Type_RandBox.h" />
+    <ClInclude Include="ObjInstallation_Type_ShotGun.h" />
+    <ClInclude Include="ObjInstallation_Type_SR.h" />
     <ClInclude Include="ObjMeme_Medium_Boss.h" />
     <ClInclude Include="ObjMeme_Neutralization_Device.h" />
     <ClInclude Include="ObjNet.h" />
-    <ClInclude Include="ObjNetV.h" />
     <ClInclude Include="ObjSphere_Type_Enemy.h" />
     <ClInclude Include="ObjToolBox.h" />
     <ClInclude Include="ObjTutoWall.h" />
@@ -202,6 +206,7 @@
     <ClInclude Include="SceneTutorial.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ObjAitemDrop.cpp" />
     <ClCompile Include="ObjArmor.cpp" />
     <ClCompile Include="ObjBarbedWire.cpp" />
     <ClCompile Include="ObjBarbedWireSmall.cpp" />
@@ -209,10 +214,13 @@
     <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp" />
     <ClCompile Include="ObjFire_Lizard.cpp" />
     <ClCompile Include="ObjGenerator2.cpp" />
+    <ClCompile Include="ObjInstallation_Type_AR.cpp" />
+    <ClCompile Include="ObjInstallation_Type_RandBox.cpp" />
+    <ClCompile Include="ObjInstallation_Type_ShotGun.cpp" />
+    <ClCompile Include="ObjInstallation_Type_SR.cpp" />
     <ClCompile Include="ObjMeme_Medium_Boss.cpp" />
     <ClCompile Include="ObjMeme_Neutralization_Device.cpp" />
     <ClCompile Include="ObjNet.cpp" />
-    <ClCompile Include="ObjNetV.cpp" />
     <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
     <ClCompile Include="ObjToolBox.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />
