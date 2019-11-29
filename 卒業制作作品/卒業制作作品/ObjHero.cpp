@@ -263,13 +263,6 @@ void CObjHero::Action()
 			float EndHitX = End->GetEndHitX();
 			float EndHitY = End->GetEndHitY();
 
-			//網オブジェクト情報作成
-			CObjNet* Net = (CObjNet*)Objs::GetObj(OBJ_NET);
-			float NetX = Net->GetNetX();
-			float NetY = Net->GetNetY();
-			float NetHitX = Net->GetNetHitX();
-			float NetHitY = Net->GetNetHitY();
-
 			//上下左右別当たり判定確認フラグ常時初期化
 			m_UpHit_flg = false;    //上
 			m_DownHit_flg = false;	 //下

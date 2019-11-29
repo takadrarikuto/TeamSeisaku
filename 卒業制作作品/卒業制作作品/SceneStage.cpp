@@ -212,13 +212,6 @@ void CSceneStage::InitScene()
 		Objs::InsertObj(NetV, OBJ_NET, 7);
 	}
 	//------------------------------------------
-
-	
-
-	/*CObjNet* Net2 = new CObjNet(-400, -100);
-	Objs::InsertObj(Net2, OBJ_NET, 7);
-	Net = new CObjNet(-602, -100);
-	Objs::InsertObj(Net, OBJ_NET, 7);*/
 	
 	//アイテムオブジェクト作成	
 	//回復

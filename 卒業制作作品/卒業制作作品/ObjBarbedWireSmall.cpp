@@ -13,8 +13,8 @@ using namespace GameL;
 CObjBarbedWireSmall::CObjBarbedWireSmall(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_BarbedSx = 600;
-	m_BarbedSy = 515;
+	m_BarbedSx = x;
+	m_BarbedSy = y;
 }
 
 //イニシャライズ
