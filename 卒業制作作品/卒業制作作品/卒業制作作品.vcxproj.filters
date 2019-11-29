@@ -67,6 +67,33 @@
     <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム">
       <UniqueIdentifier>{d8e2dc0a-741b-4238-b15e-da2fa5be1812}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\主人公関係\照準">
+      <UniqueIdentifier>{acf95c58-9b2e-4952-a565-53e1eef93f12}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\チュートリアル">
+      <UniqueIdentifier>{700ccc3e-139a-4f2c-ac6b-a41ca4e498b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\ステージ\壁">
+      <UniqueIdentifier>{d0d48bd5-7357-4a40-8851-699fcb90f4eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\チュートリアル\壁%28チュートリアル%29">
+      <UniqueIdentifier>{0fb3556f-a277-4b38-8a6e-440cc04664ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29">
+      <UniqueIdentifier>{c250e594-be39-4e4e-a48b-e4539698978d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\チュートリアル\描画用%28チュートリアル%29">
+      <UniqueIdentifier>{5e1b043a-6fe4-4cd6-8dc0-832cec109b19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\中ボス">
+      <UniqueIdentifier>{285887c9-7b4b-4e14-b049-8e5820b5e0af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\その他">
+      <UniqueIdentifier>{b2fb2f55-4129-4fcd-a629-dc5a13cbc5c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム\設置型">
+      <UniqueIdentifier>{c2b56165-f432-4f03-af40-c595367bf517}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -201,9 +228,6 @@
     <ClInclude Include="ObjStage.h">
       <Filter>ソース ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="ObjZombieEnemy.h">
-      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
-    </ClInclude>
     <ClInclude Include="ObjBoss.h">
       <Filter>ソース ファイル\ステージメイン\ボス</Filter>
     </ClInclude>
@@ -227,6 +251,132 @@
     </ClInclude>
     <ClInclude Include="ObjEvent.h">
       <Filter>ソース ファイル\ステージメイン\イベント</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjAiming.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\照準</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutorial.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneTutorial.h">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjEnemy_Neutralization_Device.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjShotGunItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSniperRifleItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjARItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGrenadeItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRocketLauncherItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRailGunItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall2.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall3.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjWall4.h">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoZombieEnemy.h">
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoHero.h">
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoBg.h">
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoTopback.h">
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall2.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall3.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjTutoWall4.h">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjFire_Bird.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjFire_Lizard.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBat_Enemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSphere_Type_Enemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGenerator2.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjEnemy_Neutralization_Device2.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMeme_Medium_Boss.h">
+      <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjArmor.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBarbedWire.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBarbedWireSmall.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjNet.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjZombieEnemy.h">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjMeme_Neutralization_Device.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjToolBox.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_AR.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_RandBox.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_ShotGun.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_SR.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjAitemDrop.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjNetV.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -379,6 +529,129 @@
     </ClCompile>
     <ClCompile Include="ObjEvent.cpp">
       <Filter>ソース ファイル\ステージメイン\イベント</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjAiming.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\照準</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutorial.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneTutorial.cpp">
+      <Filter>ソース ファイル\チュートリアル</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjEnemy_Neutralization_Device.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjShotGunItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSniperRifleItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjARItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGrenadeItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRocketLauncherItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRailGunItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall2.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall3.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjWall4.cpp">
+      <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoZombieEnemy.cpp">
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoHero.cpp">
+      <Filter>ソース ファイル\チュートリアル\主人公・敵%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoBg.cpp">
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoTopback.cpp">
+      <Filter>ソース ファイル\チュートリアル\描画用%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall2.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall3.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoWall4.cpp">
+      <Filter>ソース ファイル\チュートリアル\壁%28チュートリアル%29</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Bird.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFire_Lizard.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBat_Enemy.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSphere_Type_Enemy.cpp">
+      <Filter>ソース ファイル\ステージメイン\エネミー</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGenerator2.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMeme_Medium_Boss.cpp">
+      <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjArmor.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBarbedWire.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBarbedWireSmall.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjNet.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjMeme_Neutralization_Device.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjToolBox.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_AR.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_RandBox.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_ShotGun.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_SR.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjAitemDrop.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjNetV.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

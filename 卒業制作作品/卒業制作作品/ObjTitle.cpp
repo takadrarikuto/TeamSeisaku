@@ -19,6 +19,8 @@ bool m_c = true;
 
 int g_hero_max_hp = 0;	//敵の撃破時のHP増加
 
+int g_zombie_count_tu = 0; //チュートリアル敵撃破数用
+
 //イニシャライズ
 void CObjTitle::Init()
 {
@@ -48,14 +50,14 @@ void CObjTitle::Action()
 	if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 	{
 		--choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 	{
 		++choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	if (m_time > 0) {
@@ -73,7 +75,7 @@ void CObjTitle::Action()
 			if (m_key_flag == true)
 			{
 				m_andf = true;
-				//Audio::Start(1);
+				Audio::Start(1);
 				m_key_flag = false;
 
 			}
@@ -102,10 +104,11 @@ void CObjTitle::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			Scene::SetScene(new CSceneOP());
-
+			/*
 			//デバッグテスト用
-			//Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneClear());
+			Scene::SetScene(new CSceneStage());
+			Scene::SetScene(new CSceneClear());
+			*/
 		}
 	}
 

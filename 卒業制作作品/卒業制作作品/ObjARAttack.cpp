@@ -31,7 +31,7 @@ void CObjARAttack::Init()
 {
 	//初期化
 	//削除距離最大値
-	Distance_max = 3;
+	m_Distance_max = 3;
 
 	//描画サイズ
 	m_dst_size = 32.0f;
@@ -74,36 +74,75 @@ void CObjARAttack::Action()
 		float hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
-		if (m_ARx < hx - 64 * Distance_max)
+		if (m_ARx < hx - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARx > hx + 32 + 64 * Distance_max)
+		else if (m_ARx > hx + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		if (m_ARy < hy - 64 * Distance_max)
+		if (m_ARy < hy - 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-		else if (m_ARy > hy + 32 + 64 * Distance_max)
+		else if (m_ARy > hy + 32 + 64 * m_Distance_max)
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
 	}
 	
-
+	/*OBJ_AR_ITEM
+	OBJ_ARMOR
+	OBJ_GRENADE_ITEM
+	OBJ_HEAL
+	OBJ_RAILGUN_ITEM
+	OBJ_ROCKETLAUNCHER_ITEM
+	OBJ_SHOTGUN_ITEM
+	OBJ_SNIPERRIFLE_ITEM
+	OBJ_TOOLBOX
+	*/
 	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_ar->CheckObjNameHit(OBJ_ENEMY) != nullptr)
+	if (hit_ar->CheckElementHit(ELEMENT_ENEMY) == true)
+	{
+		if (hit_ar->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_ar->CheckObjNameHit(OBJ_BOSS) != nullptr
+			|| hit_ar->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr	
+			|| hit_ar->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+		{
+			; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
+		}
+		else 
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
+	}
+	//壁オブジェクトと接触するとオブジェクト破棄
+	if (hit_ar->CheckElementHit(ELEMENT_WALL) == true || hit_ar->CheckElementHit(ELEMENT_WALL2) == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
-
+	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true)
+	{
+		if (hit_ar->CheckObjNameHit(OBJ_AR_ITEM) != nullptr|| hit_ar->CheckObjNameHit(OBJ_ARMOR) != nullptr 
+			|| hit_ar->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_ar->CheckObjNameHit(OBJ_HEAL) != nullptr 
+			|| hit_ar->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_ar->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr 
+			|| hit_ar->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_ar->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr 
+			|| hit_ar->CheckObjNameHit(OBJ_TOOLBOX) != nullptr)
+		{
+			; //アイテム系には当たらない
+		}
+		else
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}		
+	}
 }
 
 //ドロー

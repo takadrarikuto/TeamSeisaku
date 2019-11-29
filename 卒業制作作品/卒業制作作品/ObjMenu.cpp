@@ -21,6 +21,18 @@ bool Menu_flg = false;
 //メニューキー制御用フラグ
 bool m_key_flag_menu = true;
 
+//死亡時動き停止フラグ
+bool Dead_flg = false;
+
+//HP ONOFFフラグ
+bool Hp_flg = true;
+
+//耐久力ONOFFフラグ
+bool En_flg = false;
+
+//チュートリアルONOFFフラグ
+extern bool Tuto_flg;
+
 //イニシャライズ
 void CObjMenu::Init()
 {
@@ -32,7 +44,9 @@ void CObjMenu::Init()
 	m_andf2 = false;
 	//シーン移動フラグ
 	m_Scene_flg = false;
-
+	//音楽情報の読み込み
+	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
+	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
 }
 
 //アクション
@@ -45,14 +59,14 @@ void CObjMenu::Action()
 		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 		{
 			--choose;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_time = 10;
 		}
 		//下キーで下に移動
 		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 		{
 			++choose;
-			//Audio::Start(0);
+			Audio::Start(0);
 			m_time = 10;
 		}
 		if (m_time > 0) {
@@ -72,7 +86,7 @@ void CObjMenu::Action()
 				{
 					m_andf = true;
 					m_key_flag = false;
-					//Audio::Start(1);
+					Audio::Start(1);
 					//g_hero_max_hp = 0;
 				}
 			}
@@ -89,7 +103,7 @@ void CObjMenu::Action()
 				{
 					m_andf2 = true;
 					//g_hero_max_hp = 0;
-					//Audio::Start(1);
+					Audio::Start(1);
 					m_key_flag = false;
 				}
 			}
@@ -304,7 +318,7 @@ void CObjMenu::Draw()
 		dst.m_left = 405.0f;
 		dst.m_right = 490.0f;
 		dst.m_bottom = 330.0f;
-		Draw::Draw(12, &src, &dst, c, 0.0f);
+		Draw::Draw(29, &src, &dst, c, 0.0f);
 		//武器所持弾表示
 		swprintf_s(str, L"%d/3", gre_pb_me, 15);
 		Font::StrDraw(str, 515, 285, 37, c);
@@ -316,7 +330,22 @@ void CObjMenu::Draw()
 
 		//表示説明用
 		swprintf_s(str, L"残り弾数/最大所持弾数", 15);
-		Font::StrDraw(str, 100, 475, 25, c);
+		Font::StrDraw(str, 410, 370, 25, c);
+
+		//操作説明メニュー用
+		//切り取り位置の設定
+		src.m_top = 75.0f;
+		src.m_left = 0.0f;
+		src.m_right = 800.0f;
+		src.m_bottom = 490.0f;
+
+		//表示位置の設定
+		dst.m_top = 415.0f;
+		dst.m_left = 75.0f;
+		dst.m_right = 375.0f;
+		dst.m_bottom = 565.0f;
+		//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
+		Draw::Draw(33, &src, &dst, c, 0.0f);
 
 		//-------------------------------------------------------------------
 
