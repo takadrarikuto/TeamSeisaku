@@ -67,7 +67,7 @@ void CObjInstallation_Type_AR::Action()
 			&& m_Replenishment_time == 0)
 		{
 			hero->SetAR(90);
-			aitemfont->SetGunNum(90);
+			aitemfont->SetAitemNum(90);
 			aitemfont->SetAGF(2); 
 			//•â[ƒtƒ‰ƒO
 			m_Replenishment_flg = true;

@@ -68,7 +68,7 @@ void CObjInstallation_Type_ShotGun::Action()
 			&& m_Replenishment_time == 0)
 		{
 			aitemfont->SetAGF(1); 
-			aitemfont->SetGunNum(16);
+			aitemfont->SetAitemNum(16);
 			hero->SetSG(16);
 			//•â[ƒtƒ‰ƒO
 			m_Replenishment_flg = true;

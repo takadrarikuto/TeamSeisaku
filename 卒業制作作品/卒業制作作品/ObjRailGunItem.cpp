@@ -40,6 +40,9 @@ void CObjRailGunItem::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//主人公の移動に合わせる
 	m_RG_Item_x -= hvx;
 	m_RG_Item_y -= hvy;
@@ -51,6 +54,8 @@ void CObjRailGunItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		hero->SetRG(1);		//主人公に当たると弾補充
+		aitemfont->SetAGF(5); //フォント表示
+		aitemfont->SetAitemNum(1); //弾数表示
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

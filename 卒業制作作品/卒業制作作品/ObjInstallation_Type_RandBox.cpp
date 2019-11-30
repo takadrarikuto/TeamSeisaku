@@ -86,31 +86,31 @@ void CObjInstallation_Type_RandBox::Action()
 		if (m_Rand_aitem_num == 1)
 		{
 			aitemfont->SetAGF(7);
-			aitemfont->SetGunNum(100);
+			aitemfont->SetAitemNum(100);
 			hero->SetHP(100); //体力
 		}
 		else if (m_Rand_aitem_num == 2)
 		{
 			aitemfont->SetAGF(8);
-			aitemfont->SetGunNum(150);
+			aitemfont->SetAitemNum(150);
 			hero->SetEN(150); //アーマー
 		}
 		else if (m_Rand_aitem_num == 3)
 		{
 			aitemfont->SetAGF(4);
-			aitemfont->SetGunNum(2);
+			aitemfont->SetAitemNum(2);
 			hero->SetRL(2);	//ロケットランチャー弾
 		}
 		else if (m_Rand_aitem_num == 4)
 		{
 			aitemfont->SetAGF(5);
-			aitemfont->SetGunNum(1);
+			aitemfont->SetAitemNum(1);
 			hero->SetRG(1);	//レールガン弾
 		}
 		else if (m_Rand_aitem_num == 5)
 		{
 			aitemfont->SetAGF(6);
-			aitemfont->SetGunNum(3);
+			aitemfont->SetAitemNum(3);
 			hero->SetGRE(3); //グレネード
 		}
 		m_Rand_aitem_num = 0;

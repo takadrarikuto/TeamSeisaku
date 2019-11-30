@@ -40,6 +40,9 @@ void CObjGrenadeItem::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//主人公の移動に合わせる
 	m_GRE_Item_x -= hvx;
 	m_GRE_Item_y -= hvy;
@@ -51,6 +54,8 @@ void CObjGrenadeItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		hero->SetGRE(3);		//主人公に当たると弾補充
+		aitemfont->SetAGF(6); //フォント表示
+		aitemfont->SetAitemNum(3); //グレネード数表示
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}
