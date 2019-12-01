@@ -70,6 +70,7 @@ void CObjZombieEnemy::Init()
 	((UserData*)Save::GetData())->RL_Attack;
 	((UserData*)Save::GetData())->RG_Attack;
 	((UserData*)Save::GetData())->GRE_Attack;
+	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -161,33 +162,45 @@ void CObjZombieEnemy::Action()
 		//{
 		//	m_UDani_frame = 0;
 		//}
-		
+
 		//移動処理
 		//主人公が上に居ると上に移動
 		if (hy < m_zey)
-		{								
-			m_zevy = -m_zev_max;
+		{				
+			if (m_UpHit_flg == false)
+			{
+				m_zevy = -m_zev_max;
+			}			
 			m_ani_time += 1;
 			m_UDani_frame = 6;
 		}
 		//主人公が下に居ると下移動
 		else if (hy > m_zey)
 		{
-			m_zevy = m_zev_max;
+			if (m_DownHit_flg == false)
+			{
+				m_zevy = m_zev_max;
+			}		
 			m_ani_time += 1;
 			m_UDani_frame = 2;
 		}
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
-			m_zevx = -m_zev_max;
+			if (m_LeftHit_flg == false)
+			{
+				m_zevx = -m_zev_max;
+			}			
 			m_ani_time += 1;
 			m_UDani_frame = 0;
 		}
 		//主人公が右に居ると右に移動
 		else if (hx > m_zex)
 		{
-			m_zevx = m_zev_max;
+			if (m_RightHit_flg == false)
+			{
+				m_zevx = m_zev_max;
+			}			
 			m_ani_time += 1;
 			m_UDani_frame = 4;
 		}
@@ -198,13 +211,19 @@ void CObjZombieEnemy::Action()
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
-				m_zevy = -m_zev_max;
+				if (m_UpHit_flg == false)
+				{
+					m_zevy = -m_zev_max;
+				}
 				m_UDani_frame = 6;
 			}
 			//主人公が下に居ると下移動
 			else if (hy > m_zey)
 			{
-				m_zevy = m_zev_max;
+				if (m_DownHit_flg == false)
+				{
+					m_zevy = m_zev_max;
+				}
 				m_UDani_frame = 2;
 			}
 		}
@@ -215,13 +234,19 @@ void CObjZombieEnemy::Action()
 			//主人公が左に居ると左に移動
 			if (hx < m_zex)
 			{
-				m_zevx = -m_zev_max;
+				if (m_LeftHit_flg == false)
+				{
+					m_zevx = -m_zev_max;
+				}
 				m_UDani_frame = 0;
 			}
 			//主人公が右に居ると右に移動
 			else if (hx > m_zex)
 			{
-				m_zevx = m_zev_max;
+				if (m_RightHit_flg == false)
+				{
+					m_zevx = m_zev_max;
+				}
 				m_UDani_frame = 4;
 			}
 		}		
@@ -321,45 +346,45 @@ void CObjZombieEnemy::Action()
 		}
 	}
 
-	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
-	{
+	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
+	//if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
+	//{
 
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
 
-		float r = 0;
+	//	float r = 0;
 
-		for (int i = 0; i < 10; i++)
-		{
-			if (hit_data[i] != nullptr)
-			{
-				r = hit_data[i]->r;
+	//	for (int i = 0; i < 10; i++)
+	//	{
+	//		if (hit_data[i] != nullptr)
+	//		{
+	//			r = hit_data[i]->r;
 
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
-				{
-					m_RightHit_flg = true; //右
-					m_zevx = m_zevx - m_zev_max;
-				}
-				else if (r > 2 && r < 178)
-				{
-					m_UpHit_flg = true;    //上
-					m_zevy = m_zevy + m_zev_max;
-				}
-				else if (r > 176 && r < 184)
-				{
-					m_LeftHit_flg = true;	 //左
-					m_zevx = m_zevx + m_zev_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_DownHit_flg = true;	 //下
-					m_zevy = m_zevy - m_zev_max;
-				}
-			}
-		}
-	}
+	//			//角度で上下左右を判定
+	//			if ((r < 4 && r >= 0) || r > 356)
+	//			{
+	//				m_RightHit_flg = true; //右
+	//				m_zevx = m_zevx - m_zev_max;
+	//			}
+	//			else if (r > 2 && r < 178)
+	//			{
+	//				m_UpHit_flg = true;    //上
+	//				m_zevy = m_zevy + m_zev_max;
+	//			}
+	//			else if (r > 176 && r < 184)
+	//			{
+	//				m_LeftHit_flg = true;	 //左
+	//				m_zevx = m_zevx + m_zev_max;
+	//			}
+	//			else if (r > 182 && r < 358)
+	//			{
+	//				m_DownHit_flg = true;	 //下
+	//				m_zevy = m_zevy - m_zev_max;
+	//			}
+	//		}
+	//	}
+	//}
 	
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	//ハンドガン
@@ -409,6 +434,13 @@ void CObjZombieEnemy::Action()
 	{
 		m_hero_hp -= EXPDamage;
 	}
+	//有刺鉄線
+	else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+	{
+		m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+		m_time_d = 30;		//点滅時間をセット
+	}
+
 	if (m_hero_hp <= 0)
 	{		
 		AitemDrop->SetAitemDrop(true);

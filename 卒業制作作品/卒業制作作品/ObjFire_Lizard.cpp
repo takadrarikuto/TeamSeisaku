@@ -65,6 +65,7 @@ void CObjFire_Lizard::Init()
 	((UserData*)Save::GetData())->RL_Attack;
 	((UserData*)Save::GetData())->RG_Attack;
 	((UserData*)Save::GetData())->GRE_Attack;
+	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
 
 	//ダメージ点滅時間用
 	m_time_d = 0;	
@@ -353,6 +354,12 @@ void CObjFire_Lizard::Action()
 	else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 	{
 		m_hero_hp -= EXPDamage;
+	}
+	//有刺鉄線
+	else if (hit_fl->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+	{
+		m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 
 	if (m_time_d > 0)

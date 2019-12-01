@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjHero.h"
@@ -124,6 +125,8 @@ void CObjHero::Init()
 	m_gre_pb_num = 3;//グレネード(3)
 	//------------------------------------------
 
+	//ダメージ量
+	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -583,10 +586,6 @@ void CObjHero::Action()
 					}
 				}
 			}
-
-			//摩擦
-			m_vx += -(m_vx * 0.098f);
-			m_vy += -(m_vy * 0.098f);
 
 			//位置情報更新
 			m_px += m_vx;
@@ -1336,7 +1335,7 @@ void CObjHero::Action()
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 2;
+								m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
 							}
 							m_time_d = 30;		//無敵時間をセット
 						}

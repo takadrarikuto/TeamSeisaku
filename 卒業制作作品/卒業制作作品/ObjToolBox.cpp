@@ -43,8 +43,7 @@ void CObjToolBox::Action()
 
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
-	//アイテムフォント情報取得
-	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	
 	//主人公の移動に合わせる
 	m_Healx -= hvx;
 	m_Healy -= hvy;

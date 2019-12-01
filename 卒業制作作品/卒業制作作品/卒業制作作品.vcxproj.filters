@@ -384,6 +384,9 @@
     <ClInclude Include="ObjAitemFont.h">
       <Filter>ソース ファイル\フォント</Filter>
     </ClInclude>
+    <ClInclude Include="ObjBarbedWireV.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -661,6 +664,9 @@
     </ClCompile>
     <ClCompile Include="ObjAitemFont.cpp">
       <Filter>ソース ファイル\フォント</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBarbedWireV.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

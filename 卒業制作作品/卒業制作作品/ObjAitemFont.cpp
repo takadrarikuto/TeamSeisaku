@@ -39,7 +39,7 @@ void CObjAitemFont::Action()
 	if (Aitem_Get_Font > 0)
 	{
 		m_Font_time++;
-		if (m_Font_time > 600)
+		if (m_Font_time > 60)
 		{
 			Aitem_Get_Font = 0;
 			m_Font_time = 0;
@@ -53,6 +53,7 @@ void CObjAitemFont::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float fc[4] = { 10.0f,10.0f, 10.0f, 10.0f };
 
 	RECT_F src;
 	RECT_F dst;
@@ -60,7 +61,8 @@ void CObjAitemFont::Draw()
 	//1、ショット2、アサルト3、スナイパー4、レールガン弾5
 	//レールガン弾6、グレネード7、体力8、アーマー、ツールボックス9
 	//表示処理
-	if (Aitem_Get_Font < 7)
+	
+	if (Aitem_Get_Font > 0)
 	{
 		if (Aitem_Get_Font == 1)
 		{
@@ -86,25 +88,24 @@ void CObjAitemFont::Draw()
 		{
 			swprintf_s(str, L"グレネード%d個獲得しました。", m_Aitem_num);
 		}
-		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
-		m_Font_time = 0;
+		else if (Aitem_Get_Font == 7)
+		{
+			swprintf_s(str, L"回復箱を獲得しました。");
+			//Font::StrDraw(L"回復箱を獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
+		}
+		else if (Aitem_Get_Font == 8)
+		{
+			swprintf_s(str, L"アーマーを獲得しました。");
+			//Font::StrDraw(L"アーマーを獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
+		}
+		else if (Aitem_Get_Font == 9)
+		{
+			swprintf_s(str, L"ツールボックスを獲得しました。");
+			//Font::StrDraw(L"ツールボックスを獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
+		}		
+		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 20, fc); //アイテム取得でフォント表示
 	}	
-	else if (Aitem_Get_Font == 7)
-	{
-		Font::StrDraw(L"回復箱を獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
-		m_Font_time = 0;
-	}
-	else if (Aitem_Get_Font == 8)
-	{
-		Font::StrDraw(L"アーマーを獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
-		m_Font_time = 0;
-	}
-	else if (Aitem_Get_Font == 9)
-	{
-		Font::StrDraw(L"ツールボックスを獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
-		m_Font_time = 0;
-	}
-
+	
 
 	//切り取り処理
 	src.m_top = 59.0f;

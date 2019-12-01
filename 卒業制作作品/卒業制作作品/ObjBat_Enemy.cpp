@@ -65,6 +65,7 @@ void CObjBat_Enemy::Init()
 	((UserData*)Save::GetData())->RL_Attack;
 	((UserData*)Save::GetData())->RG_Attack;
 	((UserData*)Save::GetData())->GRE_Attack;
+	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
 
 	//ダメージ点滅時間用
 	m_time_d = 0;
@@ -214,7 +215,7 @@ void CObjBat_Enemy::Action()
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_bex, m_bey); //当たり判定の位置更新
 
-								  //当たり判定処理
+	//当たり判定処理
 	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -354,6 +355,12 @@ void CObjBat_Enemy::Action()
 	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 	{
 		m_hero_hp -= EXPDamage;
+	}
+	//有刺鉄線
+	else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+	{
+		m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+		m_time_d = 30;		//点滅時間をセット
 	}
 
 	if (m_time_d > 0)

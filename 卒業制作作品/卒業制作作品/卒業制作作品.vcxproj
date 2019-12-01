@@ -121,6 +121,7 @@
     <ClInclude Include="ObjArmor.h" />
     <ClInclude Include="ObjBarbedWire.h" />
     <ClInclude Include="ObjBarbedWireSmall.h" />
+    <ClInclude Include="ObjBarbedWireV.h" />
     <ClInclude Include="ObjBat_Enemy.h" />
     <ClInclude Include="ObjEnemy_Neutralization_Device2.h" />
     <ClInclude Include="ObjFire_Lizard.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="ObjArmor.cpp" />
     <ClCompile Include="ObjBarbedWire.cpp" />
     <ClCompile Include="ObjBarbedWireSmall.cpp" />
+    <ClCompile Include="ObjBarbedWireV.cpp" />
     <ClCompile Include="ObjBat_Enemy.cpp" />
     <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp" />
     <ClCompile Include="ObjFire_Lizard.cpp" />
