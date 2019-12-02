@@ -309,59 +309,56 @@ void CObjBat_Enemy::Action()
 	}
 
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
-	//ハンドガン
-	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+	if (m_time_d == 0)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ショットガン
-	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//アサルトライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//スナイパーライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ロケットランチャー
-	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//レールガン
-	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//グレネード
-	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//爆発
-	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-	{
-		m_hero_hp -= EXPDamage;
-	}
-	//有刺鉄線
-	else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
+		//ハンドガン
+		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//ショットガン
+		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//アサルトライフル
+		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//スナイパーライフル
+		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//ロケットランチャー
+		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//レールガン
+		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//グレネード
+		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//爆発
+		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+		{
+			m_hero_hp -= EXPDamage;
+		}
+	}	
 
 	if (m_time_d > 0)
 	{

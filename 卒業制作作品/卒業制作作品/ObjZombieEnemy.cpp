@@ -81,6 +81,8 @@ void CObjZombieEnemy::Init()
 
 	//ダメージ量
 	m_damage = 5;
+	//ダメージ点滅時間用
+	m_time_d = 0;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
@@ -294,27 +296,30 @@ void CObjZombieEnemy::Action()
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
 		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
+		if (hit_data != nullptr)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 88 && r >= 0) || r > 292)
+			for (int i = 0; i < hit_ze->GetCount(); i++)
 			{
-				m_zevx = -0.15f; //右
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 88 && r >= 0) || r > 292)
+				{
+					m_zevx = -0.15f; //右
+				}
+				if (r > 88 && r < 92)
+				{
+					m_zevy = 0.15f;//上
+				}
+				if (r > 92 && r < 268)
+				{
+					m_zevx = 0.15f;//左
+				}
+				if (r > 268 && r < 292)
+				{
+					m_zevy = -0.15f; //下
+				}
 			}
-			if (r > 88 && r < 92)
-			{
-				m_zevy = 0.15f;//上
-			}
-			if (r > 92 && r < 268)
-			{
-				m_zevx = 0.15f;//左
-			}
-			if (r > 268 && r < 292)
-			{
-				m_zevy = -0.15f; //下
-			}
-		}
+		}		
 	}
 
 	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
@@ -323,27 +328,54 @@ void CObjZombieEnemy::Action()
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
 		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL2);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
+		if (hit_data != nullptr)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 2 && r >= 0) || r > 358)
+			for (int i = 0; i < hit_ze->GetCount(); i++)
 			{
-				m_zevx = -0.15f; //右
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 2 && r >= 0) || r > 358)
+				{
+					m_zevx = -0.15f; //右
+				}
+				if (r > 2 && r < 178)
+				{
+					m_zevy = 0.15f;//上
+				}
+				if (r > 178 && r < 182)
+				{
+					m_zevx = 0.15f;//左
+				}
+				if (r > 182 && r < 358)
+				{
+					m_zevy = -0.15f; //下
+				}
 			}
-			if (r > 2 && r < 178)
-			{
-				m_zevy = 0.15f;//上
-			}
-			if (r > 178 && r < 182)
-			{
-				m_zevx = 0.15f;//左
-			}
-			if (r > 182 && r < 358)
-			{
-				m_zevy = -0.15f; //下
+		}		
+	}
+
+	//当たり判定を行うオブジェクト情報群
+	int data_base[3] =
+	{
+		ELEMENT_FIELD,ELEMENT_MAGIC,
+	};
+	//オブジェクト情報群と当たり判定行い。当たっていればノックバック
+	for (int i = 0; i < 3; i++)
+	{
+		if (hit_ze->CheckElementHit(data_base[i]) == true)
+		{
+			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+			hit_data = hit_ze->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+			float r = 0;
+			for (int j = 0; j < 10; j++) {
+				if (hit_data[j] != nullptr) {
+					r = hit_data[j]->r;
+				}
 			}
 		}
+
+
 	}
 
 	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
@@ -387,59 +419,63 @@ void CObjZombieEnemy::Action()
 	//}
 	
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
-	//ハンドガン
-	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+	if (m_time_d == 0)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-		m_time_d = 30;		//点滅時間をセット
+		//ハンドガン
+		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//ショットガン
+		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//アサルトライフル
+		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//スナイパーライフル
+		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//ロケットランチャー
+		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//レールガン
+		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//グレネード
+		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
+			m_time_d = 30;		//点滅時間をセット
+		}
+		//爆発
+		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+		{
+			m_hero_hp -= EXPDamage;
+		}
+		//有刺鉄線
+		else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+		{
+			m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+			m_time_d = 120;		//点滅時間をセット
+		}
 	}
-	//ショットガン
-	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//アサルトライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//スナイパーライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ロケットランチャー
-	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//レールガン
-	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}	
-	//グレネード
-	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//爆発
-	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-	{
-		m_hero_hp -= EXPDamage;
-	}
-	//有刺鉄線
-	else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
+	
 
 	if (m_hero_hp <= 0)
 	{		
