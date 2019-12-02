@@ -54,13 +54,12 @@ void CObjAitemDrop::Action()
 
 	if (m_Aitem_Drop_flg == true)
 	{
-		/*m_Aitem_Rand_num = rand() % 100;*/
-		m_Aitem_Rand_num = 5;
-		if (m_Aitem_Rand_num == 0)
+		m_Aitem_Rand_num = rand() % 100;
+		if (m_Aitem_Rand_num < 80)
 		{
 			; //ƒhƒƒbƒv‚µ‚È‚¢
 		}
-		else if (m_Aitem_Rand_num == 1)
+		else if (m_Aitem_Rand_num >= 80 && m_Aitem_Rand_num < 85)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -71,7 +70,7 @@ void CObjAitemDrop::Action()
 				m_Zombie_Drop_flg = false;
 			}			
 		}
-		else if (m_Aitem_Rand_num == 2)
+		else if (m_Aitem_Rand_num >= 85 && m_Aitem_Rand_num < 90)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -82,7 +81,7 @@ void CObjAitemDrop::Action()
 				m_Zombie_Drop_flg = false;
 			}
 		}
-		else if (m_Aitem_Rand_num == 3)
+		else if (m_Aitem_Rand_num >= 90 && m_Aitem_Rand_num < 95)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -93,7 +92,7 @@ void CObjAitemDrop::Action()
 				m_Zombie_Drop_flg = false;
 			}
 		}
-		else if (m_Aitem_Rand_num == 4)
+		else if (m_Aitem_Rand_num >= 95 && m_Aitem_Rand_num < 98)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -104,7 +103,7 @@ void CObjAitemDrop::Action()
 				m_Zombie_Drop_flg = false;
 			}
 		}
-		else if (m_Aitem_Rand_num == 5)
+		else if (m_Aitem_Rand_num >= 98 && m_Aitem_Rand_num < 100)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{

@@ -47,6 +47,9 @@ void CObjArmor::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//主人公の移動に合わせる
 	m_Armorx -= hvx;
 	m_Armory -= hvy;
@@ -58,6 +61,7 @@ void CObjArmor::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		hero->SetEN(150);
+		aitemfont->SetAGF(8); //フォント表示
 		Hp_flg = false;
 		En_flg = true;
 		this->SetStatus(false); //オブジェクト破棄

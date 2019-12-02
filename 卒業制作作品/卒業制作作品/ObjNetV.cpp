@@ -33,19 +33,7 @@ void CObjNetV::Init()
 	m_YHitbox_size = 202;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_NetV_x, m_NetV_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_NET_S, OBJ_NET, 7);
-	////Y軸用
-	//if (m_r == 90.0f)
-	//{
-	//	//XY当たり判定サイズ
-	//	m_XHitbox_size = 72;
-	//	m_YHitbox_size = 202;
-	//	Hits::SetHitBox(this, m_Netx, m_Nety, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_NET, 7);
-	//}
-	//else if (m_r == 90.0f)
-	//{
-	//	hit_exp->SetPos(m_Netx + 66, m_Nety - 70); //当たり判定の位置更新
-	//}
+	Hits::SetHitBox(this, m_NetV_x, m_NetV_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_NET_S, OBJ_NET_V, 7);
 }
 
 //アクション

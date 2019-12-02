@@ -63,12 +63,15 @@ enum OBJ_NAME
 	OBJ_INSTALL_TYPE_SR,
 	OBJ_INSTALL_TYPE_RANDBOX,
 	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE_V,
 	OBJ_BARBED_WIRE_SMALL,
 	OBJ_NET,
+	OBJ_NET_V,
 	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
 	OBJ_TOOLBOX,
+	OBJ_AITEM_FONT,
 };
 //------------------------------------------------
 
@@ -94,6 +97,7 @@ enum HIT_ELEMENTS
 	ELEMENT_MEME_ND,
 	ELEMENT_NET_V,
 	ELEMENT_NET_S,
+	ELEMENT_BARBED_V,
 };
 //------------------------------------------------
 
@@ -111,6 +115,8 @@ struct UserData
 	int RG_Attack = 200; //レールガン
 	int GRE_Attack = 100;	//グレネード
 	int EXP_Attack = 50; //爆発
+	//有刺鉄線
+	int BarbedWireSmall_Attack = 2;
 
 };
 //------------------------------------------------
@@ -173,6 +179,7 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjEnemy_Neutralization_Device2.h"
 #include "ObjMeme_Neutralization_Device.h"
 #include "ObjBarbedWire.h"
+#include "ObjBarbedWireV.h"
 #include "ObjBarbedWireSmall.h"
 #include "ObjNet.h"
 #include "ObjNetV.h"
@@ -204,6 +211,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //操作説明
 #include "ObjOperation.h"
+
+//フォント
+#include "ObjAitemFont.h"
 
 //チュートリアル
 #include "ObjTutorial.h"

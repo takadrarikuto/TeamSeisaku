@@ -22,8 +22,6 @@ CObjBarbedWire::CObjBarbedWire(float x, float y)
 void CObjBarbedWire::Init()
 {
 	//初期化
-	//描画サイズ
-	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 101;
 	m_YHitbox_size = 72;
