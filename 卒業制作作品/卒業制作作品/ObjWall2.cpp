@@ -77,5 +77,5 @@ void CObjWall2::Draw()
 	dst.m_left = 0.0f + m_Wallx;
 	dst.m_right = 50.0f + m_Wallx;
 	dst.m_bottom = 1800.0f + m_Wally;
-	Draw::Draw(31, &src, &dst, c, 0.0f);
+	Draw::Draw(5, &src, &dst, c, 0.0f);
 }
