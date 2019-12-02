@@ -66,6 +66,7 @@ enum OBJ_NAME
 	OBJ_BARBED_WIRE_V,
 	OBJ_BARBED_WIRE_SMALL,
 	OBJ_NET,
+	OBJ_NET_V,
 	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
@@ -96,6 +97,7 @@ enum HIT_ELEMENTS
 	ELEMENT_MEME_ND,
 	ELEMENT_NET_V,
 	ELEMENT_NET_S,
+	ELEMENT_BARBED_V,
 };
 //------------------------------------------------
 

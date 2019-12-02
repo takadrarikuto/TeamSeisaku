@@ -587,6 +587,39 @@ void CObjHero::Action()
 				}
 			}
 
+			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+			if (hit_h->CheckElementHit(ELEMENT_BARBED_V) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_BARBED_V);
+				float r = hit_data[0]->r;
+				if (hit_data != nullptr)
+				{
+					//角度で上下左右を判定
+					if ((r > 0 && r < 65) || r >= 295)
+					{
+						m_RightHit_flg = true; //右
+						m_vx = -0.65f;
+					}
+					else if (r >= 65 && r < 115)
+					{
+						m_UpHit_flg = true;    //上
+						m_vy = 0.65f;
+					}
+					else if (r >= 115 && r <= 245)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_vx = 0.65f;
+					}
+					else if (r > 245 && r < 295)
+					{
+						m_DownHit_flg = true;	 //下
+						m_vy = -0.65f;
+					}
+				}
+			}
+
 			//位置情報更新
 			m_px += m_vx;
 			m_py += m_vy;
