@@ -50,6 +50,9 @@ void CObjInstallation_Type_SR::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_IT_SRx, m_IT_SRy); //当たり判定の位置更新
@@ -60,6 +63,8 @@ void CObjInstallation_Type_SR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
+			aitemfont->SetAGF(3);
+			aitemfont->SetAitemNum(10);
 			hero->SetSR(10);
 			//補充フラグ
 			m_Replenishment_flg = true;
