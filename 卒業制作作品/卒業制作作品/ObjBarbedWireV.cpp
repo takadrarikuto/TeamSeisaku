@@ -28,7 +28,7 @@ void CObjBarbedWireV::Init()
 	m_YHitbox_size = 131;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_BarbedVx, m_BarbedVy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_BARBED_WIRE_V, 7);
+	Hits::SetHitBox(this, m_BarbedVx, m_BarbedVy, m_XHitbox_size, m_YHitbox_size, ELEMENT_BARBED_V, OBJ_BARBED_WIRE_V, 7);
 }
 
 //アクション

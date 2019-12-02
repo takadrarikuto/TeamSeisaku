@@ -33,7 +33,7 @@ void CObjNetV::Init()
 	m_YHitbox_size = 202;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_NetV_x, m_NetV_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_NET_S, OBJ_NET, 7);
+	Hits::SetHitBox(this, m_NetV_x, m_NetV_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_NET_S, OBJ_NET_V, 7);
 }
 
 //アクション

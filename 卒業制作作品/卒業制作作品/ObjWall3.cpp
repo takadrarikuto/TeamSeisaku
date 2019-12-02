@@ -26,7 +26,7 @@ void CObjWall3::Init()
 	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 2500;
-	m_YHitbox_size = 50;
+	m_YHitbox_size = 150;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL2, OBJ_WALL, 5);
@@ -78,5 +78,5 @@ void CObjWall3::Draw()
 	dst.m_left = 0.0f + m_Wallx;
 	dst.m_right = 2500.0f + m_Wallx;
 	dst.m_bottom = 150.0f + m_Wally;
-	Draw::Draw(31, &src, &dst, c, 0.0f);
+	Draw::Draw(5, &src, &dst, c, 0.0f);
 }
