@@ -53,7 +53,7 @@ void CObjAitemFont::Draw()
 {
 	//•`‰æƒJƒ‰[î•ñ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float fc[4] = { 10.0f,10.0f, 10.0f, 10.0f };
+	float fc[4] = { 0.0f ,0.0f, 0.0f, 1.0f };
 
 	RECT_F src;
 	RECT_F dst;
