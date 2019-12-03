@@ -29,7 +29,7 @@ void CObjWall::Init()
 	m_YHitbox_size = 1800;
 
 	//ìñÇΩÇËîªíËópHitBoxÇçÏê¨
-	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL, OBJ_WALL, 7);
+	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL, OBJ_WALL, 5);
 
 }
 
@@ -78,5 +78,5 @@ void CObjWall::Draw()
 	dst.m_left = 0.0f + m_Wallx;
 	dst.m_right = 50.0f + m_Wallx;
 	dst.m_bottom = 1800.0f + m_Wally;
-	Draw::Draw(31, &src, &dst, c, 0.0f);
+	Draw::Draw(5, &src, &dst, c, 0.0f);
 }

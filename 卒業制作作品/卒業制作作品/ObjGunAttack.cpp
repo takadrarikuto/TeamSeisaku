@@ -101,9 +101,10 @@ void CObjGunAttack::Action()
 	if (hit_ga->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
 		if (hit_ga->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_ga->CheckObjNameHit(OBJ_BOSS) != nullptr 
-			|| hit_ga->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+			|| hit_ga->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr
+			|| hit_ga->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
-			; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+			; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
 		}
 		else
 		{
@@ -119,8 +120,19 @@ void CObjGunAttack::Action()
 	}
 	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		if (hit_ga->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_ga->CheckObjNameHit(OBJ_ARMOR) != nullptr
+			|| hit_ga->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_ga->CheckObjNameHit(OBJ_HEAL) != nullptr
+			|| hit_ga->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_ga->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+			|| hit_ga->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_ga->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+			|| hit_ga->CheckObjNameHit(OBJ_TOOLBOX) != nullptr)
+		{
+			; //アイテム系には当たらない
+		}
+		else
+		{
+			this->SetStatus(false); //オブジェクト破棄
+			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		}
 	}
 }
 

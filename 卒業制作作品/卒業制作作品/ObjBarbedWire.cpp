@@ -13,8 +13,8 @@ using namespace GameL;
 CObjBarbedWire::CObjBarbedWire(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Barbedx = 100;
-	m_Barbedy = 500;
+	m_Barbedx = x;
+	m_Barbedy = y;
 
 }
 
@@ -22,10 +22,8 @@ CObjBarbedWire::CObjBarbedWire(float x, float y)
 void CObjBarbedWire::Init()
 {
 	//初期化
-	//描画サイズ
-	m_dst_size = 50.0f;
 	//XY当たり判定サイズ
-	m_XHitbox_size = 202;
+	m_XHitbox_size = 101;
 	m_YHitbox_size = 72;
 
 	//当たり判定用HitBoxを作成
@@ -59,15 +57,15 @@ void CObjBarbedWire::Draw()
 	RECT_F dst;
 
 	//切り取り処理
-	src.m_top = 148.0f;
-	src.m_left = 7.0f;
-	src.m_right = 107.0f;
-	src.m_bottom = 183.0f;
+	src.m_top = 150.0f;
+	src.m_left = 10.0f;
+	src.m_right = 60.0f;
+	src.m_bottom = 181.0f;
 
 	//描画処理(101*36)
 	dst.m_top = 0.0f + m_Barbedy;
 	dst.m_left = 0.0f + m_Barbedx;
-	dst.m_right = 202.0f + m_Barbedx;
+	dst.m_right = 101.0f + m_Barbedx;
 	dst.m_bottom = 72.0f + m_Barbedy;
 	Draw::Draw(7, &src, &dst, c, 0.0f);
 }

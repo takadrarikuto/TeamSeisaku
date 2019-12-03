@@ -13,8 +13,8 @@ using namespace GameL;
 CObjToolBox::CObjToolBox(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Healx = 100;
-	m_Healy = 200;
+	m_Healx = x;
+	m_Healy = y;
 
 }
 
@@ -30,7 +30,7 @@ void CObjToolBox::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Healx, m_Healy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_TOOLBOX, 7);
-
+	
 }
 
 //アクション
@@ -41,6 +41,9 @@ void CObjToolBox::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	
 	//主人公の移動に合わせる
 	m_Healx -= hvx;
 	m_Healy -= hvy;
@@ -51,6 +54,8 @@ void CObjToolBox::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
+		aitemfont->SetAGF(9); //フォント表示
+		aitemfont->SetToolBox(true); //画像表示
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //工具箱が所有するHitBoxを削除する
 	}
