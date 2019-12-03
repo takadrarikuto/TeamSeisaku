@@ -23,7 +23,7 @@ void CObjEvent::Init()
 	bool END_flg = time->GetENDFlg();
 
 	//イベント時間
-	m_Event_time = 1200; 
+	m_Event_time = 1850; 
 	//イベントフラグ
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ

@@ -23,6 +23,8 @@ void CObjTime::Init()
 {
 	//初期化
 	m_time = 10850; //10850 = 3分
+	//時間停止
+	m_time_stop = 0; 
 	 //イベントランダム変数
 	m_Event_Rand_num = 0;
 	//イベント開始時間
@@ -51,9 +53,15 @@ void CObjTime::Action()
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
-		if (m_time > 0)
+		//タイム減少
+		if (m_time > 0 && m_time_stop == 0)
 		{
 			m_time--;
+		}
+		//タイム停止時間減少
+		if (m_time_stop > 0)
+		{
+			m_time_stop--;
 		}
 	}
 	//イベント開始、計測停止処理
@@ -86,7 +94,8 @@ void CObjTime::Action()
 		m_time_event -= 1800; //30秒減少
 		if (Time_Pena == true)
 		{
-			m_time += 1800/*m_time_Increase*/; //30秒増加
+			//時間停止
+			m_time_stop = 1800;//30秒増加
 			Time_Pena = false;
 			Event->SetEveTimPena(Time_Pena);
 		}
@@ -123,6 +132,7 @@ void CObjTime::Draw()
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	wchar_t str[128];
 
 	//分：秒の値を文字列化
@@ -133,8 +143,13 @@ void CObjTime::Draw()
 
 	Font::StrDraw(str, 10, 30, 28, c);
 
-	if (minute == 1 && second == 0 || minute == 0)
+	if (m_time_stop > 0)
 	{
 		Font::StrDraw(str, 10, 30, 28, r);
+	}
+
+	if (minute == 1 && second == 0 || minute == 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, y);
 	}
 }
