@@ -47,6 +47,8 @@ void CObjEvent::Action()
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
 
+	m_Event_time_flg = false;
+
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{		
@@ -77,7 +79,7 @@ void CObjEvent::Action()
 		}	
 		if (m_Event_time > 0)
 		{
-			m_Event_time--;
+			m_Event_time--;			
 		}		
 	}	
 	else if(Menu_flg == false && TStop_flg == false)

@@ -24,4 +24,5 @@ private:
 	float m_Meme_Neu_Dev_HitSize_x;  //HitBoxサイズ
 	float m_Meme_Neu_Dev_HitSize_y;
 
+	int m_Font_time; //フォント表示タイム
 };

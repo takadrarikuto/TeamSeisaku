@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjEnemy_Neutralization_Device2.h"
@@ -28,6 +29,9 @@ void CObjEnemy_Neutralization_Device2::Init()
 	//初期化
 	m_Enemy_Neu_Dev_HitSize_x = 55;  //HitBoxサイズ
 	m_Enemy_Neu_Dev_HitSize_y = 50;	
+
+	//フォント表示タイム
+	m_Font_time = 0;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
@@ -58,13 +62,16 @@ void CObjEnemy_Neutralization_Device2::Action()
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& END == true)
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			m_END2_death_flg = true;
-			time->SetTStart(TStart_flg);
-		}
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true && END == true)
+			{
+				TStart_flg = true;
+				m_END2_death_flg = true;
+				time->SetTStart(TStart_flg);
+			}
+		}		
 	}
 	else
 	{
@@ -87,6 +94,13 @@ void CObjEnemy_Neutralization_Device2::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Enemy_Neu_Devx - 20, m_Enemy_Neu_Devy - 20, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;
