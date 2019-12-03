@@ -597,7 +597,7 @@ void CObjZombieEnemy::Action()
 					m_zevy = m_zevy - m_zev_max;
 				}
 			}
-		}
+		}		
 	}
 	
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
