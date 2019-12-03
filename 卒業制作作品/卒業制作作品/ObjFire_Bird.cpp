@@ -216,23 +216,26 @@ void CObjFire_Bird::Action()
 		hit_data = hit_fb->SearchElementHit(ELEMENT_WALL);
 		for (int i = 0; i < hit_fb->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 88 && r >= 0) || r > 292)
+			if (hit_data[i] != nullptr)
 			{
-				m_fbvx = -0.15f; //右
-			}
-			if (r > 88 && r < 92)
-			{
-				m_fbvy = 0.15f;//上
-			}
-			if (r > 92 && r < 268)
-			{
-				m_fbvx = 0.15f;//左
-			}
-			if (r > 268 && r < 292)
-			{
-				m_fbvy = -0.15f; //下
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 88 && r >= 0) || r > 292)
+				{
+					m_fbvx = -0.15f; //右
+				}
+				if (r > 88 && r < 92)
+				{
+					m_fbvy = 0.15f;//上
+				}
+				if (r > 92 && r < 268)
+				{
+					m_fbvx = 0.15f;//左
+				}
+				if (r > 268 && r < 292)
+				{
+					m_fbvy = -0.15f; //下
+				}
 			}
 		}
 	}
@@ -245,23 +248,26 @@ void CObjFire_Bird::Action()
 		hit_data = hit_fb->SearchElementHit(ELEMENT_WALL2);
 		for (int i = 0; i < hit_fb->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 2 && r >= 0) || r > 358)
+			if (hit_data[i] != nullptr)
 			{
-				m_fbvx = -0.15f; //右
-			}
-			if (r > 2 && r < 178)
-			{
-				m_fbvy = 0.15f;//上
-			}
-			if (r > 178 && r < 182)
-			{
-				m_fbvx = 0.15f;//左
-			}
-			if (r > 182 && r < 358)
-			{
-				m_fbvy = -0.15f; //下
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 2 && r >= 0) || r > 358)
+				{
+					m_fbvx = -0.15f; //右
+				}
+				if (r > 2 && r < 178)
+				{
+					m_fbvy = 0.15f;//上
+				}
+				if (r > 178 && r < 182)
+				{
+					m_fbvx = 0.15f;//左
+				}
+				if (r > 182 && r < 358)
+				{
+					m_fbvy = -0.15f; //下
+				}
 			}
 		}
 	}
