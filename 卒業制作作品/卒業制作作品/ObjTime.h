@@ -35,6 +35,7 @@ public:
 	void SetTimeFlag(bool b) { m_flag_time = b; } 
 private:
 	int m_time;		//時間
+	int m_time_stop; //時間停止
 	int m_time_event; //イベント開始時間
 	int m_Event_Rand_num; //イベントランダム変数
 	//int m_time_Increase; //タイム増加ペナルティ

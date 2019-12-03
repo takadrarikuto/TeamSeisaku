@@ -23,7 +23,7 @@ void CObjEvent::Init()
 	bool END_flg = time->GetENDFlg();
 
 	//イベント時間
-	m_Event_time = 1200; 
+	m_Event_time = 1850; 
 	//イベントフラグ
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ
@@ -46,6 +46,8 @@ void CObjEvent::Action()
 	bool END_flg = time->GetENDFlg();
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
+
+	m_Event_time_flg = false;
 
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
@@ -77,7 +79,7 @@ void CObjEvent::Action()
 		}	
 		if (m_Event_time > 0)
 		{
-			m_Event_time--;
+			m_Event_time--;			
 		}		
 	}	
 	else if(Menu_flg == false && TStop_flg == false)

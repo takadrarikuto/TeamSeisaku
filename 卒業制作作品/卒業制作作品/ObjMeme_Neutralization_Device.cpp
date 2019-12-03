@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjMeme_Neutralization_Device.h"
@@ -30,6 +31,9 @@ void CObjMeme_Neutralization_Device::Init()
 	m_dst_size = 50.0f;
 	//HitBoxサイズ
 	Hitbox_size = 50;
+
+	//フォント表示タイム
+	m_Font_time = 0;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Meme_Neu_Devx, m_Meme_Neu_Devy, Hitbox_size, Hitbox_size, ELEMENT_FIELD, OBJ_MEME_NEUTRALIZATION_DEVICE, 7);
@@ -59,13 +63,16 @@ void CObjMeme_Neutralization_Device::Action()
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& MND == true)
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			m_Meme_death_flg = true;
-			time->SetTStart(TStart_flg);
-		}
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true && MND == true)
+			{
+				TStart_flg = true;
+				m_Meme_death_flg = true;
+				time->SetTStart(TStart_flg);
+			}
+		}		
 	}
 	else
 	{
@@ -88,6 +95,13 @@ void CObjMeme_Neutralization_Device::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.7f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Meme_Neu_Devx - 20, m_Meme_Neu_Devy - 20, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;
