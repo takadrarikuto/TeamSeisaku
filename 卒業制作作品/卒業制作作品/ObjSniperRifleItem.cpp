@@ -13,8 +13,8 @@ using namespace GameL;
 CObjSniperRifleItem::CObjSniperRifleItem(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_SR_Item_x = 400;
-	m_SR_Item_y = 100;
+	m_SR_Item_x = x;
+	m_SR_Item_y = y;
 }
 
 //イニシャライズ
@@ -29,7 +29,7 @@ void CObjSniperRifleItem::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SR_Item_x, m_SR_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_SNIPERRIFLE_ITEM, 7);
-
+	
 }
 
 //アクション
@@ -39,6 +39,9 @@ void CObjSniperRifleItem::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//主人公の移動に合わせる
 	m_SR_Item_x -= hvx;
@@ -51,6 +54,8 @@ void CObjSniperRifleItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		hero->SetSR(50);		//主人公に当たると弾補充
+		aitemfont->SetAGF(3); //フォント表示
+		aitemfont->SetAitemNum(50); //弾数表示
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

@@ -12,9 +12,9 @@ public:
 	void Init(); //イニシャライズ
 	void Action(); //アクション
 	void Draw(); //ドロー
-
-	//float GetX() { return m_zex; } //エネミー情報取得用
-	//float GetY() { return m_zey; }
+	
+	float GetX() { return m_zex; } //x位置情報取得用
+	float GetY() { return m_zey; } //y位置情報取得用
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 	int GetDMG() { return m_damage; }//攻撃力を取得
 

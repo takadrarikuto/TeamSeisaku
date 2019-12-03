@@ -13,8 +13,8 @@ using namespace GameL;
 CObjHeal::CObjHeal(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Healx = 100;
-	m_Healy = 100;
+	m_Healx = x;
+	m_Healy = y;
 
 }
 
@@ -30,7 +30,7 @@ void CObjHeal::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Healx, m_Healy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_HEAL, 7);
-
+	
 }
 
 //アクション
@@ -40,6 +40,9 @@ void CObjHeal::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//主人公の移動に合わせる
 	m_Healx -= hvx;
@@ -52,6 +55,7 @@ void CObjHeal::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		hero->SetHP(100);
+		aitemfont->SetAGF(7); //フォント表示
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
 	}

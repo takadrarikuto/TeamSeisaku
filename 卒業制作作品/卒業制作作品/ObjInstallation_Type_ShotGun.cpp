@@ -54,6 +54,9 @@ void CObjInstallation_Type_ShotGun::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_IT_SHGx, m_IT_SHGy); //当たり判定の位置更新
@@ -64,6 +67,8 @@ void CObjInstallation_Type_ShotGun::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
+			aitemfont->SetAGF(1); 
+			aitemfont->SetAitemNum(16);
 			hero->SetSG(16);
 			//補充フラグ
 			m_Replenishment_flg = true;

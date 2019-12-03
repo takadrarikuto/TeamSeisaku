@@ -49,6 +49,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool END = time->GetENDFlg();
+	bool Rep_flg = time->GetRepFlg();
 
 	//HitBox‚Ì“à—e‚ğXV 
 	CHitBox* hit_end = Hits::GetHitBox(this); //“–‚½‚è”»’èî•ñæ“¾ 

@@ -37,7 +37,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"血の池.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"エネミーまとめ.png", 4, TEX_SIZE_512);
-	//中ボス用に5は空ける
+	Draw::LoadImage(L"壁.png", 5, TEX_SIZE_512);
 	Draw::LoadImage(L"装置・設置物.png", 6, TEX_SIZE_512);
 	Draw::LoadImage(L"アイテム・設置物.png", 7, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 8, TEX_SIZE_512);
@@ -50,7 +50,7 @@ void CSceneStage::InitScene()
 	Draw::LoadImage(L"image2.png", 31, TEX_SIZE_512);
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
-	
+
 	//音楽情報読み込み 
 	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
 
@@ -88,7 +88,7 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(back, OBJ_BACKGROUND, 1);
 
 	//ボスオブジェクト作成 
-	CObjBoss*obj_boss = new CObjBoss(300, 400);
+	CObjBoss*obj_boss = new CObjBoss(272, 350);
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
 	//発電機オブジェクト作成	
@@ -106,12 +106,11 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
-	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(300, -400);
+	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(375, -500);
 	Objs::InsertObj(MND, OBJ_MEME_NEUTRALIZATION_DEVICE, 2);
 
 	//有刺鉄線オブジェクト作成 x=202 y=72(横)
-	CObjBarbedWire* Barbed = new CObjBarbedWire(200, 200);
-	//Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+	CObjBarbedWire* Barbed;
 	//左上
 	for (int x = -402; x < 0; x += 202)
 	{
@@ -157,9 +156,32 @@ void CSceneStage::InitScene()
 		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
 	}
 
+	//有刺鉄線オブジェクト作成 x=72 y=202(縦)
+	CObjBarbedWireV* BarbedV;
+	//左上
+	BarbedV = new CObjBarbedWireV(-400, -430, false);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	BarbedV = new CObjBarbedWireV(-170, -430, true);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	//左下
+	BarbedV = new CObjBarbedWireV(-425, 872, false);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	BarbedV = new CObjBarbedWireV(-195, 872, true);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	//右上
+	BarbedV = new CObjBarbedWireV(975, -430, false);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	BarbedV = new CObjBarbedWireV(1207, -430, true);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);	
+	//右下
+	BarbedV = new CObjBarbedWireV(998, 872, false);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	BarbedV = new CObjBarbedWireV(1229, 872, true);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	
+
 	//有刺鉄線オブジェクト作成 x=68 y=53
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
-	//Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
 	//左内
 	for (int y = 120; y < 650; y += 53)
 	{
@@ -199,7 +221,6 @@ void CSceneStage::InitScene()
 
 	//網オブジェクト作成(横) x=202 y=72
 	CObjNet* Net = new CObjNet(0, 0);
-	//Objs::InsertObj(Net, OBJ_NET, 7);
 	//横---------------------------------------
 	//左上
 	for (int x = -602; x < 206; x += 202)
@@ -229,7 +250,6 @@ void CSceneStage::InitScene()
 
 	//網オブジェクト作成(縦) x=72 y=202
 	CObjNetV* NetV = new CObjNetV(800, 200);
-	//Objs::InsertObj(NetV, OBJ_NET, 7);
 	//縦----------------------------------------
 	//左上
 	for (int y = -302; y < -100; y += 202)
@@ -258,32 +278,24 @@ void CSceneStage::InitScene()
 	//------------------------------------------
 	
 	//アイテムオブジェクト作成	
-	//回復
-	CObjHeal* Heal = new CObjHeal(200, 200);
-	Objs::InsertObj(Heal, OBJ_HEAL, 7);
-	//ショットガン弾補充
-	CObjShotGunItem* SGi = new CObjShotGunItem(200, 200);
-	Objs::InsertObj(SGi, OBJ_SHOTGUN_ITEM, 7);
-	//アサルトライフル弾補充
-	CObjARItem* ARi = new CObjARItem(200, 200);
-	Objs::InsertObj(ARi, OBJ_AR_ITEM, 7);
-	//スナイパーライフル弾補充
-	CObjSniperRifleItem* SRi = new CObjSniperRifleItem(200, 200);
-	Objs::InsertObj(SRi, OBJ_SNIPERRIFLE_ITEM, 7);
+	
 	//ロケットランチャー弾補充
-	CObjRocketLauncherItem* RLi = new CObjRocketLauncherItem(200, 200);
+	CObjRocketLauncherItem* RLi = new CObjRocketLauncherItem(50, -150);
 	Objs::InsertObj(RLi, OBJ_ROCKETLAUNCHER_ITEM, 7);
 	//レールガン弾補充
-	CObjRailGunItem* RGi = new CObjRailGunItem(200, 200);
+	CObjRailGunItem* RGi = new CObjRailGunItem(700, -150);
 	Objs::InsertObj(RGi, OBJ_RAILGUN_ITEM, 7);
 	//グレネード補充
-	CObjGrenadeItem* GREi = new CObjGrenadeItem(200, 200);
+	CObjGrenadeItem* GREi = new CObjGrenadeItem(70, 730);
 	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+	//回復
+	CObjHeal* Heal = new CObjHeal(700, 730);
+	Objs::InsertObj(Heal, OBJ_HEAL, 7);
 	//アーマー
-	CObjArmor* Armor = new CObjArmor(200, 200);
+	CObjArmor* Armor = new CObjArmor(381.0f, 150.0f);
 	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
 	//工具箱
-	CObjToolBox* Toolbox = new CObjToolBox(200, 200);
+	CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
 	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
 
 	//アイテムドロップオブジェクト作成	
@@ -291,17 +303,17 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(obj_ad, OBJ_AITEMDROP, 8);
 
 	//設置型ショットガン弾補充
-	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -650);
-	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 6);
+	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -640);
+	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 8);
 	//設置型アサルトライフル弾補充
-	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1175, -650);
-	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 6);
+	CObjInstallation_Type_AR* obj_it_ar = new CObjInstallation_Type_AR(1075, -640);
+	Objs::InsertObj(obj_it_ar, OBJ_INSTALL_TYPE_AR, 8);
 	//設置型スナイパーライフル弾補充
-	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-300, 800);
-	Objs::InsertObj(obj_it_sr, OBJ_INSTALL_TYPE_SR, 6);
+	CObjInstallation_Type_SR* obj_it_sr = new CObjInstallation_Type_SR(-293, 670);
+	Objs::InsertObj(obj_it_sr, OBJ_INSTALL_TYPE_SR, 8);
 	//設置型ランダムアイテムボックス
-	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1200, 800);
-	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 6);
+	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1130, 720);
+	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 8);
 
 	//壁オブジェクト作成
 	//左
@@ -316,6 +328,11 @@ void CSceneStage::InitScene()
 	//下
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
 	Objs::InsertObj(Wall4, OBJ_WALL, 5);
+
+	//フォント
+	//アイテム獲得フォントオブジェクト作成
+	CObjAitemFont* obj_af = new CObjAitemFont();
+	Objs::InsertObj(obj_af, OBJ_AITEM_FONT, 19);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();

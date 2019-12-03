@@ -106,9 +106,20 @@ void CObjGrenadeAttack::Action()
 			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true || 
 			hit_gre->CheckElementHit(ELEMENT_WALL2) == true)
 		{
-			//移動停止
-			m_Grevx = 0.0f;
-			m_Grevy = 0.0f;
+			if (hit_gre->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ARMOR) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_HEAL) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_TOOLBOX) != nullptr || hit_gre->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+			{
+				; //アイテム系　小さい有刺鉄線には当たらない
+			}
+			else
+			{
+				//移動停止
+				m_Grevx = 0.0f;
+				m_Grevy = 0.0f;
+			}			
 		}		
 		if (EXP_time >= 180)
 		{
@@ -124,9 +135,10 @@ void CObjGrenadeAttack::Action()
 		if (hit_gre->CheckElementHit(ELEMENT_ENEMY) == true)
 		{
 			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_gre->CheckObjNameHit(OBJ_BOSS) != nullptr
-				|| hit_gre->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+				|| hit_gre->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr 
+				|| hit_gre->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 			{
-				; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+				; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
 			}
 			else
 			{

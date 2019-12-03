@@ -39,11 +39,13 @@ void CObjEvent::Action()
 	int h_hp = hero->GetHP();
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool TStop_flg = time->GetTStop();
+	bool TStop_flg = time->GetTStop(); 
 	bool TStart_flg = time->GetTStart();
+	//int TIncrease = time->GetTIncrease();
 	bool Gen_flg = time->GetGenFlg();
 	bool END_flg = time->GetENDFlg();
 	bool MND_flg = time->GetMNDFlg();
+	bool Rep_flg = time->GetRepFlg();
 
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
@@ -61,8 +63,13 @@ void CObjEvent::Action()
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
 			}
-			//ミーム実態
+			//ミーム実態無力化装置イベント
 			else if (MND_flg == true)
+			{
+				m_Event_time = 3600; //3600 ＝ 60秒
+			}
+			//装置修理イベント
+			else if (Rep_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
 			}
@@ -89,6 +96,8 @@ void CObjEvent::Action()
 		if (Gen_flg == true)
 		{
 			m_Event_TimePenalty = true;
+			//TIncrease = 1800;
+			//time->GetTIncrease(1800); //30秒増加
 		}		
 	}
 	
