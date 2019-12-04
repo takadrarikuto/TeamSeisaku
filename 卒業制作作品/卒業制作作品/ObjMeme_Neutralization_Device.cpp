@@ -63,7 +63,7 @@ void CObjMeme_Neutralization_Device::Action()
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (TStop_flg == true)
+		if (TStop_flg == true /*&& MND == true*/)
 		{
 			m_Font_time = 90; //フォント表示タイム設定
 			if (Input::GetVKey(VK_RETURN) == true && MND == true)
@@ -83,6 +83,11 @@ void CObjMeme_Neutralization_Device::Action()
 	m_Meme_Neu_Devx -= hvx;
 	m_Meme_Neu_Devy -= hvy;
 
+	//フォント表示時間減少
+	if (m_Font_time > 0)
+	{
+		m_Font_time--;
+	}
 }
 
 //ドロー
@@ -100,7 +105,7 @@ void CObjMeme_Neutralization_Device::Draw()
 	//主人公に当たるとフォント表示
 	if (m_Font_time > 0)
 	{
-		Font::StrDraw(L"エンターキーで起動", m_Meme_Neu_Devx - 20, m_Meme_Neu_Devy - 20, 15, blk);
+		Font::StrDraw(L"エンターキーで起動", m_Meme_Neu_Devx -20, m_Meme_Neu_Devy - 30, 15, blk);
 	}
 
 	RECT_F src;

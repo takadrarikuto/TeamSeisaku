@@ -126,7 +126,7 @@ void CSceneTutorial::Scene()
 	}
 
 	//敵機オブジェクト作成(チュートリアル用)
-	if (m_tuto_time == 2000)
+	if (m_tuto_time == 1000)
 	{
 		CObjTutoZombieEnemy* obj_ze_tu;
 		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);

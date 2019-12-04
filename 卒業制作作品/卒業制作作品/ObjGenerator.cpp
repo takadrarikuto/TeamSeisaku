@@ -68,11 +68,10 @@ void CObjGenerator::Action()
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		
-		if (TStop_flg == true)
+		if (TStop_flg == true /*&& GEN == true*/)
 		{
 			m_Font_time = 90; //フォント表示タイム設定
-			if (Input::GetVKey(VK_RETURN) == true
-				&& GEN == true)
+			if (Input::GetVKey(VK_RETURN) == true && GEN == true)
 			{
 				TStart_flg = true;
 				time->SetTStart(TStart_flg);

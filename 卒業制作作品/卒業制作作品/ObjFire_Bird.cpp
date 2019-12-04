@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjFire_Bird.h"
@@ -296,7 +297,7 @@ void CObjFire_Bird::Action()
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+		Audio::Start(9);
 		m_fb_death_time = 0; //死亡タイム初期化
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

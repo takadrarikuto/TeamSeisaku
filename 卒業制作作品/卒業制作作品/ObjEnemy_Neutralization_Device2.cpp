@@ -62,7 +62,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (TStop_flg == true)
+		if (TStop_flg == true/* && END == true*/)
 		{
 			m_Font_time = 90; //フォント表示タイム設定
 			if (Input::GetVKey(VK_RETURN) == true && END == true)
@@ -82,6 +82,11 @@ void CObjEnemy_Neutralization_Device2::Action()
 	m_Enemy_Neu_Devx -= hvx;
 	m_Enemy_Neu_Devy -= hvy;
 
+	//フォント表示時間減少
+	if (m_Font_time > 0)
+	{
+		m_Font_time--;
+	}
 }
 
 //ドロー
