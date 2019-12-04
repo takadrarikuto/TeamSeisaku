@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjHero.h"
@@ -780,6 +781,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
 						}
 						//Attack_flg = true; //Attackƒtƒ‰ƒOtrue
+						Audio::Start(3);
 					}
 					//UŒ‚ŠÔŠu
 					else if (m_bt == m_bt_max)
@@ -840,6 +842,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						}
 						//Attack_flg = true; //Attackƒtƒ‰ƒOtrue
+						Audio::Start(4);
 					}
 					//UŒ‚ŠÔŠu
 					else if (m_bt == m_bt_max)
@@ -926,6 +929,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 						}
 						//Attack_flg = true; //Attackƒtƒ‰ƒOtrue
+						Audio::Start(5);
 					}
 					//UŒ‚ŠÔŠu
 					else if (m_bt == m_bt_max)
@@ -1017,6 +1021,22 @@ void CObjHero::Action()
 					else if (m_bt == m_bt_max)
 					{
 						m_bt = 0;
+					}
+				}
+				//’eØ‚ê‚Ì‚É’eØ‚êŒø‰Ê‰¹‚ğ–Â‚ç‚·
+				if (m_bt == 1)
+				{
+					if (m_Weapon_switching == 0 && m_hg_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+					if (m_Weapon_switching == 1 && m_sg_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+					if (m_Weapon_switching == 3 && m_sr_pb <= 0)
+					{
+						Audio::Start(10);
 					}
 				}
 			}

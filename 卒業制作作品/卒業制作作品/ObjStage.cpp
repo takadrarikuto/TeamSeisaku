@@ -105,6 +105,10 @@ void CObjStage::Action()
 			m_Heal_Item_Restriction += m_Heal_Item_co_num; //回復アイテム生成カウント
 		}
 	}
+	else
+	{
+		Audio::Start(0); //音楽スタート
+	}
 }
 
 //ドロー
@@ -122,6 +126,14 @@ void CObjStage::Draw()
 	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
 	rg_pb_e = hero->GetRG_E();	//レールガン
 	gre_pb_e = hero->GetGRE_E();//グレネード
+
+	//各残り弾数情報を取得(全体)
+	sg_pb = hero->GetSG();	//ショットガン
+	ar_pb = hero->GetAR();	//アサルトライフル
+	sr_pb = hero->GetSR();	//スナイパーライフル
+	rl_pb = hero->GetRL();	//ロケットランチャー
+	rg_pb = hero->GetRG();	//レールガン
+	gre_pb = hero->GetGRE();//グレネード
 
 	//モーション
 	int AniData[6] =
@@ -214,7 +226,8 @@ void CObjStage::Draw()
 		if (hg_pb_e == 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
-			Font::StrDraw(L"リロード！", 290, 73, 30, r);
+			Font::StrDraw(L"リロード！", 297, 65, 27, r);
+			Font::StrDraw(L"下キーでリロード", 290, 93, 18, c);
 		}
 	}
 	//ショットガン
@@ -222,10 +235,17 @@ void CObjStage::Draw()
 	{
 		swprintf_s(str, L"×%d", sg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
-		if (sg_pb_e == 0)
+		if (sg_pb_e == 0 && sg_pb > 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
-			Font::StrDraw(L"リロード！", 290, 73, 30, r);
+			Font::StrDraw(L"リロード！", 297, 65, 27, r);
+			Font::StrDraw(L"下キーでリロード", 290, 93, 18, c);
+		}
+		else if (sg_pb_e == 0 && sg_pb == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"弾がないため", 302, 68, 20, r);
+			Font::StrDraw(L"リロードできません", 272, 90, 20, r);
 		}
 	}
 	//アサルトライフル
@@ -233,10 +253,17 @@ void CObjStage::Draw()
 	{
 		swprintf_s(str, L"×%d", ar_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
-		if (ar_pb_e == 0)
+		if (ar_pb_e == 0 && ar_pb > 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
-			Font::StrDraw(L"リロード！", 290, 73, 30, r);
+			Font::StrDraw(L"リロード！", 297, 65, 27, r);
+			Font::StrDraw(L"下キーでリロード", 290, 93, 18, c);
+		}
+		else if (ar_pb_e == 0 && ar_pb == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"弾がないため", 302, 68, 20, r);
+			Font::StrDraw(L"リロードできません", 272, 90, 20, r);
 		}
 	}
 	//スナイパーライフル
@@ -244,10 +271,17 @@ void CObjStage::Draw()
 	{
 		swprintf_s(str, L"×%d", sr_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
-		if (sr_pb_e == 0)
+		if (sr_pb_e == 0 && sr_pb > 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
-			Font::StrDraw(L"リロード！", 290, 73, 30, r);
+			Font::StrDraw(L"リロード！", 297, 65, 27, r);
+			Font::StrDraw(L"下キーでリロード", 290, 93, 18, c);
+		}
+		else if (sr_pb_e == 0 && sr_pb == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"弾がないため", 302, 68, 20, r);
+			Font::StrDraw(L"リロードできません", 272, 90, 20, r);
 		}
 	}
 	//ロケットランチャー
@@ -255,10 +289,17 @@ void CObjStage::Draw()
 	{
 		swprintf_s(str, L"×%d", rl_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
-		if (rl_pb_e == 0)
+		if (rl_pb_e == 0 && rl_pb > 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
-			Font::StrDraw(L"リロード！", 290, 73, 30, r);
+			Font::StrDraw(L"リロード！", 297, 65, 27, r);
+			Font::StrDraw(L"下キーでリロード", 290, 93, 18, c);
+		}
+		else if (rl_pb_e == 0 && rl_pb == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"弾がないため", 302, 68, 20, r);
+			Font::StrDraw(L"リロードできません", 272, 90, 20, r);
 		}
 	}
 	//レールガン
@@ -266,10 +307,17 @@ void CObjStage::Draw()
 	{
 		swprintf_s(str, L"×%d", rg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
-		if (rg_pb_e == 0)
+		if (rg_pb_e == 0 && rg_pb > 0)
 		{
 			Font::StrDraw(str, 359, 15, 37, r);
-			Font::StrDraw(L"リロード！", 290, 73, 30, r);
+			Font::StrDraw(L"リロード！", 297, 65, 27, r);
+			Font::StrDraw(L"下キーでリロード", 290, 93, 18, c);
+		}
+		else if (rg_pb_e == 0 && rg_pb == 0)
+		{
+			Font::StrDraw(str, 359, 15, 37, r);
+			Font::StrDraw(L"弾がないため", 302, 68, 20, r);
+			Font::StrDraw(L"リロードできません", 272, 90, 20, r);
 		}
 	}
 
