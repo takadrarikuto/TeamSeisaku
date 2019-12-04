@@ -221,11 +221,11 @@ void CObjBoss::Action()
 			m_Meme_Medium_Boss_Restriction_Stop_flg = false; //ミーム実態生成停止フラグ
 		}
 	}
-
+	
 	//HitBoxの内容を更新
 	CHitBox* hit_boss = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_boss->SetPos(m_bx, m_by); //当たり判定の位置更新
-
+	
 }
 
 //ドロー
