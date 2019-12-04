@@ -128,31 +128,31 @@ void CObjBoss::Action()
 
 		//エネミー生成処理
 		//ゾンビ
-		if (m_Zombie_Generation >= m_Zombie_time_max)
-		{
-			//ゾンビの伏せている、立っている描画切り替え処理
-			Ze_dst_flg_num = rand() % 3;
-			if (Ze_dst_flg_num % 2 == 0)
-			{
-				Ze_dst_flg = true;
-			}
-			else if (Ze_dst_flg_num % 2 != 0)
-			{
-				Ze_dst_flg = false;
-			}
-		
-			//ゾンビオブジェクト作成
-			CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-			Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
+		//if (m_Zombie_Generation >= m_Zombie_time_max)
+		//{
+		//	//ゾンビの伏せている、立っている描画切り替え処理
+		//	Ze_dst_flg_num = rand() % 3;
+		//	if (Ze_dst_flg_num % 2 == 0)
+		//	{
+		//		Ze_dst_flg = true;
+		//	}
+		//	else if (Ze_dst_flg_num % 2 != 0)
+		//	{
+		//		Ze_dst_flg = false;
+		//	}
+		//
+		//	//ゾンビオブジェクト作成
+		//	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
+		//	Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
 
-			//ゾンビ生成座標記録
-			m_Enemy_Generation_x = e_x; 
-			m_Enemy_Generation_y = e_y;
+		//	//ゾンビ生成座標記録
+		//	m_Enemy_Generation_x = e_x; 
+		//	m_Enemy_Generation_y = e_y;
 
-			//srand(time(NULL)); // ランダム情報を初期化
-			m_Zombie_Restriction++; //ゾンビ生成カウント
-			m_Zombie_Generation = 0;
-		}
+		//	//srand(time(NULL)); // ランダム情報を初期化
+		//	m_Zombie_Restriction++; //ゾンビ生成カウント
+		//	m_Zombie_Generation = 0;
+		//}
 		////蝙蝠
 		//if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
 		//{

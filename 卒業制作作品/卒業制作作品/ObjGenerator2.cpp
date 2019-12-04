@@ -3,14 +3,14 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
+
 
 #include "GameHead.h"
 #include "ObjGenerator2.h"
 
 //使用するネームスペース
 using namespace GameL;
-
-bool m_Time_Gen2Eve_CutBack_flg = false; //タイム減少フラグ
 
 //コンストラクタ
 CObjGenerator2::CObjGenerator2(float x, float y)
@@ -27,6 +27,9 @@ void CObjGenerator2::Init()
 	//初期化
 	m_Genvx = 0.0f; //位置更新
 	m_Genvy = 0.0f;
+
+	//フォント表示タイム
+	m_Font_time = 0;
 
 	//描画サイズ
 	m_dst_size = 100.0f;
@@ -56,6 +59,7 @@ void CObjGenerator2::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool GEN = time->GetGenFlg();
+	bool Rep_flg = time->GetRepFlg();
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -64,17 +68,16 @@ void CObjGenerator2::Action()
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& GEN == true)
+		
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			m_Time_Gen2Eve_CutBack_flg = true;
-			time->SetTStart(TStart_flg);
-		}		
-	}
-	else
-	{
-		m_Time_Gen2Eve_CutBack_flg = false;
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true && GEN == true)
+			{
+				TStart_flg = true;
+				time->SetTStart(TStart_flg);
+			}
+		}				
 	}
 
 	//主人公の移動に合わせる
@@ -89,10 +92,17 @@ void CObjGenerator2::Draw()
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool GEN = time->GetGenFlg();
-
+	
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Genx - 20, m_Geny - 20, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;

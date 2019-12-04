@@ -14,9 +14,6 @@ using namespace GameL;
 
 //メニューONOFFフラグ
 extern bool Menu_flg;
-//タイム減少フラグ
-extern bool m_Time_GenEve_CutBack_flg;
-extern bool m_Time_Gen2Eve_CutBack_flg;
 
 //イベント用タイムONOFFフラグ
 //bool m_Evetime_flg = false;
@@ -26,11 +23,15 @@ void CObjTime::Init()
 {
 	//初期化
 	m_time = 10850; //10850 = 3分
+	//時間停止
+	m_time_stop = 0; 
 	 //イベントランダム変数
 	m_Event_Rand_num = 0;
 	//イベント開始時間
 	m_time_event = 9050;
-	
+	//タイム増加ペナルティ
+	//m_time_Increase = 0; 
+
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
@@ -38,6 +39,8 @@ void CObjTime::Init()
 	m_Gen_flg = false; //発電機起動フラグ
 	m_END_flg = false; //敵無力化装置フラグ
 	m_MND_flg = false; //ミーム実態無力化装置フラグ
+	m_Repairing_flg = false; //装置修理イベントフラグ
+
 }
 
 //アクション
@@ -50,9 +53,15 @@ void CObjTime::Action()
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
-		if (m_time > 0)
+		//タイム減少
+		if (m_time > 0 && m_time_stop == 0)
 		{
 			m_time--;
+		}
+		//タイム停止時間減少
+		if (m_time_stop > 0)
+		{
+			m_time_stop--;
 		}
 	}
 	//イベント開始、計測停止処理
@@ -72,6 +81,10 @@ void CObjTime::Action()
 		{
 			m_MND_flg = true;
 		}*/
+		/*if (m_Event_Rand_num >= 0)
+		{
+			m_Repairing_flg = true;
+		}*/
 		m_Stop_flg = true;
 	}
 	//タイム再スタート処理
@@ -79,21 +92,25 @@ void CObjTime::Action()
 	{		
 		//イベント開始時間減少
 		m_time_event -= 1800; //30秒減少
-		//発電機イベント失敗時タイム増加
 		if (Time_Pena == true)
 		{
-			m_time += 1800; //30秒増加
+			//時間停止
+			m_time_stop = 1800;//30秒増加
 			Time_Pena = false;
 			Event->SetEveTimPena(Time_Pena);
 		}
 		//初期化処理
+		//タイム増加ペナルティ
+		//m_time_Increase = 0;
 		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;
 		//設置物フラグ
 		m_Gen_flg = false;
 		m_END_flg = false;	
-		m_MND_flg = false;		
+		m_MND_flg = false;	
+		//装置修理フラグ
+		m_Repairing_flg = false;
 	}
 
 	//制限時間0でゲームクリアシーン移行
@@ -115,6 +132,7 @@ void CObjTime::Draw()
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	wchar_t str[128];
 
 	//分：秒の値を文字列化
@@ -125,8 +143,13 @@ void CObjTime::Draw()
 
 	Font::StrDraw(str, 10, 30, 28, c);
 
-	if (minute == 1 && second == 0 || minute == 0)
+	if (m_time_stop > 0)
 	{
 		Font::StrDraw(str, 10, 30, 28, r);
+	}
+
+	if (minute == 1 && second == 0 || minute == 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, y);
 	}
 }
