@@ -24,6 +24,8 @@ void CObjEvent::Init()
 
 	//イベント時間
 	m_Event_time = 1850; 
+	//装置故障イベント時の装置ランダム選択
+	m_App_Rand_Flg = 1;
 	//イベントフラグ
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ
@@ -125,6 +127,8 @@ void CObjEvent::Action()
 			else if (Rep_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
+				m_App_Rand_Flg = rand() % 5; //装置故障イベント時の装置ランダム選択
+				//1 = 発電機,2 = 発電機2,3 = 敵無力化装置,4 = 敵無力化装置2,5 = 対ミーム実態敵無力化装置
 			}
 			m_Event_time_flg = true;
 		}	
@@ -155,38 +159,38 @@ void CObjEvent::Action()
 	
 	//主人公から装置までの距離測定
 	//	//発電機イベント
-	if (Gen_flg == true)
-	{
-		m_Gene_distance_X = Gene_X - h_x; //発電機
-		m_Gene_distance_Y = Gene_Y - h_x;
-		m_Gene2_distance_X = Gene2_X - h_x; //発電機2
-		m_Gene2_distance_Y = Gene2_Y - h_x;
-		//斜めの距離を求める
-		m_Gene_distance_r = m_Gene_distance_X*m_Gene_distance_X + m_Gene_distance_Y * m_Gene_distance_Y;
-		m_Gene2_distance_r = m_Gene2_distance_X * m_Gene2_distance_X + m_Gene2_distance_Y * m_Gene2_distance_Y;
-		sqrt(m_Gene_distance_r);
-		sqrt(m_Gene2_distance_r);
-	}
-	//敵無力化装置イベント
-	else if (END_flg == true)
-	{
-		m_END_distance_X = END_X - h_x; //敵無力化装置
-		m_END_distance_Y = END_Y - h_x;
-		m_END2_distance_X = END2_X - h_x; //敵無力化装置2
-		m_END2_distance_Y = END2_Y - h_x;
-	}
-	//ミーム実態無力化装置イベント
-	else if (MND_flg == true)
-	{
-		m_MND_distance_X = MND_X - h_x; //対ミーム実態無力化装置
-		m_MND_distance_Y = MND_Y - h_x;
-	}
-	//装置修理イベント
-	else if (Rep_flg == true)
-	{
-		m_Tool_distance_X = Tool_box_X - h_x; //ツールボックス
-		m_Tool_distance_Y = Tool_box_Y - h_x;
-	}	
+	//if (Gen_flg == true)
+	//{
+	//	m_Gene_distance_X = Gene_X - h_x; //発電機
+	//	m_Gene_distance_Y = Gene_Y - h_x;
+	//	m_Gene2_distance_X = Gene2_X - h_x; //発電機2
+	//	m_Gene2_distance_Y = Gene2_Y - h_x;
+	//	//斜めの距離を求める
+	//	m_Gene_distance_r = m_Gene_distance_X*m_Gene_distance_X + m_Gene_distance_Y * m_Gene_distance_Y;
+	//	m_Gene2_distance_r = m_Gene2_distance_X * m_Gene2_distance_X + m_Gene2_distance_Y * m_Gene2_distance_Y;
+	//	sqrt(m_Gene_distance_r);
+	//	sqrt(m_Gene2_distance_r);
+	//}
+	////敵無力化装置イベント
+	//else if (END_flg == true)
+	//{
+	//	m_END_distance_X = END_X - h_x; //敵無力化装置
+	//	m_END_distance_Y = END_Y - h_x;
+	//	m_END2_distance_X = END2_X - h_x; //敵無力化装置2
+	//	m_END2_distance_Y = END2_Y - h_x;
+	//}
+	////ミーム実態無力化装置イベント
+	//else if (MND_flg == true)
+	//{
+	//	m_MND_distance_X = MND_X - h_x; //対ミーム実態無力化装置
+	//	m_MND_distance_Y = MND_Y - h_x;
+	//}
+	////装置修理イベント
+	//else if (Rep_flg == true)
+	//{
+	//	m_Tool_distance_X = Tool_box_X - h_x; //ツールボックス
+	//	m_Tool_distance_Y = Tool_box_Y - h_x;
+	//}	
 	/*
 	r = m_zevx * m_zevx + m_zevy * m_zevy;
 	r = sqrt(r); //ルートを求める

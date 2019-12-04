@@ -305,9 +305,7 @@ void CSceneStage::InitScene()
 	//アーマー
 	CObjArmor* Armor = new CObjArmor(381.0f, 150.0f);
 	Objs::InsertObj(Armor, OBJ_ARMOR, 4);
-	//工具箱
-	CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
-	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
+	
 
 	//アイテムドロップオブジェクト作成	
 	CObjAitemDrop* obj_ad = new CObjAitemDrop();

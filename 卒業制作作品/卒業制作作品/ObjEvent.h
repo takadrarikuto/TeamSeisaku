@@ -13,6 +13,7 @@ public:
 	void Draw(); //ドロー
 
 	bool GetEveTimPena() { return m_Event_TimePenalty; } //イベントタイムペナルティ取得用
+	int GetApp_Rand() { return m_App_Rand_Flg; } //装置故障イベント時の装置ランダム選択取得用
 
 	void SetEveTimPena(bool E_TP) { m_Event_TimePenalty = E_TP; } //イベントタイムペナルティ設定用
 
@@ -21,6 +22,7 @@ private:
 	bool m_Event_TimePenalty; //イベントタイムペナルティ
 	bool m_Event_time_flg; //イベントフラグ
 
+	int m_App_Rand_Flg; //装置故障イベント時の装置ランダム選択
 //距離測定変数
 	//X方向
 	int m_Gene_distance_X; //発電機距離測定変数
