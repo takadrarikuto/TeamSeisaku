@@ -1026,53 +1026,59 @@ void CObjHero::Action()
 			}
 
 			//下キーを押すと弾をリロード
-			if (m_hg_pb == 0)
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//ハンドガン
+				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 				{
-					//ハンドガン
-					if (m_Weapon_switching == 0 && m_hg_pb >= 0)
-					{
-						m_hg_pb = 10;//弾数を10増やす
-					}
-
+					m_hg_pb = 10;//弾数を10増やす
 				}
-			}
-			if (m_sg_pb == 0)
-			{
-				if (Input::GetVKey(VK_DOWN) == true)
-				{
-					//ショットガン
-					if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
-					{
-						if (m_sg_flg == true)
-						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
 
+			}						
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
+				//ショットガン
+				if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+				{
+					if (m_sg_flg == true)
+					{
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
+
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_sg_pb_me > m_sg_pb_cc)
+						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+						}
+						//全体初期弾数が打った数より小さいと計算3へ
+						else if (m_sg_pb_me <= m_sg_pb_cc)
+						{
+							//【計算3】								
+							m_sg_pb_cc = m_sg_pb_me; //打った数と全体初期弾数を合わせる							
+							m_sg_pb_me = 0; //全体初期弾数を0にする
+						}
+							
 
-							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-							/*if (m_sg_pb_me <= 0)
-							{
-								//計算後 = 打った数 + 全体初期弾数
-								m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
-								m_sg_pb_me = 0;
-							}
-							else
-							{
-								//計算後 = 現在残り弾数 + 打った数
-								m_sg_pb = m_sg_pb + m_sg_pb_cc;
-							}*/
-
+						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+						/*if (m_sg_pb_me <= 0)
+						{
+							//計算後 = 打った数 + 全体初期弾数
+							m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
+							m_sg_pb_me = 0;
+						}
+						else
+						{
 							//計算後 = 現在残り弾数 + 打った数
 							m_sg_pb = m_sg_pb + m_sg_pb_cc;
+						}*/
 
-							m_sg_flg = false;
-						}
+						//計算後 = 現在残り弾数 + 打った数
+						m_sg_pb = m_sg_pb + m_sg_pb_cc;
+
+						m_sg_flg = false;
 					}
 				}
 			}
@@ -1113,68 +1119,84 @@ void CObjHero::Action()
 						}
 					}
 				}
-			}
-			if (m_sr_pb == 0)
+			}		
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//スナイパー
+				if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 				{
-					//スナイパー
-					if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
+					if (m_sr_flg == true)
 					{
-						if (m_sr_flg == true)
-						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
 
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_sr_pb_me > m_sr_pb_cc)
+						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
+						}
+						//全体初期弾数が打った数より小さいと計算3へ
+						else if (m_sr_pb_me <= m_sr_pb_cc)
+						{
+							//【計算3】								
+							m_sr_pb_cc = m_sr_pb_me; //打った数と全体初期弾数を合わせる
+							m_sr_pb_me = 0; //全体初期弾数を0にする
+						}
 
-							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-							/*if (m_sr_pb_me <= 0)
-							{
-								//計算後 = 打った数 + 全体初期弾数
-								m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
-								m_sr_pb_me = 0;
-							}
-							else
-							{
-								//計算後 = 現在残り弾数 + 打った数
-								m_sr_pb = m_sr_pb + m_sr_pb_cc;
-							}*/
-
+						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+						/*if (m_sr_pb_me <= 0)
+						{
+							//計算後 = 打った数 + 全体初期弾数
+							m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
+							m_sr_pb_me = 0;
+						}
+						else
+						{
 							//計算後 = 現在残り弾数 + 打った数
 							m_sr_pb = m_sr_pb + m_sr_pb_cc;
+						}*/
 
-							m_sr_flg = false;
-						}
+						//計算後 = 現在残り弾数 + 打った数
+						m_sr_pb = m_sr_pb + m_sr_pb_cc;
+
+						m_sr_flg = false;
 					}
-				}
-			}
-			if (m_rl_pb == 0)
+				}			
+			}			
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//ロケットランチャー
+				if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 				{
-					//ロケットランチャー
-					if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
+					if (m_rl_flg == true)
 					{
-						if (m_rl_flg == true)
-						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
 
+						//【計算2】
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_rl_pb_me > m_rl_pb_cc)
+						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
-
-							//計算後 = 現在残り弾数 + 打った数
-							m_rl_pb = m_rl_pb + m_rl_pb_cc;
-							m_rl_flg = false;
 						}
+						else if (m_rl_pb_me <= m_sr_pb_cc)
+						{
+							//【計算3】							
+							m_rl_pb_cc = m_rl_pb_me; //打った数と全体初期弾数を合わせる
+							m_rl_pb_me = 0; //全体初期弾数を0にする
+						}
+
+						//計算後 = 現在残り弾数 + 打った数
+						m_rl_pb = m_rl_pb + m_rl_pb_cc;
+						m_rl_flg = false;
 					}
-				}
+				}				
 			}
 			if (m_rg_pb == 0)
 			{
