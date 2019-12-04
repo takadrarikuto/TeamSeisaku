@@ -41,13 +41,10 @@ void CObjEvent::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop(); 
 	bool TStart_flg = time->GetTStart();
-	//int TIncrease = time->GetTIncrease();
 	bool Gen_flg = time->GetGenFlg();
 	bool END_flg = time->GetENDFlg();
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
-
-	m_Event_time_flg = false;
 
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
@@ -92,15 +89,14 @@ void CObjEvent::Action()
 	{
 		//イベントタイム
 		m_Event_time_flg = false;
-		TStart_flg = true;		
+		TStop_flg = false;
+		TStart_flg = true;
 		time->SetTStart(TStart_flg);
 		//イベントタイムペナルティ
 		if (Gen_flg == true)
 		{
 			m_Event_TimePenalty = true;
-			//TIncrease = 1800;
-			//time->GetTIncrease(1800); //30秒増加
-		}		
+		}
 	}
 	
 }

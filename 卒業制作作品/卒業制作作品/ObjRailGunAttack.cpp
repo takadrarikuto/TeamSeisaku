@@ -125,11 +125,13 @@ void CObjRailGunAttack::Action()
 		}
 	}
 	//壁オブジェクトと接触するとオブジェクト破棄
-	if (hit_rg->CheckElementHit(ELEMENT_WALL) == true || hit_rg->CheckElementHit(ELEMENT_WALL2) == true)
+	if (hit_rg->CheckElementHit(ELEMENT_WALL) == true || hit_rg->CheckElementHit(ELEMENT_WALL2) == true
+		|| hit_rg->CheckElementHit(ELEMENT_NET_S) == true || hit_rg->CheckElementHit(ELEMENT_NET_V) == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
+	//フィールドエレメントと接触すると削除
 	if (hit_rg->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		if (hit_rg->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_ARMOR) != nullptr
