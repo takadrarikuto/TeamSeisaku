@@ -53,21 +53,21 @@ void CObjBoss::Init()
 	//ゾンビ生成数制限
 	m_Zombie_Restriction = 0;
 	//ゾンビ生成タイム最大値
-	m_Zombie_time_max = 300;
+	m_Zombie_time_max = 600;
 	//ゾンビランダム描画切り替え用
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
 	Ze_dst_flg = false;
 //蝙蝠
 	//蝙蝠生成タイム最大値
-	m_Bat_Enemy_time_max = 240; 
+	m_Bat_Enemy_time_max = 480; 
 	//蝙蝠生成数制限
 	m_Bat_Enemy_Restriction = 0; 
 	//蝙蝠生成数カウント変数
 	m_Bat_Enemy_co_num = 1; 
 //火の鳥
 	//火の鳥生成タイム最大値
-	m_Frie_Bird_time_max = 600;
+	m_Frie_Bird_time_max = 1200;
 	//火の鳥生成数制限
 	m_Frie_Bird_Restriction = 0;
 //火トカゲ	
@@ -116,9 +116,9 @@ void CObjBoss::Action()
 		m_by -= m_bvy;
 		//エネミー生成処理
 		m_Zombie_Generation++; //ゾンビ生成頻度
-		//m_Bat_Enemy_Generation++; //蝙蝠生成頻度
-		//m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
-		//m_Frie_Bird_Generation++; //火の鳥敵生成頻度
+		m_Bat_Enemy_Generation++; //蝙蝠生成頻度
+		m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
+		m_Frie_Bird_Generation++; //火の鳥敵生成頻度
 
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 64 + m_by;
@@ -153,43 +153,43 @@ void CObjBoss::Action()
 			m_Zombie_Restriction++; //ゾンビ生成カウント
 			m_Zombie_Generation = 0;
 		}
-		////蝙蝠
-		//if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
-		//{
-		//	srand(time(NULL)); // ランダム情報を初期化
-		//	m_Bat_Enemy_co_num = rand() % 3;
-		//	for (int i = 0; i > m_Bat_Enemy_co_num; i++)
-		//	{
-		//		//蝙蝠オブジェクト作成
-		//		CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x, e_y);
-		//		Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 4);
-		//	}			
+		//蝙蝠
+		if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
+		{
+			//srand(time(NULL)); // ランダム情報を初期化
+			m_Bat_Enemy_co_num = rand() % 3;
+			for (int i = 0; i > m_Bat_Enemy_co_num; i++)
+			{
+				//蝙蝠オブジェクト作成
+				CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x, e_y);
+				Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 4);
+			}			
 
-		//	m_Bat_Enemy_Generation = 0;
-		//	m_Bat_Enemy_Restriction += m_Bat_Enemy_co_num; //蝙蝠生成カウント
-		//}
+			m_Bat_Enemy_Generation = 0;
+			m_Bat_Enemy_Restriction += m_Bat_Enemy_co_num; //蝙蝠生成カウント
+		}
 		//火トカゲ
-		//if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max)
-		//{
-		//	//火トカゲオブジェクト作成 
-		//	CObjFire_Lizard * obj_fl = new CObjFire_Lizard(e_x, e_y);
-		//	Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
+		if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max)
+		{
+			//火トカゲオブジェクト作成 
+			CObjFire_Lizard * obj_fl = new CObjFire_Lizard(e_x, e_y);
+			Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 4);
 
-		//	srand(time(NULL)); // ランダム情報を初期化
-		//	m_Frie_Lizard_Restriction++; //火トカゲ生成カウント	
-		//	m_Frie_Lizard_Generation = 0;
-		//}
+			//srand(time(NULL)); // ランダム情報を初期化
+			m_Frie_Lizard_Restriction++; //火トカゲ生成カウント	
+			m_Frie_Lizard_Generation = 0;
+		}
 		//火の鳥
-		//if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max)
-		//{
-		//	//火の鳥オブジェクト作成
-		//	CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
-		//	Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
+		if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max)
+		{
+			//火の鳥オブジェクト作成
+			CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
+			Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 4);
 
-		//	srand(time(NULL)); // ランダム情報を初期化
-		//	m_Frie_Bird_Restriction++; //火の鳥生成カウント
-		//	m_Frie_Bird_Generation = 0;
-		//}
+			//srand(time(NULL)); // ランダム情報を初期化
+			m_Frie_Bird_Restriction++; //火の鳥生成カウント
+			m_Frie_Bird_Generation = 0;
+		}
 		//敵無力化イベント時敵生成
 		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
