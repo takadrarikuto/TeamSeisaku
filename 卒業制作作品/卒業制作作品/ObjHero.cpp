@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjHero.h"
@@ -710,28 +711,28 @@ void CObjHero::Action()
 					{
 						//グレネードオブジェクト作成
 						CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y - 10, 0, -m_ga_vy_max);
-						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//グレネードオブジェクト作成
 						CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 32, m_y + 30, m_ga_vx_max, 0);
-						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//グレネードオブジェクト作成
 						CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y + 32, 0, m_ga_vy_max);
-						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//グレネードオブジェクト作成
 						CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x, m_y + 30, -m_ga_vx_max, 0);
-						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+						Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 					}
 					m_Grenade_flg = false;
 				}
@@ -756,30 +757,31 @@ void CObjHero::Action()
 						{
 							//ハンドガンアタックオブジェクト作成
 							CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 0.0f);
-							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//ハンドガンアタックオブジェクト作成
 							CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//ハンドガンアタックオブジェクト作成
 							CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 180.0f);
-							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//ハンドガンアタックオブジェクト作成
 							CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+							Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(3);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -800,46 +802,47 @@ void CObjHero::Action()
 						{
 							//ショットガンアタックオブジェクト作成
 							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//ショットガンアタックオブジェクト作成
 							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max, 60.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max, 120.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//ショットガンアタックオブジェクト作成
 							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max, m_ga_vy_max, -30.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 0.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max, m_ga_vy_max, 30.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//ショットガンアタックオブジェクト作成
 							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max, 240.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max, 300.0f);
-							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(4);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -859,28 +862,28 @@ void CObjHero::Action()
 						{
 							//アサルトアタックオブジェクト作成
 							CObjARAttack* obj_ara = new CObjARAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 0.0f);
-							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//アサルトアタックオブジェクト作成
 							CObjARAttack* obj_ara = new CObjARAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//アサルトアタックオブジェクト作成
 							CObjARAttack* obj_ara = new CObjARAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 180.0f);
-							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//アサルトアタックオブジェクト作成
 							CObjARAttack* obj_ara = new CObjARAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
 					}
@@ -902,30 +905,31 @@ void CObjHero::Action()
 						{
 							//スナイパーアタックオブジェクト作成
 							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
-							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//スナイパーアタックオブジェクト作成
 							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
-							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//スナイパーアタックオブジェクト作成
 							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
-							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//スナイパーアタックオブジェクト作成
 							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
-							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(5);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -945,28 +949,28 @@ void CObjHero::Action()
 						{
 							//ロケットランチャーアタックオブジェクト作成
 							CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x + 16, m_y, 0, -m_ga_vy_max, 0.0f);
-							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//ロケットランチャーアタックオブジェクト作成
 							CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, m_ga_vx_max, 0, 270.0f);
-							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//ロケットランチャーアタックオブジェクト作成
 							CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x + 16, m_y, 0, m_ga_vy_max, 180.0f);
-							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//ロケットランチャーアタックオブジェクト作成
 							CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 90.0f);
-							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
 					}
@@ -988,28 +992,28 @@ void CObjHero::Action()
 						{
 							//レールガンアタックオブジェクト作成
 							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
-							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//レールガンアタックオブジェクト作成
 							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
-							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//レールガンアタックオブジェクト作成
 							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
-							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//レールガンアタックオブジェクト作成
 							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
-							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
 					}
@@ -1019,6 +1023,22 @@ void CObjHero::Action()
 						m_bt = 0;
 					}
 				}
+				//弾切れの時に弾切れ効果音を鳴らす
+				if (m_bt == 1)
+				{
+					if (m_Weapon_switching == 0 && m_hg_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+					if (m_Weapon_switching == 1 && m_sg_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+					if (m_Weapon_switching == 3 && m_sr_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+				}
 			}
 			else
 			{
@@ -1026,53 +1046,59 @@ void CObjHero::Action()
 			}
 
 			//下キーを押すと弾をリロード
-			if (m_hg_pb == 0)
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//ハンドガン
+				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 				{
-					//ハンドガン
-					if (m_Weapon_switching == 0 && m_hg_pb >= 0)
-					{
-						m_hg_pb = 10;//弾数を10増やす
-					}
-
+					m_hg_pb = 10;//弾数を10増やす
 				}
-			}
-			if (m_sg_pb == 0)
-			{
-				if (Input::GetVKey(VK_DOWN) == true)
-				{
-					//ショットガン
-					if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
-					{
-						if (m_sg_flg == true)
-						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
 
+			}						
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
+				//ショットガン
+				if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+				{
+					if (m_sg_flg == true)
+					{
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
+
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_sg_pb_me > m_sg_pb_cc)
+						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+						}
+						//全体初期弾数が打った数より小さいと計算3へ
+						else if (m_sg_pb_me <= m_sg_pb_cc)
+						{
+							//【計算3】								
+							m_sg_pb_cc = m_sg_pb_me; //打った数と全体初期弾数を合わせる							
+							m_sg_pb_me = 0; //全体初期弾数を0にする
+						}
+							
 
-							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-							/*if (m_sg_pb_me <= 0)
-							{
-								//計算後 = 打った数 + 全体初期弾数
-								m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
-								m_sg_pb_me = 0;
-							}
-							else
-							{
-								//計算後 = 現在残り弾数 + 打った数
-								m_sg_pb = m_sg_pb + m_sg_pb_cc;
-							}*/
-
+						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+						/*if (m_sg_pb_me <= 0)
+						{
+							//計算後 = 打った数 + 全体初期弾数
+							m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
+							m_sg_pb_me = 0;
+						}
+						else
+						{
 							//計算後 = 現在残り弾数 + 打った数
 							m_sg_pb = m_sg_pb + m_sg_pb_cc;
+						}*/
 
-							m_sg_flg = false;
-						}
+						//計算後 = 現在残り弾数 + 打った数
+						m_sg_pb = m_sg_pb + m_sg_pb_cc;
+						Audio::Start(13);
+						m_sg_flg = false;
 					}
 				}
 			}
@@ -1089,10 +1115,20 @@ void CObjHero::Action()
 							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
 							m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
 
-							//【計算2】
-							//計算後 = 全体初期弾数 - 打った数
-							m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
-
+							//全体初期弾数が打った数より大きいと計算2へ
+							if (m_ar_pb_me > m_ar_pb_cc)
+							{
+								//【計算2】
+								//計算後 = 全体初期弾数 - 打った数
+								m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+							}
+							//全体初期弾数が打った数より小さいと計算3へ
+							else if (m_ar_pb_me <= m_ar_pb_cc)
+							{
+								//【計算3】								
+								m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
+								m_ar_pb_me = 0; //全体初期弾数を0にする
+							}
 							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
 							/*if (m_ar_pb_me <= 0)
 							{
@@ -1113,68 +1149,84 @@ void CObjHero::Action()
 						}
 					}
 				}
-			}
-			if (m_sr_pb == 0)
+			}		
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//スナイパー
+				if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 				{
-					//スナイパー
-					if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
+					if (m_sr_flg == true)
 					{
-						if (m_sr_flg == true)
-						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
 
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_sr_pb_me > m_sr_pb_cc)
+						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
+						}
+						//全体初期弾数が打った数より小さいと計算3へ
+						else if (m_sr_pb_me <= m_sr_pb_cc)
+						{
+							//【計算3】								
+							m_sr_pb_cc = m_sr_pb_me; //打った数と全体初期弾数を合わせる
+							m_sr_pb_me = 0; //全体初期弾数を0にする
+						}
 
-							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-							/*if (m_sr_pb_me <= 0)
-							{
-								//計算後 = 打った数 + 全体初期弾数
-								m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
-								m_sr_pb_me = 0;
-							}
-							else
-							{
-								//計算後 = 現在残り弾数 + 打った数
-								m_sr_pb = m_sr_pb + m_sr_pb_cc;
-							}*/
-
+						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+						/*if (m_sr_pb_me <= 0)
+						{
+							//計算後 = 打った数 + 全体初期弾数
+							m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
+							m_sr_pb_me = 0;
+						}
+						else
+						{
 							//計算後 = 現在残り弾数 + 打った数
 							m_sr_pb = m_sr_pb + m_sr_pb_cc;
+						}*/
 
-							m_sr_flg = false;
-						}
+						//計算後 = 現在残り弾数 + 打った数
+						m_sr_pb = m_sr_pb + m_sr_pb_cc;
+
+						m_sr_flg = false;
 					}
-				}
-			}
-			if (m_rl_pb == 0)
+				}			
+			}			
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//ロケットランチャー
+				if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 				{
-					//ロケットランチャー
-					if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
+					if (m_rl_flg == true)
 					{
-						if (m_rl_flg == true)
-						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
 
+						//【計算2】
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_rl_pb_me > m_rl_pb_cc)
+						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
-
-							//計算後 = 現在残り弾数 + 打った数
-							m_rl_pb = m_rl_pb + m_rl_pb_cc;
-							m_rl_flg = false;
 						}
+						else if (m_rl_pb_me <= m_sr_pb_cc)
+						{
+							//【計算3】							
+							m_rl_pb_cc = m_rl_pb_me; //打った数と全体初期弾数を合わせる
+							m_rl_pb_me = 0; //全体初期弾数を0にする
+						}
+
+						//計算後 = 現在残り弾数 + 打った数
+						m_rl_pb = m_rl_pb + m_rl_pb_cc;
+						m_rl_flg = false;
 					}
-				}
+				}				
 			}
 			if (m_rg_pb == 0)
 			{
@@ -1188,11 +1240,21 @@ void CObjHero::Action()
 							//【計算1】
 							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
 							m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
-
-							//【計算2】
-							//計算後 = 全体初期弾数 - 打った数
-							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
-
+						
+							//全体初期弾数が打った数より大きいと計算2へ
+							if (m_rg_pb_me > m_ar_pb_cc)
+							{
+								//【計算2】
+								//計算後 = 全体初期弾数 - 打った数
+								m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
+							}
+							//全体初期弾数が打った数より小さいと計算3へ
+							else if (m_rg_pb_me <= m_rg_pb_cc)
+							{
+								//【計算3】								
+								m_rg_pb_cc = m_rg_pb_me; //打った数と全体初期弾数を合わせる							
+								m_rg_pb_me = 0; //全体初期弾数を0にする
+							}
 							//計算後 = 現在残り弾数 + 打った数
 							m_rg_pb = m_rg_pb + m_rg_pb_cc;
 							m_rg_flg = false;
@@ -1212,6 +1274,31 @@ void CObjHero::Action()
 				m_sr_pb_cc = 0;
 				m_rl_pb_cc = 0;
 				m_rg_pb_cc = 0;
+			}
+			//リロード時にリロード効果音を鳴らす
+			if (m_Weapon_switching == 0 && m_hg_pb >= 0)
+			{
+				//Audio::Start(13);
+			}
+			if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
+			{
+				//Audio::Start(13);
+			}
+			if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
+			{
+				//Audio::Start(13);
+			}
+			if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
+			{
+				//Audio::Start(13);
+			}
+			if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
+			{
+				//Audio::Start(13);
+			}
+			if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
+			{
+				//Audio::Start(13);
 			}
 		}
 

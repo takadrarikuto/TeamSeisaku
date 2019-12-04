@@ -66,10 +66,11 @@ void CObjInstallation_Type_SR::Action()
 			aitemfont->SetAGF(3);
 			aitemfont->SetAitemNum(10);
 			hero->SetSR(10);
+			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム
-			m_Replenishment_time = 600;
+			m_Replenishment_time = 3000;
 		}
 	}
 	else

@@ -62,6 +62,7 @@ void CObjArmor::Action()
 	{
 		hero->SetEN(150);
 		aitemfont->SetAGF(8); //フォント表示
+		Audio::Start(12); //効果音再生
 		Hp_flg = false;
 		En_flg = true;
 		this->SetStatus(false); //オブジェクト破棄

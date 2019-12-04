@@ -67,13 +67,43 @@ void CObjInstallation_Type_RandBox::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			/*m_Rand_aitem_num = rand() % 100;*/
-			m_Rand_aitem_num = 1;
+			m_Rand_aitem_num = rand() % 100;
+
+			if (m_Rand_aitem_num >= 0 && m_Rand_aitem_num <= 30)
+			{
+				aitemfont->SetAGF(7);
+				aitemfont->SetAitemNum(100);
+				hero->SetHP(100); //体力
+			}
+			else if (m_Rand_aitem_num > 30 && m_Rand_aitem_num <= 60)
+			{
+				aitemfont->SetAGF(8);
+				aitemfont->SetAitemNum(150);
+				hero->SetEN(150); //アーマー
+			}
+			else if (m_Rand_aitem_num > 60 && m_Rand_aitem_num <= 80)
+			{
+				aitemfont->SetAGF(4);
+				aitemfont->SetAitemNum(2);
+				hero->SetRL(2);	//ロケットランチャー弾
+			}
+			else if (m_Rand_aitem_num > 80 && m_Rand_aitem_num <= 85)
+			{
+				aitemfont->SetAGF(5);
+				aitemfont->SetAitemNum(1);
+				hero->SetRG(1);	//レールガン弾
+			}
+			else if (m_Rand_aitem_num > 85 && m_Rand_aitem_num <= 99)
+			{
+				aitemfont->SetAGF(6);
+				aitemfont->SetAitemNum(3);
+				hero->SetGRE(3); //グレネード
+			}
 
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム
-			m_Replenishment_time = 600;
+			m_Replenishment_time = 3000;
 		}
 	}
 	else
@@ -81,41 +111,7 @@ void CObjInstallation_Type_RandBox::Action()
 		m_Replenishment_flg = false;
 	}
 
-	if (m_Rand_aitem_num > 0)
-	{
-		if (m_Rand_aitem_num == 1)
-		{
-			aitemfont->SetAGF(7);
-			aitemfont->SetAitemNum(100);
-			hero->SetHP(100); //体力
-		}
-		else if (m_Rand_aitem_num == 2)
-		{
-			aitemfont->SetAGF(8);
-			aitemfont->SetAitemNum(150);
-			hero->SetEN(150); //アーマー
-		}
-		else if (m_Rand_aitem_num == 3)
-		{
-			aitemfont->SetAGF(4);
-			aitemfont->SetAitemNum(2);
-			hero->SetRL(2);	//ロケットランチャー弾
-		}
-		else if (m_Rand_aitem_num == 4)
-		{
-			aitemfont->SetAGF(5);
-			aitemfont->SetAitemNum(1);
-			hero->SetRG(1);	//レールガン弾
-		}
-		else if (m_Rand_aitem_num == 5)
-		{
-			aitemfont->SetAGF(6);
-			aitemfont->SetAitemNum(3);
-			hero->SetGRE(3); //グレネード
-		}
-		m_Rand_aitem_num = 0;
-		/*srand(time(NULL)); // ランダム情報を初期化*/
-	}
+	
 	
 
 	//主人公の移動に合わせる

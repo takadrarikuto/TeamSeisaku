@@ -16,7 +16,7 @@ void CObjAitemFont::Init()
 {
 	//初期化
 	m_Aitem_Font_x = 0.0f; //位置情報
-	m_Aitem_Font_y = 580.0f;
+	m_Aitem_Font_y = 570.0f;
 
 	Aitem_Get_Font = 0; //アイテム把握変数
 	
@@ -91,19 +91,16 @@ void CObjAitemFont::Draw()
 		else if (Aitem_Get_Font == 7)
 		{
 			swprintf_s(str, L"回復箱を獲得しました。");
-			//Font::StrDraw(L"回復箱を獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
 		}
 		else if (Aitem_Get_Font == 8)
 		{
 			swprintf_s(str, L"アーマーを獲得しました。");
-			//Font::StrDraw(L"アーマーを獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
 		}
 		else if (Aitem_Get_Font == 9)
 		{
 			swprintf_s(str, L"ツールボックスを獲得しました。");
-			//Font::StrDraw(L"ツールボックスを獲得しました。", m_Aitem_Font_x, m_Aitem_Font_y, 20, c);
 		}		
-		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 20, fc); //アイテム取得でフォント表示
+		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, fc); //アイテム取得でフォント表示
 	}	
 	
 
