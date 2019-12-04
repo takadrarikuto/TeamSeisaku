@@ -101,10 +101,10 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
 	//発電機オブジェクト作成	
-	CObjGenerator* Gen = new CObjGenerator(-300, -400);//(200,200)
+	CObjGenerator* Gen = new CObjGenerator(-300, -400);
 	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
-	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);//(500,200)
+	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);
 	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
 
 	//敵無力化装置オブジェクト作成

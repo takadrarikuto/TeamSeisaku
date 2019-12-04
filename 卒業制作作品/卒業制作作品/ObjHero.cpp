@@ -1115,10 +1115,20 @@ void CObjHero::Action()
 							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
 							m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
 
-							//【計算2】
-							//計算後 = 全体初期弾数 - 打った数
-							m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
-
+							//全体初期弾数が打った数より大きいと計算2へ
+							if (m_ar_pb_me > m_ar_pb_cc)
+							{
+								//【計算2】
+								//計算後 = 全体初期弾数 - 打った数
+								m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+							}
+							//全体初期弾数が打った数より小さいと計算3へ
+							else if (m_ar_pb_me <= m_ar_pb_cc)
+							{
+								//【計算3】								
+								m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
+								m_ar_pb_me = 0; //全体初期弾数を0にする
+							}
 							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
 							/*if (m_ar_pb_me <= 0)
 							{
@@ -1230,11 +1240,21 @@ void CObjHero::Action()
 							//【計算1】
 							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
 							m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
-
-							//【計算2】
-							//計算後 = 全体初期弾数 - 打った数
-							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
-
+						
+							//全体初期弾数が打った数より大きいと計算2へ
+							if (m_rg_pb_me > m_ar_pb_cc)
+							{
+								//【計算2】
+								//計算後 = 全体初期弾数 - 打った数
+								m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
+							}
+							//全体初期弾数が打った数より小さいと計算3へ
+							else if (m_rg_pb_me <= m_rg_pb_cc)
+							{
+								//【計算3】								
+								m_rg_pb_cc = m_rg_pb_me; //打った数と全体初期弾数を合わせる							
+								m_rg_pb_me = 0; //全体初期弾数を0にする
+							}
 							//計算後 = 現在残り弾数 + 打った数
 							m_rg_pb = m_rg_pb + m_rg_pb_cc;
 							m_rg_flg = false;
