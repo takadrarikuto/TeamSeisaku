@@ -1051,7 +1051,12 @@ void CObjHero::Action()
 				//ハンドガン
 				if (m_Weapon_switching == 0 && m_hg_pb >= 0)
 				{
-					m_hg_pb = 10;//弾数を10増やす
+					if (m_hg_flg == true)
+					{
+						m_hg_pb = 10;//弾数を10増やす
+						Audio::Start(13);
+						m_hg_flg = false;
+					}
 				}
 
 			}						
@@ -1102,51 +1107,48 @@ void CObjHero::Action()
 					}
 				}
 			}
-			if (m_ar_pb == 0)
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//アサルト
+				if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 				{
-					//アサルト
-					if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
+					if (m_ar_flg == true)
 					{
-						if (m_ar_flg == true)
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
+
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_ar_pb_me > m_ar_pb_cc)
 						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
-
-							//全体初期弾数が打った数より大きいと計算2へ
-							if (m_ar_pb_me > m_ar_pb_cc)
-							{
-								//【計算2】
-								//計算後 = 全体初期弾数 - 打った数
-								m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
-							}
-							//全体初期弾数が打った数より小さいと計算3へ
-							else if (m_ar_pb_me <= m_ar_pb_cc)
-							{
-								//【計算3】								
-								m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
-								m_ar_pb_me = 0; //全体初期弾数を0にする
-							}
-							//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-							/*if (m_ar_pb_me <= 0)
-							{
-								//計算後 = 打った数 + 全体初期弾数
-								m_ar_pb = m_ar_pb_cc + m_ar_pb_me;
-								m_ar_pb_me = 0;
-							}
-							else
-							{
-								//計算後 = 現在残り弾数 + 打った数
-								m_ar_pb = m_ar_pb + m_ar_pb_cc;
-							}*/
-
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+						}
+						//全体初期弾数が打った数より小さいと計算3へ
+						else if (m_ar_pb_me <= m_ar_pb_cc)
+						{
+							//【計算3】								
+							m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
+							m_ar_pb_me = 0; //全体初期弾数を0にする
+						}
+						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
+						/*if (m_ar_pb_me <= 0)
+						{
+							//計算後 = 打った数 + 全体初期弾数
+							m_ar_pb = m_ar_pb_cc + m_ar_pb_me;
+							m_ar_pb_me = 0;
+						}
+						else
+						{
 							//計算後 = 現在残り弾数 + 打った数
 							m_ar_pb = m_ar_pb + m_ar_pb_cc;
+						}*/
 
-							m_ar_flg = false;
-						}
+						//計算後 = 現在残り弾数 + 打った数
+						m_ar_pb = m_ar_pb + m_ar_pb_cc;
+						Audio::Start(13);
+						m_ar_flg = false;
 					}
 				}
 			}		
@@ -1228,42 +1230,42 @@ void CObjHero::Action()
 					}
 				}				
 			}
-			if (m_rg_pb == 0)
+			if (Input::GetVKey(VK_DOWN) == true)
 			{
-				if (Input::GetVKey(VK_DOWN) == true)
+				//レールガン
+				if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 				{
-					//レールガン
-					if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
+					if (m_rg_flg == true)
 					{
-						if (m_rg_flg == true)
+						//【計算1】
+						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+						m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
+					
+						//全体初期弾数が打った数より大きいと計算2へ
+						if (m_rg_pb_me > m_ar_pb_cc)
 						{
-							//【計算1】
-							//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
-							m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
-						
-							//全体初期弾数が打った数より大きいと計算2へ
-							if (m_rg_pb_me > m_ar_pb_cc)
-							{
-								//【計算2】
-								//計算後 = 全体初期弾数 - 打った数
-								m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
-							}
-							//全体初期弾数が打った数より小さいと計算3へ
-							else if (m_rg_pb_me <= m_rg_pb_cc)
-							{
-								//【計算3】								
-								m_rg_pb_cc = m_rg_pb_me; //打った数と全体初期弾数を合わせる							
-								m_rg_pb_me = 0; //全体初期弾数を0にする
-							}
-							//計算後 = 現在残り弾数 + 打った数
-							m_rg_pb = m_rg_pb + m_rg_pb_cc;
-							m_rg_flg = false;
+							//【計算2】
+							//計算後 = 全体初期弾数 - 打った数
+							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
 						}
+						//全体初期弾数が打った数より小さいと計算3へ
+						else if (m_rg_pb_me <= m_rg_pb_cc)
+						{
+							//【計算3】								
+							m_rg_pb_cc = m_rg_pb_me; //打った数と全体初期弾数を合わせる							
+							m_rg_pb_me = 0; //全体初期弾数を0にする
+						}
+						//計算後 = 現在残り弾数 + 打った数
+						m_rg_pb = m_rg_pb + m_rg_pb_cc;
+						Audio::Start(13);
+						m_rg_flg = false;
 					}
 				}
+			
 			}
 			else
 			{
+				m_hg_flg = true;
 				m_sg_flg = true;
 				m_ar_flg = true;
 				m_sr_flg = true;
@@ -1356,11 +1358,13 @@ void CObjHero::Action()
 							if (En_flg == true)
 							{
 								m_hero_en -= 5;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
 								m_hero_hp -= 5;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 80;		//無敵時間をセット
 						}
@@ -1371,11 +1375,13 @@ void CObjHero::Action()
 							if (En_flg == true)
 							{
 								m_hero_en -= 2;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
 								m_hero_hp -= 2;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 80;		//無敵時間をセット
 						}
@@ -1386,11 +1392,13 @@ void CObjHero::Action()
 							if (En_flg == true)
 							{
 								m_hero_en -= 6;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
 								m_hero_hp -= 3;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 60;		//無敵時間をセット
 						}
@@ -1401,11 +1409,13 @@ void CObjHero::Action()
 							if (En_flg == true)
 							{
 								m_hero_en -= 2;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
 								m_hero_hp -= 1;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 20;		//無敵時間をセット
 						}
@@ -1418,6 +1428,7 @@ void CObjHero::Action()
 								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 								int EXPDamage_En = EXPAttack->GetEXP();
 								m_hero_en -= EXPDamage_En;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
@@ -1425,6 +1436,7 @@ void CObjHero::Action()
 								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 								int EXPDamage = EXPAttack->GetEXP();
 								m_hero_hp -= EXPDamage;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 90;		//無敵時間をセット
 						}
@@ -1432,7 +1444,8 @@ void CObjHero::Action()
 						else if (hit_h->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
 						{
 							m_hero_hp -= 1;
-							m_time_d = 10;		//無敵時間をセット						
+							m_time_d = 10;		//無敵時間をセット
+							Audio::Start(14);//ダメージ音
 						}
 						//ボス
 						else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
@@ -1441,11 +1454,13 @@ void CObjHero::Action()
 							if (En_flg == true)
 							{
 								m_hero_en -= 6;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
 								m_hero_hp -= 2;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 30;		//無敵時間をセット
 						}
@@ -1458,6 +1473,7 @@ void CObjHero::Action()
 								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 								int EXPDamage_En = EXPAttack->GetEXP();
 								m_hero_en -= EXPDamage_En;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
@@ -1465,6 +1481,7 @@ void CObjHero::Action()
 								CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 								int EXPDamage = EXPAttack->GetEXP();
 								m_hero_hp -= EXPDamage;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 90;		//無敵時間をセット
 						}
@@ -1475,11 +1492,13 @@ void CObjHero::Action()
 							if (En_flg == true)
 							{
 								m_hero_en -= 1;
+								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
 								m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 30;		//無敵時間をセット
 						}
@@ -1520,6 +1539,7 @@ void CObjHero::Action()
 			//血しぶきオブジェクト作成
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+			Audio::Start(15);
 		}
 
 		if (m_del == true)
