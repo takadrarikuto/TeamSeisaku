@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\DrawFont.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjEvent.h"
@@ -112,16 +113,19 @@ void CObjEvent::Action()
 			if (Gen_flg == true)
 			{
 				m_Event_time = 1850; //1850 ＝ 30秒
+				Audio::Start(16);
 			}
 			//敵無力化装置イベント
 			else if (END_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
+				Audio::Start(16);
 			}
 			//ミーム実態無力化装置イベント
 			else if (MND_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
+				Audio::Start(16);
 			}
 			//装置修理イベント
 			else if (Rep_flg == true)
@@ -129,6 +133,7 @@ void CObjEvent::Action()
 				m_Event_time = 3600; //3600 ＝ 60秒
 				m_App_Rand_Flg = rand() % 5; //装置故障イベント時の装置ランダム選択
 				//1 = 発電機,2 = 発電機2,3 = 敵無力化装置,4 = 敵無力化装置2,5 = 対ミーム実態敵無力化装置
+				Audio::Start(16);
 			}
 			m_Event_time_flg = true;
 		}	
@@ -154,6 +159,7 @@ void CObjEvent::Action()
 		if (Gen_flg == true)
 		{
 			m_Event_TimePenalty = true;
+			Audio::Start(17);
 		}
 	}
 	

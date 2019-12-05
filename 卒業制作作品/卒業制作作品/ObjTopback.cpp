@@ -43,9 +43,14 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//ƒAƒCƒeƒ€Šl“¾î•ñŽæ“¾
+	CObjAitemFont* aitf = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	Aitem_get_font = aitf->GetA_G_F();
+
 	//•`‰æƒJƒ‰[î•ñ@R=RED  G=Green  B=Blue A=alpha(“§‰ßî•ñ)
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float a[4] = { 1.0f,1.0f,1.0f,0.6f };
+	float a2[4] = { 1.0f,1.0f,1.0f,0.8f };
 
 	RECT_F src;		//•`‰æŒ³Ø‚èŽæ‚èˆÊ’u
 	RECT_F dst;		//•`‰ææ•\Ž¦ˆÊ’u
@@ -146,5 +151,59 @@ void CObjTopback::Draw()
 	if (rg_pb_e == 0 && ws_num == 5)
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
+	}
+
+
+	//Ø‚èŽæ‚èˆÊ’u‚ÌÝ’è
+	src.m_top = 0.0f;
+	src.m_left = 0.0f;
+	src.m_right = 100.0f;
+	src.m_bottom = 100.0f;
+
+	//ã•”•`‰æ
+	dst.m_top = 565.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 800.0f;
+	dst.m_bottom = 600.0f;
+
+	//ƒAƒCƒeƒ€ƒQƒbƒgŽž—p”wŒi
+	if (Aitem_get_font > 0)
+	{
+		if (Aitem_get_font == 1)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 2)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 3)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 4)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 5)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 6)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 7)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 8)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
+		if (Aitem_get_font == 9)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
 	}
 }

@@ -67,6 +67,11 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
 	Audio::LoadAudio(12, L"アイテム獲得音.wav", EFFECT);
 	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
+	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
+	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
+	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
+	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
+	//18 成功音
 
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.3);
