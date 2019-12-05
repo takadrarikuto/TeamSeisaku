@@ -100,6 +100,11 @@ void CObjEvent::Action()
 	CObjToolBox* Tool = (CObjToolBox*)Objs::GetObj(OBJ_TOOLBOX);
 	float Tool_box_X;
 	float Tool_box_Y;
+	//壁4(下)情報取得
+	CObjWall4* Wall4 = (CObjWall4*)Objs::GetObj(OBJ_WALL);
+	float Wall_X = Wall4->GetX() - h_vx;
+	float Wall_Y = Wall4->GetY() - h_vy;
+
 	if (Tool != nullptr)
 	{
 		Tool_box_X = Tool->GetToolX();
@@ -116,19 +121,16 @@ void CObjEvent::Action()
 			if (Gen_flg == true)
 			{
 				m_Event_time = 1850; //1850 ＝ 30秒
-				Audio::Start(16);
 			}
 			//敵無力化装置イベント
 			else if (END_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
-				Audio::Start(16);
 			}
 			//ミーム実態無力化装置イベント
 			else if (MND_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
-				Audio::Start(16);
 			}
 			//装置修理イベント
 			else if (Rep_flg == true)
@@ -137,11 +139,11 @@ void CObjEvent::Action()
 				m_App_Rand_Flg = rand() % 5; //装置故障イベント時の装置ランダム選択
 				//1 = 発電機,2 = 発電機2,3 = 敵無力化装置,4 = 敵無力化装置2,5 = 対ミーム実態敵無力化装置
 				//工具箱オブジェクト作成
-				CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
+				CObjToolBox* Toolbox = new CObjToolBox(Wall_X + 1220, Wall_Y - 150);
 				Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
-				Audio::Start(16);
 			}
 			m_Event_time_flg = true;
+			Audio::Start(16);
 		}	
 		if (m_Event_time > 0)
 		{
@@ -207,8 +209,8 @@ void CObjEvent::Action()
 	r = m_zevx * m_zevx + m_zevy * m_zevy;
 	r = sqrt(r); //ルートを求める
 	*/
-	m_Gene_distance_X = (h_x - Gene_X) / 2 ; //発電機
-	m_Gene_distance_Y = (h_y + Gene_Y) / 2;
+	m_Gene_distance_X = (h_x - Gene_X/*h_x - Gene_X*/) / 2 ; //発電機
+	m_Gene_distance_Y = (h_y - Gene_Y/*h_y + Gene_Y*/) / 2;
 	m_Gene2_distance_X = (Gene2_X - h_x) / 2; //発電機2
 	m_Gene2_distance_Y = (Gene2_Y - h_y) / 2;
 	//斜めの距離を求める
