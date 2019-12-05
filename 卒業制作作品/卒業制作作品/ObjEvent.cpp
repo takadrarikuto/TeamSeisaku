@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\DrawFont.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjEvent.h"
@@ -115,16 +116,19 @@ void CObjEvent::Action()
 			if (Gen_flg == true)
 			{
 				m_Event_time = 1850; //1850 ＝ 30秒
+				Audio::Start(16);
 			}
 			//敵無力化装置イベント
 			else if (END_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
+				Audio::Start(16);
 			}
 			//ミーム実態無力化装置イベント
 			else if (MND_flg == true)
 			{
 				m_Event_time = 3600; //3600 ＝ 60秒
+				Audio::Start(16);
 			}
 			//装置修理イベント
 			else if (Rep_flg == true)
@@ -135,6 +139,7 @@ void CObjEvent::Action()
 				//工具箱オブジェクト作成
 				CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
 				Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
+				Audio::Start(16);
 			}
 			m_Event_time_flg = true;
 		}	
@@ -160,6 +165,7 @@ void CObjEvent::Action()
 		if (Gen_flg == true)
 		{
 			m_Event_TimePenalty = true;
+			Audio::Start(17);
 		}
 	}
 	
