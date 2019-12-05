@@ -59,17 +59,33 @@ void CObjEnemy_Neutralization_Device::Action()
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_end->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　3
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (TStop_flg == true/* && END == true*/)
+		if (TStop_flg == true)
 		{
 			m_Font_time = 90; //フォント表示タイム設定
-			if (Input::GetVKey(VK_RETURN) == true && END == true)
+			if (Input::GetVKey(VK_RETURN) == true)
 			{
-				TStart_flg = true;
-				m_END_death_flg = true;
-				time->SetTStart(TStart_flg);
+				if (END == true)
+				{
+					TStart_flg = true;
+					m_END_death_flg = true;
+					time->SetTStart(TStart_flg);
+				}
+				if (App_Rand == 3)
+				{
+					TStart_flg = true;
+					time->SetTStart(TStart_flg);
+					aitemfont->SetToolBox(true); //画像表示
+				}
 			}
 		}		
 	}

@@ -49,4 +49,5 @@ private:
 	bool m_MND_flg; //ミーム実態無力化装置フラグ
 	bool m_Repairing_flg; //装置修理イベントフラグ
 
+	bool m_Tool_Box_flg; //ツールボックス生成フラグ
 };

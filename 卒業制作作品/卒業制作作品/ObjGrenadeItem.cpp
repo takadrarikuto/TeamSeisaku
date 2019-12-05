@@ -56,6 +56,7 @@ void CObjGrenadeItem::Action()
 		hero->SetGRE(3);		//主人公に当たると弾補充
 		aitemfont->SetAGF(6); //フォント表示
 		aitemfont->SetAitemNum(3); //グレネード数表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

@@ -68,11 +68,12 @@ void CObjInstallation_Type_AR::Action()
 		{
 			hero->SetAR(90);
 			aitemfont->SetAitemNum(90);
-			aitemfont->SetAGF(2); 
+			aitemfont->SetAGF(2);
+			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム
-			m_Replenishment_time = 600;
+			m_Replenishment_time = 3000;
 		}
 	}
 	else

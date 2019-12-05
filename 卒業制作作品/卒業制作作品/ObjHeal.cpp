@@ -56,6 +56,7 @@ void CObjHeal::Action()
 	{
 		hero->SetHP(100);
 		aitemfont->SetAGF(7); //フォント表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
 	}

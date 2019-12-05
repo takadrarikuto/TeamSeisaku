@@ -29,8 +29,8 @@ void CObjTime::Init()
 	m_Event_Rand_num = 0;
 	//イベント開始時間
 	m_time_event = 9050;
-	//タイム増加ペナルティ
-	//m_time_Increase = 0; 
+	//ツールボックス生成フラグ
+	m_Tool_Box_flg = false; 
 
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
@@ -72,6 +72,13 @@ void CObjTime::Action()
 		if (m_Event_Rand_num > 0/*< 50*/)
 		{
 			m_Gen_flg = true;
+			if (m_Tool_Box_flg == false)
+			{
+				//工具箱オブジェクト作成
+				CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
+				Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
+				m_Tool_Box_flg = true;				
+			}
 		}
 		/*else if (m_Event_Rand_num>= 50)
 		{
@@ -111,6 +118,8 @@ void CObjTime::Action()
 		m_MND_flg = false;	
 		//装置修理フラグ
 		m_Repairing_flg = false;
+		//ツールボックス生成フラグ
+		m_Tool_Box_flg = false;
 	}
 
 	//制限時間0でゲームクリアシーン移行
