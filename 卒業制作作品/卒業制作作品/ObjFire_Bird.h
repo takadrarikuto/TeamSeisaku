@@ -13,8 +13,8 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	//float GetX() { return m_zex; } //エネミー情報取得用
-	//float GetY() { return m_zey; }
+	float GetX() { return m_fbx; } //x位置情報取得用
+	float GetY() { return m_fby; } //y位置情報取得用
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 
 private:
@@ -46,5 +46,6 @@ private:
 	//死亡処理
 	int m_fb_death_time; //死亡タイム
 	int m_fb_death_time_max; //死亡タイム最大値
-
+	int m_fb_Flashing_time; //点滅タイム
+	bool m_fb_Flashing_flg; //点滅フラグ
 };

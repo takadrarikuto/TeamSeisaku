@@ -23,6 +23,7 @@ public:
 
 	int GetWS() { return m_Weapon_switching; }
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
+	int GetEN() { return m_hero_en; }	//主人公の耐久力を取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
 	bool GetDel() { return m_del; } //削除チェック
 
@@ -59,6 +60,7 @@ public:
 	void SetVX(float vx) { m_vx = vx; }
 	void SetVY(float vy) { m_vy = vy; }
 	void SetHP(int hp) { m_hero_hp = hp; }
+	void SetEN(int en) { m_hero_en = en; }
 
 	//上下左右別当たり判定確認フラグ設定用
 	void SetUpHit(float uh) { m_UpHit_flg = uh; }    //上
@@ -151,6 +153,7 @@ private:
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 	bool m_Grenade_flg; //グレネード投下処理
 
+	bool m_hg_flg; //ショットガンリロード処理用フラグ
 	bool m_sg_flg; //ショットガンリロード処理用フラグ
 	bool m_ar_flg; //アサルトライフルリロード処理用フラグ
 	bool m_sr_flg; //スナイパーライフルリロード処理用フラグ

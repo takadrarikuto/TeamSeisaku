@@ -5,10 +5,11 @@ enum OBJ_NAME
 {
 	OBJ_NO_NAME,	//オブジェクト名無し(禁止)
 	//ゲームで使うオブジェクトの名前
-	//OBJ_○○と表記
-	OBJ_HERO,
+	//OBJ_○○と表記	
+	OBJ_HERO, //主人公
 	OBJ_PER_DECISION,
 	OBJ_TIME,
+	//銃
 	OBJ_GUNATTACK,
 	OBJ_SHOTGUNATTACK,
 	OBJ_ARATTACK,
@@ -16,12 +17,21 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHERATTACK,
 	OBJ_RAILGUNATTACK,
 	OBJ_GRENADEATTACK,
+	//敵
 	OBJ_ENEMY,
 	OBJ_FIRE_BIRD,
 	OBJ_FIRE_LIZARD,
+	OBJ_BAT_ENEMY,
+	OBJ_SPHERE_TYPE_ENEMY,
+	//中ボス
+	OBJ_MEME_MEDIUM_BOSS,
+	//ボス
 	OBJ_BOSS,
-	OBJ_APPARATUS,
+	//装置
+	OBJ_GENERATOR,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
+	OBJ_MEME_NEUTRALIZATION_DEVICE,
+	//血しぶき、爆発エフェクト
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
@@ -39,14 +49,29 @@ enum OBJ_NAME
 	OBJ_AIMING,
 	OBJ_HEAL,
 	OBJ_EVENT,
+	//ドロップアイテム
 	OBJ_SHOTGUN_ITEM,
 	OBJ_AR_ITEM,
 	OBJ_SNIPERRIFLE_ITEM,
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_AITEMDROP,
+	//設置型アイテム
+	OBJ_INSTALL_TYPE_SHG,
+	OBJ_INSTALL_TYPE_AR,
+	OBJ_INSTALL_TYPE_SR,
+	OBJ_INSTALL_TYPE_RANDBOX,
+	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE_V,
+	OBJ_BARBED_WIRE_SMALL,
+	OBJ_NET,
+	OBJ_NET_V,
+	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
+	OBJ_TOOLBOX,
+	OBJ_AITEM_FONT,
 };
 //------------------------------------------------
 
@@ -68,6 +93,11 @@ enum HIT_ELEMENTS
 	ELEMENT_WHITE,
 	ELEMENT_WALL,
 	ELEMENT_WALL2,
+	ELEMENT_FIELD2,
+	ELEMENT_MEME_ND,
+	ELEMENT_NET_V,
+	ELEMENT_NET_S,
+	ELEMENT_BARBED_V,
 };
 //------------------------------------------------
 
@@ -85,6 +115,8 @@ struct UserData
 	int RG_Attack = 200; //レールガン
 	int GRE_Attack = 100;	//グレネード
 	int EXP_Attack = 50; //爆発
+	//有刺鉄線
+	int BarbedWireSmall_Attack = 2;
 
 };
 //------------------------------------------------
@@ -121,8 +153,12 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjZombieEnemy.h"
 #include "ObjFire_Bird.h"
 #include "ObjFire_Lizard.h"
+#include "ObjBat_Enemy.h"
+#include "ObjSphere_Type_Enemy.h"
 
 //中ボス
+#include "ObjMeme_Medium_Boss.h"
+
 //ボス
 #include "ObjBoss.h"
 
@@ -138,7 +174,15 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //設置物
 #include "ObjGenerator.h"
+#include "ObjGenerator2.h"
 #include "ObjEnemy_Neutralization_Device.h"
+#include "ObjEnemy_Neutralization_Device2.h"
+#include "ObjMeme_Neutralization_Device.h"
+#include "ObjBarbedWire.h"
+#include "ObjBarbedWireV.h"
+#include "ObjBarbedWireSmall.h"
+#include "ObjNet.h"
+#include "ObjNetV.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -148,6 +192,13 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjRocketLauncherItem.h"//ロケットランチャー補充用
 #include "ObjRailGunItem.h"//レールガン補充用
 #include "ObjGrenadeItem.h"//グレネード補充用
+#include "ObjArmor.h"//アーマー
+#include "ObjToolBox.h"//工具箱
+#include "ObjAitemDrop.h" //アイテムドロップ
+#include "ObjInstallation_Type_ShotGun.h" //設置型ショットガン補充用
+#include "ObjInstallation_Type_AR.h" //設置型アサルトライフル補充用
+#include "ObjInstallation_Type_SR.h" //設置型スナイパーライフル補充用
+#include "ObjInstallation_Type_RandBox.h" //設置型ランダムアイテムボックス
 
 //イベント
 #include "ObjEvent.h"
@@ -160,6 +211,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //操作説明
 #include "ObjOperation.h"
+
+//フォント
+#include "ObjAitemFont.h"
 
 //チュートリアル
 #include "ObjTutorial.h"
@@ -235,4 +289,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
+
 #define SET_GAME_START  CSceneStage
+

@@ -104,15 +104,25 @@ void CSceneTutorial::InitScene()
 	//下
 	CObjTutoWall4* tu_Wall4 = new CObjTutoWall4(200, 200);
 	Objs::InsertObj(tu_Wall4, OBJ_WALL, 4);
-
+	
 	//音楽情報の読み込み
-	/*Audio::LoadAudio(0, L"選択音.wav", EFFECT);
-	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
-	Audio::LoadAudio(2, L"タイトルBGM.wav", SOUND_TYPE::BACK_MUSIC);*/
+	Audio::LoadAudio(0, L"チュートリアルBGM.wav", SOUND_TYPE::BACK_MUSIC);
+	//音楽情報の読み込み
+	Audio::LoadAudio(1, L"選択音.wav", EFFECT);
+	Audio::LoadAudio(2, L"決定音.wav", EFFECT);
+	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
+	Audio::LoadAudio(4, L"ショットガン銃声.wav", EFFECT);
+	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
+	//6
+	//7
+	//8
+	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
+	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
 
 	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(0.5);
-	//Audio::Start(2);    //音楽スタート
+	float Volume = Audio::VolumeMaster(-0.1);
+	Audio::Start(0);    //音楽スタート
+	
 }
 
 //ゲームメイン実行中メソッド
@@ -125,7 +135,7 @@ void CSceneTutorial::Scene()
 	}
 
 	//敵機オブジェクト作成(チュートリアル用)
-	if (m_tuto_time == 2000)
+	if (m_tuto_time == 1000)
 	{
 		CObjTutoZombieEnemy* obj_ze_tu;
 		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);

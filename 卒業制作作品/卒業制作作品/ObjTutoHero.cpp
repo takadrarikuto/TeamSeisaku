@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjTutoHero.h"
@@ -42,6 +43,9 @@ void CObjTutoHero::Init()
 
 	//体力
 	m_hero_hp = 100;
+
+	//耐久力
+	m_hero_en = 0;
 
 	//移動ベクトル最大値
 	m_v_max = 3.0f;
@@ -1068,19 +1072,19 @@ void CObjTutoHero::Action()
 
 					if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
 					{
-						m_hero_hp -= 5;
+						//m_hero_hp -= 5;
 						m_time_d = 80;		//無敵時間をセット
 					}
 					else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
 					{
-						m_hero_hp -= 2;
+						//m_hero_hp -= 2;
 						m_time_d = 30;		//無敵時間をセット
 					}
 					else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 					{
 						CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 						int EXPDamage = EXPAttack->GetEXP();
-						m_hero_hp -= EXPDamage;
+						//m_hero_hp -= EXPDamage;
 						m_time_d = 80;		//無敵時間をセット
 					}
 					//敵の攻撃によってHPが0以下になった場合
