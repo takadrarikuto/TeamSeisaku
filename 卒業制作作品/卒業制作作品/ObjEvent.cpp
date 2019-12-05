@@ -65,6 +65,8 @@ void CObjEvent::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float h_x = hero->GetX();
 	float h_y = hero->GetY();
+	float h_vx = hero->GetVX();
+	float h_vy = hero->GetVY();
 	int h_hp = hero->GetHP();
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
@@ -102,6 +104,7 @@ void CObjEvent::Action()
 		Tool_box_X = Tool->GetToolX();
 		Tool_box_Y = Tool->GetToolY();
 	}
+
 	//タイムが止まるとイベントタイムスタート
 	if (Menu_flg == false && TStop_flg == true)
 	{		
@@ -129,6 +132,9 @@ void CObjEvent::Action()
 				m_Event_time = 3600; //3600 ＝ 60秒
 				m_App_Rand_Flg = rand() % 5; //装置故障イベント時の装置ランダム選択
 				//1 = 発電機,2 = 発電機2,3 = 敵無力化装置,4 = 敵無力化装置2,5 = 対ミーム実態敵無力化装置
+				//工具箱オブジェクト作成
+				CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
+				Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
 			}
 			m_Event_time_flg = true;
 		}	
@@ -195,10 +201,10 @@ void CObjEvent::Action()
 	r = m_zevx * m_zevx + m_zevy * m_zevy;
 	r = sqrt(r); //ルートを求める
 	*/
-	m_Gene_distance_X = h_x + -Gene_X; //発電機
-	m_Gene_distance_Y = h_y + -Gene_Y;
-	m_Gene2_distance_X = Gene2_X - h_x; //発電機2
-	m_Gene2_distance_Y = Gene2_Y - h_y;
+	m_Gene_distance_X = (h_x - Gene_X) / 2 ; //発電機
+	m_Gene_distance_Y = (h_y + Gene_Y) / 2;
+	m_Gene2_distance_X = (Gene2_X - h_x) / 2; //発電機2
+	m_Gene2_distance_Y = (Gene2_Y - h_y) / 2;
 	//斜めの距離を求める
 	m_Gene_distance_r = m_Gene_distance_X + m_Gene_distance_Y;
 	m_Gene2_distance_r = m_Gene2_distance_X + m_Gene2_distance_Y;

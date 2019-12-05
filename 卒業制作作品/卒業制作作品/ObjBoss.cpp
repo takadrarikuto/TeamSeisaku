@@ -54,25 +54,25 @@ void CObjBoss::Init()
 	//ゾンビ生成数制限
 	m_Zombie_Restriction = 0;
 	//ゾンビ生成タイム最大値
-	m_Zombie_time_max = 600;
+	m_Zombie_time_max = 300;
 	//ゾンビランダム描画切り替え用
 	Ze_dst_flg_num = 1;
 	//ゾンビランダム描画切り替え用フラグ
 	Ze_dst_flg = false;
 //蝙蝠
 	//蝙蝠生成タイム最大値
-	m_Bat_Enemy_time_max = 480; 
+	m_Bat_Enemy_time_max = 420; 
 	//蝙蝠生成数制限
 	m_Bat_Enemy_Restriction = 0; 
 	//蝙蝠生成数カウント変数
 	m_Bat_Enemy_co_num = 1; 
 //火の鳥
 	//火の鳥生成タイム最大値
-	m_Frie_Bird_time_max = 1200;
+	m_Frie_Bird_time_max = 900;
 	//火の鳥生成数制限
 	m_Frie_Bird_Restriction = 0;
 //火トカゲ	
-	m_Frie_Lizard_time_max = 420; //火トカゲ生成タイム最大値
+	m_Frie_Lizard_time_max = 360; //火トカゲ生成タイム最大値
 	m_Frie_Lizard_Restriction = 0; //火トカゲ生成数制限
 //球体型敵	
 	m_Sphere_Type_Enemy_Restriction_Rand = 5; //球体型敵生成数ランダム

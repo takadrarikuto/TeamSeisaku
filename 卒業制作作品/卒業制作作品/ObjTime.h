@@ -14,7 +14,6 @@ public:
 	void Action();	//アクション
 	void Draw();	//ドロー
 
-	//int GetTIncrease() { return m_time_Increase; } //タイム増加ペナルティ取得用
 	bool GetTStop() { return m_Stop_flg; } //時間停止フラグ取得用
 	bool GetTStart() { return m_Start_flg; } //測定開始フラグ取得用
 
@@ -23,7 +22,6 @@ public:
 	bool GetMNDFlg() { return m_MND_flg; } //ミーム実態無力化装置フラグ取得用
 	bool GetRepFlg() { return m_Repairing_flg; } //装置修理イベントフラグ取得用
 
-	//void SetTIncrease(int increase_t) { m_time_Increase = increase_t; } //タイム増加ペナルティ設定用
 	void SetTStop(bool stop_t) { m_Stop_flg = stop_t; }  //時間停止フラグ設定用
 	void SetTStart(bool start_t) { m_Start_flg = start_t; } //測定開始フラグ設定用
 
@@ -49,5 +47,4 @@ private:
 	bool m_MND_flg; //ミーム実態無力化装置フラグ
 	bool m_Repairing_flg; //装置修理イベントフラグ
 
-	bool m_Tool_Box_flg; //ツールボックス生成フラグ
 };
