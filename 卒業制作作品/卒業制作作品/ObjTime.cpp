@@ -67,10 +67,10 @@ void CObjTime::Action()
 	{		
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
-		//if (m_Event_Rand_num > 0/*< 50*/)
-		//{
-		//	m_Gen_flg = true;			
-		//}
+		if (m_Event_Rand_num > 0/*< 50*/)
+		{
+			m_Gen_flg = true;			
+		}
 		/*else if (m_Event_Rand_num>= 50)
 		{
 			m_END_flg = true;
@@ -79,10 +79,10 @@ void CObjTime::Action()
 		{
 			m_MND_flg = true;
 		}*/
-		if (m_Event_Rand_num >= 0)
+		/*if (m_Event_Rand_num >= 0)
 		{
 			m_Repairing_flg = true;			
-		}
+		}*/
 		m_Stop_flg = true;
 	}
 	//タイム再スタート処理
