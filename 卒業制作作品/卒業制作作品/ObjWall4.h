@@ -12,6 +12,9 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
+	float GetX() { return m_Wallx; } //X位置情報取得用
+	float GetY() { return m_Wally; } //Y位置情報取得用
+
 private:
 	float m_Wallx; //位置情報
 	float m_Wally;

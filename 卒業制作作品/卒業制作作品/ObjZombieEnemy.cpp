@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjZombieEnemy.h"
@@ -607,43 +608,43 @@ void CObjZombieEnemy::Action()
 		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//グレネード
 		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
@@ -654,7 +655,7 @@ void CObjZombieEnemy::Action()
 		else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-			m_time_d = 120;		//点滅時間をセット
+			m_time_d = 100;		//点滅時間をセット
 		}
 	}
 	
@@ -667,7 +668,7 @@ void CObjZombieEnemy::Action()
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
-
+		Audio::Start(15);
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

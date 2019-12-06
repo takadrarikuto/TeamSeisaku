@@ -17,6 +17,8 @@ public:
 
 	void SetToolBox(bool toolbox) { m_ToolBox_flg = toolbox; } //ツールボックス画像表示フラグ設定用
 
+	int GetA_G_F() { return Aitem_Get_Font; }	//アイテムフォントを取得
+
 private:
 	float m_Aitem_Font_x; //位置情報
 	float m_Aitem_Font_y;

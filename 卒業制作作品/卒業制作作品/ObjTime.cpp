@@ -29,8 +29,6 @@ void CObjTime::Init()
 	m_Event_Rand_num = 0;
 	//イベント開始時間
 	m_time_event = 9050;
-	//タイム増加ペナルティ
-	//m_time_Increase = 0; 
 
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
@@ -69,10 +67,10 @@ void CObjTime::Action()
 	{		
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
-		if (m_Event_Rand_num > 0/*< 50*/)
-		{
-			m_Gen_flg = true;
-		}
+		//if (m_Event_Rand_num > 0/*< 50*/)
+		//{
+		//	m_Gen_flg = true;			
+		//}
 		/*else if (m_Event_Rand_num>= 50)
 		{
 			m_END_flg = true;
@@ -81,10 +79,10 @@ void CObjTime::Action()
 		{
 			m_MND_flg = true;
 		}*/
-		/*if (m_Event_Rand_num >= 0)
+		if (m_Event_Rand_num >= 0)
 		{
-			m_Repairing_flg = true;
-		}*/
+			m_Repairing_flg = true;			
+		}
 		m_Stop_flg = true;
 	}
 	//タイム再スタート処理

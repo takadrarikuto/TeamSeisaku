@@ -56,6 +56,7 @@ void CObjARItem::Action()
 		hero->SetAR(300);		//主人公に当たると弾補充
 		aitemfont->SetAitemNum(300); //弾数表示
 		aitemfont->SetAGF(2); //フォント表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

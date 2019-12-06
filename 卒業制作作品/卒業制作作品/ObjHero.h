@@ -153,6 +153,7 @@ private:
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 	bool m_Grenade_flg; //グレネード投下処理
 
+	bool m_hg_flg; //ショットガンリロード処理用フラグ
 	bool m_sg_flg; //ショットガンリロード処理用フラグ
 	bool m_ar_flg; //アサルトライフルリロード処理用フラグ
 	bool m_sr_flg; //スナイパーライフルリロード処理用フラグ

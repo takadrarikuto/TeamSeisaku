@@ -64,9 +64,17 @@ void CSceneStage::InitScene()
 	//8
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
+	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
+	Audio::LoadAudio(12, L"アイテム獲得音.wav", EFFECT);
+	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
+	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
+	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
+	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
+	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
+	//18 成功音
 
 	//バックミュージックスタート
-	float Volume = Audio::VolumeMaster(-0.3);
+	//float Volume = Audio::VolumeMaster(-0.3);
 	Audio::Start(0); //音楽スタート
 
 	//エネミー出現タイム初期化
@@ -101,10 +109,10 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(obj_boss, OBJ_BOSS, 2);	
 
 	//発電機オブジェクト作成	
-	CObjGenerator* Gen = new CObjGenerator(-300, -400);//(200,200)
+	CObjGenerator* Gen = new CObjGenerator(-300, -400);
 	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
-	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);//(500,200)
+	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);
 	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
 
 	//敵無力化装置オブジェクト作成
@@ -124,108 +132,108 @@ void CSceneStage::InitScene()
 	for (int x = -402; x < 0; x += 202)
 	{
 		Barbed = new CObjBarbedWire(x, -300);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	for (int x = -400; x < -103; x += 101)
 	{
 		Barbed = new CObjBarbedWire(x, -500);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	//左下
 	for (int x = -425; x < -23; x += 202)
 	{
 		Barbed = new CObjBarbedWire(x, 800);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	for (int x = -427; x < -130; x += 101)
 	{
 		Barbed = new CObjBarbedWire(x, 1000);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	//右上
 	for (int x = 973; x < 1375; x += 202)
 	{
 		Barbed = new CObjBarbedWire(x, -300);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	for (int x = 975; x < 1278; x += 101)
 	{
 		Barbed = new CObjBarbedWire(x, -500);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	//右下
 	for (int x = 998; x < 1400; x += 202)
 	{
 		Barbed = new CObjBarbedWire(x, 800);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 	for (int x = 1000; x < 1303; x += 101)
 	{
 		Barbed = new CObjBarbedWire(x, 1000);
-		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 7);
+		Objs::InsertObj(Barbed, OBJ_BARBED_WIRE, 3);
 	}
 
 	//有刺鉄線オブジェクト作成 x=72 y=202(縦)
 	CObjBarbedWireV* BarbedV;
 	//左上
 	BarbedV = new CObjBarbedWireV(-400, -430, false);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	BarbedV = new CObjBarbedWireV(-170, -430, true);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	//左下
 	BarbedV = new CObjBarbedWireV(-425, 872, false);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	BarbedV = new CObjBarbedWireV(-195, 872, true);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	//右上
 	BarbedV = new CObjBarbedWireV(975, -430, false);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	BarbedV = new CObjBarbedWireV(1207, -430, true);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);	
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);	
 	//右下
 	BarbedV = new CObjBarbedWireV(998, 872, false);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	BarbedV = new CObjBarbedWireV(1229, 872, true);
-	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 7);
+	Objs::InsertObj(BarbedV, OBJ_BARBED_WIRE_V, 3);
 	
 
-	//有刺鉄線オブジェクト作成 x=68 y=53
+	//有刺鉄線(ミニ)オブジェクト作成 x=68 y=53
 	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
 	//左内
 	for (int y = 120; y < 650; y += 53)
 	{
 		BarbedS = new CObjBarbedWireSmall(-25, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	}
 	//左外
 	for (int y = -30; y < 500; y += 53)
 	{
 		BarbedS = new CObjBarbedWireSmall(-425, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	}
 	//右内
 	for (int y = -30; y < 500; y += 53)
 	{
 		BarbedS = new CObjBarbedWireSmall(775, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	}
 	//右外
 	for (int y = 120; y < 650; y += 53)
 	{
 		BarbedS = new CObjBarbedWireSmall(1175, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	}
 	//上
 	for (int x = 302; x < 504; x += 68)
 	{
 		BarbedS = new CObjBarbedWireSmall(x, -225);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	}
 	//下
 	for (int x = 302; x < 504; x += 68)
 	{
 		BarbedS = new CObjBarbedWireSmall(x, 800);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 7);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	}
 
 	//網オブジェクト作成(横) x=202 y=72
@@ -235,25 +243,25 @@ void CSceneStage::InitScene()
 	for (int x = -602; x < 206; x += 202)
 	{
 		Net = new CObjNet(x, -100);
-		Objs::InsertObj(Net, OBJ_NET, 7);
+		Objs::InsertObj(Net, OBJ_NET, 3);
 	}
 	//左下
 	for (int x = -602; x < 206; x += 202)
 	{
 		Net = new CObjNet(x, 650);
-		Objs::InsertObj(Net, OBJ_NET, 7);
+		Objs::InsertObj(Net, OBJ_NET, 3);
 	}
 	//右上
 	for (int x = 602; x < 1408; x += 202)
 	{
 		Net = new CObjNet(x, -100);
-		Objs::InsertObj(Net, OBJ_NET, 7);
+		Objs::InsertObj(Net, OBJ_NET, 3);
 	}
 	//右下
 	for (int x = 602; x < 1408; x += 202)
 	{
 		Net = new CObjNet(x, 650);
-		Objs::InsertObj(Net, OBJ_NET, 7);
+		Objs::InsertObj(Net, OBJ_NET, 3);
 	}
 	//------------------------------------------
 
@@ -264,48 +272,45 @@ void CSceneStage::InitScene()
 	for (int y = -302; y < -100; y += 202)
 	{
 		NetV = new CObjNetV(134, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
+		Objs::InsertObj(NetV, OBJ_NET, 3);
 	}
 	//左下
 	for (int y = 722; y < 924; y += 202)
 	{
 		NetV = new CObjNetV(134, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
+		Objs::InsertObj(NetV, OBJ_NET, 3);
 	}
 	//右上
 	for (int y = -302; y < -100; y += 202)
 	{
 		NetV = new CObjNetV(602, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
+		Objs::InsertObj(NetV, OBJ_NET, 3);
 	}
 	//右下
 	for (int y = 722; y < 924; y += 202)
 	{
 		NetV = new CObjNetV(602, y);
-		Objs::InsertObj(NetV, OBJ_NET, 7);
+		Objs::InsertObj(NetV, OBJ_NET, 3);
 	}
 	//------------------------------------------
 	
 	//アイテムオブジェクト作成	
-	
 	//ロケットランチャー弾補充
 	CObjRocketLauncherItem* RLi = new CObjRocketLauncherItem(50, -150);
-	Objs::InsertObj(RLi, OBJ_ROCKETLAUNCHER_ITEM, 7);
+	Objs::InsertObj(RLi, OBJ_ROCKETLAUNCHER_ITEM, 4);
 	//レールガン弾補充
 	CObjRailGunItem* RGi = new CObjRailGunItem(700, -150);
-	Objs::InsertObj(RGi, OBJ_RAILGUN_ITEM, 7);
+	Objs::InsertObj(RGi, OBJ_RAILGUN_ITEM, 4);
 	//グレネード補充
 	CObjGrenadeItem* GREi = new CObjGrenadeItem(70, 730);
-	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 7);
+	Objs::InsertObj(GREi, OBJ_GRENADE_ITEM, 4);
 	//回復
 	CObjHeal* Heal = new CObjHeal(700, 730);
-	Objs::InsertObj(Heal, OBJ_HEAL, 7);
+	Objs::InsertObj(Heal, OBJ_HEAL, 4);
 	//アーマー
 	CObjArmor* Armor = new CObjArmor(381.0f, 150.0f);
-	Objs::InsertObj(Armor, OBJ_ARMOR, 7);
-	//工具箱
-	CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
-	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 7);
+	Objs::InsertObj(Armor, OBJ_ARMOR, 4);
+	
 
 	//アイテムドロップオブジェクト作成	
 	CObjAitemDrop* obj_ad = new CObjAitemDrop();
@@ -327,16 +332,16 @@ void CSceneStage::InitScene()
 	//壁オブジェクト作成
 	//左
 	CObjWall* Wall = new CObjWall(200, 200);
-	Objs::InsertObj(Wall, OBJ_WALL, 5);
+	Objs::InsertObj(Wall, OBJ_WALL, 6);
 	//右
 	CObjWall2* Wall2 = new CObjWall2(200, 200);
-	Objs::InsertObj(Wall2, OBJ_WALL, 5);
+	Objs::InsertObj(Wall2, OBJ_WALL, 6);
 	//上
 	CObjWall3* Wall3 = new CObjWall3(200, 200);
-	Objs::InsertObj(Wall3, OBJ_WALL, 5);
+	Objs::InsertObj(Wall3, OBJ_WALL, 6);
 	//下
 	CObjWall4* Wall4 = new CObjWall4(200, 200);
-	Objs::InsertObj(Wall4, OBJ_WALL, 5);
+	Objs::InsertObj(Wall4, OBJ_WALL, 6);
 
 	//フォント
 	//アイテム獲得フォントオブジェクト作成
