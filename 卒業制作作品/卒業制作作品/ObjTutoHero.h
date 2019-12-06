@@ -147,10 +147,18 @@ private:
 	int m_rg_pb_num;//レールガン残り弾数
 	int m_gre_pb_num;//グレネード残り弾数
 
+	int m_rel_time_hg;//ハンドガン　リロード用タイム
+	//int m_rel_time_sg;//ショットガン　リロード用タイム
+	//int m_rel_time_ar;//アサルトライフル　リロード用タイム
+	//int m_rel_time_sr;//スナイパーライフル　リロード用タイム
+	//int m_rel_time_rl;//ロケットランチャー　リロード用タイム
+	//int m_rel_time_rg;//レールガン　リロード用タイム
+
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 	bool m_Grenade_flg; //グレネード投下処理
 
+	bool m_hg_flg; //ショットガンリロード処理用フラグ
 	bool m_sg_flg; //ショットガンリロード処理用フラグ
 	bool m_ar_flg; //アサルトライフルリロード処理用フラグ
 	bool m_sr_flg; //スナイパーライフルリロード処理用フラグ
