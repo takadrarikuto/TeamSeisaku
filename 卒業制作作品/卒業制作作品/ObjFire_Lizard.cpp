@@ -279,38 +279,100 @@ void CObjFire_Lizard::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true || hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{				
+				//発、敵無力
+				if (hit_fl->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_fl->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r < 4 && r >= 0) || r > 356)
+					{
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r > 2 && r < 178)
+					{
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r > 176 && r < 184)
+					{
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 182 && r < 358)
+					{
+						m_flvy = m_flvy - m_flv_max;
+					}
+				}
+				//ミーム
+				if (hit_fl->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 45) || r >= 315)
+					{
+						m_RightHit_flg = true; //右
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r >= 45 && r < 135)
+					{
+						m_UpHit_flg = true;    //上
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r >= 135 && r <= 225)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 225 && r < 315)
+					{
+						m_DownHit_flg = true;	 //下
+						m_flvy = m_flvy - m_flv_max;
+					}
+				}				
+			}
+		}
+	}
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
+	{
+		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD2);
 		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
 			{
 				float r = hit_data[i]->r;
-
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
+				//発、敵無力
+				if (hit_fl->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_fl->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
 				{
-					m_flvx = m_flvx - m_flv_max;
-				}
-				else if (r > 2 && r < 178)
-				{
-					m_flvy = m_flvy + m_flv_max;
-				}
-				else if (r > 176 && r < 184)
-				{
-					m_flvx = m_flvx + m_flv_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_flvy = m_flvy - m_flv_max;
+					//角度で上下左右を判定
+					if ((r < 4 && r >= 0) || r > 356)
+					{
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r > 2 && r < 178)
+					{
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r > 176 && r < 184)
+					{
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 182 && r < 358)
+					{
+						m_flvy = m_flvy - m_flv_max;
+					}
 				}
 			}
 		}
 	}
-
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
 	{
