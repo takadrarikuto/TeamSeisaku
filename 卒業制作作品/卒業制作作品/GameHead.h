@@ -8,6 +8,7 @@ enum OBJ_NAME
 	//OBJ_○○と表記	
 	OBJ_HERO, //主人公
 	OBJ_PER_DECISION,
+	OBJ_FOOTPRINT,
 	OBJ_TIME,
 	//銃
 	OBJ_GUNATTACK,
@@ -29,7 +30,9 @@ enum OBJ_NAME
 	OBJ_BOSS,
 	//装置
 	OBJ_GENERATOR,
+	OBJ_GENERATOR2,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
+	OBJ_ENEMY_NEUTRALIZATION_DEVICE2,
 	OBJ_MEME_NEUTRALIZATION_DEVICE,
 	//血しぶき、爆発エフェクト
 	OBJ_BLOOD_SPLASH,
@@ -38,6 +41,7 @@ enum OBJ_NAME
 	OBJ_TUTORIAL,
 	OBJ_STAGE,
 	OBJ_TITLE,
+	OBJ_LEVEL,
 	OBJ_OP,
 	OBJ_OPERATION,
 	OBJ_CLEAR,
@@ -169,6 +173,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //爆発
 #include "ObjExplosion.h"
 
+//足跡
+#include "ObjFootprint.h"
+
 //ステージ
 #include "ObjStage.h"
 
@@ -205,6 +212,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //タイトル
 #include "ObjTitle.h"
+
+//難易度
+#include "ObjDifficulty_Level.h"
 
 //あらすじ
 #include "ObjOP.h"
@@ -266,6 +276,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //タイトル
 #include "SceneTitle.h"
+
+//難易度
+#include "SceneDifficulty_Level.h"
 
 //あらすじ
 #include "SceneOP.h"

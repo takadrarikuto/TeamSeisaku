@@ -322,8 +322,8 @@ void CObjStage::Draw()
 	}
 
 	//その他表示
-	Font::StrDraw(L"武器切替：左右キー", 470, 13, 18, c);
-	Font::StrDraw(L"リロード：下キー", 470, 36, 18, c);
+	Font::StrDraw(L"攻撃：上キー", 470, 13, 18, c);
+	Font::StrDraw(L"武器切替：左右キー", 470, 36, 18, c);
 	Font::StrDraw(L"MENU画面：Eキー", 643, 13, 18, c);
 	Font::StrDraw(L"グレネード：Qキー", 640, 36, 18, c);
 }

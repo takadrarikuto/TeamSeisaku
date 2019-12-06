@@ -120,7 +120,7 @@ void CObjGunAttack::Action()
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 	//フィールドエレメントと接触すると削除
-	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true || hit_ga->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		if (hit_ga->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_ga->CheckObjNameHit(OBJ_ARMOR) != nullptr
 			|| hit_ga->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_ga->CheckObjNameHit(OBJ_HEAL) != nullptr

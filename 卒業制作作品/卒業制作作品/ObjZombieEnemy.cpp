@@ -109,6 +109,9 @@ void CObjZombieEnemy::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -363,8 +366,7 @@ void CObjZombieEnemy::Action()
 		for (int i = 0; i < hit_ze->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
-			{
-				
+			{				
 				//発,敵無力
 				if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr
 					|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
@@ -393,7 +395,7 @@ void CObjZombieEnemy::Action()
 					}
 				}
 				//ミーム
-				if (hit_data != nullptr)
+				if (hit_ze->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
 				{
 					float r = hit_data[i]->r;
 					//角度で上下左右を判定
@@ -432,8 +434,8 @@ void CObjZombieEnemy::Action()
 			{
 				float r = hit_data[i]->r;
 				//発、敵無力
-				if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr
-					|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
+				if (hit_ze->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
 				{
 					//角度で上下左右を判定
 					if ((r > 0 && r < 30) || r >= 330)
@@ -565,11 +567,11 @@ void CObjZombieEnemy::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
-
 		HIT_DATA** hit_data;
 		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
+		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD2);
 		for (int i = 0; i < hit_ze->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
@@ -608,43 +610,43 @@ void CObjZombieEnemy::Action()
 		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//グレネード
 		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
@@ -669,6 +671,7 @@ void CObjZombieEnemy::Action()
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 		Audio::Start(15);
+		boss->SetZR(1);
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

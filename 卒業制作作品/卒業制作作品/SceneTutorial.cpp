@@ -118,9 +118,11 @@ void CSceneTutorial::InitScene()
 	//8
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
-
+	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
+	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
+	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
 	//バックミュージックスタート
-	float Volume = Audio::VolumeMaster(-0.1);
+	//float Volume = Audio::VolumeMaster(-0.1);
 	Audio::Start(0);    //音楽スタート
 	
 }
@@ -128,14 +130,10 @@ void CSceneTutorial::InitScene()
 //ゲームメイン実行中メソッド
 void CSceneTutorial::Scene()
 {
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
-	{
-		m_tuto_time++;
-	}
+	m_tuto_time++;
 
 	//敵機オブジェクト作成(チュートリアル用)
-	if (m_tuto_time == 1000)
+	if (m_tuto_time == 1250)
 	{
 		CObjTutoZombieEnemy* obj_ze_tu;
 		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);

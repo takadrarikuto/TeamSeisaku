@@ -82,14 +82,14 @@ void CObjEvent::Action()
 	CObjGenerator* Gene = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
 	float Gene_X = Gene->GetGenX();
 	float Gene_Y = Gene->GetGenY();
-	CObjGenerator2* Gene2 = (CObjGenerator2*)Objs::GetObj(OBJ_GENERATOR);
-	float Gene2_X = Gene2->GetGenX();
-	float Gene2_Y = Gene2->GetGenY();
+	CObjGenerator2* Gene2 = (CObjGenerator2*)Objs::GetObj(OBJ_GENERATOR2);
+	float Gene2_X = Gene2->GetGen2X();
+	float Gene2_Y = Gene2->GetGen2Y();
 	//敵無力化装置情報取得
 	CObjEnemy_Neutralization_Device* END = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
 	float END_X = END->GetEndX();
 	float END_Y = END->GetEndY();
-	CObjEnemy_Neutralization_Device2* END2 = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	CObjEnemy_Neutralization_Device2* END2 = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
 	float END2_X = END2->GetEndX();
 	float END2_Y = END2->GetEndY();
 	//対ミーム実態無力化装置情報取得
@@ -209,8 +209,8 @@ void CObjEvent::Action()
 	r = m_zevx * m_zevx + m_zevy * m_zevy;
 	r = sqrt(r); //ルートを求める
 	*/
-	m_Gene_distance_X = (h_x - Gene_X/*h_x - Gene_X*/) / 2 ; //発電機
-	m_Gene_distance_Y = (h_y - Gene_Y/*h_y + Gene_Y*/) / 2;
+	m_Gene_distance_X = (Gene_X - h_x/*h_x - Gene_X*/) / 2 ; //発電機
+	m_Gene_distance_Y = (Gene_Y - h_y/*h_y + Gene_Y*/) / 2;
 	m_Gene2_distance_X = (Gene2_X - h_x) / 2; //発電機2
 	m_Gene2_distance_Y = (Gene2_Y - h_y) / 2;
 	//斜めの距離を求める
@@ -259,39 +259,35 @@ void CObjEvent::Draw()
 		Font::StrDraw(str, 27, 85, 28, c);
 	}
 	//イベント内容
-	//if (Menu_flg == false && TStop_flg == true)
-	//{
-	//	//発電機イベント
-	//	if (Gen_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dm or %dm",m_Gene_distance_r,m_Gene2_distance_r); //クリア条件
-	//	}
-	//	//敵無力化装置イベント
-	//	else if (END_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : SCP-354-3が大量発生しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
-	//	}
-	//	//ミーム実態無力化装置イベント
-	//	else if (MND_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : SCP-354-13が出現しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
-	//	}
-	//	//装置修理イベント
-	//	else if (Rep_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : 装置が故障しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件
-	//	}
-	//	Font::StrDraw(str, 300, 65, 20, blk);
-	//	Font::StrDraw(str_a, 300, 95, 20, blk);
-	//}	
+	if (Menu_flg == false && TStop_flg == true)
+	{
+		//発電機イベント
+		if (Gen_flg == true)
+		{
+			swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
+			swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dｍ or %dｍ", -m_Gene_distance_r, m_Gene2_distance_r); //クリア条件
+		}
+		////敵無力化装置イベント
+		////else if (END_flg == true)
+		////{
+		////	swprintf_s(str, L"イベンド発生中 : SCP-354-3が大量発生しました。"); //イベント内容
+		////	swprintf_s(str_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
+		////}
+		////ミーム実態無力化装置イベント
+		////else if (MND_flg == true)
+		////{
+		////	swprintf_s(str, L"イベンド発生中 : SCP-354-13が出現しました。"); //イベント内容
+		////	swprintf_s(str_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
+		////}
+		////装置修理イベント
+		////else if (Rep_flg == true)
+		////{
+		////	swprintf_s(str, L"イベンド発生中 : 装置が故障しました。"); //イベント内容
+		////	swprintf_s(str_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件
+		////}
+		Font::StrDraw(str, 300, 65, 20, blk);
+		Font::StrDraw(str_a, 300, 95, 20, blk);
+	}	
 
-	swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
-	swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dｍ or %dｍ",m_Gene_distance_r,m_Gene2_distance_r); //クリア条件
-	Font::StrDraw(str, 0, 120, 20, blk);
-	Font::StrDraw(str_a, 0, 150, 20, blk);
-
+	
 }

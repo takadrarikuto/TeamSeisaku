@@ -113,14 +113,14 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
 	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);
-	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
+	Objs::InsertObj(Gen2, OBJ_GENERATOR2, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);//(400,200)
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
-	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
+	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
 	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(375, -500);

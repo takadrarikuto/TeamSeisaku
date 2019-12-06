@@ -25,4 +25,6 @@ private:
 	int ws_num;
 
 	int Aitem_get_font;
+
+	int zombie_count_tu;
 };

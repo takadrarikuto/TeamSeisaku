@@ -80,15 +80,15 @@ void CObjHero::Init()
 
 	//所持弾数(装備分)
 	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = 8;//ショットガン現在弾数用(上部表示用)
-	m_ar_pb = 30;//アサルトライフル現在弾数用(上部表示用)
-	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)
+	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)//30
+	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)//30
+	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)//5
 	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
 	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
 
 	//所持弾数(計算用)
-	m_sg_pb_c = 8;//ショットガン現在弾数用
-	m_ar_pb_c = 30;//アサルトライフル現在弾数用
+	m_sg_pb_c = 6;//ショットガン現在弾数用
+	m_ar_pb_c = 20;//アサルトライフル現在弾数用
 	m_sr_pb_c = 5;//スナイパーライフル現在弾数用
 	m_rl_pb_c = 1;//ロケットランチャー現在弾数用
 	m_rg_pb_c = 1;//レールガン現在弾数用
@@ -100,9 +100,9 @@ void CObjHero::Init()
 	m_rg_pb_cc = 0;//レールガン現在弾数用
 
 	//メニュー表示用
-	m_sg_pb_me = 80;//ショットガン
-	m_ar_pb_me = 300;//アサルトライフル
-	m_sr_pb_me = 50;//スナイパーライフル
+	m_sg_pb_me = 60;//ショットガン
+	m_ar_pb_me = 200;//アサルトライフル
+	m_sr_pb_me = 30;//スナイパーライフル
 	m_rl_pb_me = 2;//ロケットランチャー
 	m_rg_pb_me = 1;//レールガン
 	m_gre_pb_me = 3;//グレネード
@@ -254,19 +254,6 @@ void CObjHero::Action()
 			//HitBoxの内容を更新
 			CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 			
-
-			//設置物オブジェクト情報作成
-			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
-			float GenX = Gen->GetGenX();
-			float GenY = Gen->GetGenY();
-			float GenHitX = Gen->GetGenHitX();
-			float GenHitY = Gen->GetGenHitY();
-			CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-			float EndX = End->GetEndX();
-			float EndY = End->GetEndY();
-			float EndHitX = End->GetEndHitX();
-			float EndHitY = End->GetEndHitY();
-
 			//上下左右別当たり判定確認フラグ常時初期化
 			m_UpHit_flg = false;    //上
 			m_DownHit_flg = false;	 //下
@@ -801,44 +788,44 @@ void CObjHero::Action()
 						if (m_UDani_frame == 0)
 						{
 							//ショットガンアタックオブジェクト作成
-							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
+							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max / 3, -m_ga_vy_max, 150.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
-							obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
+							obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max / 3, -m_ga_vy_max, 210.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//ショットガンアタックオブジェクト作成
-							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max, 60.0f);
+							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max / 3, 60.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
-							obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max, 120.0f);
+							obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max / 3, 120.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//ショットガンアタックオブジェクト作成
-							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max, m_ga_vy_max, -30.0f);
+							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max / 3, m_ga_vy_max, -30.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 0.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
-							obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max, m_ga_vy_max, 30.0f);
+							obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max / 3, m_ga_vy_max, 30.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//ショットガンアタックオブジェクト作成
-							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max, 240.0f);
+							CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max / 3, 240.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 							obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
-							obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max, 300.0f);
+							obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max / 3, 300.0f);
 							Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
@@ -904,28 +891,28 @@ void CObjHero::Action()
 						if (m_UDani_frame == 0)
 						{
 							//スナイパーアタックオブジェクト作成
-							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
+							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max * 2, 0.0f);
 							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//スナイパーアタックオブジェクト作成
-							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
+							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max * 2, 0, 270.0f);
 							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//スナイパーアタックオブジェクト作成
-							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
+							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max * 2, 180.0f);
 							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//スナイパーアタックオブジェクト作成
-							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
+							CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max * 2, 0, 90.0f);
 							Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
@@ -1034,7 +1021,19 @@ void CObjHero::Action()
 					{
 						Audio::Start(10);
 					}
+					if (m_Weapon_switching == 2 && m_ar_pb <= 0)
+					{
+						Audio::Start(10);
+					}
 					if (m_Weapon_switching == 3 && m_sr_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+					if (m_Weapon_switching == 4 && m_rl_pb <= 0)
+					{
+						Audio::Start(10);
+					}
+					if (m_Weapon_switching == 5 && m_rg_pb <= 0)
 					{
 						Audio::Start(10);
 					}
@@ -1193,7 +1192,7 @@ void CObjHero::Action()
 
 						//計算後 = 現在残り弾数 + 打った数
 						m_sr_pb = m_sr_pb + m_sr_pb_cc;
-
+						Audio::Start(13);
 						m_sr_flg = false;
 					}
 				}			
@@ -1226,6 +1225,7 @@ void CObjHero::Action()
 
 						//計算後 = 現在残り弾数 + 打った数
 						m_rl_pb = m_rl_pb + m_rl_pb_cc;
+						Audio::Start(13);
 						m_rl_flg = false;
 					}
 				}				
@@ -1579,7 +1579,7 @@ void CObjHero::Draw()
 
 	RECT_F src;
 	RECT_F dst;
-
+	
 	//切り取り処理
 	src.m_top = 7.0f + m_UDani_frame * 16.0f;
 	src.m_left = 145.0f + LRAniData[m_LRani_frame] * 24.0f;
@@ -1590,7 +1590,8 @@ void CObjHero::Draw()
 	dst.m_left = 0.0f + m_x;
 	dst.m_right = m_dst_size + m_x;
 	dst.m_bottom = m_dst_size + m_y;
-
+	
+	//ダメージを受けると赤く光る
 	if (m_time_d > 0) {
 		Draw::Draw(8, &src, &dst, a, 0.0f);
 	}
