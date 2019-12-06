@@ -146,7 +146,7 @@ void CObjGrenadeAttack::Action()
 				//爆発オブジェクト作成
 				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+				Audio::Start(9);
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 			}
