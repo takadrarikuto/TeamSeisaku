@@ -332,21 +332,25 @@ void CObjMenu::Draw()
 		//表示説明用
 		swprintf_s(str, L"残り弾数/最大所持弾数", 15);
 		Font::StrDraw(str, 410, 370, 25, c);
+		swprintf_s(str, L"選択：上下キー", 15);
+		Font::StrDraw(str, 125, 440, 25, c);
+		swprintf_s(str, L"決定：Enterキー", 15);
+		Font::StrDraw(str, 125, 480, 25, c);
 
 		//操作説明メニュー用
-		//切り取り位置の設定
-		src.m_top = 75.0f;
-		src.m_left = 0.0f;
-		src.m_right = 800.0f;
-		src.m_bottom = 490.0f;
+		////切り取り位置の設定
+		//src.m_top = 75.0f;
+		//src.m_left = 0.0f;
+		//src.m_right = 800.0f;
+		//src.m_bottom = 490.0f;
 
-		//表示位置の設定
-		dst.m_top = 415.0f;
-		dst.m_left = 75.0f;
-		dst.m_right = 375.0f;
-		dst.m_bottom = 565.0f;
-		//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
-		Draw::Draw(33, &src, &dst, c, 0.0f);
+		////表示位置の設定
+		//dst.m_top = 415.0f;
+		//dst.m_left = 75.0f;
+		//dst.m_right = 375.0f;
+		//dst.m_bottom = 565.0f;
+		////0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
+		//Draw::Draw(33, &src, &dst, c, 0.0f);
 
 		//-------------------------------------------------------------------
 
