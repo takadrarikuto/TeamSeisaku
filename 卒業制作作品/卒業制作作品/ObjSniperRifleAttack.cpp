@@ -132,7 +132,7 @@ void CObjSniperRifleAttack::Action()
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 	//フィールドエレメントと接触すると削除
-	if (hit_sr->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_sr->CheckElementHit(ELEMENT_FIELD) == true || hit_sr->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		if (hit_sr->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_sr->CheckObjNameHit(OBJ_ARMOR) != nullptr
 			|| hit_sr->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_sr->CheckObjNameHit(OBJ_HEAL) != nullptr

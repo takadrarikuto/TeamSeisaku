@@ -279,10 +279,11 @@ void CObjFire_Lizard::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true || hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD);
+		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD2);
 		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)

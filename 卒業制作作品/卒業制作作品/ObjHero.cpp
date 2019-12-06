@@ -254,19 +254,6 @@ void CObjHero::Action()
 			//HitBoxの内容を更新
 			CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 			
-
-			//設置物オブジェクト情報作成
-			CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
-			float GenX = Gen->GetGenX();
-			float GenY = Gen->GetGenY();
-			float GenHitX = Gen->GetGenHitX();
-			float GenHitY = Gen->GetGenHitY();
-			CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-			float EndX = End->GetEndX();
-			float EndY = End->GetEndY();
-			float EndHitX = End->GetEndHitX();
-			float EndHitY = End->GetEndHitY();
-
 			//上下左右別当たり判定確認フラグ常時初期化
 			m_UpHit_flg = false;    //上
 			m_DownHit_flg = false;	 //下

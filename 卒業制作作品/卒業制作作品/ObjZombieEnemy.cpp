@@ -565,11 +565,11 @@ void CObjZombieEnemy::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
-
 		HIT_DATA** hit_data;
 		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
+		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD2);
 		for (int i = 0; i < hit_ze->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)

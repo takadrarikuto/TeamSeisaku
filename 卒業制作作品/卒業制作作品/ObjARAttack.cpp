@@ -129,7 +129,7 @@ void CObjARAttack::Action()
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 	//フィールドエレメントと接触すると削除
-	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true || hit_ar->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		if (hit_ar->CheckObjNameHit(OBJ_AR_ITEM) != nullptr|| hit_ar->CheckObjNameHit(OBJ_ARMOR) != nullptr 
 			|| hit_ar->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_ar->CheckObjNameHit(OBJ_HEAL) != nullptr 
