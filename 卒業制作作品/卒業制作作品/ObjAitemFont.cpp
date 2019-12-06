@@ -39,7 +39,7 @@ void CObjAitemFont::Action()
 	if (Aitem_Get_Font > 0)
 	{
 		m_Font_time++;
-		if (m_Font_time > 60)
+		if (m_Font_time > 120)
 		{
 			Aitem_Get_Font = 0;
 			m_Font_time = 0;
@@ -100,15 +100,15 @@ void CObjAitemFont::Draw()
 		{
 			swprintf_s(str, L"ツールボックスを獲得しました。");
 		}		
-		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, fc); //アイテム取得でフォント表示
+		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, c); //アイテム取得でフォント表示
 	}	
 	
 
 	//切り取り処理
-	src.m_top = 59.0f;
+	src.m_top = 60.0f;
 	src.m_left = 4.0f;
-	src.m_right = 38.0f;
-	src.m_bottom = 93.0f;
+	src.m_right = 40.0f;
+	src.m_bottom = 94.0f;
 
 	//描画処理
 	dst.m_top = 750.0f;

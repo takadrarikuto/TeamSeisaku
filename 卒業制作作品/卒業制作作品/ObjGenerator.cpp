@@ -60,6 +60,13 @@ void CObjGenerator::Action()
 	bool GEN = time->GetGenFlg();
 	bool Rep_flg = time->GetRepFlg();
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　1
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
@@ -68,13 +75,22 @@ void CObjGenerator::Action()
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		
-		if (TStop_flg == true /*&& GEN == true*/)
+		if (TStop_flg == true)
 		{
 			m_Font_time = 90; //フォント表示タイム設定
-			if (Input::GetVKey(VK_RETURN) == true && GEN == true)
+			if (Input::GetVKey(VK_RETURN) == true)
 			{
-				TStart_flg = true;
-				time->SetTStart(TStart_flg);
+				if (GEN == true)
+				{
+					TStart_flg = true;
+					time->SetTStart(TStart_flg);
+				}
+				if (App_Rand == 1)
+				{
+					TStart_flg = true;
+					time->SetTStart(TStart_flg);
+					aitemfont->SetToolBox(true); //画像表示
+				}
 			}
 		}		
 	}

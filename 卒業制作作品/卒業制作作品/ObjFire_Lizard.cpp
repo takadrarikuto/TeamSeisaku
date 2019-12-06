@@ -279,10 +279,11 @@ void CObjFire_Lizard::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true || hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD);
+		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD2);
 		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
@@ -317,43 +318,43 @@ void CObjFire_Lizard::Action()
 		if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//グレネード
 		else if (hit_fl->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
@@ -364,7 +365,7 @@ void CObjFire_Lizard::Action()
 		else if (hit_fl->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-			m_time_d = 90;		//点滅時間をセット
+			m_time_d = 80;		//点滅時間をセット
 		}
 	}
 

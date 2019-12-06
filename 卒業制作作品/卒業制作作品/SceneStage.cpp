@@ -67,6 +67,11 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
 	Audio::LoadAudio(12, L"アイテム獲得音.wav", EFFECT);
 	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
+	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
+	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
+	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
+	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
+	//18 成功音
 
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.3);
@@ -108,14 +113,14 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
 	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);
-	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
+	Objs::InsertObj(Gen2, OBJ_GENERATOR2, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);//(400,200)
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
-	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
+	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
 	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(375, -500);
@@ -305,9 +310,7 @@ void CSceneStage::InitScene()
 	//アーマー
 	CObjArmor* Armor = new CObjArmor(381.0f, 150.0f);
 	Objs::InsertObj(Armor, OBJ_ARMOR, 4);
-	//工具箱
-	CObjToolBox* Toolbox = new CObjToolBox(375, 1000);
-	Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
+	
 
 	//アイテムドロップオブジェクト作成	
 	CObjAitemDrop* obj_ad = new CObjAitemDrop();

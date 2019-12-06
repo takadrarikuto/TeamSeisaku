@@ -102,9 +102,9 @@ void CObjGrenadeAttack::Action()
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
 			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
-			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true || hit_gre->CheckElementHit(ELEMENT_WALL) == true 
-			|| hit_gre->CheckElementHit(ELEMENT_WALL2) == true || hit_gre->CheckElementHit(ELEMENT_NET_S) == true
-			|| hit_gre->CheckElementHit(ELEMENT_NET_V) == true)
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true || hit_gre->CheckElementHit(ELEMENT_FIELD2) == true
+			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true  || hit_gre->CheckElementHit(ELEMENT_WALL2) == true
+			|| hit_gre->CheckElementHit(ELEMENT_NET_S) == true || hit_gre->CheckElementHit(ELEMENT_NET_V) == true)
 		{
 			//フィールドエレメント、壁エレメントと接触すると削除
 			if (hit_gre->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ARMOR) != nullptr
@@ -146,7 +146,7 @@ void CObjGrenadeAttack::Action()
 				//爆発オブジェクト作成
 				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+				Audio::Start(9);
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 			}

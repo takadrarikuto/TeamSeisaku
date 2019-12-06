@@ -128,14 +128,10 @@ void CSceneTutorial::InitScene()
 //ゲームメイン実行中メソッド
 void CSceneTutorial::Scene()
 {
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
-	{
-		m_tuto_time++;
-	}
+	m_tuto_time++;
 
 	//敵機オブジェクト作成(チュートリアル用)
-	if (m_tuto_time == 1000)
+	if (m_tuto_time == 1250)
 	{
 		CObjTutoZombieEnemy* obj_ze_tu;
 		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);

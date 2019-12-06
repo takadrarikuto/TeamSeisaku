@@ -279,37 +279,37 @@ void CObjBat_Enemy::Action()
 		}
 	}
 
-	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
-	{
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			if (hit_data[i] != nullptr)
-			{
-				float r = hit_data[i]->r;
+	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
+	//if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
+	//{
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
+	//	for (int i = 0; i < hit_ze->GetCount(); i++)
+	//	{
+	//		if (hit_data[i] != nullptr)
+	//		{
+	//			float r = hit_data[i]->r;
 
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
-				{
-					m_bevx = m_bevx - m_bev_max;
-				}
-				else if (r > 2 && r < 178)
-				{
-					m_bevy = m_bevy + m_bev_max;
-				}
-				else if (r > 176 && r < 184)
-				{
-					m_bevx = m_bevx + m_bev_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_bevy = m_bevy - m_bev_max;
-				}
-			}
-		}
-	}
+	//			//角度で上下左右を判定
+	//			if ((r < 4 && r >= 0) || r > 356)
+	//			{
+	//				m_bevx = m_bevx - m_bev_max;
+	//			}
+	//			else if (r > 2 && r < 178)
+	//			{
+	//				m_bevy = m_bevy + m_bev_max;
+	//			}
+	//			else if (r > 176 && r < 184)
+	//			{
+	//				m_bevx = m_bevx + m_bev_max;
+	//			}
+	//			else if (r > 182 && r < 358)
+	//			{
+	//				m_bevy = m_bevy - m_bev_max;
+	//			}
+	//		}
+	//	}
+	//}
 
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
@@ -318,43 +318,43 @@ void CObjBat_Enemy::Action()
 		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//グレネード
 		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 20;		//点滅時間をセット
+			m_time_d = 10;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)

@@ -181,7 +181,7 @@ void CObjRocketLauncherAttack::Action()
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+			Audio::Start(9);
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
@@ -193,12 +193,12 @@ void CObjRocketLauncherAttack::Action()
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+		Audio::Start(9);
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 	//フィールドエレメントと接触すると削除
-	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true || hit_rl->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		if (hit_rl->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_rl->CheckObjNameHit(OBJ_ARMOR) != nullptr
 			|| hit_rl->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_rl->CheckObjNameHit(OBJ_HEAL) != nullptr
@@ -213,7 +213,7 @@ void CObjRocketLauncherAttack::Action()
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+			Audio::Start(9);
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
