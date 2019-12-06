@@ -991,28 +991,28 @@ void CObjHero::Action()
 						if (m_UDani_frame == 0)
 						{
 							//レールガンアタックオブジェクト作成
-							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
+							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max * 2, 0.0f);
 							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//右
 						else if (m_UDani_frame == 2)
 						{
 							//レールガンアタックオブジェクト作成
-							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
+							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max * 2, 0, 270.0f);
 							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//下
 						else if (m_UDani_frame == 4)
 						{
 							//レールガンアタックオブジェクト作成
-							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
+							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max * 2, 180.0f);
 							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//左
 						else if (m_UDani_frame == 6)
 						{
 							//レールガンアタックオブジェクト作成
-							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
+							CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max * 2, 0, 90.0f);
 							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue

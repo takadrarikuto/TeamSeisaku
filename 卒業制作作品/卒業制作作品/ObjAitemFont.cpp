@@ -105,10 +105,10 @@ void CObjAitemFont::Draw()
 	
 
 	//Ø‚èæ‚èˆ—
-	src.m_top = 59.0f;
+	src.m_top = 60.0f;
 	src.m_left = 4.0f;
-	src.m_right = 38.0f;
-	src.m_bottom = 93.0f;
+	src.m_right = 40.0f;
+	src.m_bottom = 94.0f;
 
 	//•`‰æˆ—
 	dst.m_top = 750.0f;
