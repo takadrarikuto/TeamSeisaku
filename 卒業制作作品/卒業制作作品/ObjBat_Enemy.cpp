@@ -99,6 +99,9 @@ void CObjBat_Enemy::Action()
 	float hpx = hero->GetPX() - m_bex; //位置更新
 	float hpy = hero->GetPY() - m_bey;
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -438,6 +441,7 @@ void CObjBat_Enemy::Action()
 	{
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetBatDrop(true);
+		boss->SetBR(1);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_bex, m_bey, m_exp_blood_dst_size);

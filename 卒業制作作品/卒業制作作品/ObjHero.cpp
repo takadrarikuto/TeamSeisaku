@@ -57,6 +57,11 @@ void CObjHero::Init()
 	m_ga_vx_max = 5.0f;
 	m_ga_vy_max = 5.0f;
 
+	//足跡生成タイム
+	m_Footprint_time = 60; 
+	//足跡生成フラグ
+	m_Footprint_flg = false; 
+
 	//上下左右別当たり判定確認フラグ
 	m_UpHit_flg = false;    //上
 	m_DownHit_flg = false;	 //下
@@ -202,6 +207,7 @@ void CObjHero::Action()
 				}
 				m_UDani_frame = 0;
 				m_ani_time += 1;
+				m_Footprint_flg = true;
 			}
 			//'S'を押すと下に移動
 			else if (Input::GetVKey('S') == true)
@@ -212,6 +218,7 @@ void CObjHero::Action()
 				}
 				m_UDani_frame = 4;
 				m_ani_time += 1;
+				m_Footprint_flg = true;
 			}
 			//'A'を押すと左に移動
 			else if (Input::GetVKey('A') == true)
@@ -222,6 +229,7 @@ void CObjHero::Action()
 				}
 				m_UDani_frame = 6;
 				m_ani_time += 1;
+				m_Footprint_flg = true;
 			}
 			//'D'を押すと右移動
 			else if (Input::GetVKey('D') == true)
@@ -232,13 +240,45 @@ void CObjHero::Action()
 				}
 				m_UDani_frame = 2;
 				m_ani_time += 1;
+				m_Footprint_flg = true;
 			}
+			//止まるとアニメーション、、上下切り替えフレーム足跡作成フラグ初期化
 			else
 			{
 				m_ani_time = 0.0f;
 				m_LRani_frame = 0;
+				m_Footprint_flg = false;
 			}
 
+			//足跡生成処理
+			if (m_Footprint_flg == true)
+			{
+				m_Footprint_time--; //足跡生成タイム減少
+				//足跡生成タイムが0以下になると足跡生成
+				if (m_Footprint_time <= 0)
+				{
+					//上下を向いていると縦向き
+					if (m_UDani_frame == 0 || m_UDani_frame == 4)
+					{
+						CObjFootprint* Foot = new CObjFootprint(m_x, m_y, 0.0f);
+						Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
+					}
+					//左右を向いていると横向き
+					else if (m_UDani_frame == 6 || m_UDani_frame == 2)
+					{
+						CObjFootprint* Foot = new CObjFootprint(m_x, m_y, 90.0f);
+						Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
+					}
+
+					m_Footprint_time = 60; //足跡生成タイム初期化
+				}
+			}			
+			else if (m_Footprint_flg == false)
+			{
+				m_Footprint_time = 60; //足跡生成タイム初期化
+			}
+			
+			
 			//アニメーション処理
 			if (m_ani_time > 6)
 			{
@@ -1357,13 +1397,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 5;
+								m_hero_en -= 15;
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 5;
+								m_hero_hp -= 20;
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 80;		//無敵時間をセット
@@ -1374,16 +1414,16 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 2;
+								m_hero_en -= 5;
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 2;
+								m_hero_hp -= 10;
 								Audio::Start(14);//ダメージ音
 							}
-							m_time_d = 80;		//無敵時間をセット
+							m_time_d = 60;		//無敵時間をセット
 						}
 						//火トカゲ
 						else if (hit_h->CheckObjNameHit(OBJ_FIRE_LIZARD) != nullptr)
@@ -1391,13 +1431,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 6;
+								m_hero_en -= 20;
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 3;
+								m_hero_hp -= 25;
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 60;		//無敵時間をセット
@@ -1408,13 +1448,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 2;
+								m_hero_en -= 10;
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 1;
+								m_hero_hp -= 2;
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 20;		//無敵時間をセット
@@ -1444,7 +1484,7 @@ void CObjHero::Action()
 						else if (hit_h->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
 						{
 							m_hero_hp -= 1;
-							m_time_d = 10;		//無敵時間をセット
+							m_time_d = 5;		//無敵時間をセット
 							Audio::Start(14);//ダメージ音
 						}
 						//ボス
@@ -1453,13 +1493,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 6;
+								m_hero_en -= 10;
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 2;
+								m_hero_hp -= 10;
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 30;		//無敵時間をセット

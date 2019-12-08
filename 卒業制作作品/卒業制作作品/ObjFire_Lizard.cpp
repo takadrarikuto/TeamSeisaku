@@ -99,6 +99,9 @@ void CObjFire_Lizard::Action()
 	float hpx = hero->GetPX() - m_flx; //位置更新
 	float hpy = hero->GetPY() - m_fly;
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -444,6 +447,7 @@ void CObjFire_Lizard::Action()
 	{	
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetFire_LizardDrop(true);
+		boss->SetFLR(1);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_flx, m_fly, m_exp_blood_dst_size);

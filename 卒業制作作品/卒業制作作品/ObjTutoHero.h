@@ -85,7 +85,7 @@ private:
 	float m_ga_vy_max;
 	float m_speed_power; //スピードパワー
 
-						 //上下左右別
+	//上下左右別
 	int m_UDani_frame;	//描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 	int m_LRani_frame;

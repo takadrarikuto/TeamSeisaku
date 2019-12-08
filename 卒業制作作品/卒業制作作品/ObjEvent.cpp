@@ -150,7 +150,7 @@ void CObjEvent::Action()
 			m_Event_time--;			
 		}		
 	}	
-	else if(Menu_flg == false && TStop_flg == false)
+	if(Menu_flg == false && TStop_flg == false)
 	{
 		m_Event_time_flg = false;
 		m_Event_TimePenalty = false;
