@@ -126,6 +126,7 @@
     <ClInclude Include="ObjDifficulty_Level.h" />
     <ClInclude Include="ObjEnemy_Neutralization_Device2.h" />
     <ClInclude Include="ObjFire_Lizard.h" />
+    <ClInclude Include="ObjFootprint.h" />
     <ClInclude Include="ObjGenerator2.h" />
     <ClInclude Include="ObjInstallation_Type_AR.h" />
     <ClInclude Include="ObjInstallation_Type_RandBox.h" />
@@ -221,6 +222,7 @@
     <ClCompile Include="ObjDifficulty_Level.cpp" />
     <ClCompile Include="ObjEnemy_Neutralization_Device2.cpp" />
     <ClCompile Include="ObjFire_Lizard.cpp" />
+    <ClCompile Include="ObjFootprint.cpp" />
     <ClCompile Include="ObjGenerator2.cpp" />
     <ClCompile Include="ObjInstallation_Type_AR.cpp" />
     <ClCompile Include="ObjInstallation_Type_RandBox.cpp" />

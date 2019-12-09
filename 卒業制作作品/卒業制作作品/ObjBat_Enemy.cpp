@@ -99,6 +99,9 @@ void CObjBat_Enemy::Action()
 	float hpx = hero->GetPX() - m_bex; //位置更新
 	float hpy = hero->GetPY() - m_bey;
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -380,43 +383,43 @@ void CObjBat_Enemy::Action()
 		if (hit_be->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_be->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_be->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_be->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_be->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_be->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//グレネード
 		else if (hit_be->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_be->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
@@ -438,6 +441,7 @@ void CObjBat_Enemy::Action()
 	{
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetBatDrop(true);
+		boss->SetBR(1);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_bex, m_bey, m_exp_blood_dst_size);
