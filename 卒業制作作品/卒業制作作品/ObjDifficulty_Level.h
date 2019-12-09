@@ -36,6 +36,8 @@ public:
 	void Init();    //イニシャライズ
 	void Action();  //アクション
 	void Draw();    //ドロー
+
+
 private:
 	bool m_key_flag; //キーフラグ
 	float m_mou_x;  //マウスの位置X
@@ -47,4 +49,5 @@ private:
 	bool m_andf;		//透明度処理用フラグ
 	int choose;
 	int m_time;
+
 };

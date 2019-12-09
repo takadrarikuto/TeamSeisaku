@@ -193,13 +193,13 @@ void CObjBoss::Action()
 			if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
 			{
 				m_Bat_Enemy_co_num = rand() % 3;
-				for (int i = 0; i < m_Bat_Enemy_co_num; i++)
+				for (int i = 0; i <= m_Bat_Enemy_co_num; i++)
 				{
 					//蝙蝠オブジェクト作成
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
 
-					if (i % 2 == 0)
+					if (i % 2 == 0 && i != 0)
 					{
 						m_Bat_Enemy_x += 50.0f; //x位置修正
 					}

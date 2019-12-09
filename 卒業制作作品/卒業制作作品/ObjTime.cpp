@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\DrawFont.h"
+#include"GameL\UserData.h"
 
 #include <time.h>
 
@@ -22,7 +23,8 @@ extern bool Menu_flg;
 void CObjTime::Init()
 {
 	//初期化
-	m_time = 10850; //10850 = 3分
+	m_time = ((UserData*)Save::GetData())->Level_Time;
+	
 	//時間停止
 	m_time_stop = 0; 
 	 //イベントランダム変数
@@ -63,22 +65,26 @@ void CObjTime::Action()
 		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == m_time_event && m_time > 50 && m_Stop_flg == false)
+	if (m_time == m_time_event && m_time > 50)
 	{		
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
+		//発電機イベント
 		if (m_Event_Rand_num > 0/*< 50*/)
 		{
 			m_Gen_flg = true;			
 		}
+		//敵無力化イベント
 		/*else if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
 		}
+		//ミーム実態無力化イベント
 		/*if (m_Event_Rand_num >= 0)
 		{
 			m_MND_flg = true;
 		}*/
+		//修理イベント
 		/*if (m_Event_Rand_num >= 0)
 		{
 			m_Repairing_flg = true;			
@@ -88,6 +94,19 @@ void CObjTime::Action()
 	//タイム再スタート処理
 	if (m_Start_flg == true)
 	{		
+		//初期化処理
+		//タイム増加ペナルティ
+		//m_time_Increase = 0;
+		//タイムストップorスタート
+		m_Stop_flg = false;
+		m_Start_flg = false;
+		//設置物フラグ
+		m_Gen_flg = false;
+		m_END_flg = false;
+		m_MND_flg = false;
+		//装置修理フラグ
+		m_Repairing_flg = false;
+
 		//イベント開始時間減少
 		m_time_event -= 1800; //30秒減少
 		if (Time_Pena == true)
@@ -97,18 +116,6 @@ void CObjTime::Action()
 			Time_Pena = false;
 			Event->SetEveTimPena(Time_Pena);
 		}
-		//初期化処理
-		//タイム増加ペナルティ
-		//m_time_Increase = 0;
-		//タイムストップorスタート
-		m_Stop_flg = false;
-		m_Start_flg = false;
-		//設置物フラグ
-		m_Gen_flg = false;
-		m_END_flg = false;	
-		m_MND_flg = false;	
-		//装置修理フラグ
-		m_Repairing_flg = false;
 	}
 
 	//制限時間0でゲームクリアシーン移行
@@ -139,15 +146,15 @@ void CObjTime::Draw()
 	else
 		swprintf_s(str, L"%d:%d", minute, second);
 
-	Font::StrDraw(str, 10, 30, 28, c);
-
-	if (m_time_stop > 0)
-	{
-		Font::StrDraw(str, 10, 30, 28, r);
-	}
+	Font::StrDraw(str, 10, 30, 28, c);	
 
 	if (minute == 1 && second == 0 || minute == 0)
 	{
 		Font::StrDraw(str, 10, 30, 28, y);
+	}
+
+	if (m_time_stop > 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, r);
 	}
 }

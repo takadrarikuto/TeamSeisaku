@@ -25,23 +25,14 @@ void ObjDifficulty_Level::Init()
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
-
-	//ゲーム実行して一回のみ
-	static bool init_point = false;
-	if (init_point == false)
-	{
-		//ロード
-		Save::Open();//同フォルダ「UserData」からデータ取得
-
-		init_point = true;
-	}
-
-	Save::Seve();//UserDataの情報フォルダ「UserData」を作成
 }
 
 //アクション
 void ObjDifficulty_Level::Action()
 {
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	
 	//上キーで上に移動
 	if (Input::GetVKey(VK_DOWN) == true && choose > 0 && m_time == 0)
 	{
@@ -73,7 +64,7 @@ void ObjDifficulty_Level::Action()
 				m_andf = true;
 				Audio::Start(1);
 				m_key_flag = false;
-
+				((UserData*)Save::GetData())->Level_Time = 10850; //10850 = 3分
 			}
 		}
 		else
@@ -99,7 +90,8 @@ void ObjDifficulty_Level::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneOP());
+			//Scene::SetScene(new CSceneOP());
+			Scene::SetScene(new CSceneStage());
 			/*
 			*/
 		}
@@ -138,7 +130,7 @@ void ObjDifficulty_Level::Draw()
 	//タイトル
 	Font::StrDraw(L"難易度選択", 225, 125, 40, b);
 
-	Font::StrDraw(L"Enterキー : 決定", 125, 225, 30, b);
+	Font::StrDraw(L"Enterキー : 決定", 105, 225, 30, b);
 	Font::StrDraw(L"↑↓キー : 選択", 325, 225, 30, b);
 
 	if (choose == 0)

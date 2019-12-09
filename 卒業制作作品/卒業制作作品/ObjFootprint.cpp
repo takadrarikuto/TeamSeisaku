@@ -25,12 +25,12 @@ void CObjFootprint::Init()
 	//描画フレーム
 	m_ani_flame = 1;
 	//オブジェクト削除タイム
-	m_Delete_time = 300; 
+	m_Delete_time = 150; 
 
-	m_dst_size = 64.0f; //描画サイズ
+	m_dst_size = 24.0f; //描画サイズ
 
-	m_HitBox_x = 64; //x当たり判定サイズ
-	m_HitBox_y = 64; // 当たり判定サイズ
+	m_HitBox_x = 24; //x当たり判定サイズ
+	m_HitBox_y = 24; // 当たり判定サイズ
 
 	//当たり判定用HitBoxを作成
 	/*Hits::SetHitBox(this, m_Fx, m_Fy, m_HitBox_x, m_HitBox_y, ELEMENT_WHITE, OBJ_FOOTPRINT, 8);*/
