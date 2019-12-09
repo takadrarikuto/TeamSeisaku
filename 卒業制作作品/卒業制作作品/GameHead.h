@@ -121,7 +121,8 @@ struct UserData
 	int EXP_Attack = 50; //爆発
 	//有刺鉄線
 	int BarbedWireSmall_Attack = 2;
-
+	//レベル別タイム設定
+	int Level_Time = 0;
 };
 //------------------------------------------------
 
@@ -303,5 +304,5 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 
-#define SET_GAME_START  CSceneStage
-
+//#define SET_GAME_START  CSceneStage
+#define SET_GAME_START  CSceneDifficulty_Level

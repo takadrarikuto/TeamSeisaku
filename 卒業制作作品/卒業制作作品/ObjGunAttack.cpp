@@ -114,7 +114,8 @@ void CObjGunAttack::Action()
 	}
 	//壁オブジェクトと接触するとオブジェクト破棄
 	if (hit_ga->CheckElementHit(ELEMENT_WALL) == true || hit_ga->CheckElementHit(ELEMENT_WALL2) == true
-		|| hit_ga->CheckElementHit(ELEMENT_NET_S) == true || hit_ga->CheckElementHit(ELEMENT_NET_V) == true)
+		|| hit_ga->CheckElementHit(ELEMENT_NET_S) == true || hit_ga->CheckElementHit(ELEMENT_NET_V) == true
+		|| hit_ga->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

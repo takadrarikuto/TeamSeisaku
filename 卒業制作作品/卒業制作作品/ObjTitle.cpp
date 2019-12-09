@@ -103,13 +103,8 @@ void CObjTitle::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneOP());
-			//Scene::SetScene(new CSceneDifficulty_Level());
-			/*
-			//デバッグテスト用
-			Scene::SetScene(new CSceneStage());
-			Scene::SetScene(new CSceneClear());
-			*/
+			//Scene::SetScene(new CSceneOP());
+			Scene::SetScene(new CSceneDifficulty_Level());
 		}
 	}
 

@@ -112,7 +112,7 @@ void CObjTutoHero::Init()
 	m_gre_pb_r = 0;//グレネード
 
 
-	m_rel_time_hg = 0;
+	//m_rel_time_hg = 0;
 
 
 	//------------------------------------------(未使用)
@@ -857,13 +857,6 @@ void CObjTutoHero::Action()
 					m_hg_pb = 10;//弾数を10増やす
 					Audio::Start(13);
 					m_hg_flg = false;
-					//m_rel_time_hg = 50;
-					//m_rel_time_hg--;
-					//if (m_rel_time_hg == 0)
-					//{
-						
-						//m_rel_time_hg = 50;
-					//}
 				}
 			}
 			
@@ -1153,7 +1146,7 @@ void CObjTutoHero::Action()
 			m_eff_flag = true;			//画像切り替え用フラグ
 			m_speed_power = 0.0f;			//動きを止める	
 			m_blood_flg = true; //血しぶき表示停止フラグ
-								//血しぶきオブジェクト作成
+			//血しぶきオブジェクト作成
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 		}
