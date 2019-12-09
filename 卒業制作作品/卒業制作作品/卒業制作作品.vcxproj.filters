@@ -100,6 +100,9 @@
     <Filter Include="ソース ファイル\難易度設定">
       <UniqueIdentifier>{0a9da7b3-4553-43c8-a685-21fe05e83ca5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\主人公関係\足跡">
+      <UniqueIdentifier>{5bd1a4cf-ab13-4207-ba34-274311db8197}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -396,6 +399,9 @@
     <ClInclude Include="SceneDifficulty_Level.h">
       <Filter>ソース ファイル\難易度設定</Filter>
     </ClInclude>
+    <ClInclude Include="ObjFootprint.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\足跡</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -682,6 +688,9 @@
     </ClCompile>
     <ClCompile Include="SceneDifficulty_Level.cpp">
       <Filter>ソース ファイル\難易度設定</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFootprint.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\足跡</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

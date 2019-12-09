@@ -216,7 +216,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/80",sg_pb_me, 15);
+		swprintf_s(str, L"%d/60",sg_pb_me, 15);
 		Font::StrDraw(str, 200, 205, 37, c);
 		//残り弾数が0の時、文字色を赤にする
 		if (sg_pb_me == 0)
@@ -237,7 +237,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 325.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/300", ar_pb_me, 15);
+		swprintf_s(str, L"%d/200", ar_pb_me, 15);
 		Font::StrDraw(str, 200, 285, 37, c);
 		//残り弾数が0の時、文字色を赤にする
 		if (ar_pb_me == 0)
@@ -258,7 +258,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 400.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/50", sr_pb_me, 15);
+		swprintf_s(str, L"%d/30", sr_pb_me, 15);
 		Font::StrDraw(str, 200, 360, 37, c);
 		//残り弾数が0の時、文字色を赤にする
 		if (sr_pb_me == 0)

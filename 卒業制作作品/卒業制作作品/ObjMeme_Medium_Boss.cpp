@@ -38,7 +38,7 @@ void CObjMeme_Medium_Boss::Init()
 	m_hero_hp = 1;
 
 	//移動ベクトル最大値
-	m_mmbv_max = 0.5f;
+	m_mmbv_max = 2.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 0; //静止フレームを初期にする
