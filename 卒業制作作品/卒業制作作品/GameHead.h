@@ -8,6 +8,7 @@ enum OBJ_NAME
 	//OBJ_○○と表記	
 	OBJ_HERO, //主人公
 	OBJ_PER_DECISION,
+	OBJ_FOOTPRINT,
 	OBJ_TIME,
 	//銃
 	OBJ_GUNATTACK,
@@ -171,6 +172,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //爆発
 #include "ObjExplosion.h"
+
+//足跡
+#include "ObjFootprint.h"
 
 //ステージ
 #include "ObjStage.h"

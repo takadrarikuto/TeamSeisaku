@@ -150,7 +150,7 @@ void CObjEvent::Action()
 			m_Event_time--;			
 		}		
 	}	
-	else if(Menu_flg == false && TStop_flg == false)
+	if(Menu_flg == false && TStop_flg == false)
 	{
 		m_Event_time_flg = false;
 		m_Event_TimePenalty = false;
@@ -259,39 +259,35 @@ void CObjEvent::Draw()
 		Font::StrDraw(str, 27, 85, 28, c);
 	}
 	//イベント内容
-	//if (Menu_flg == false && TStop_flg == true)
-	//{
-	//	//発電機イベント
-	//	if (Gen_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dm or %dm",m_Gene_distance_r,m_Gene2_distance_r); //クリア条件
-	//	}
-	//	//敵無力化装置イベント
-	//	else if (END_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : SCP-354-3が大量発生しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
-	//	}
-	//	//ミーム実態無力化装置イベント
-	//	else if (MND_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : SCP-354-13が出現しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
-	//	}
-	//	//装置修理イベント
-	//	else if (Rep_flg == true)
-	//	{
-	//		swprintf_s(str, L"イベンド発生中 : 装置が故障しました。"); //イベント内容
-	//		swprintf_s(str_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件
-	//	}
-	//	Font::StrDraw(str, 300, 65, 20, blk);
-	//	Font::StrDraw(str_a, 300, 95, 20, blk);
-	//}	
+	if (Menu_flg == false && TStop_flg == true)
+	{
+		//発電機イベント
+		if (Gen_flg == true)
+		{
+			swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
+			swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dｍ or %dｍ", -m_Gene_distance_r, m_Gene2_distance_r); //クリア条件
+		}
+		////敵無力化装置イベント
+		////else if (END_flg == true)
+		////{
+		////	swprintf_s(str, L"イベンド発生中 : SCP-354-3が大量発生しました。"); //イベント内容
+		////	swprintf_s(str_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
+		////}
+		////ミーム実態無力化装置イベント
+		////else if (MND_flg == true)
+		////{
+		////	swprintf_s(str, L"イベンド発生中 : SCP-354-13が出現しました。"); //イベント内容
+		////	swprintf_s(str_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
+		////}
+		////装置修理イベント
+		////else if (Rep_flg == true)
+		////{
+		////	swprintf_s(str, L"イベンド発生中 : 装置が故障しました。"); //イベント内容
+		////	swprintf_s(str_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件
+		////}
+		Font::StrDraw(str, 300, 65, 20, blk);
+		Font::StrDraw(str_a, 300, 95, 20, blk);
+	}	
 
-	swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
-	swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dｍ or %dｍ",m_Gene_distance_r,m_Gene2_distance_r); //クリア条件
-	Font::StrDraw(str, 0, 120, 20, blk);
-	Font::StrDraw(str_a, 0, 150, 20, blk);
-
+	
 }

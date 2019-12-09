@@ -98,6 +98,9 @@ void CObjFire_Bird::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -293,6 +296,7 @@ void CObjFire_Bird::Action()
 	{
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetFire_BirdDrop(true);
+		boss->SetFBR(1);
 
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);

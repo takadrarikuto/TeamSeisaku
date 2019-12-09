@@ -99,6 +99,9 @@ void CObjFire_Lizard::Action()
 	float hpx = hero->GetPX() - m_flx; //位置更新
 	float hpy = hero->GetPY() - m_fly;
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -279,38 +282,100 @@ void CObjFire_Lizard::Action()
 	}
 
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true || hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{				
+				//発、敵無力
+				if (hit_fl->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_fl->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r < 4 && r >= 0) || r > 356)
+					{
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r > 2 && r < 178)
+					{
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r > 176 && r < 184)
+					{
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 182 && r < 358)
+					{
+						m_flvy = m_flvy - m_flv_max;
+					}
+				}
+				//ミーム
+				if (hit_fl->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 45) || r >= 315)
+					{
+						m_RightHit_flg = true; //右
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r >= 45 && r < 135)
+					{
+						m_UpHit_flg = true;    //上
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r >= 135 && r <= 225)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 225 && r < 315)
+					{
+						m_DownHit_flg = true;	 //下
+						m_flvy = m_flvy - m_flv_max;
+					}
+				}				
+			}
+		}
+	}
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
+	{
+		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD2);
 		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
 			{
 				float r = hit_data[i]->r;
-
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
+				//発、敵無力
+				if (hit_fl->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_fl->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
 				{
-					m_flvx = m_flvx - m_flv_max;
-				}
-				else if (r > 2 && r < 178)
-				{
-					m_flvy = m_flvy + m_flv_max;
-				}
-				else if (r > 176 && r < 184)
-				{
-					m_flvx = m_flvx + m_flv_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_flvy = m_flvy - m_flv_max;
+					//角度で上下左右を判定
+					if ((r < 4 && r >= 0) || r > 356)
+					{
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r > 2 && r < 178)
+					{
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r > 176 && r < 184)
+					{
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 182 && r < 358)
+					{
+						m_flvy = m_flvy - m_flv_max;
+					}
 				}
 			}
 		}
 	}
-
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
 	{
@@ -318,43 +383,43 @@ void CObjFire_Lizard::Action()
 		if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//グレネード
 		else if (hit_fl->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 10;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
@@ -382,6 +447,7 @@ void CObjFire_Lizard::Action()
 	{	
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetFire_LizardDrop(true);
+		boss->SetFLR(1);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_flx, m_fly, m_exp_blood_dst_size);

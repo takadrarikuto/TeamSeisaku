@@ -164,6 +164,8 @@ void CObjTutoTopback::Draw()
 		Font::StrDraw(L"チュートリアルクリア！", 70, 130, 30, r);
 		Font::StrDraw(L"◆Enterでゲームスタート", 400, 520, 27, c);
 
+		Font::StrDraw(L"○○", 100, 200, 27, blk);
+
 		//発電機
 		//切り取り処理
 		src.m_top = 0.0f;
