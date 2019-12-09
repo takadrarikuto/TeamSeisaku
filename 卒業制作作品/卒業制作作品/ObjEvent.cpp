@@ -247,6 +247,8 @@ void CObjEvent::Draw()
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	wchar_t str[128];
 	wchar_t str_a[128];
+	wchar_t event[128];
+	wchar_t event_a[128];
 
 	//表示切替
 	//イベントタイム
@@ -260,7 +262,7 @@ void CObjEvent::Draw()
 			swprintf_s(str, L"%d:0%d", minute, second);//秒の1桁目に0を用意
 		else
 			swprintf_s(str, L"%d:%d", minute, second);
-
+		
 		Font::StrDraw(str, 27, 85, 28, c);
 	}
 	//イベント内容
@@ -269,30 +271,28 @@ void CObjEvent::Draw()
 		//発電機イベント
 		if (Gen_flg == true)
 		{
-			swprintf_s(str, L"イベンド発生中 : 発電機が停止しました。"); //イベント内容
-			swprintf_s(str_a, L"クリア条件 : 発電機を再起動しろ。距離 %dｍ or %dｍ", -m_Gene_distance_r, m_Gene2_distance_r); //クリア条件
+			swprintf_s(event, L"イベント発生中 : 発電機が停止しました。"); //イベント内容
+			swprintf_s(event_a, L"クリア条件 : 発電機を再起動しろ。距離 %dｍ or %dｍ", -m_Gene_distance_r, m_Gene2_distance_r); //クリア条件
 		}
 		//敵無力化装置イベント
-		//else if (END_flg == true)
-		//{
-		//	swprintf_s(str, L"イベンド発生中 : SCP-354-3が大量発生しました。"); //イベント内容
-		//	swprintf_s(str_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
-		//}
+		else if (END_flg == true)
+		{
+			swprintf_s(event, L"イベント発生中 : SCP-354-3が大量発生しました。"); //イベント内容
+			swprintf_s(event_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
+		}
 		//ミーム実態無力化装置イベント
-		//else if (MND_flg == true)
-		//{
-		//	swprintf_s(str, L"イベンド発生中 : SCP-354-13が出現しました。"); //イベント内容
-		//	swprintf_s(str_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
-		//}
+		else if (MND_flg == true)
+		{
+			swprintf_s(event, L"イベント発生中 : SCP-354-13が出現しました。"); //イベント内容
+			swprintf_s(event_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
+		}
 		//装置修理イベント
-		//else if (Rep_flg == true)
-		//{
-		//	swprintf_s(str, L"イベンド発生中 : 装置が故障しました。"); //イベント内容
-		//	swprintf_s(str_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件
-		//}
-		Font::StrDraw(str, 300, 65, 20, blk);
-		Font::StrDraw(str_a, 300, 95, 20, blk);
+		else if (Rep_flg == true)
+		{
+			swprintf_s(event, L"イベント発生中 : 装置が故障しました。"); //イベント内容
+			swprintf_s(event_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件
+		}
+		Font::StrDraw(event, 7, 127, 20, c);
+		Font::StrDraw(event_a, 7, 153, 20, c);
 	}	
-
-	
 }
