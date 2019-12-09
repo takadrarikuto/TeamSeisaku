@@ -74,7 +74,7 @@ void CObjTime::Action()
 		/*else if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
-		}*/
+		}
 		/*if (m_Event_Rand_num >= 0)
 		{
 			m_MND_flg = true;
