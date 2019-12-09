@@ -123,6 +123,21 @@ struct UserData
 	int BarbedWireSmall_Attack = 2;
 	//レベル別タイム設定
 	int Level_Time = 0;
+	//武器別所持弾数(装備分)
+	int SHG_Number_of_Ammunition = 0; //ショットガン
+	int AR_Number_of_Ammunition = 0; //アサルトライフル
+	int SR_Number_of_Ammunition = 0; //スナイパーライフル
+	int RL_Number_of_Ammunition = 0; //ロケットランチャー
+	int RG_Number_of_Ammunition = 0; //レールガン
+	//武器別残り弾数
+	int SHG_Ammunition = 0;	//ショットガン
+	int AR_Ammunition = 0; //アサルトライフル
+	int SR_Ammunition = 0; //スナイパーライフル
+	int RL_Ammunition = 0; //ロケットランチャー
+	int RG_Ammunition = 0; //レールガン
+
+	//難易度変更
+	int choose = 1;
 };
 //------------------------------------------------
 

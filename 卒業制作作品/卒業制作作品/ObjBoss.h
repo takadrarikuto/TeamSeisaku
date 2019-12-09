@@ -63,6 +63,8 @@ private:
 //‹…‘ÌŒ^“G
 	int m_Sphere_Type_Enemy_Restriction_Rand; //‹…‘ÌŒ^“G¶¬”ƒ‰ƒ“ƒ_ƒ€
 	bool m_Sphere_Type_Enemy_Restriction_Stop_flg; //‹…‘ÌŒ^¶¬’â~ƒtƒ‰ƒO
+	float m_Sphere_Type_Enemy_x; //xˆÊ’uC³
+	float m_Sphere_Type_Enemy_y; //yˆÊ’uC³
 //ƒ~[ƒ€À‘Ô
 	bool m_Meme_Medium_Boss_Restriction_Stop_flg; //ƒ~[ƒ€À‘Ô¶¬’â~ƒtƒ‰ƒO
 
