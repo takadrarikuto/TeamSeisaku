@@ -147,7 +147,7 @@ private:
 	int m_rg_pb_num;//レールガン残り弾数
 	int m_gre_pb_num;//グレネード残り弾数
 
-	int m_rel_time_hg;//ハンドガン　リロード用タイム
+	//int m_rel_time_hg;//ハンドガン　リロード用タイム
 	//int m_rel_time_sg;//ショットガン　リロード用タイム
 	//int m_rel_time_ar;//アサルトライフル　リロード用タイム
 	//int m_rel_time_sr;//スナイパーライフル　リロード用タイム
