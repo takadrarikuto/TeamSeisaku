@@ -4,16 +4,23 @@
 using namespace GameL;
 
 ////マウスクリックのメイン遷移（せんい）
-#define GAME_START_POS_X (400) //480
-#define GAME_START_POS_Y (350) //350
+#define GAME_EASY_POS_X (400) //簡単
+#define GAME_EASY_POS_Y (200) 
+#define GAME_EASY_FONT_SIZE (45)
 
-#define GAME_EXIT_POS_X (400) //515
-#define GAME_EXIT_POS_Y (460) //460
+#define GAME_NORMAL_POS_X (400) //普通
+#define GAME_NORMAL_POS_Y (200)
+#define GAME_NORMAL_FONT_SIZE (45)
 
-#define GAME_START_FONT_SIZE (45)
-#define GAME_RANKING_FONT_SIZE (60)
+#define GAME_HARD_POS_X (400) //難しい
+#define GAME_HARD_POS_Y (460)
+#define GAME_HARD_FONT_SIZE (45)
+
+#define GAME_EXIT_POS_X (400) //タイトルヘ戻る
+#define GAME_EXIT_POS_Y (460)
 #define GAME_EXIT_FONT_SIZE (45)
-//
+
+
 ////描画関係の定数
 //#define TITLE_POS_X (200)
 //#define TITLE_POS_Y (250)
@@ -36,6 +43,8 @@ public:
 	void Init();    //イニシャライズ
 	void Action();  //アクション
 	void Draw();    //ドロー
+
+
 private:
 	bool m_key_flag; //キーフラグ
 	float m_mou_x;  //マウスの位置X
@@ -45,6 +54,6 @@ private:
 	bool  m_f;     //弾丸発射制御用
 	float m_and;		//透明度処理用
 	bool m_andf;		//透明度処理用フラグ
-	int choose;
 	int m_time;
+
 };

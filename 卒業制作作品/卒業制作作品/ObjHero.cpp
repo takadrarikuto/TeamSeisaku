@@ -58,7 +58,7 @@ void CObjHero::Init()
 	m_ga_vy_max = 5.0f;
 
 	//足跡生成タイム
-	m_Footprint_time = 60; 
+	m_Footprint_time = 10; 
 	//足跡生成フラグ
 	m_Footprint_flg = false; 
 
@@ -260,24 +260,19 @@ void CObjHero::Action()
 					//上下を向いていると縦向き
 					if (m_UDani_frame == 0 || m_UDani_frame == 4)
 					{
-						CObjFootprint* Foot = new CObjFootprint(m_x, m_y, 0.0f);
+						CObjFootprint* Foot = new CObjFootprint(m_x + 20, m_y + 20, 0.0f);
 						Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
 					}
 					//左右を向いていると横向き
 					else if (m_UDani_frame == 6 || m_UDani_frame == 2)
 					{
-						CObjFootprint* Foot = new CObjFootprint(m_x, m_y, 90.0f);
+						CObjFootprint* Foot = new CObjFootprint(m_x + 20, m_y + 20, 90.0f);
 						Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
 					}
 
-					m_Footprint_time = 60; //足跡生成タイム初期化
+					m_Footprint_time = 10; //足跡生成タイム初期化
 				}
-			}			
-			else if (m_Footprint_flg == false)
-			{
-				m_Footprint_time = 60; //足跡生成タイム初期化
-			}
-			
+			}						
 			
 			//アニメーション処理
 			if (m_ani_time > 6)

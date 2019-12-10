@@ -80,8 +80,8 @@ void CObjEvent::Action()
 //装置系
 	//発電機情報取得
 	CObjGenerator* Gene = (CObjGenerator*)Objs::GetObj(OBJ_GENERATOR);
-	float Gene_X = Gene->GetGenX();
-	float Gene_Y = Gene->GetGenY();
+	float Gene_X = Gene->GetGenX() + 28;
+	float Gene_Y = Gene->GetGenY() + 40;
 	CObjGenerator2* Gene2 = (CObjGenerator2*)Objs::GetObj(OBJ_GENERATOR2);
 	float Gene2_X = Gene2->GetGen2X();
 	float Gene2_Y = Gene2->GetGen2Y();
@@ -150,7 +150,7 @@ void CObjEvent::Action()
 			m_Event_time--;			
 		}		
 	}	
-	if(Menu_flg == false && TStop_flg == false)
+	if(TStop_flg == false)
 	{
 		m_Event_time_flg = false;
 		m_Event_TimePenalty = false;
@@ -209,13 +209,18 @@ void CObjEvent::Action()
 	r = m_zevx * m_zevx + m_zevy * m_zevy;
 	r = sqrt(r); //ルートを求める
 	*/
-	m_Gene_distance_X = (Gene_X - h_x/*h_x - Gene_X*/) / 2 ; //発電機
-	m_Gene_distance_Y = (Gene_Y - h_y/*h_y + Gene_Y*/) / 2;
+	m_Gene_distance_X = (Gene_X - h_x) / 2 ; //発電機
+	m_Gene_distance_Y = (Gene_Y - h_y) / 2;
 	m_Gene2_distance_X = (Gene2_X - h_x) / 2; //発電機2
 	m_Gene2_distance_Y = (Gene2_Y - h_y) / 2;
 	//斜めの距離を求める
 	m_Gene_distance_r = m_Gene_distance_X + m_Gene_distance_Y;
 	m_Gene2_distance_r = m_Gene2_distance_X + m_Gene2_distance_Y;
+	//発電気に着くと距離を0にする
+	if (m_Gene_distance_r > 0)
+	{
+		m_Gene_distance_r = 0;
+	}
 }
 
 //ドロー
