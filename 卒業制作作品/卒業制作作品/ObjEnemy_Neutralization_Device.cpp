@@ -3,12 +3,16 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjEnemy_Neutralization_Device.h"
 
 //使用するネームスペース
 using namespace GameL;
+
+//死亡処理
+bool m_END_death_flg = false; //死亡フラグ
 
 //コンストラクタ
 CObjEnemy_Neutralization_Device::CObjEnemy_Neutralization_Device(float x, float y)
@@ -23,14 +27,14 @@ CObjEnemy_Neutralization_Device::CObjEnemy_Neutralization_Device(float x, float 
 void CObjEnemy_Neutralization_Device::Init()
 {
 	//初期化
-	m_Enemy_Neu_Dev_vx = 0.0f; //位置更新
-	m_Enemy_Neu_Dev_vy = 0.0f;
-
 	m_Enemy_Neu_Dev_HitSize_x = 55;  //HitBoxサイズ
 	m_Enemy_Neu_Dev_HitSize_y = 50;
 
+	//フォント表示タイム
+	m_Font_time = 0;
+
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
+	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
 
 }
 
@@ -49,28 +53,56 @@ void CObjEnemy_Neutralization_Device::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool END = time->GetENDFlg();
+	bool Rep_flg = time->GetRepFlg();
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_end->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　3
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& END == true)
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			END = false;
-			time->SetTStart(TStart_flg);
-			time->SetENDFlg(END);
-		}
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true)
+			{
+				if (END == true)
+				{
+					TStart_flg = true;
+					m_END_death_flg = true;
+					time->SetTStart(TStart_flg);
+				}
+				if (App_Rand == 3)
+				{
+					TStart_flg = true;
+					time->SetTStart(TStart_flg);
+					aitemfont->SetToolBox(true); //画像表示
+				}
+			}
+		}		
+	}
+	else
+	{
+		m_END_death_flg = false;
 	}
 
 	//主人公の移動に合わせる
 	m_Enemy_Neu_Devx -= hvx;
 	m_Enemy_Neu_Devy -= hvy;
 
+	//フォント表示時間減少
+	if (m_Font_time > 0)
+	{
+		m_Font_time--;
+	}
 }
 
 //ドロー
@@ -83,6 +115,13 @@ void CObjEnemy_Neutralization_Device::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Enemy_Neu_Devx - 20, m_Enemy_Neu_Devy - 20, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;

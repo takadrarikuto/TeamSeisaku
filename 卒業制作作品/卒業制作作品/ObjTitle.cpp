@@ -29,18 +29,6 @@ void CObjTitle::Init()
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
-
-	//ゲーム実行して一回のみ
-	static bool init_point = false;
-	if (init_point == false)
-	{
-		//ロード
-		Save::Open();//同フォルダ「UserData」からデータ取得
-
-		init_point = true;
-	}
-
-	Save::Seve();//UserDataの情報フォルダ「UserData」を作成
 }
 
 //アクション
@@ -50,14 +38,14 @@ void CObjTitle::Action()
 	if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 	{
 		--choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 	{
 		++choose;
-		//Audio::Start(0);
+		Audio::Start(0);
 		m_time = 10;
 	}
 	if (m_time > 0) {
@@ -75,7 +63,7 @@ void CObjTitle::Action()
 			if (m_key_flag == true)
 			{
 				m_andf = true;
-				//Audio::Start(1);
+				Audio::Start(1);
 				m_key_flag = false;
 
 			}
@@ -103,11 +91,8 @@ void CObjTitle::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneOP());
-
-			//デバッグテスト用
-			//Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneClear());
+			//Scene::SetScene(new CSceneOP());
+			Scene::SetScene(new CSceneDifficulty_Level());
 		}
 	}
 

@@ -108,24 +108,31 @@ void CObjRailGunAttack::Action()
 		}
 	}
 	
-
-	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_rg->CheckElementHit(ELEMENT_ENEMY) == true)
+	
+	//壁オブジェクトと接触するとオブジェクト破棄
+	if (hit_rg->CheckElementHit(ELEMENT_WALL) == true || hit_rg->CheckElementHit(ELEMENT_WALL2) == true
+		|| hit_rg->CheckElementHit(ELEMENT_NET_S) == true || hit_rg->CheckElementHit(ELEMENT_NET_V) == true
+		|| hit_rg->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
-		if (hit_rg->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}
+	//フィールドエレメントと接触すると削除
+	if (hit_rg->CheckElementHit(ELEMENT_FIELD) == true || hit_rg->CheckElementHit(ELEMENT_FIELD2) == true)
+	{
+		if (hit_rg->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_ARMOR) != nullptr
+			|| hit_rg->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_HEAL) != nullptr
+			|| hit_rg->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+			|| hit_rg->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+			|| hit_rg->CheckObjNameHit(OBJ_TOOLBOX) != nullptr)
 		{
-			; //火の鳥には当たらない
+			; //アイテム系には当たらない
 		}
 		else
 		{
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
-	}
-	if (hit_rg->CheckElementHit(ELEMENT_FIELD) == true)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 }
 

@@ -14,6 +14,12 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjGrenadeAttack::CObjGrenadeAttack(float x, float y, float vx, float vy)
 {
@@ -33,7 +39,16 @@ void CObjGrenadeAttack::Init()
 	Stop_max = 3; 
 
 	//ダメージ量
-	((UserData*)Save::GetData())->GRE_Attack;
+	//耐久力フラグがオンの時
+	if (En_flg == true)
+	{
+		((UserData*)Save::GetData())->GRE_Attack = 50; //爆発
+	}
+	//体力フラグがオンの時
+	if (Hp_flg == true)
+	{
+		((UserData*)Save::GetData())->GRE_Attack = 100; //爆発
+	}
 
 	//爆破時間
 	EXP_time = 0;
@@ -70,16 +85,13 @@ void CObjGrenadeAttack::Action()
 		float hy = hero->GetY();
 		float hvx = hero->GetVX();
 		float hvy = hero->GetVY();
-
-		//主人公の移動に合わせる
-		m_Grex -= hvx;
-		m_Grey -= hvy;
-
+		
 		//爆破処理
 		EXP_time++;
 		//位置更新
-		m_Grex += m_Grevx;
-		m_Grey += m_Grevy;
+		//主人公の移動に合わせる
+		m_Grex += (-hvx) + m_Grevx;
+		m_Grey += (-hvy) + m_Grevy;
 
 
 		//HitBoxの内容を更新 
@@ -90,19 +102,33 @@ void CObjGrenadeAttack::Action()
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
 			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
-			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true)
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true || hit_gre->CheckElementHit(ELEMENT_FIELD2) == true
+			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true  || hit_gre->CheckElementHit(ELEMENT_WALL2) == true
+			|| hit_gre->CheckElementHit(ELEMENT_NET_S) == true || hit_gre->CheckElementHit(ELEMENT_NET_V) == true
+			|| hit_gre->CheckElementHit(ELEMENT_BARBED_V) == true)
 		{
-			//移動停止
-			m_Grevx = 0.0f;
-			m_Grevy = 0.0f;
-		}
-
+			//フィールドエレメント、壁エレメントと接触すると削除
+			if (hit_gre->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ARMOR) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_HEAL) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_TOOLBOX) != nullptr || hit_gre->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+			{
+				; //アイテム系　小さい有刺鉄線には当たらない
+			}
+			else
+			{
+				//移動停止
+				m_Grevx = 0.0f;
+				m_Grevy = 0.0f;
+			}			
+		}		
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成
 			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+			Audio::Start(9);
 			this->SetStatus(false); //オブジェクト破棄
 			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 		}
@@ -110,16 +136,18 @@ void CObjGrenadeAttack::Action()
 		//敵オブジェクトと接触するとオブジェクト破棄
 		if (hit_gre->CheckElementHit(ELEMENT_ENEMY) == true)
 		{
-			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr)
+			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_gre->CheckObjNameHit(OBJ_BOSS) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr 
+				|| hit_gre->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 			{
-				; //火の鳥には当たらない
+				; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
 			}
 			else
 			{
 				//爆発オブジェクト作成
 				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
-
+				Audio::Start(9);
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 			}

@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjGenerator.h"
@@ -26,20 +27,25 @@ void CObjGenerator::Init()
 	m_Genvx = 0.0f; //位置更新
 	m_Genvy = 0.0f;
 
+	//フォント表示タイム
+	m_Font_time = 0;
+
 	//描画サイズ
 	m_dst_size = 100.0f; 
 
-	m_HitSize_x = 100; //HitBoxサイズ
+	//HitBoxサイズ
+	m_HitSize_x = 100; 
 	m_HitSize_y = 40;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Genx, m_Geny, m_HitSize_x, m_HitSize_y, ELEMENT_FIELD, OBJ_APPARATUS, 6);
+	Hits::SetHitBox(this, m_Genx, m_Geny, m_HitSize_x, m_HitSize_y, ELEMENT_FIELD, OBJ_GENERATOR, 6);
 
 }
 
 //アクション
 void CObjGenerator::Action()
-{
+{	
+
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX();
@@ -52,6 +58,14 @@ void CObjGenerator::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool GEN = time->GetGenFlg();
+	bool Rep_flg = time->GetRepFlg();
+
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　1
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -60,20 +74,36 @@ void CObjGenerator::Action()
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& GEN == true)
+		
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			GEN = false;
-			time->SetTStart(TStart_flg);
-			time->SetGenFlg(GEN);
-		}
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true)
+			{
+				if (GEN == true)
+				{
+					TStart_flg = true;
+					time->SetTStart(TStart_flg);
+				}
+				if (App_Rand == 1)
+				{
+					TStart_flg = true;
+					time->SetTStart(TStart_flg);
+					aitemfont->SetToolBox(true); //画像表示
+				}
+			}
+		}		
 	}
-	
+
 	//主人公の移動に合わせる
 	m_Genx -= hvx;
 	m_Geny -= hvy;
 
+	//フォント表示時間減少
+	if (m_Font_time > 0)
+	{
+		m_Font_time--;
+	}
 }
 
 //ドロー
@@ -86,6 +116,13 @@ void CObjGenerator::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Genx - 20, m_Geny - 20, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;
@@ -109,6 +146,4 @@ void CObjGenerator::Draw()
 	{
 		Draw::Draw(6, &src, &dst, cD, 0.0f);
 	}
-
-
 }

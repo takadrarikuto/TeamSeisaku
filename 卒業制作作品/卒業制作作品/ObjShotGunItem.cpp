@@ -13,8 +13,8 @@ using namespace GameL;
 CObjShotGunItem::CObjShotGunItem(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_SG_Item_x = 200;
-	m_SG_Item_y = 100;
+	m_SG_Item_x = x;
+	m_SG_Item_y = y;
 }
 
 //イニシャライズ
@@ -29,7 +29,7 @@ void CObjShotGunItem::Init()
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SG_Item_x, m_SG_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_SHOTGUN_ITEM, 7);
-
+	
 }
 
 //アクション
@@ -39,6 +39,9 @@ void CObjShotGunItem::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//主人公の移動に合わせる
 	m_SG_Item_x -= hvx;
@@ -50,7 +53,10 @@ void CObjShotGunItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetSG(80);		//主人公に当たると弾補充
+		hero->SetSG(60);		//主人公に当たると弾補充
+		aitemfont->SetAGF(1); //フォント表示
+		aitemfont->SetAitemNum(60); //弾数表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

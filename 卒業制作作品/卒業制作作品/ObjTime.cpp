@@ -3,6 +3,9 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\DrawFont.h"
+#include"GameL\UserData.h"
+
+#include <time.h>
 
 #include "GameHead.h"
 #include "ObjTime.h"
@@ -20,7 +23,14 @@ extern bool Menu_flg;
 void CObjTime::Init()
 {
 	//初期化
-	m_time = 10850; //10850 = 3分
+	m_time = ((UserData*)Save::GetData())->Level_Time;
+	
+	//時間停止
+	m_time_stop = 0; 
+	 //イベントランダム変数
+	m_Event_Rand_num = 0;
+	//イベント開始時間
+	m_time_event = 9050;
 
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
@@ -28,67 +38,86 @@ void CObjTime::Init()
 
 	m_Gen_flg = false; //発電機起動フラグ
 	m_END_flg = false; //敵無力化装置フラグ
-
+	m_MND_flg = false; //ミーム実態無力化装置フラグ
+	m_Repairing_flg = false; //装置修理イベントフラグ
 
 }
 
 //アクション
 void CObjTime::Action()
 {
-	////発電機情報取得
-	//CObjGenerator* time = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-	//bool ST_flg = time->GetTS();
-	////イベント情報取得
-	//CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_HEAL);
-	//bool Start_flg = Event->GetStartT();
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	bool Time_Pena = Event->GetEveTimPena();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
-		if (m_time > 0)
+		//タイム減少
+		if (m_time > 0 && m_time_stop == 0)
 		{
 			m_time--;
 		}
+		//タイム停止時間減少
+		if (m_time_stop > 0)
+		{
+			m_time_stop--;
+		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == 9050 || m_time == 7250)
-	{
-		if (m_time == 9050)
+	if (m_time == m_time_event && m_time > 50)
+	{		
+		m_Event_Rand_num = rand() % 100;
+		//イベントランダム選択処理
+		//発電機イベント
+		if (m_Event_Rand_num > 0/*< 50*/)
 		{
-			m_Gen_flg = true;
+			m_Gen_flg = true;			
 		}
-		if (m_time == 7250)
+		//敵無力化イベント
+		/*else if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
 		}
+		//ミーム実態無力化イベント
+		/*if (m_Event_Rand_num >= 0)
+		{
+			m_MND_flg = true;
+		}*/
+		//修理イベント
+		/*if (m_Event_Rand_num >= 0)
+		{
+			m_Repairing_flg = true;			
+		}*/
 		m_Stop_flg = true;
-		//m_Evetime_flg = true;
 	}
+	//タイム再スタート処理
 	if (m_Start_flg == true)
-	{
+	{		
+		//初期化処理
+		//タイム増加ペナルティ
+		//m_time_Increase = 0;
+		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;
+		//設置物フラグ
 		m_Gen_flg = false;
 		m_END_flg = false;
+		m_MND_flg = false;
+		//装置修理フラグ
+		m_Repairing_flg = false;
+
+		//イベント開始時間減少
+		m_time_event -= 1800; //30秒減少
+		if (Time_Pena == true)
+		{
+			//時間停止
+			m_time_stop = 1800;//30秒増加
+			Time_Pena = false;
+			Event->SetEveTimPena(Time_Pena);
+		}
 	}
-	////制限時間カウントダウン
-	//if (Menu_flg == false && m_Stop_flg == false)
-	//{
-	//	if (m_time > 0)
-	//	{
-	//		m_time--;		
-	//	}
-	//}
-	////イベント開始、計測停止処理
-	//if (m_time == 9050 && m_Start_num == 0)
-	//{
-	//	m_Stop_flg = true;
-	//	m_Start_num = 1;
-	//}
-	//if (ST_flg == true)
-	//{
-	//	m_Stop_flg = false;
-	//}
+
 	//制限時間0でゲームクリアシーン移行
 	if (m_time == 0)
 	{
@@ -108,6 +137,7 @@ void CObjTime::Draw()
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	wchar_t str[128];
 
 	//分：秒の値を文字列化
@@ -116,9 +146,14 @@ void CObjTime::Draw()
 	else
 		swprintf_s(str, L"%d:%d", minute, second);
 
-	Font::StrDraw(str, 10, 30, 28, c);
+	Font::StrDraw(str, 10, 30, 28, c);	
 
 	if (minute == 1 && second == 0 || minute == 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, y);
+	}
+
+	if (m_time_stop > 0)
 	{
 		Font::StrDraw(str, 10, 30, 28, r);
 	}
