@@ -5,19 +5,19 @@ using namespace GameL;
 
 ////マウスクリックのメイン遷移（せんい）
 #define GAME_EASY_POS_X (400) //簡単
-#define GAME_EASY_POS_Y (200) 
+#define GAME_EASY_POS_Y (220) 
 #define GAME_EASY_FONT_SIZE (45)
 
 #define GAME_NORMAL_POS_X (400) //普通
-#define GAME_NORMAL_POS_Y (200)
+#define GAME_NORMAL_POS_Y (290)
 #define GAME_NORMAL_FONT_SIZE (45)
 
 #define GAME_HARD_POS_X (400) //難しい
-#define GAME_HARD_POS_Y (460)
+#define GAME_HARD_POS_Y (375)
 #define GAME_HARD_FONT_SIZE (45)
 
 #define GAME_EXIT_POS_X (400) //タイトルヘ戻る
-#define GAME_EXIT_POS_Y (460)
+#define GAME_EXIT_POS_Y (470)
 #define GAME_EXIT_FONT_SIZE (45)
 
 
