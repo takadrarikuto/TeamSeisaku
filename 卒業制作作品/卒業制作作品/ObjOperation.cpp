@@ -96,5 +96,5 @@ void CObjOperation::Draw()
 
 	float b[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"◆Enterでチュートリアルへ", 350, 510, 35, b);
+	Font::StrDraw(L"◆Enterで難易度選択へ", 350, 510, 35, b);
 }
