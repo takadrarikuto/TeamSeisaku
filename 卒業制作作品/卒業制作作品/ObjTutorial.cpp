@@ -64,7 +64,6 @@ void CObjTutorial::Action()
 			Tuto_flg = false;
 			g_zombie_count_tu = 0;
 			Scene::SetScene(new CSceneStage());
-			//Scene::SetScene(new CSceneTutorial());
 		}
 	}
 }

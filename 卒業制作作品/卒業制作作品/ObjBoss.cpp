@@ -78,8 +78,11 @@ void CObjBoss::Init()
 	m_Frie_Lizard_Restriction_num = 0; //火トカゲ生成数制限減少
 	m_Frie_Lizard_Restriction_max = 5; //火トカゲ生成数制限最大値
 //球体型敵	
-	m_Sphere_Type_Enemy_Restriction_Rand = 5; //球体型敵生成数ランダム
+	m_Sphere_Type_Enemy_Restriction_Rand = 3; //球体型敵生成数ランダム
 	m_Sphere_Type_Enemy_Restriction_Stop_flg = false; //球体型生成停止フラグ
+
+	m_Sphere_Type_Enemy_x = 0.0f; //x位置修正
+	m_Sphere_Type_Enemy_y = 0.0f; //y位置修正
 //ミーム実態
 	m_Meme_Medium_Boss_Restriction_Stop_flg = false; //ミーム実態生成停止フラグ
 
@@ -192,14 +195,14 @@ void CObjBoss::Action()
 		{
 			if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
 			{
-				m_Bat_Enemy_co_num = rand() % 3;
-				for (int i = 0; i < m_Bat_Enemy_co_num; i++)
+				m_Bat_Enemy_co_num = rand() % 5;
+				for (int i = 0; i <= m_Bat_Enemy_co_num; i++)
 				{
 					//蝙蝠オブジェクト作成
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
 
-					if (i % 2 == 0)
+					if (i % 2 == 0 && i != 0)
 					{
 						m_Bat_Enemy_x += 50.0f; //x位置修正
 					}
@@ -241,12 +244,21 @@ void CObjBoss::Action()
 		//敵無力化イベント時敵生成
 		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
-			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 10;
+			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 5;
 			for (int c = 0; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
 			{
 				//球体型敵オブジェクト作成
 				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
 				Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 5);
+
+				if (c % 2 == 0 && c != 0)
+				{
+					m_Sphere_Type_Enemy_x += 50.0f; //x位置修正
+				}
+				else if (c % 2 != 0)
+				{
+					m_Sphere_Type_Enemy_y += 30.0f; //y位置修正
+				}
 			}			
 			m_Sphere_Type_Enemy_Restriction_Stop_flg = true; //球体型生成停止フラグ
 		}		

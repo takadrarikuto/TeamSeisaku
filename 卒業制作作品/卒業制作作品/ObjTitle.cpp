@@ -29,18 +29,6 @@ void CObjTitle::Init()
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
-
-	//ゲーム実行して一回のみ
-	static bool init_point = false;
-	if (init_point == false)
-	{
-		//ロード
-		Save::Open();//同フォルダ「UserData」からデータ取得
-
-		init_point = true;
-	}
-
-	Save::Seve();//UserDataの情報フォルダ「UserData」を作成
 }
 
 //アクション
@@ -105,11 +93,6 @@ void CObjTitle::Action()
 			m_andf = false;
 			Scene::SetScene(new CSceneOP());
 			//Scene::SetScene(new CSceneDifficulty_Level());
-			/*
-			//デバッグテスト用
-			Scene::SetScene(new CSceneStage());
-			Scene::SetScene(new CSceneClear());
-			*/
 		}
 	}
 

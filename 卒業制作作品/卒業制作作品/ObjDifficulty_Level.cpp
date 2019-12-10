@@ -21,38 +21,29 @@ using namespace GameL;
 void ObjDifficulty_Level::Init()
 {
 	m_key_flag = false;
-	choose = 1;
+	((UserData*)Save::GetData())->choose;
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
-
-	//ゲーム実行して一回のみ
-	static bool init_point = false;
-	if (init_point == false)
-	{
-		//ロード
-		Save::Open();//同フォルダ「UserData」からデータ取得
-
-		init_point = true;
-	}
-
-	Save::Seve();//UserDataの情報フォルダ「UserData」を作成
 }
 
 //アクション
 void ObjDifficulty_Level::Action()
 {
+	//タイム情報取得
+	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
+	
 	//上キーで上に移動
-	if (Input::GetVKey(VK_DOWN) == true && choose > 0 && m_time == 0)
+	if (Input::GetVKey(VK_DOWN) == true && ((UserData*)Save::GetData())->choose > 1 && m_time == 0)
 	{
-		--choose;
+		++((UserData*)Save::GetData())->choose;
 		Audio::Start(0);
 		m_time = 10;
 	}
 	//下キーで下に移動
-	if (Input::GetVKey(VK_UP) == true && choose < 1 && m_time == 0)
+	if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose < 4 && m_time == 0)
 	{
-		++choose;
+		--((UserData*)Save::GetData())->choose;
 		Audio::Start(0);
 		m_time = 10;
 	}
@@ -64,7 +55,7 @@ void ObjDifficulty_Level::Action()
 	}
 
 	//決定キーで決定
-	if (choose > 0)
+	if (((UserData*)Save::GetData())->choose < 4)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
 		{
@@ -73,7 +64,35 @@ void ObjDifficulty_Level::Action()
 				m_andf = true;
 				Audio::Start(1);
 				m_key_flag = false;
-
+				//難易度によって設定を変える
+				if (((UserData*)Save::GetData())->choose >= 1)
+				{
+					((UserData*)Save::GetData())->Level_Time = 10850; //10850 = タイムを3分に設定
+					//武器別残り弾数
+					((UserData*)Save::GetData())->SHG_Ammunition = 60; //ショットガン
+					//武器別所持弾数(装備分)
+					((UserData*)Save::GetData())->SHG_Number_of_Ammunition = 6; //ショットガン
+					if (((UserData*)Save::GetData())->choose >= 2)
+					{
+						((UserData*)Save::GetData())->Level_Time = 18000; //18000 = タイムを5分に設定
+						//武器別残り弾数
+						((UserData*)Save::GetData())->AR_Ammunition = 200; //アサルトライフル
+						((UserData*)Save::GetData())->SR_Ammunition = 30; //スナイパーライフル
+						//武器別所持弾数(装備分)
+						((UserData*)Save::GetData())->AR_Number_of_Ammunition = 20; //アサルトライフル
+						((UserData*)Save::GetData())->SR_Number_of_Ammunition = 5; //スナイパーライフル
+						if (((UserData*)Save::GetData())->choose == 3)
+						{
+							((UserData*)Save::GetData())->Level_Time = 25200; //25200 = タイムを7分に設定
+							//武器別残り弾数
+							((UserData*)Save::GetData())->RL_Ammunition = 2; //ロケットランチャー
+							((UserData*)Save::GetData())->RG_Ammunition = 1; //レールガン
+							//武器別所持弾数(装備分)
+							((UserData*)Save::GetData())->RL_Number_of_Ammunition = 1; //ロケットランチャー
+							((UserData*)Save::GetData())->RG_Number_of_Ammunition = 1; //レールガン
+						}
+					}
+				}
 			}
 		}
 		else
@@ -83,7 +102,7 @@ void ObjDifficulty_Level::Action()
 	}
 
 	//ゲーム終了処理
-	if (choose == 0)
+	if (((UserData*)Save::GetData())->choose == 4)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
 		{
@@ -99,7 +118,8 @@ void ObjDifficulty_Level::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			Scene::SetScene(new CSceneOP());
+			//Scene::SetScene(new CSceneOP());
+			Scene::SetScene(new CSceneStage());
 			/*
 			*/
 		}
@@ -114,6 +134,7 @@ void ObjDifficulty_Level::Draw()
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
 	float bl[4] = { 0.8f,0.8f,0.8f,1.0f, };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -133,23 +154,31 @@ void ObjDifficulty_Level::Draw()
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
 	Draw::Draw(3, &src, &dst, bl, 0.0f);
 
-	float b[4] = { 1,1,1,1 };
-
 	//タイトル
-	Font::StrDraw(L"難易度選択", 225, 125, 40, b);
+	Font::StrDraw(L"難易度選択", 275, 105, 50, c);
 
-	Font::StrDraw(L"Enterキー : 決定", 125, 225, 30, b);
-	Font::StrDraw(L"↑↓キー : 選択", 325, 225, 30, b);
+	Font::StrDraw(L"Enterキー : 決定", 105, 275, 30, b);
+	Font::StrDraw(L"↑↓キー : 選択", 105, 375, 30, b);
 
-	if (choose == 0)
+
+	if (((UserData*)Save::GetData())->choose == 1)
+		Font::StrDraw(L"◆イージー", GAME_EASY_POS_X, GAME_EASY_POS_Y, GAME_EASY_FONT_SIZE, r);
+	else
+		Font::StrDraw(L"　イージー", GAME_EASY_POS_X, GAME_EASY_POS_Y, GAME_EASY_FONT_SIZE, c);
+
+	if (((UserData*)Save::GetData())->choose == 2)
+		Font::StrDraw(L"◆ノーマル", GAME_NORMAL_POS_X, GAME_NORMAL_POS_Y, GAME_NORMAL_FONT_SIZE, r);
+	else
+		Font::StrDraw(L"　ノーマル", GAME_NORMAL_POS_X, GAME_NORMAL_POS_Y, GAME_NORMAL_FONT_SIZE, c);
+
+	if (((UserData*)Save::GetData())->choose == 3)
+		Font::StrDraw(L"◆ハード", GAME_HARD_POS_X, GAME_HARD_POS_Y, GAME_HARD_FONT_SIZE, r);
+	else
+		Font::StrDraw(L"　ハード", GAME_HARD_POS_X, GAME_HARD_POS_Y, GAME_HARD_FONT_SIZE, c);
+
+	if (((UserData*)Save::GetData())->choose == 4)
 		Font::StrDraw(L"◆タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, r);
 	else
-		Font::StrDraw(L"　タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, b);
+		Font::StrDraw(L"　タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, c);
 
-	if (choose == 1)
-		Font::StrDraw(L"◆イージー", GAME_START_POS_X, GAME_START_POS_Y, GAME_START_FONT_SIZE, r);
-	else
-		Font::StrDraw(L"　イージー", GAME_START_POS_X, GAME_START_POS_Y, GAME_START_FONT_SIZE, b);
-
-	
 }

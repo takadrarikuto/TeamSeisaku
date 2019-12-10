@@ -58,7 +58,7 @@ void CObjHero::Init()
 	m_ga_vy_max = 5.0f;
 
 	//足跡生成タイム
-	m_Footprint_time = 60; 
+	m_Footprint_time = 10; 
 	//足跡生成フラグ
 	m_Footprint_flg = false; 
 
@@ -85,18 +85,18 @@ void CObjHero::Init()
 
 	//所持弾数(装備分)
 	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)//30
-	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)//30
-	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)//5
-	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
-	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
+	m_sg_pb = ((UserData*)Save::GetData())->SHG_Number_of_Ammunition;//ショットガン現在弾数用(上部表示用)//30
+	m_ar_pb = ((UserData*)Save::GetData())->AR_Number_of_Ammunition;//アサルトライフル現在弾数用(上部表示用)//30
+	m_sr_pb = ((UserData*)Save::GetData())->SR_Number_of_Ammunition;//スナイパーライフル現在弾数用(上部表示用)//5
+	m_rl_pb = ((UserData*)Save::GetData())->RL_Number_of_Ammunition;//ロケットランチャー現在弾数用(上部表示用)
+	m_rg_pb = ((UserData*)Save::GetData())->RG_Number_of_Ammunition;//レールガン現在弾数用(上部表示用)
 
 	//所持弾数(計算用)
-	m_sg_pb_c = 6;//ショットガン現在弾数用
-	m_ar_pb_c = 20;//アサルトライフル現在弾数用
-	m_sr_pb_c = 5;//スナイパーライフル現在弾数用
-	m_rl_pb_c = 1;//ロケットランチャー現在弾数用
-	m_rg_pb_c = 1;//レールガン現在弾数用
+	m_sg_pb_c = ((UserData*)Save::GetData())->SHG_Number_of_Ammunition;//ショットガン現在弾数用
+	m_ar_pb_c = ((UserData*)Save::GetData())->AR_Number_of_Ammunition;//アサルトライフル現在弾数用
+	m_sr_pb_c = ((UserData*)Save::GetData())->SR_Number_of_Ammunition;//スナイパーライフル現在弾数用
+	m_rl_pb_c = ((UserData*)Save::GetData())->RL_Number_of_Ammunition;//ロケットランチャー現在弾数用
+	m_rg_pb_c = ((UserData*)Save::GetData())->RG_Number_of_Ammunition;//レールガン現在弾数用
 
 	m_sg_pb_cc = 0;//ショットガン現在弾数用
 	m_ar_pb_cc = 0;//アサルトライフル現在弾数用
@@ -105,11 +105,11 @@ void CObjHero::Init()
 	m_rg_pb_cc = 0;//レールガン現在弾数用
 
 	//メニュー表示用
-	m_sg_pb_me = 60;//ショットガン
-	m_ar_pb_me = 200;//アサルトライフル
-	m_sr_pb_me = 30;//スナイパーライフル
-	m_rl_pb_me = 2;//ロケットランチャー
-	m_rg_pb_me = 1;//レールガン
+	m_sg_pb_me = ((UserData*)Save::GetData())->SHG_Ammunition;//ショットガン
+	m_ar_pb_me = ((UserData*)Save::GetData())->AR_Ammunition;//アサルトライフル
+	m_sr_pb_me = ((UserData*)Save::GetData())->SR_Ammunition;//スナイパーライフル
+	m_rl_pb_me = ((UserData*)Save::GetData())->RL_Ammunition;//ロケットランチャー
+	m_rg_pb_me = ((UserData*)Save::GetData())->RG_Ammunition;//レールガン
 	m_gre_pb_me = 3;//グレネード
 
 	//リロード用
@@ -260,24 +260,19 @@ void CObjHero::Action()
 					//上下を向いていると縦向き
 					if (m_UDani_frame == 0 || m_UDani_frame == 4)
 					{
-						CObjFootprint* Foot = new CObjFootprint(m_x, m_y, 0.0f);
+						CObjFootprint* Foot = new CObjFootprint(m_x + 20, m_y + 20, 0.0f);
 						Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
 					}
 					//左右を向いていると横向き
 					else if (m_UDani_frame == 6 || m_UDani_frame == 2)
 					{
-						CObjFootprint* Foot = new CObjFootprint(m_x, m_y, 90.0f);
+						CObjFootprint* Foot = new CObjFootprint(m_x + 20, m_y + 20, 90.0f);
 						Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
 					}
 
-					m_Footprint_time = 60; //足跡生成タイム初期化
+					m_Footprint_time = 10; //足跡生成タイム初期化
 				}
-			}			
-			else if (m_Footprint_flg == false)
-			{
-				m_Footprint_time = 60; //足跡生成タイム初期化
-			}
-			
+			}						
 			
 			//アニメーション処理
 			if (m_ani_time > 6)
