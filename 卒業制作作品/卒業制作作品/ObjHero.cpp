@@ -85,18 +85,18 @@ void CObjHero::Init()
 
 	//所持弾数(装備分)
 	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)//30
-	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)//30
-	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)//5
-	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
-	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
+	m_sg_pb = ((UserData*)Save::GetData())->SHG_Number_of_Ammunition;//ショットガン現在弾数用(上部表示用)//30
+	m_ar_pb = ((UserData*)Save::GetData())->AR_Number_of_Ammunition;//アサルトライフル現在弾数用(上部表示用)//30
+	m_sr_pb = ((UserData*)Save::GetData())->SR_Number_of_Ammunition;//スナイパーライフル現在弾数用(上部表示用)//5
+	m_rl_pb = ((UserData*)Save::GetData())->RL_Number_of_Ammunition;//ロケットランチャー現在弾数用(上部表示用)
+	m_rg_pb = ((UserData*)Save::GetData())->RG_Number_of_Ammunition;//レールガン現在弾数用(上部表示用)
 
 	//所持弾数(計算用)
-	m_sg_pb_c = 6;//ショットガン現在弾数用
-	m_ar_pb_c = 20;//アサルトライフル現在弾数用
-	m_sr_pb_c = 5;//スナイパーライフル現在弾数用
-	m_rl_pb_c = 1;//ロケットランチャー現在弾数用
-	m_rg_pb_c = 1;//レールガン現在弾数用
+	m_sg_pb_c = ((UserData*)Save::GetData())->SHG_Number_of_Ammunition;//ショットガン現在弾数用
+	m_ar_pb_c = ((UserData*)Save::GetData())->AR_Number_of_Ammunition;//アサルトライフル現在弾数用
+	m_sr_pb_c = ((UserData*)Save::GetData())->SR_Number_of_Ammunition;//スナイパーライフル現在弾数用
+	m_rl_pb_c = ((UserData*)Save::GetData())->RL_Number_of_Ammunition;//ロケットランチャー現在弾数用
+	m_rg_pb_c = ((UserData*)Save::GetData())->RG_Number_of_Ammunition;//レールガン現在弾数用
 
 	m_sg_pb_cc = 0;//ショットガン現在弾数用
 	m_ar_pb_cc = 0;//アサルトライフル現在弾数用
@@ -105,11 +105,11 @@ void CObjHero::Init()
 	m_rg_pb_cc = 0;//レールガン現在弾数用
 
 	//メニュー表示用
-	m_sg_pb_me = 60;//ショットガン
-	m_ar_pb_me = 200;//アサルトライフル
-	m_sr_pb_me = 30;//スナイパーライフル
-	m_rl_pb_me = 2;//ロケットランチャー
-	m_rg_pb_me = 1;//レールガン
+	m_sg_pb_me = ((UserData*)Save::GetData())->SHG_Ammunition;//ショットガン
+	m_ar_pb_me = ((UserData*)Save::GetData())->AR_Ammunition;//アサルトライフル
+	m_sr_pb_me = ((UserData*)Save::GetData())->SR_Ammunition;//スナイパーライフル
+	m_rl_pb_me = ((UserData*)Save::GetData())->RL_Ammunition;//ロケットランチャー
+	m_rg_pb_me = ((UserData*)Save::GetData())->RG_Ammunition;//レールガン
 	m_gre_pb_me = 3;//グレネード
 
 	//リロード用

@@ -9,11 +9,11 @@ using namespace GameL;
 #define GAME_EASY_FONT_SIZE (45)
 
 #define GAME_NORMAL_POS_X (400) //ïÅí 
-#define GAME_NORMAL_POS_Y (280)
+#define GAME_NORMAL_POS_Y (290)
 #define GAME_NORMAL_FONT_SIZE (45)
 
 #define GAME_HARD_POS_X (400) //ìÔÇµÇ¢
-#define GAME_HARD_POS_Y (365)
+#define GAME_HARD_POS_Y (375)
 #define GAME_HARD_FONT_SIZE (45)
 
 #define GAME_EXIT_POS_X (400) //É^ÉCÉgÉãÉwñﬂÇÈ

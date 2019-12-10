@@ -34,16 +34,16 @@ void ObjDifficulty_Level::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	
 	//上キーで上に移動
-	if (Input::GetVKey(VK_DOWN) == true && ((UserData*)Save::GetData())->choose > 0 && m_time == 0)
+	if (Input::GetVKey(VK_DOWN) == true && ((UserData*)Save::GetData())->choose > 1 && m_time == 0)
 	{
-		--((UserData*)Save::GetData())->choose;
+		++((UserData*)Save::GetData())->choose;
 		Audio::Start(0);
 		m_time = 10;
 	}
 	//下キーで下に移動
-	if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose < 3 && m_time == 0)
+	if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose < 4 && m_time == 0)
 	{
-		++((UserData*)Save::GetData())->choose;
+		--((UserData*)Save::GetData())->choose;
 		Audio::Start(0);
 		m_time = 10;
 	}
@@ -55,7 +55,7 @@ void ObjDifficulty_Level::Action()
 	}
 
 	//決定キーで決定
-	if (((UserData*)Save::GetData())->choose > 0)
+	if (((UserData*)Save::GetData())->choose < 4)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
 		{
@@ -64,6 +64,7 @@ void ObjDifficulty_Level::Action()
 				m_andf = true;
 				Audio::Start(1);
 				m_key_flag = false;
+				//難易度によって設定を変える
 				if (((UserData*)Save::GetData())->choose >= 1)
 				{
 					((UserData*)Save::GetData())->Level_Time = 10850; //10850 = タイムを3分に設定
@@ -101,7 +102,7 @@ void ObjDifficulty_Level::Action()
 	}
 
 	//ゲーム終了処理
-	if (((UserData*)Save::GetData())->choose == 0)
+	if (((UserData*)Save::GetData())->choose == 4)
 	{
 		if (Input::GetVKey(VK_RETURN) == true)
 		{
@@ -159,10 +160,6 @@ void ObjDifficulty_Level::Draw()
 	Font::StrDraw(L"Enterキー : 決定", 105, 275, 30, b);
 	Font::StrDraw(L"↑↓キー : 選択", 105, 375, 30, b);
 
-	if (((UserData*)Save::GetData())->choose == 0)
-		Font::StrDraw(L"◆タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, r);
-	else
-		Font::StrDraw(L"　タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, c);
 
 	if (((UserData*)Save::GetData())->choose == 1)
 		Font::StrDraw(L"◆イージー", GAME_EASY_POS_X, GAME_EASY_POS_Y, GAME_EASY_FONT_SIZE, r);
@@ -178,4 +175,10 @@ void ObjDifficulty_Level::Draw()
 		Font::StrDraw(L"◆ハード", GAME_HARD_POS_X, GAME_HARD_POS_Y, GAME_HARD_FONT_SIZE, r);
 	else
 		Font::StrDraw(L"　ハード", GAME_HARD_POS_X, GAME_HARD_POS_Y, GAME_HARD_FONT_SIZE, c);
+
+	if (((UserData*)Save::GetData())->choose == 4)
+		Font::StrDraw(L"◆タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, r);
+	else
+		Font::StrDraw(L"　タイトルへ戻る", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, c);
+
 }
