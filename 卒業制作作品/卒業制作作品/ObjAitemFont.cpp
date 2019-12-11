@@ -101,7 +101,7 @@ void CObjAitemFont::Draw()
 		{
 			swprintf_s(str, L"ツールボックスを獲得しました。");
 		}		
-		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, blk); //アイテム取得でフォント表示
+		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, c); //アイテム取得でフォント表示
 	}	
 	
 
