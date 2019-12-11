@@ -55,6 +55,10 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//設置型アイテムオブジェクト
+	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
+	int SHG_Rep_Font = IT_SHG->GetRepFontTime();
+
 	//アイテム獲得情報取得
 	CObjAitemFont* aitf = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 	Aitem_get_font = aitf->GetA_G_F();
@@ -232,5 +236,11 @@ void CObjTopback::Draw()
 			Draw::Draw(30, &src, &dst, a2, 0.0f);
 		}
 	}
+	//設置型アイテム補充時用背景------------------------------------------------
+	if (SHG_Rep_Font == true)
+	{
+		Draw::Draw(30, &src, &dst, a2, 0.0f);
+	}
+
 	//------------------------------------------------------------------
 }

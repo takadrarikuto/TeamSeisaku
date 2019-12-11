@@ -3,6 +3,9 @@
 
 using namespace GameL;
 
+#define REPLENIShHMENT_TIME 300 //再補充タイム
+#define REPLENIShHMENT_FONT_TIME 120 //再補充完了フォント表示タイム
+
 class CObjInstallation_Type_ShotGun :public CObj, public CBaseStatus
 {
 public:
@@ -16,6 +19,8 @@ public:
 	float GetGenY() { return m_IT_SHGy; } //y位置情報取得用
 	float GetGenHitX() { return m_HitSize_x; } //HitBox xサイズ取得用
 	float GetGenHitY() { return m_HitSize_y; } //HitBox yサイズ取得用
+
+	int GetRepFontTime() { return m_Replenishment_Font_time; } //再補充完了フォント表示タイム取得用
 
 private:
 	float m_IT_SHGx; //位置情報
