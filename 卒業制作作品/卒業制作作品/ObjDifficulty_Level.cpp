@@ -41,6 +41,13 @@ void ObjDifficulty_Level::Action()
 		Audio::Start(0);
 		m_time = 10;
 	}
+	//一番上で上キーで上に移動すると一番下にする
+	else if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose == 0 && m_time == 0)
+	{
+		((UserData*)Save::GetData())->choose = 3;
+		Audio::Start(0);
+		m_time = 10;
+	}
 	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && ((UserData*)Save::GetData())->choose < 3 && m_time == 0)
 	{
@@ -48,6 +55,15 @@ void ObjDifficulty_Level::Action()
 		Audio::Start(0);
 		m_time = 10;
 	}
+	//一番下で下キーで上に移動すると一番上にする
+	else if (Input::GetVKey(VK_DOWN) == true && ((UserData*)Save::GetData())->choose == 3 && m_time == 0)
+	{
+		((UserData*)Save::GetData())->choose = 0;
+		Audio::Start(0);
+		m_time = 10;
+	}
+
+	//間隔をあける処理
 	if (m_time > 0) {
 		m_time--;
 		if (m_time <= 0) {

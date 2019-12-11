@@ -53,9 +53,9 @@ void CObjRocketLauncherItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetRL(2);		//主人公に当たると弾補充
+		hero->SetRL(1);		//主人公に当たると弾補充
 		aitemfont->SetAGF(4); //フォント表示
-		aitemfont->SetAitemNum(2); //弾数表示
+		aitemfont->SetAitemNum(1); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

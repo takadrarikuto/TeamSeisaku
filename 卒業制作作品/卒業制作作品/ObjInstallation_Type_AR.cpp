@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjInstallation_Type_AR.h"
@@ -97,6 +98,7 @@ void CObjInstallation_Type_AR::Draw()
 {
 	//ï`âÊÉJÉâÅ[èÓïÒ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//çï
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
 
 	RECT_F src;

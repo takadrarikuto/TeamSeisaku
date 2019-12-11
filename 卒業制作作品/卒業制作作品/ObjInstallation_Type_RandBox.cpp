@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include <time.h>
 
@@ -135,6 +136,7 @@ void CObjInstallation_Type_RandBox::Draw()
 {
 	//•`‰æƒJƒ‰[î•ñ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//•
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
 
 	RECT_F src;
