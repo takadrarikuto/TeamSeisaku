@@ -642,12 +642,6 @@ void CObjZombieEnemy::Action()
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
-		//グレネード
-		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-		{
-			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 1;		//点滅時間をセット
-		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 		{

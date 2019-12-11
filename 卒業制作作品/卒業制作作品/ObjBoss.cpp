@@ -62,7 +62,7 @@ void CObjBoss::Init()
 	m_Bat_Enemy_time_max = 300; //蝙蝠生成タイム最大値	
 	m_Bat_Enemy_Restriction = 0; //蝙蝠生成数制限
 	m_Bat_Enemy_Restriction_num = 0; //蝙蝠生成数制限減少
-	m_Bat_Enemy_Restriction_max = 5; //蝙蝠生成数制限最大数	
+	m_Bat_Enemy_Restriction_max = 10; //蝙蝠生成数制限最大数	
 	m_Bat_Enemy_co_num = 1; //蝙蝠生成数カウント変数
 
 	m_Bat_Enemy_x = 0.0f; //x位置修正
@@ -136,7 +136,7 @@ void CObjBoss::Action()
 		//蝙蝠
 		if (m_Bat_Enemy_Restriction_num > 0)
 		{
-			m_Bat_Enemy_Generation -= m_Bat_Enemy_Restriction_num;
+			m_Bat_Enemy_Restriction -= m_Bat_Enemy_Restriction_num;
 			m_Bat_Enemy_Restriction_num = 0;
 		}
 		//火トカゲ
@@ -148,7 +148,7 @@ void CObjBoss::Action()
 		//火の鳥
 		if (m_Frie_Bird_Restriction_num > 0)
 		{
-			m_Frie_Bird_Generation -= m_Frie_Bird_Restriction_num;
+			m_Frie_Bird_Restriction -= m_Frie_Bird_Restriction_num;
 			m_Frie_Bird_Restriction_num = 0;
 		}
 
@@ -210,10 +210,11 @@ void CObjBoss::Action()
 					else if (i % 2 != 0)
 					{
 						m_Bat_Enemy_y += 30.0f; //y位置修正
-					}					
-				}
-				m_Bat_Enemy_Restriction += m_Bat_Enemy_co_num; //蝙蝠生成カウント
-			}					
+					}		
+
+					m_Bat_Enemy_Restriction += 1; //蝙蝠生成カウント
+				}							
+			}	
 			m_Bat_Enemy_Generation = 0;
 		}
 		//火トカゲ
@@ -249,7 +250,7 @@ void CObjBoss::Action()
 			for (int c = 0; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
 			{
 				//球体型敵オブジェクト作成
-				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x, e_y);
+				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x + m_Sphere_Type_Enemy_x, e_y + m_Sphere_Type_Enemy_y);
 				Objs::InsertObj(obj_ste, OBJ_SPHERE_TYPE_ENEMY, 5);
 
 				if (c % 2 == 0 && c != 0)

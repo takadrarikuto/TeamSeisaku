@@ -78,7 +78,7 @@ void CObjTime::Action()
 		/*else*/ if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
-		}*/
+		}
 		//ミーム実態無力化イベント
 		/*if (m_Event_Rand_num >= 0)
 		{

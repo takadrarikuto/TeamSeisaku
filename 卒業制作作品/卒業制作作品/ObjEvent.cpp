@@ -31,6 +31,7 @@ void CObjEvent::Init()
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ
 	m_Event_TimePenalty = false;
+
 //距離測定変数
 	//発電機
 	m_Gene_distance_X = 0; 
@@ -87,8 +88,8 @@ void CObjEvent::Action()
 	float Gene2_Y = Gene2->GetGen2Y() - 40;
 	//敵無力化装置情報取得
 	CObjEnemy_Neutralization_Device* END = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-	float END_X = END->GetEndX();
-	float END_Y = END->GetEndY();
+	float END_X = END->GetEndX() + 100;
+	float END_Y = END->GetEndY() - 74;
 	CObjEnemy_Neutralization_Device2* END2 = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
 	float END2_X = END2->GetEndX();
 	float END2_Y = END2->GetEndY();
@@ -218,7 +219,6 @@ void CObjEvent::Action()
 		m_Tool_distance_Y = (Tool_box_Y - h_x) / 2;
 		m_Tool_distance_r = m_Tool_distance_X + m_Tool_distance_Y;
 	}	
-	
 }
 
 //ドロー
@@ -276,7 +276,7 @@ void CObjEvent::Draw()
 		else if (END_flg == true)
 		{
 			swprintf_s(event, L"イベント発生中 : SCP-354-3が大量発生しました。"); //イベント内容
-			swprintf_s(event_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
+			swprintf_s(event_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。距離 %dｍ or %dｍ", m_END_distance_r, m_END2_distance_r); //クリア条件
 		}
 		//ミーム実態無力化装置イベント
 		else if (MND_flg == true)
@@ -292,5 +292,5 @@ void CObjEvent::Draw()
 		}
 		Font::StrDraw(event, 7, 127, 20, c);
 		Font::StrDraw(event_a, 7, 153, 20, c);
-	}	
+	}		
 }

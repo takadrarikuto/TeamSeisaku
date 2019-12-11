@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjInstallation_Type_ShotGun.h"
@@ -37,6 +38,11 @@ void CObjInstallation_Type_ShotGun::Init()
 	m_Replenishment_flg = false; 
 	//再補充タイム
 	m_Replenishment_time = 0; 
+
+	//再補充完了フォント表示フラグ
+	m_Replenishment_Font_flg = false;
+	//再補充完了フォント表示タイム
+	m_Replenishment_Font_time = 120;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_IT_SHGx, m_IT_SHGy, m_HitSize_x, m_HitSize_y, ELEMENT_ITEM, OBJ_INSTALL_TYPE_SHG, 6);
@@ -91,6 +97,26 @@ void CObjInstallation_Type_ShotGun::Action()
 	{
 		m_Replenishment_time--;
 	}
+	else if (m_Replenishment_time == 0)
+	{		
+		//再補充完了フォント表示フラグ初期化
+		m_Replenishment_Font_flg = true;
+	}
+	if (m_Replenishment_Font_flg == true)
+	{
+		//再補充完了フォント表示フラグ初期化
+		m_Replenishment_Font_flg = false;
+		if (m_Replenishment_Font_time > 0)
+		{
+			m_Replenishment_Font_time--;
+		}	
+		else if(m_Replenishment_Font_time == 0)
+		{
+			//再補充完了フォント表示タイム
+			m_Replenishment_Font_time = 120;
+		}
+	}
+	
 }
 
 //ドロー
@@ -98,7 +124,17 @@ void CObjInstallation_Type_ShotGun::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+
+	wchar_t str[128];
+
+	if (m_Replenishment_Font_time > 0)
+	{
+		swprintf_s(str, L"ショットガンが再補充されました。");
+
+		Font::StrDraw(L"ショットガンが再補充されました。", 0, 570, 30, blk); //アイテム取得でフォント表示
+	}
 
 	RECT_F src;
 	RECT_F dst;

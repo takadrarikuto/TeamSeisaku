@@ -26,7 +26,8 @@ private:
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;
 
-	bool m_Replenishment_flg; //補充フラグ
+	bool m_Replenishment_flg; //補充フラグ	
 	int m_Replenishment_time; //再補充タイム
-
+	bool m_Replenishment_Font_flg; //再補充完了フォント表示フラグ
+	int m_Replenishment_Font_time; //再補充完了フォント表示タイム
 };

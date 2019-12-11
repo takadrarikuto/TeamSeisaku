@@ -53,6 +53,7 @@ void CObjAitemFont::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float fc[4] = { 0.0f ,0.0f, 0.0f, 1.0f };
 
 	RECT_F src;
@@ -100,7 +101,7 @@ void CObjAitemFont::Draw()
 		{
 			swprintf_s(str, L"ツールボックスを獲得しました。");
 		}		
-		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, c); //アイテム取得でフォント表示
+		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, blk); //アイテム取得でフォント表示
 	}	
 	
 
