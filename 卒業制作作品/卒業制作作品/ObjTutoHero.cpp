@@ -569,7 +569,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_hg_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//ハンドガンアタックオブジェクト作成
@@ -614,48 +614,48 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_sg_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max / 3, -m_ga_vy_max, 150.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
+						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max / 3, -m_ga_vy_max, 210.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max, 60.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max / 3, 60.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max, 120.0f);
+						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max / 3, 120.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max, m_ga_vy_max, -30.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max / 3, m_ga_vy_max, -30.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 0.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max, m_ga_vy_max, 30.0f);
+						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max / 3, m_ga_vy_max, 30.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max, 240.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max / 3, 240.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max, 300.0f);
+						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max / 3, 300.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//Attack_flg = true; //Attackフラグtrue
@@ -674,7 +674,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_ar_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//アサルトアタックオブジェクト作成
@@ -717,7 +717,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_sr_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//スナイパーアタックオブジェクト作成
@@ -761,7 +761,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_rl_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//ロケットランチャーアタックオブジェクト作成
@@ -804,7 +804,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_rg_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//レールガンアタックオブジェクト作成
