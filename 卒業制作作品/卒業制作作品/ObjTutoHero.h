@@ -98,7 +98,10 @@ private:
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値
 
-				  //上下左右別当たり判定確認フラグ
+	int m_Footprint_time; //足跡生成タイム
+	bool m_Footprint_flg; //足跡生成フラグ
+
+	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
 	bool m_DownHit_flg;	 //下
 	bool m_LeftHit_flg;	 //左

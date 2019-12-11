@@ -201,6 +201,7 @@ void CObjBoss::Action()
 					//蝙蝠オブジェクト作成
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
+					Audio::Start(20);
 
 					if (i % 2 == 0 && i != 0)
 					{

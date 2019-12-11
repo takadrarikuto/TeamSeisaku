@@ -118,6 +118,10 @@ void CObjStage::Draw()
 	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
 	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
 
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	/*hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得*/
+
 	//各残り弾数情報を取得(装備分)
 	hg_pb_e = hero->GetHG_E();	//ハンドガン
 	sg_pb_e = hero->GetSG_E();	//ショットガン

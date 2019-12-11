@@ -43,7 +43,7 @@ void CSceneOperation::InitScene()
 	Audio::LoadAudio(0, L"決定音.wav", EFFECT);
 
 	//バックミュージックスタート
-	float Volume = Audio::VolumeMaster(0.5);
+	//float Volume = Audio::VolumeMaster(0.5);
 	
 }
 
