@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjInstallation_Type_ShotGun.h"
@@ -38,6 +39,11 @@ void CObjInstallation_Type_ShotGun::Init()
 	//再補充タイム
 	m_Replenishment_time = 0; 
 
+	//再補充完了フォント表示フラグ
+	m_Replenishment_Font_flg = false;
+	//再補充完了フォント表示タイム
+	m_Replenishment_Font_time = 0;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_IT_SHGx, m_IT_SHGy, m_HitSize_x, m_HitSize_y, ELEMENT_ITEM, OBJ_INSTALL_TYPE_SHG, 6);
 
@@ -72,9 +78,9 @@ void CObjInstallation_Type_ShotGun::Action()
 			hero->SetSG(16);
 			Audio::Start(12); //効果音再生
 			//補充フラグ
-			m_Replenishment_flg = true;
-			//再補充タイム
-			m_Replenishment_time = 3000;
+			m_Replenishment_flg = true;	
+			//再補充完了フォント表示タイム
+			m_Replenishment_Font_time = REPLENIShHMENT_FONT_TIME;
 		}
 	}
 	else
@@ -90,7 +96,32 @@ void CObjInstallation_Type_ShotGun::Action()
 	if (m_Replenishment_time > 0)
 	{
 		m_Replenishment_time--;
+		//再補充完了フォント表示フラグ初期化
+		m_Replenishment_Font_flg = true;
 	}
+	else if (m_Replenishment_time == 0)
+	{
+		if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+		{
+			Audio::Start(8); //効果音再生
+		}
+		if (m_Replenishment_Font_time > 0)
+		{
+			m_Replenishment_Font_time--;
+		}
+		else if (m_Replenishment_Font_time == 0)
+		{
+			//再補充完了フォント表示フラグ初期化
+			m_Replenishment_Font_flg = false;
+		}
+	}
+
+	//補充完了フォント表示処理
+	if (m_Replenishment_Font_flg == false)
+	{
+		
+	}
+	
 }
 
 //ドロー
@@ -99,6 +130,13 @@ void CObjInstallation_Type_ShotGun::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+
+	wchar_t str[256];
+
+	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
+	{
+		Font::StrDraw(L"ショットガンが再補充されました。", 0, 570, 30, c); //アイテム取得でフォント表示		
+	}
 
 	RECT_F src;
 	RECT_F dst;

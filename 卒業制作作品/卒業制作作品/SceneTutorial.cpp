@@ -108,9 +108,12 @@ void CSceneTutorial::InitScene()
 	//8
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
+	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
 	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
 	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
+	Audio::LoadAudio(18, L"成功音.wav", EFFECT);//チュートリアル用
+
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.1);
 	Audio::Start(0);    //音楽スタート
@@ -145,7 +148,6 @@ void CSceneTutorial::Scene()
 		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
 
 		Tuto_flg = true;
+		Audio::Start(11);
 	}
-
-	
 }

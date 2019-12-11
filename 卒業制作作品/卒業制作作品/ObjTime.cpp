@@ -70,15 +70,15 @@ void CObjTime::Action()
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
 		//発電機イベント
-		if (m_Event_Rand_num > 0/*< 50*/)
-		{
-			m_Gen_flg = true;			
-		}
+		//if (m_Event_Rand_num > 0/*< 50*/)
+		//{
+		//	m_Gen_flg = true;			
+		//}
 		//敵無力化イベント
-		/*else if (m_Event_Rand_num>= 0)
+		/*else*/ if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
-		}*/
+		}
 		//ミーム実態無力化イベント
 		/*if (m_Event_Rand_num >= 0)
 		{

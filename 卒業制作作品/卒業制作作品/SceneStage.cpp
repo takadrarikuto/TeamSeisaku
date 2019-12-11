@@ -61,7 +61,7 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
 	//6
 	//7
-	//8
+	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
 	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
@@ -71,7 +71,7 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
 	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
 	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
-	//18 成功音
+	//18
 	Audio::LoadAudio(19, L"起動音.wav", EFFECT);
 	Audio::LoadAudio(20, L"羽ばたき音.wav", EFFECT);
 

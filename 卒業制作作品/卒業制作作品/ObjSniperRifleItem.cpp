@@ -53,9 +53,9 @@ void CObjSniperRifleItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetSR(30);		//主人公に当たると弾補充
+		hero->SetSR(10);		//主人公に当たると弾補充
 		aitemfont->SetAGF(3); //フォント表示
-		aitemfont->SetAitemNum(30); //弾数表示
+		aitemfont->SetAitemNum(10); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
