@@ -1120,20 +1120,6 @@ void CObjHero::Action()
 							m_sg_pb_me = 0; //全体初期弾数を0にする
 						}
 							
-
-						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-						/*if (m_sg_pb_me <= 0)
-						{
-							//計算後 = 打った数 + 全体初期弾数
-							m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
-							m_sg_pb_me = 0;
-						}
-						else
-						{
-							//計算後 = 現在残り弾数 + 打った数
-							m_sg_pb = m_sg_pb + m_sg_pb_cc;
-						}*/
-
 						//計算後 = 現在残り弾数 + 打った数
 						m_sg_pb = m_sg_pb + m_sg_pb_cc;
 						Audio::Start(13);
@@ -1166,18 +1152,6 @@ void CObjHero::Action()
 							m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
 							m_ar_pb_me = 0; //全体初期弾数を0にする
 						}
-						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-						/*if (m_ar_pb_me <= 0)
-						{
-							//計算後 = 打った数 + 全体初期弾数
-							m_ar_pb = m_ar_pb_cc + m_ar_pb_me;
-							m_ar_pb_me = 0;
-						}
-						else
-						{
-							//計算後 = 現在残り弾数 + 打った数
-							m_ar_pb = m_ar_pb + m_ar_pb_cc;
-						}*/
 
 						//計算後 = 現在残り弾数 + 打った数
 						m_ar_pb = m_ar_pb + m_ar_pb_cc;
@@ -1211,19 +1185,6 @@ void CObjHero::Action()
 							m_sr_pb_cc = m_sr_pb_me; //打った数と全体初期弾数を合わせる
 							m_sr_pb_me = 0; //全体初期弾数を0にする
 						}
-
-						//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-						/*if (m_sr_pb_me <= 0)
-						{
-							//計算後 = 打った数 + 全体初期弾数
-							m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
-							m_sr_pb_me = 0;
-						}
-						else
-						{
-							//計算後 = 現在残り弾数 + 打った数
-							m_sr_pb = m_sr_pb + m_sr_pb_cc;
-						}*/
 
 						//計算後 = 現在残り弾数 + 打った数
 						m_sr_pb = m_sr_pb + m_sr_pb_cc;
@@ -1336,6 +1297,33 @@ void CObjHero::Action()
 			if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 			{
 				//Audio::Start(13);
+			}
+
+		//弾を回復した時上限を超えないようにする
+			//ショットガン
+			if (m_sg_pb_me > 60)
+			{
+				m_sg_pb_me = 60;
+			}
+			//アサルトライフル
+			if (m_ar_pb_me > 200)
+			{
+				m_ar_pb_me = 200;
+			}
+			//スナイパーライフル
+			if (m_sr_pb_me > 30)
+			{
+				m_sr_pb_me = 30;
+			}
+			//ロケットランチャー
+			if (m_rl_pb_me > 2)
+			{
+				m_rl_pb_me = 2;
+			}		
+			//レールガン
+			if (m_rg_pb_me > 1)
+			{
+				m_rg_pb_me = 1;
 			}
 		}
 

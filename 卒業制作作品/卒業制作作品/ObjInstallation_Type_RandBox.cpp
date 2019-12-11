@@ -4,6 +4,7 @@
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
 #include "GameL\DrawFont.h"
+#include "GameL\UserData.h"
 
 #include <time.h>
 
@@ -88,14 +89,14 @@ void CObjInstallation_Type_RandBox::Action()
 			{
 				aitemfont->SetAGF(4);
 				aitemfont->SetAitemNum(2);
-				hero->SetRL(2);	//ロケットランチャー弾
+				((UserData*)Save::GetData())->RL_Ammunition += 2;//ロケットランチャー
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 80 && m_Rand_aitem_num <= 85)
 			{
 				aitemfont->SetAGF(5);
 				aitemfont->SetAitemNum(1);
-				hero->SetRG(1);	//レールガン弾
+				((UserData*)Save::GetData())->RG_Ammunition += 1;//レールガン
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 85 && m_Rand_aitem_num <= 99)

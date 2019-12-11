@@ -4,6 +4,7 @@
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
 #include "GameL\DrawFont.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjInstallation_Type_ShotGun.h"
@@ -74,8 +75,8 @@ void CObjInstallation_Type_ShotGun::Action()
 			&& m_Replenishment_time == 0)
 		{
 			aitemfont->SetAGF(1); 
-			aitemfont->SetAitemNum(16);
-			hero->SetSG(16);
+			aitemfont->SetAitemNum(20);
+			((UserData*)Save::GetData())->SHG_Ammunition += 20;//ショットガン
 			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;	
