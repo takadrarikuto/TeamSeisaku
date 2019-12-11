@@ -146,6 +146,4 @@ void CSceneTutorial::Scene()
 
 		Tuto_flg = true;
 	}
-
-	
 }

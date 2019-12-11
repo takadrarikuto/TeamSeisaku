@@ -145,7 +145,8 @@ void ObjDifficulty_Level::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			//Scene::SetScene(new CSceneOP());
-			Scene::SetScene(new CSceneStage());
+			//Scene::SetScene(new CSceneStage());
+			Scene::SetScene(new CSceneTutorial());
 			/*
 			*/
 		}
