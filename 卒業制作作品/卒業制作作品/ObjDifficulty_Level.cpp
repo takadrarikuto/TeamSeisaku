@@ -37,14 +37,14 @@ void ObjDifficulty_Level::Action()
 	//上キーで上に移動
 	if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose > 0 && m_time == 0)
 	{
-		--((UserData*)Save::GetData())->choose;
+		++((UserData*)Save::GetData())->choose;
 		Audio::Start(0);
 		m_time = 10;
 	}
 	//下キーで下に移動
 	if (Input::GetVKey(VK_DOWN) == true && ((UserData*)Save::GetData())->choose < 3 && m_time == 0)
 	{
-		++((UserData*)Save::GetData())->choose;
+		--((UserData*)Save::GetData())->choose;
 		Audio::Start(0);
 		m_time = 10;
 	}
