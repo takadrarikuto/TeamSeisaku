@@ -3,6 +3,7 @@
 #include "GameHead.h"
 #include "GameL\WinInputs.h"
 #include "GameL\DrawFont.h"
+#include "GameL\Audio.h"
 #include "ObjTutoTopback.h"
 
 //使用するネームスペース
@@ -235,6 +236,8 @@ void CObjTutoTopback::Draw()
 		Draw::Draw(7, &src, &dst, c, 0.0f);
 		Font::StrDraw(L"ツールボックス", 560, 410, 23, blk);
 		
+
+		//Audio::Start(18);
 	}
 	else
 	{

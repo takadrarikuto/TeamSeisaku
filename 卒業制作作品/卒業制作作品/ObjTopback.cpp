@@ -25,6 +25,12 @@ extern bool END_flg;
 extern bool MND_flg;
 extern bool Rep_flg;
 
+/*//イベント失敗フラグ
+extern bool EveMiss_flg;
+
+//イベント成功フラグ
+extern bool EveSuccess_flg;*/
+
 //イニシャライズ
 void CObjTopback::Init()
 {
@@ -145,6 +151,11 @@ void CObjTopback::Draw()
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
+	/*if (Menu_flg == false && EveMiss_flg == true)
+	{
+		Draw::Draw(30, &src, &dst, a, 0.0f);
+	}*/
+
 	//------------------------------------------------------------------
 
 	//リロード文字用背景------------------------------------------------
