@@ -54,6 +54,7 @@ private:
 	bool  m_f;     //弾丸発射制御用
 	float m_and;		//透明度処理用
 	bool m_andf;		//透明度処理用フラグ
+	bool m_andf2;		//透明度処理用フラグ
 	int m_time;
 
 };

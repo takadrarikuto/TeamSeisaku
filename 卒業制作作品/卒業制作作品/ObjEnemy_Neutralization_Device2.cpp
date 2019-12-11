@@ -79,6 +79,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 					TStart_flg = true;
 					m_END2_death_flg = true;
 					time->SetTStart(TStart_flg);
+					Audio::Start(19);
 				}
 				if (App_Rand == 4)
 				{
