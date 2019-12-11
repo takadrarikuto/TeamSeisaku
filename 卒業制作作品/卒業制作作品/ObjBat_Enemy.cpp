@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjBat_Enemy.h"
@@ -98,6 +99,9 @@ void CObjBat_Enemy::Action()
 	float hvy = hero->GetVY();
 	float hpx = hero->GetPX() - m_bex; //位置更新
 	float hpy = hero->GetPY() - m_bey;
+
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
 
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
@@ -412,12 +416,6 @@ void CObjBat_Enemy::Action()
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
-		//グレネード
-		else if (hit_be->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-		{
-			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 1;		//点滅時間をセット
-		}
 		//爆発
 		else if (hit_be->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 		{
@@ -438,10 +436,12 @@ void CObjBat_Enemy::Action()
 	{
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetBatDrop(true);
+		boss->SetBR(1);
 
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_bex, m_bey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+		Audio::Start(15);
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

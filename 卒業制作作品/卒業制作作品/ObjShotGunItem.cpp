@@ -53,9 +53,9 @@ void CObjShotGunItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetSG(60);		//主人公に当たると弾補充
+		hero->SetSG(30);		//主人公に当たると弾補充
 		aitemfont->SetAGF(1); //フォント表示
-		aitemfont->SetAitemNum(60); //弾数表示
+		aitemfont->SetAitemNum(30); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

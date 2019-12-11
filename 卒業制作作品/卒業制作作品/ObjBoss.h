@@ -15,9 +15,9 @@ public:
 
 //敵生成数制限設定用
 	void SetZR(int zr) { m_Zombie_Restriction_num = zr; } //ゾンビ
-	void SetBR(int br) { m_Bat_Enemy_Restriction = br; } //蝙蝠
-	void SetFLR(int flr) { m_Frie_Lizard_Restriction = flr; } //火トカゲ
-	void SetFBR(int fbr) { m_Frie_Bird_Restriction = fbr; } //火の鳥
+	void SetBR(int br) { m_Bat_Enemy_Restriction_num = br; } //蝙蝠
+	void SetFLR(int flr) { m_Frie_Lizard_Restriction_num = flr; } //火トカゲ
+	void SetFBR(int fbr) { m_Frie_Bird_Restriction_num = fbr; } //火の鳥
 
 private:
 	float m_bx; //位置更新
@@ -45,19 +45,26 @@ private:
 //蝙蝠
 	int m_Bat_Enemy_time_max; //蝙蝠生成タイム最大値
 	int m_Bat_Enemy_Restriction; //蝙蝠生成数制限
+	int m_Bat_Enemy_Restriction_num; //蝙蝠生成数制限減少
 	int m_Bat_Enemy_Restriction_max; //蝙蝠生成数制限最大数
 	int m_Bat_Enemy_co_num; //蝙蝠生成数カウント変数
+	float m_Bat_Enemy_x; //x位置修正
+	float m_Bat_Enemy_y; //y位置修正
 //火トカゲ
 	int m_Frie_Lizard_time_max; //火トカゲ生成タイム最大値
 	int m_Frie_Lizard_Restriction; //火トカゲ生成数制限
+	int m_Frie_Lizard_Restriction_num; //火トカゲ生成数制限減少
 	int m_Frie_Lizard_Restriction_max; //火トカゲ生成数制限最大値
 //火の鳥
 	int m_Frie_Bird_time_max; //火の鳥生成タイム最大値
 	int m_Frie_Bird_Restriction; //火の鳥生成数制限
+	int m_Frie_Bird_Restriction_num; //火の鳥生成数制限減少
 	int m_Frie_Bird_Restriction_max; //火の鳥生成数制限最大値
 //球体型敵
 	int m_Sphere_Type_Enemy_Restriction_Rand; //球体型敵生成数ランダム
 	bool m_Sphere_Type_Enemy_Restriction_Stop_flg; //球体型生成停止フラグ
+	float m_Sphere_Type_Enemy_x; //x位置修正
+	float m_Sphere_Type_Enemy_y; //y位置修正
 //ミーム実態
 	bool m_Meme_Medium_Boss_Restriction_Stop_flg; //ミーム実態生成停止フラグ
 

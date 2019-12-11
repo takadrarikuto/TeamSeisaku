@@ -89,9 +89,8 @@ void CObjGrenadeAttack::Action()
 		//爆破処理
 		EXP_time++;
 		//位置更新
-		//主人公の移動に合わせる
-		m_Grex += (-hvx) + m_Grevx;
-		m_Grey += (-hvy) + m_Grevy;
+		m_Grex +=m_Grevx;
+		m_Grey +=m_Grevy;
 
 
 		//HitBoxの内容を更新 
@@ -104,7 +103,8 @@ void CObjGrenadeAttack::Action()
 			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
 			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true || hit_gre->CheckElementHit(ELEMENT_FIELD2) == true
 			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true  || hit_gre->CheckElementHit(ELEMENT_WALL2) == true
-			|| hit_gre->CheckElementHit(ELEMENT_NET_S) == true || hit_gre->CheckElementHit(ELEMENT_NET_V) == true)
+			|| hit_gre->CheckElementHit(ELEMENT_NET_S) == true || hit_gre->CheckElementHit(ELEMENT_NET_V) == true
+			|| hit_gre->CheckElementHit(ELEMENT_BARBED_V) == true)
 		{
 			//フィールドエレメント、壁エレメントと接触すると削除
 			if (hit_gre->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ARMOR) != nullptr
@@ -120,6 +120,9 @@ void CObjGrenadeAttack::Action()
 				//移動停止
 				m_Grevx = 0.0f;
 				m_Grevy = 0.0f;
+				//主人公の移動に合わせる
+				m_Grex += (-hvx);
+				m_Grey += (-hvy);
 			}			
 		}		
 		if (EXP_time >= 180)

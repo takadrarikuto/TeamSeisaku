@@ -36,16 +36,6 @@ CSceneTutorial::~CSceneTutorial()
 //ゲームメイン初期化メソッド
 void CSceneTutorial::InitScene()
 {
-	//エネミー出現タイム初期化
-	e_time = 0;
-	//アイテム出現タイム初期化
-	i_time = 0;
-	//アイテム出現位置初期化
-	i_x = 0.0f;
-	//アイテム出現位置
-	i_x = 0.0f;
-	i_y = 0.0f;
-
 	m_tuto_time = 0;
 
 	//グラフィック読み込み
@@ -53,7 +43,7 @@ void CSceneTutorial::InitScene()
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"血の池.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"エネミーまとめ.png", 4, TEX_SIZE_512);
-	//中ボス用に5は空ける
+	
 	Draw::LoadImage(L"装置・設置物.png", 6, TEX_SIZE_512);
 	Draw::LoadImage(L"アイテム・設置物.png", 7, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 8, TEX_SIZE_512);
@@ -156,6 +146,4 @@ void CSceneTutorial::Scene()
 
 		Tuto_flg = true;
 	}
-
-	
 }

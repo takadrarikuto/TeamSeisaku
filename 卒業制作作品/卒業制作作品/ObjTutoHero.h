@@ -85,7 +85,7 @@ private:
 	float m_ga_vy_max;
 	float m_speed_power; //スピードパワー
 
-						 //上下左右別
+	//上下左右別
 	int m_UDani_frame;	//描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 	int m_LRani_frame;
@@ -98,7 +98,10 @@ private:
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値
 
-				  //上下左右別当たり判定確認フラグ
+	int m_Footprint_time; //足跡生成タイム
+	bool m_Footprint_flg; //足跡生成フラグ
+
+	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
 	bool m_DownHit_flg;	 //下
 	bool m_LeftHit_flg;	 //左
@@ -147,7 +150,7 @@ private:
 	int m_rg_pb_num;//レールガン残り弾数
 	int m_gre_pb_num;//グレネード残り弾数
 
-	int m_rel_time_hg;//ハンドガン　リロード用タイム
+	//int m_rel_time_hg;//ハンドガン　リロード用タイム
 	//int m_rel_time_sg;//ショットガン　リロード用タイム
 	//int m_rel_time_ar;//アサルトライフル　リロード用タイム
 	//int m_rel_time_sr;//スナイパーライフル　リロード用タイム

@@ -642,12 +642,6 @@ void CObjZombieEnemy::Action()
 			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
-		//グレネード
-		else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-		{
-			m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-			m_time_d = 1;		//点滅時間をセット
-		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 		{
@@ -666,12 +660,13 @@ void CObjZombieEnemy::Action()
 	{		
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetZombieDrop(true);
-		
+		boss->SetZR(1);
+
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 		Audio::Start(15);
-		boss->SetZR(1);
+		
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

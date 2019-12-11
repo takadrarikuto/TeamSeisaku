@@ -84,6 +84,7 @@ void CObjGenerator::Action()
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);
+					Audio::Start(19);
 				}
 				if (App_Rand == 1)
 				{
