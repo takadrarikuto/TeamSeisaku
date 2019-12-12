@@ -199,12 +199,11 @@ void CObjBoss::Action()
 			if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
 			{
 				m_Bat_Enemy_co_num = rand() % 5;
-				for (int i = 0; i <= m_Bat_Enemy_co_num; i++)
+				for (int i = 1; i <= m_Bat_Enemy_co_num; i++)
 				{
 					//蝙蝠オブジェクト作成
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
-					Audio::Start(20);
 
 					if (i % 2 == 0 && i != 0)
 					{
@@ -216,8 +215,9 @@ void CObjBoss::Action()
 					}		
 
 					m_Bat_Enemy_Restriction += 1; //蝙蝠生成カウント
-				}							
-			}	
+				}	
+				Audio::Start(20);
+			}				
 			m_Bat_Enemy_Generation = 0;
 		}
 		//火トカゲ
@@ -250,7 +250,7 @@ void CObjBoss::Action()
 		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
 			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 5;
-			for (int c = 0; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
+			for (int c = 1; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
 			{
 				//球体型敵オブジェクト作成
 				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x + m_Sphere_Type_Enemy_x, e_y + m_Sphere_Type_Enemy_y);

@@ -22,8 +22,8 @@ public:
 
 private:
 	int m_Event_time;	//イベント時間
-	bool m_Event_TimePenalty; //イベントタイムペナルティ
 	bool m_Event_time_flg; //イベントフラグ
+	bool m_Event_TimePenalty; //イベントタイムペナルティ
 	int m_Event_Instruction_time; //イベント指示表示タイム
 
 	int m_App_Rand_Flg; //装置故障イベント時の装置ランダム選択
