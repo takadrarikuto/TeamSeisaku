@@ -14,6 +14,12 @@ using namespace GameL;
 //死亡処理
 bool m_END2_death_flg = false; //死亡フラグ
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
+
 //コンストラクタ
 CObjEnemy_Neutralization_Device2::CObjEnemy_Neutralization_Device2(float x, float y)
 {
@@ -58,6 +64,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int App_Rand = Event->GetApp_Rand(); //対応数　4
+	int Eve_Ins = Event->GetEveIns();
 
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
@@ -79,6 +86,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 					TStart_flg = true;
 					m_END2_death_flg = true;
 					time->SetTStart(TStart_flg);
+					m_EveSuccess_flg = true;
 					Audio::Start(19);
 				}
 				if (App_Rand == 4)
@@ -99,11 +107,16 @@ void CObjEnemy_Neutralization_Device2::Action()
 	m_Enemy_Neu_Dev2x -= hvx;
 	m_Enemy_Neu_Dev2y -= hvy;
 
-	//フォント表示時間減少
-	if (m_Font_time > 0)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
-		m_Font_time--;
+		//フォント表示時間減少
+		if (m_Font_time > 0)
+		{
+			m_Font_time--;
+		}
 	}
+	
 }
 
 //ドロー
