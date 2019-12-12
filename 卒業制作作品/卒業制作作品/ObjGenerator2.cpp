@@ -12,6 +12,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
+
 //コンストラクタ
 CObjGenerator2::CObjGenerator2(float x, float y)
 {
@@ -85,6 +88,7 @@ void CObjGenerator2::Action()
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);
+					m_EveSuccess_flg = true;
 					Audio::Start(19);
 				}
 				if (App_Rand == 2)

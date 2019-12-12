@@ -14,6 +14,12 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//イベント失敗フラグ
+bool m_EveMiss_flg = false;
+
+//イベント成功フラグ
+bool m_EveSuccess_flg = false;
+
 //イニシャライズ
 void CObjEvent::Init()
 {
@@ -126,17 +132,17 @@ void CObjEvent::Action()
 			//敵無力化装置イベント
 			else if (END_flg == true)
 			{
-				m_Event_time = 3600; //3600 ＝ 60秒
+				m_Event_time = 3650; //3650 ＝ 60秒
 			}
 			//ミーム実態無力化装置イベント
 			else if (MND_flg == true)
 			{
-				m_Event_time = 3600; //3600 ＝ 60秒
+				m_Event_time = 3650; //3650 ＝ 60秒
 			}
 			//装置修理イベント
 			else if (Rep_flg == true)
 			{
-				m_Event_time = 3600; //3600 ＝ 60秒
+				m_Event_time = 3650; //3650 ＝ 60秒
 				m_App_Rand_Flg = rand() % 5; //装置故障イベント時の装置ランダム選択
 				//1 = 発電機,2 = 発電機2,3 = 敵無力化装置,4 = 敵無力化装置2,5 = 対ミーム実態敵無力化装置
 				//工具箱オブジェクト作成
@@ -168,15 +174,17 @@ void CObjEvent::Action()
 		if (Gen_flg == true)
 		{
 			m_Event_TimePenalty = true;
-			Audio::Start(17);
 		}
 		/*else if (Rep_flg == true)
 		{
 			m_Event_TimePenalty = true;
 			Audio::Start(17);
 		}*/
-		//EveMiss_flg = true;
-		//Audio::Start(17);
+		
+	}
+	if (m_Event_time <= 0)
+	{
+		m_EveMiss_flg = true;
 	}
 	
 	//主人公から装置までの距離測定
@@ -240,6 +248,11 @@ void CObjEvent::Draw()
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
 
+	//イベント情報取得
+	CObjEvent* eve = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	bool EveMiss_flg = eve->GetEveMiss();
+	bool EveSuccess_flg = eve->GetEveSuc();
+
 	//m_timeから秒分を求める
 	int minute;//分
 	int second;//秒
@@ -299,5 +312,5 @@ void CObjEvent::Draw()
 		}
 		Font::StrDraw(event, 7, 127, 20, c);
 		Font::StrDraw(event_a, 7, 153, 20, c);
-	}		
+	}
 }

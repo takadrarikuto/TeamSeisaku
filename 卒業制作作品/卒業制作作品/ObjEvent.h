@@ -12,6 +12,9 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
+	bool GetEveMiss() { return m_EveMiss_flg; } //時間停止フラグ取得用
+	bool GetEveSuc() { return m_EveSuccess_flg; } //測定開始フラグ取得用
+
 	bool GetEveTimPena() { return m_Event_TimePenalty; } //イベントタイムペナルティ取得用
 	int GetApp_Rand() { return m_App_Rand_Flg; } //装置故障イベント時の装置ランダム選択取得用
 
@@ -21,6 +24,8 @@ private:
 	int m_Event_time;	//イベント時間
 	bool m_Event_TimePenalty; //イベントタイムペナルティ
 	bool m_Event_time_flg; //イベントフラグ
+	bool m_EveMiss_flg;
+	bool m_EveSuccess_flg;
 
 	int m_App_Rand_Flg; //装置故障イベント時の装置ランダム選択
 //距離測定変数

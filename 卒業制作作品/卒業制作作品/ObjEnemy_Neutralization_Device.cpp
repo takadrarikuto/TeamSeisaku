@@ -14,6 +14,9 @@ using namespace GameL;
 //死亡処理
 bool m_END_death_flg = false; //死亡フラグ
 
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
+
 //コンストラクタ
 CObjEnemy_Neutralization_Device::CObjEnemy_Neutralization_Device(float x, float y)
 {
@@ -79,6 +82,7 @@ void CObjEnemy_Neutralization_Device::Action()
 					TStart_flg = true;
 					m_END_death_flg = true;
 					time->SetTStart(TStart_flg);
+					m_EveSuccess_flg = true;
 					Audio::Start(19);
 				}
 				if (App_Rand == 3)
