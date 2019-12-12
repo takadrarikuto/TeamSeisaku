@@ -3,6 +3,8 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
+#include "GameL\UserData.h"
 
 #include <time.h>
 
@@ -74,30 +76,35 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(7);
 				aitemfont->SetAitemNum(100);
 				hero->SetHP(100); //体力
+				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 30 && m_Rand_aitem_num <= 60)
 			{
 				aitemfont->SetAGF(8);
 				aitemfont->SetAitemNum(150);
 				hero->SetEN(150); //アーマー
+				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 60 && m_Rand_aitem_num <= 80)
 			{
 				aitemfont->SetAGF(4);
 				aitemfont->SetAitemNum(2);
-				hero->SetRL(2);	//ロケットランチャー弾
+				((UserData*)Save::GetData())->RL_Ammunition += 2;//ロケットランチャー
+				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 80 && m_Rand_aitem_num <= 85)
 			{
 				aitemfont->SetAGF(5);
 				aitemfont->SetAitemNum(1);
-				hero->SetRG(1);	//レールガン弾
+				((UserData*)Save::GetData())->RG_Ammunition += 1;//レールガン
+				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 85 && m_Rand_aitem_num <= 99)
 			{
 				aitemfont->SetAGF(6);
 				aitemfont->SetAitemNum(3);
 				hero->SetGRE(3); //グレネード
+				Audio::Start(12); //効果音再生
 			}
 
 			//補充フラグ
@@ -130,6 +137,7 @@ void CObjInstallation_Type_RandBox::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
 
 	RECT_F src;

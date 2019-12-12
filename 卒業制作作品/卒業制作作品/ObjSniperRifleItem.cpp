@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjSniperRifleItem.h"
@@ -53,9 +54,10 @@ void CObjSniperRifleItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetSR(50);		//主人公に当たると弾補充
+		//主人公に当たると弾補充
+		((UserData*)Save::GetData())->SR_Ammunition += 15; //スナイパーライフル	
 		aitemfont->SetAGF(3); //フォント表示
-		aitemfont->SetAitemNum(50); //弾数表示
+		aitemfont->SetAitemNum(15); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

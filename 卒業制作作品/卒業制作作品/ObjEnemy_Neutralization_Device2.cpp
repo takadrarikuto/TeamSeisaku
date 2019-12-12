@@ -18,8 +18,8 @@ bool m_END2_death_flg = false; //死亡フラグ
 CObjEnemy_Neutralization_Device2::CObjEnemy_Neutralization_Device2(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Enemy_Neu_Devx = x;
-	m_Enemy_Neu_Devy = y;
+	m_Enemy_Neu_Dev2x = x;
+	m_Enemy_Neu_Dev2y = y;
 
 }
 
@@ -27,14 +27,14 @@ CObjEnemy_Neutralization_Device2::CObjEnemy_Neutralization_Device2(float x, floa
 void CObjEnemy_Neutralization_Device2::Init()
 {
 	//初期化
-	m_Enemy_Neu_Dev_HitSize_x = 55;  //HitBoxサイズ
-	m_Enemy_Neu_Dev_HitSize_y = 50;	
+	m_Enemy_Neu_Dev2_HitSize_x = 55;  //HitBoxサイズ
+	m_Enemy_Neu_Dev2_HitSize_y = 50;	
 
 	//フォント表示タイム
 	m_Font_time = 0;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
+	Hits::SetHitBox(this, m_Enemy_Neu_Dev2x, m_Enemy_Neu_Dev2y, m_Enemy_Neu_Dev2_HitSize_x, m_Enemy_Neu_Dev2_HitSize_y, ELEMENT_FIELD2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 6);
 
 }
 
@@ -64,7 +64,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_end->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
+	hit_end->SetPos(m_Enemy_Neu_Dev2x, m_Enemy_Neu_Dev2y); //当たり判定の位置更新
 
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
@@ -79,6 +79,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 					TStart_flg = true;
 					m_END2_death_flg = true;
 					time->SetTStart(TStart_flg);
+					Audio::Start(19);
 				}
 				if (App_Rand == 4)
 				{
@@ -95,8 +96,8 @@ void CObjEnemy_Neutralization_Device2::Action()
 	}
 
 	//主人公の移動に合わせる
-	m_Enemy_Neu_Devx -= hvx;
-	m_Enemy_Neu_Devy -= hvy;
+	m_Enemy_Neu_Dev2x -= hvx;
+	m_Enemy_Neu_Dev2y -= hvy;
 
 	//フォント表示時間減少
 	if (m_Font_time > 0)
@@ -120,7 +121,7 @@ void CObjEnemy_Neutralization_Device2::Draw()
 	//主人公に当たるとフォント表示
 	if (m_Font_time > 0)
 	{
-		Font::StrDraw(L"エンターキーで起動", m_Enemy_Neu_Devx - 20, m_Enemy_Neu_Devy - 20, 15, blk);
+		Font::StrDraw(L"エンターキーで起動", m_Enemy_Neu_Dev2x - 20, m_Enemy_Neu_Dev2y - 20, 15, blk);
 	}
 
 	RECT_F src;
@@ -133,10 +134,10 @@ void CObjEnemy_Neutralization_Device2::Draw()
 	src.m_bottom = 80.0f;
 
 	//描画処理
-	dst.m_top = 0.0f + m_Enemy_Neu_Devy;
-	dst.m_left = 0.0f + m_Enemy_Neu_Devx;
-	dst.m_right = 55.0f + m_Enemy_Neu_Devx;
-	dst.m_bottom = 105.0f + m_Enemy_Neu_Devy;
+	dst.m_top = 0.0f + m_Enemy_Neu_Dev2y;
+	dst.m_left = 0.0f + m_Enemy_Neu_Dev2x;
+	dst.m_right = 55.0f + m_Enemy_Neu_Dev2x;
+	dst.m_bottom = 105.0f + m_Enemy_Neu_Dev2y;
 	if (END == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);

@@ -13,32 +13,30 @@ using namespace GameL;
 //使用するヘッダー
 //#include "SceneMain.h"
 #include "GameHead.h"
-#include "SceneTitle.h"
-#include "ObjTitle.h"
+#include "ObjDifficulty_Level.h"
 
 //コンストラクタ
-CSceneTitle::CSceneTitle()
+CSceneDifficulty_Level::CSceneDifficulty_Level()
 {
 
 }
 
 //デストラクタ
-CSceneTitle::~CSceneTitle()
+CSceneDifficulty_Level::~CSceneDifficulty_Level()
 {
 
 }
 
 //ゲームメイン初期化メソッド
-void CSceneTitle::InitScene()
+void CSceneDifficulty_Level::InitScene()
 {
 	//出力させる文字のグラフィックを作成
-	Draw::LoadImage(L"SCP354タイトル.png", 3, TEX_SIZE_1024);
-	Draw::LoadImage(L"タイトルSCPロゴ.png", 4, TEX_SIZE_1024);
+	Draw::LoadImage(L"難易度背景.png", 3, TEX_SIZE_1024);
 
 	//タイトルオブジェクト作成
-	CObjTitle* back = new CObjTitle();
-	Objs::InsertObj(back, OBJ_TITLE, 3);
-	
+	ObjDifficulty_Level* Level = new ObjDifficulty_Level();
+	Objs::InsertObj(Level, OBJ_LEVEL, 3);
+
 	//音楽情報の読み込み
 	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
 	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
@@ -48,11 +46,11 @@ void CSceneTitle::InitScene()
 	//ボリュームを-0.3にする
 	//float v = Audio::VolumeMaster(-0.3);
 	Audio::Start(2);    //音楽スタート
-	
+
 }
 
 //ゲームメイン実行中メソッド
-void CSceneTitle::Scene()
+void CSceneDifficulty_Level::Scene()
 {
 
 }

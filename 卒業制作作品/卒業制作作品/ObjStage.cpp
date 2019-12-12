@@ -118,6 +118,10 @@ void CObjStage::Draw()
 	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
 	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
 
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	/*hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得*/
+
 	//各残り弾数情報を取得(装備分)
 	hg_pb_e = hero->GetHG_E();	//ハンドガン
 	sg_pb_e = hero->GetSG_E();	//ショットガン
@@ -322,8 +326,8 @@ void CObjStage::Draw()
 	}
 
 	//その他表示
-	Font::StrDraw(L"武器切替：左右キー", 470, 13, 18, c);
-	Font::StrDraw(L"リロード：下キー", 470, 36, 18, c);
+	Font::StrDraw(L"攻撃：上キー", 470, 13, 18, c);
+	Font::StrDraw(L"武器切替：左右キー", 470, 36, 18, c);
 	Font::StrDraw(L"MENU画面：Eキー", 643, 13, 18, c);
 	Font::StrDraw(L"グレネード：Qキー", 640, 36, 18, c);
 }

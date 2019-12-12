@@ -22,6 +22,8 @@ public:
 	bool GetMNDFlg() { return m_MND_flg; } //ミーム実態無力化装置フラグ取得用
 	bool GetRepFlg() { return m_Repairing_flg; } //装置修理イベントフラグ取得用
 
+	void SetTime(int time) { m_time = time; } //時間設定用
+
 	void SetTStop(bool stop_t) { m_Stop_flg = stop_t; }  //時間停止フラグ設定用
 	void SetTStart(bool start_t) { m_Start_flg = start_t; } //測定開始フラグ設定用
 
@@ -36,7 +38,6 @@ private:
 	int m_time_stop; //時間停止
 	int m_time_event; //イベント開始時間
 	int m_Event_Rand_num; //イベントランダム変数
-	//int m_time_Increase; //タイム増加ペナルティ
 
 	bool m_flag_time;//時間計測スタートフラグ
 	bool m_Stop_flg; //計測停止フラグ

@@ -64,7 +64,8 @@ void CObjOperation::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			//Scene::SetScene(new CSceneStage());
-			Scene::SetScene(new CSceneTutorial());
+			//Scene::SetScene(new CSceneTutorial());
+			Scene::SetScene(new CSceneDifficulty_Level());
 		}
 	}
 }
@@ -95,5 +96,5 @@ void CObjOperation::Draw()
 
 	float b[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"◆Enterでチュートリアルへ", 350, 510, 35, b);
+	Font::StrDraw(L"◆Enterで難易度選択へ", 350, 510, 35, b);
 }

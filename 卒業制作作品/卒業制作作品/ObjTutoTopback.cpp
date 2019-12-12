@@ -3,6 +3,7 @@
 #include "GameHead.h"
 #include "GameL\WinInputs.h"
 #include "GameL\DrawFont.h"
+#include "GameL\Audio.h"
 #include "ObjTutoTopback.h"
 
 //使用するネームスペース
@@ -39,10 +40,14 @@ void CObjTutoTopback::Draw()
 	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
 	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float a[4] = { 1.0f,1.0f,1.0f,0.6f };//透明
+	float a2[4] = { 1.0f,1.0f,1.0f,0.8f };//透明2
 
 	RECT_F src;		//描画元切り取り位置
 	RECT_F dst;		//描画先表示位置
+	RECT_F src_cpu;
+	RECT_F dst_cpu;
 
 	//切り取り位置の設定
 	src.m_top = 0.0f;
@@ -124,6 +129,22 @@ void CObjTutoTopback::Draw()
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
 
+	//切り取り位置の設定
+	src.m_top = 0.0f;
+	src.m_left = 0.0f;
+	src.m_right = 100.0f;
+	src.m_bottom = 100.0f;
+
+	//上部描画
+	dst.m_top = 115.0f;
+	dst.m_left = 50.0f;
+	dst.m_right = 750.0f;
+	dst.m_bottom = 570.0f;
+
+	if (g_zombie_count_tu >= 6)
+	{
+		Draw::Draw(31, &src, &dst, a2, 0.0f);
+	}
 
 	//切り取り位置の設定
 	src.m_top = 0.0f;
@@ -140,4 +161,89 @@ void CObjTutoTopback::Draw()
 
 	//チュートリアル文字表示
 	Font::StrDraw(L"チュートリアル", 17, 70, 33, y);
+
+	if (g_zombie_count_tu >= 6)
+	{
+		Font::StrDraw(L"チュートリアルクリア！", 70, 130, 30, r);
+		Font::StrDraw(L"◆Enterでゲームスタート", 400, 520, 27, c);
+
+		Font::StrDraw(L"○○", 100, 200, 27, blk);
+
+		//発電機
+		//切り取り処理
+		src.m_top = 0.0f;
+		src.m_left = 0.0f;
+		src.m_right = 100.0f;
+		src.m_bottom = 100.0f;
+		//描画処理
+		dst.m_top = 300.0f;
+		dst.m_left = 70.0f;
+		dst.m_right = 170.0f;
+		dst.m_bottom = 400.0f;
+		Draw::Draw(6, &src, &dst, c, 0.0f);
+		Font::StrDraw(L"発電機", 85, 410, 23, blk);
+
+		//敵無力化装置
+		//切り取り処理
+		src.m_top = 15.0f;
+		src.m_left = 110.0f;
+		src.m_right = 145.0f;
+		src.m_bottom = 80.0f;
+		//描画処理
+		dst.m_top = 300.0f;
+		dst.m_left = 240.0f;
+		dst.m_right = 295.0f;
+		dst.m_bottom = 405.0f;
+		Draw::Draw(6, &src, &dst, c, 0.0f);
+		Font::StrDraw(L"敵無力化装置", 200, 410, 23, blk);
+
+		//ミーム無力化装置
+		//切り取り処理
+		src.m_top = 50.0f;
+		src.m_left = 55.0f;
+		src.m_right = 95.0f;
+		src.m_bottom = 100.0f;
+		//切り取り処理
+		src_cpu.m_top = 50.0f;
+		src_cpu.m_left = 100.0f;
+		src_cpu.m_right = 140.0f;
+		src_cpu.m_bottom = 90.0f;
+		//描画処理
+		dst.m_top = 350.0f;
+		dst.m_left = 425.0f;
+		dst.m_right = 475.0f;
+		dst.m_bottom = 400.0f;
+		//描画処理
+		dst_cpu.m_top = 350.0f - 20;
+		dst_cpu.m_left = 425.0f - 10;
+		dst_cpu.m_right = (475.0f + 10) - 10;
+		dst_cpu.m_bottom = (400.0f + 10) - 20;
+		Draw::Draw(7, &src_cpu, &dst_cpu, c, 0.0f);
+		Draw::Draw(7, &src, &dst, c, 0.0f);
+		Font::StrDraw(L"ミーム無力化装置", 360, 410, 23, blk);
+
+		//ツールボックス
+		//切り取り処理
+		src.m_top = 59.0f;
+		src.m_left = 4.0f;
+		src.m_right = 38.0f;
+		src.m_bottom = 93.0f;
+		//描画処理
+		dst.m_top = 335.0f;
+		dst.m_left = 610.0f;
+		dst.m_right = 670.0f;
+		dst.m_bottom = 395.0f;
+		Draw::Draw(7, &src, &dst, c, 0.0f);
+		Font::StrDraw(L"ツールボックス", 560, 410, 23, blk);
+		
+
+		//Audio::Start(18);
+	}
+	else
+	{
+		Font::StrDraw(L"◆Enterでチュートリアルスキップ", 455, 180, 22, b);
+	}
+
+	Font::StrDraw(L"※チュートリアルでは", 455, 70, 20, blk);
+	Font::StrDraw(L"メニュー画面を開くことができません", 455, 95, 20, blk);
 }

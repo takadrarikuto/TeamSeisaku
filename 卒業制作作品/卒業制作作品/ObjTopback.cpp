@@ -8,10 +8,28 @@
 using namespace GameL;
 
 //計測停止フラグ
-extern bool m_Stop_flg;
+//extern bool m_Stop_flg;
 
 //イベント用タイムONOFFフラグ
 //extern bool m_Evetime_flg;
+
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
+//タイムストップフラグ
+extern bool TStop_flg;
+
+//イベントフラグ
+extern bool Gen_flg;
+extern bool END_flg;
+extern bool MND_flg;
+extern bool Rep_flg;
+
+/*//イベント失敗フラグ
+extern bool EveMiss_flg;
+
+//イベント成功フラグ
+extern bool EveSuccess_flg;*/
 
 //イニシャライズ
 void CObjTopback::Init()
@@ -43,6 +61,10 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//設置型アイテムオブジェクト
+	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
+	int SHG_Rep_Font = IT_SHG->GetRepFontTime();
+
 	//アイテム獲得情報取得
 	CObjAitemFont* aitf = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 	Aitem_get_font = aitf->GetA_G_F();
@@ -55,26 +77,24 @@ void CObjTopback::Draw()
 	RECT_F src;		//描画元切り取り位置
 	RECT_F dst;		//描画先表示位置
 
+	//上部用背景--------------------------------------------------
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
-
 	//上部描画
 	dst.m_top = 0.0f;
 	dst.m_left = 0.0f;
 	dst.m_right = 270.0f;
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
-
-
+	
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
-
 	//上部描画
 	dst.m_top = 0.0f;
 	dst.m_left = 270.0f;
@@ -82,28 +102,26 @@ void CObjTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 
-
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
-
 	//上部描画
 	dst.m_top = 0.0f;
 	dst.m_left = 455.0f;
 	dst.m_right = 800.0f;
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
+	//------------------------------------------------------------------
 
-
+	//イベントタイム用背景--------------------------------------------------
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
-
-	//上部描画
+	//描画
 	dst.m_top = 63.0f;
 	dst.m_left = 0.0f;
 	dst.m_right = 115.0f;
@@ -114,20 +132,44 @@ void CObjTopback::Draw()
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
+	//------------------------------------------------------------------
 
+	//イベント情報背景--------------------------------------------------
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
+	//描画
+	dst.m_top = 120.0f;//63
+	dst.m_left = 0.0f;//0
+	dst.m_right = 675.0f;//115
+	dst.m_bottom = 180.0f;//115
 
-	//上部描画
+	//タイムストップフラグオンでイベントタイム用背景表示
+	if (Menu_flg == false && TStop_flg == true)
+	{
+		Draw::Draw(30, &src, &dst, a, 0.0f);
+	}
+	/*if (Menu_flg == false && EveMiss_flg == true)
+	{
+		Draw::Draw(30, &src, &dst, a, 0.0f);
+	}*/
+
+	//------------------------------------------------------------------
+
+	//リロード文字用背景------------------------------------------------
+	//切り取り位置の設定
+	src.m_top = 0.0f;
+	src.m_left = 0.0f;
+	src.m_right = 100.0f;
+	src.m_bottom = 100.0f;
+	//描画
 	dst.m_top = 63.0f;
 	dst.m_left = 270.0f;
 	dst.m_right = 455.0f;
 	dst.m_bottom = 113.0f;
 
-	//リロード文字用背景
 	if (hg_pb_e == 0 && ws_num == 0)
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
@@ -152,21 +194,20 @@ void CObjTopback::Draw()
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
+	//------------------------------------------------------------------
 
-
+	//アイテムゲット時用背景------------------------------------------------
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
-
-	//上部描画
+	//描画
 	dst.m_top = 565.0f;
 	dst.m_left = 0.0f;
 	dst.m_right = 800.0f;
 	dst.m_bottom = 600.0f;
 
-	//アイテムゲット時用背景
 	if (Aitem_get_font > 0)
 	{
 		if (Aitem_get_font == 1)
@@ -206,4 +247,11 @@ void CObjTopback::Draw()
 			Draw::Draw(30, &src, &dst, a2, 0.0f);
 		}
 	}
+	//設置型アイテム補充時用背景------------------------------------------------
+	if (SHG_Rep_Font == true)
+	{
+		Draw::Draw(30, &src, &dst, a2, 0.0f);
+	}
+
+	//------------------------------------------------------------------
 }

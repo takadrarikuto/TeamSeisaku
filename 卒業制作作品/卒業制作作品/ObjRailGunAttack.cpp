@@ -108,31 +108,17 @@ void CObjRailGunAttack::Action()
 		}
 	}
 	
-
-	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_rg->CheckElementHit(ELEMENT_ENEMY) == true)
-	{
-		if (hit_rg->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_rg->CheckObjNameHit(OBJ_BOSS) != nullptr
-			|| hit_rg->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr
-			|| hit_rg->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
-		{
-			; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
-		}
-		else
-		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-		}
-	}
+	
 	//壁オブジェクトと接触するとオブジェクト破棄
 	if (hit_rg->CheckElementHit(ELEMENT_WALL) == true || hit_rg->CheckElementHit(ELEMENT_WALL2) == true
-		|| hit_rg->CheckElementHit(ELEMENT_NET_S) == true || hit_rg->CheckElementHit(ELEMENT_NET_V) == true)
+		|| hit_rg->CheckElementHit(ELEMENT_NET_S) == true || hit_rg->CheckElementHit(ELEMENT_NET_V) == true
+		|| hit_rg->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 	//フィールドエレメントと接触すると削除
-	if (hit_rg->CheckElementHit(ELEMENT_FIELD) == true)
+	if (hit_rg->CheckElementHit(ELEMENT_FIELD) == true || hit_rg->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		if (hit_rg->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_ARMOR) != nullptr
 			|| hit_rg->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_rg->CheckObjNameHit(OBJ_HEAL) != nullptr

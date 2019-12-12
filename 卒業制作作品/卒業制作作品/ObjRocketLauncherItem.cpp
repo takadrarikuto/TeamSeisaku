@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjRocketLauncherItem.h"
@@ -53,9 +54,10 @@ void CObjRocketLauncherItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetRL(2);		//主人公に当たると弾補充
+		//主人公に当たると弾補充
+		((UserData*)Save::GetData())->RL_Ammunition += 1;//ロケットランチャー
 		aitemfont->SetAGF(4); //フォント表示
-		aitemfont->SetAitemNum(2); //弾数表示
+		aitemfont->SetAitemNum(1); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

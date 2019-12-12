@@ -61,7 +61,7 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
 	//6
 	//7
-	//8
+	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
 	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
@@ -71,26 +71,13 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
 	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
 	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
-	//18 成功音
+	//18
+	Audio::LoadAudio(19, L"起動音.wav", EFFECT);
+	Audio::LoadAudio(20, L"羽ばたき音.wav", EFFECT);
 
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.3);
 	Audio::Start(0); //音楽スタート
-
-	//エネミー出現タイム初期化
-	e_time = 0;
-	//アイテム出現タイム初期化
-	i_time = 0;
-	//アイテム出現位置初期化
-	i_x = 0.0f;
-	//アイテム出現位置
-	i_x = 0.0f;
-	i_y = 0.0f;
-
-	//シーン切り替えタイム
-	Scene_time = 0;
-	//ゲームオーバー移動時間
-	GameOver_time = 0;
 
 	//主人公機オブジェクト作成
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
@@ -113,14 +100,14 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(Gen, OBJ_GENERATOR, 2);
 
 	CObjGenerator2* Gen2 = new CObjGenerator2(1100, 900);
-	Objs::InsertObj(Gen2, OBJ_GENERATOR, 2);
+	Objs::InsertObj(Gen2, OBJ_GENERATOR2, 2);
 
 	//敵無力化装置オブジェクト作成
 	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);//(400,200)
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
 	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
-	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
+	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
 	CObjMeme_Neutralization_Device* MND = new CObjMeme_Neutralization_Device(375, -500);
@@ -346,7 +333,7 @@ void CSceneStage::InitScene()
 	//フォント
 	//アイテム獲得フォントオブジェクト作成
 	CObjAitemFont* obj_af = new CObjAitemFont();
-	Objs::InsertObj(obj_af, OBJ_AITEM_FONT, 19);
+	Objs::InsertObj(obj_af, OBJ_AITEM_FONT, 20);
 
 	//ステージ上部背景オブジェクト作成
 	CObjTopback* objtb = new CObjTopback();
@@ -377,89 +364,5 @@ void CSceneStage::InitScene()
 
 void CSceneStage::Scene()
 {
-	//ゲームオーバーシーン移動処理
-	//if (GameOver_flg == true)
-	//{
-	//	GameOver_time++;
-	//}
-	//if (GameOver_time == 60)
-	//{
-	//	//フラグ・タイム初期化
-	//	GameOver_flg = false;
-	//	GameOver_time = 0;
-	//	//ゲームオーバー画面移動
-	//	Scene::SetScene(new CSceneGameOver());
-	//}
-	//メニュー画面閲覧時行動停止処理
-	if (Menu_flg == false)
-	{
-		//ボスを倒したら少し時間を空けてからシーン移動する
-		/*if (boss_count == 1)
-		{
-			Scene_time++;
-		}*/
-		if (Scene_time == 60)
-		{
-			//ボスカウント・シーンタイム初期化
-			//boss_count = 0;
-			Scene_time = 0;
-		}
-
-		//e_time++;
-		//if (e_time == 90)
-		//{
-		//	e_x = rand() % 736;
-		//	e_y = rand() % 536;
-		//	//敵機オブジェクト作成
-		//	CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y);
-		//	Objs::InsertObj(obj_ze, OBJ_ENEMY, 4);
-		//}		
-
-	//メニュー画面閲覧時行動停止処理
-	//if (Menu_flg == false)
-	//{
-		//各タイム増加
-		//e_time++;
-		//i_time++;
-
-		////敵機オブジェクト作成
-		//CObjEnemy* obj_e;
-		////連結敵機オブジェクト作成
-		//CObjLinkingEnemy* obj_le;
-		////カーブ敵機オブジェクト生成
-		//CObjCurveEnemy* obj_ce;
-		////拡散敵機オブジェクト生成
-		//CObjDiffusionEnemy* obj_de;
-		////爆弾オブジェクト作成
-		//CObjBomd* obj_b;
-
-		//敵出現処理
-		//if (e_time == 90)
-		//{
-		//	//敵機オブジェクト作成
-		//	obj_e = new CObjEnemy(378.0f, -32.0f);
-		//	Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-		//	if (Usually_flg == true)
-		//	{
-		//		//敵機オブジェクト作成
-		//		obj_e = new CObjEnemy(178.0f, -32.0f);
-		//		Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-		//		obj_e = new CObjEnemy(578.0f, -32.0f);
-		//		Objs::InsertObj(obj_e, OBJ_ENEMY, 3);
-		//	}
-		//}
-
-		//i_x = rand() % 770;
-
-		//if (i_time == 600)
-		//{
-		//	//HP回復アイテムオブジェクト作成
-		//	CObjHPupItem* obj_hi = new CObjHPupItem(i_x, -30.0f);
-		//	Objs::InsertObj(obj_hi, OBJ_ITEM, 2);
-
-		//	srand(time(NULL)); // ランダム情報を初期化
-		//	i_time = 0;
-		//}
-	}
 
 }

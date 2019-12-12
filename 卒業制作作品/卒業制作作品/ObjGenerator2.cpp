@@ -16,8 +16,8 @@ using namespace GameL;
 CObjGenerator2::CObjGenerator2(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_Genx = x;
-	m_Geny = y;
+	m_Gen2x = x;
+	m_Gen2y = y;
 
 }
 
@@ -25,8 +25,8 @@ CObjGenerator2::CObjGenerator2(float x, float y)
 void CObjGenerator2::Init()
 {
 	//初期化
-	m_Genvx = 0.0f; //位置更新
-	m_Genvy = 0.0f;
+	m_Gen2vx = 0.0f; //位置更新
+	m_Gen2vy = 0.0f;
 
 	//フォント表示タイム
 	m_Font_time = 0;
@@ -39,7 +39,7 @@ void CObjGenerator2::Init()
 	m_HitSize_y = 40;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Genx, m_Geny, m_HitSize_x, m_HitSize_y, ELEMENT_FIELD, OBJ_GENERATOR, 6);
+	Hits::SetHitBox(this, m_Gen2x, m_Gen2y, m_HitSize_x, m_HitSize_y, ELEMENT_FIELD, OBJ_GENERATOR2, 6);
 
 }
 
@@ -70,7 +70,7 @@ void CObjGenerator2::Action()
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
-	hit_gen->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
+	hit_gen->SetPos(m_Gen2x, m_Gen2y); //当たり判定の位置更新
 
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
@@ -85,6 +85,7 @@ void CObjGenerator2::Action()
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);
+					Audio::Start(19);
 				}
 				if (App_Rand == 2)
 				{
@@ -97,8 +98,8 @@ void CObjGenerator2::Action()
 	}
 
 	//主人公の移動に合わせる
-	m_Genx -= hvx;
-	m_Geny -= hvy;
+	m_Gen2x -= hvx;
+	m_Gen2y -= hvy;
 
 	//フォント表示時間減少
 	if (m_Font_time > 0)
@@ -122,7 +123,7 @@ void CObjGenerator2::Draw()
 	//主人公に当たるとフォント表示
 	if (m_Font_time > 0)
 	{
-		Font::StrDraw(L"エンターキーで起動", m_Genx - 20, m_Geny - 20, 15, blk);
+		Font::StrDraw(L"エンターキーで起動", m_Gen2x - 20, m_Gen2y - 20, 15, blk);
 	}
 
 	RECT_F src;
@@ -135,10 +136,10 @@ void CObjGenerator2::Draw()
 	src.m_bottom = 100.0f;
 
 	//描画処理
-	dst.m_top = 0.0f + m_Geny;
-	dst.m_left = 0.0f + m_Genx;
-	dst.m_right = m_dst_size + m_Genx;
-	dst.m_bottom = m_dst_size + m_Geny;
+	dst.m_top = 0.0f + m_Gen2y;
+	dst.m_left = 0.0f + m_Gen2x;
+	dst.m_right = m_dst_size + m_Gen2x;
+	dst.m_bottom = m_dst_size + m_Gen2y;
 	if (GEN == true)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);

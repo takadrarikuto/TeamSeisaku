@@ -8,6 +8,7 @@ enum OBJ_NAME
 	//OBJ_○○と表記	
 	OBJ_HERO, //主人公
 	OBJ_PER_DECISION,
+	OBJ_FOOTPRINT,
 	OBJ_TIME,
 	//銃
 	OBJ_GUNATTACK,
@@ -29,7 +30,9 @@ enum OBJ_NAME
 	OBJ_BOSS,
 	//装置
 	OBJ_GENERATOR,
+	OBJ_GENERATOR2,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
+	OBJ_ENEMY_NEUTRALIZATION_DEVICE2,
 	OBJ_MEME_NEUTRALIZATION_DEVICE,
 	//血しぶき、爆発エフェクト
 	OBJ_BLOOD_SPLASH,
@@ -38,6 +41,7 @@ enum OBJ_NAME
 	OBJ_TUTORIAL,
 	OBJ_STAGE,
 	OBJ_TITLE,
+	OBJ_LEVEL,
 	OBJ_OP,
 	OBJ_OPERATION,
 	OBJ_CLEAR,
@@ -117,7 +121,23 @@ struct UserData
 	int EXP_Attack = 50; //爆発
 	//有刺鉄線
 	int BarbedWireSmall_Attack = 2;
+	//レベル別タイム設定
+	int Level_Time = 0;
+	//武器別所持弾数(装備分)
+	int SHG_Number_of_Ammunition = 0; //ショットガン
+	int AR_Number_of_Ammunition = 0; //アサルトライフル
+	int SR_Number_of_Ammunition = 0; //スナイパーライフル
+	int RL_Number_of_Ammunition = 0; //ロケットランチャー
+	int RG_Number_of_Ammunition = 0; //レールガン
+	//武器別残り弾数
+	int SHG_Ammunition = 0;	//ショットガン
+	int AR_Ammunition = 0; //アサルトライフル
+	int SR_Ammunition = 0; //スナイパーライフル
+	int RL_Ammunition = 0; //ロケットランチャー
+	int RG_Ammunition = 0; //レールガン
 
+	//難易度変更
+	int choose = 0;
 };
 //------------------------------------------------
 
@@ -169,6 +189,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //爆発
 #include "ObjExplosion.h"
 
+//足跡
+#include "ObjFootprint.h"
+
 //ステージ
 #include "ObjStage.h"
 
@@ -205,6 +228,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //タイトル
 #include "ObjTitle.h"
+
+//難易度
+#include "ObjDifficulty_Level.h"
 
 //あらすじ
 #include "ObjOP.h"
@@ -267,6 +293,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //タイトル
 #include "SceneTitle.h"
 
+//難易度
+#include "SceneDifficulty_Level.h"
+
 //あらすじ
 #include "SceneOP.h"
 
@@ -290,5 +319,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 
-#define SET_GAME_START  CSceneStage
-
+//#define SET_GAME_START  CSceneTitle
+//#define SET_GAME_START  CSceneStage
+#define SET_GAME_START  CSceneDifficulty_Level

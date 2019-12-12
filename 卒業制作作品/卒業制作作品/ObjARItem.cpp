@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjARItem.h"
@@ -53,8 +54,9 @@ void CObjARItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetAR(300);		//主人公に当たると弾補充
-		aitemfont->SetAitemNum(300); //弾数表示
+		//主人公に当たると弾補充
+		((UserData*)Save::GetData())->AR_Ammunition += 100; //アサルトライフル		
+		aitemfont->SetAitemNum(100); //弾数表示
 		aitemfont->SetAGF(2); //フォント表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
