@@ -191,8 +191,12 @@ void CObjHero::Action()
 	m_vx = 0.0f;
 	m_vy = 0.0f;
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		if (Dead_flg == false)
 		{
@@ -1298,33 +1302,65 @@ void CObjHero::Action()
 			{
 				//Audio::Start(13);
 			}
-
-		//弾を回復した時上限を超えないようにする
+	
+			//弾の補充処理
 			//ショットガン
-			if (m_sg_pb_me > 60)
+			if (((UserData*)Save::GetData())->SHG_Ammunition > 0)
 			{
-				m_sg_pb_me = 60;
-			}
+				m_sg_pb_me += ((UserData*)Save::GetData())->SHG_Ammunition;
+				//弾を回復した時上限を超えないようにする
+				if (m_sg_pb_me > 60)
+				{
+					m_sg_pb_me = 60;
+				}
+			}			
 			//アサルトライフル
-			if (m_ar_pb_me > 200)
+			if (((UserData*)Save::GetData())->AR_Ammunition > 0)
 			{
-				m_ar_pb_me = 200;
+				m_ar_pb_me += ((UserData*)Save::GetData())->AR_Ammunition;
+				//弾を回復した時上限を超えないようにする
+				if (m_ar_pb_me > 200)
+				{
+					m_ar_pb_me = 200;
+				}
 			}
 			//スナイパーライフル
-			if (m_sr_pb_me > 30)
+			if (((UserData*)Save::GetData())->SR_Ammunition > 0)
 			{
-				m_sr_pb_me = 30;
+				m_sr_pb_me += ((UserData*)Save::GetData())->SR_Ammunition;
+				//弾を回復した時上限を超えないようにする
+				if (m_sr_pb_me > 30)
+				{
+					m_sr_pb_me = 30;
+				}
 			}
 			//ロケットランチャー
-			if (m_rl_pb_me > 2)
+			if (((UserData*)Save::GetData())->RL_Ammunition > 0)
 			{
-				m_rl_pb_me = 2;
-			}		
+				m_rl_pb_me += ((UserData*)Save::GetData())->RL_Ammunition;
+				//弾を回復した時上限を超えないようにする
+				if (m_rl_pb_me > 2)
+				{
+					m_rl_pb_me = 2;
+				}
+			}			
 			//レールガン
-			if (m_rg_pb_me > 1)
+			if (((UserData*)Save::GetData())->RG_Ammunition > 0)
 			{
-				m_rg_pb_me = 1;
-			}
+				m_rg_pb_me += ((UserData*)Save::GetData())->RG_Ammunition;
+				//弾を回復した時上限を超えないようにする
+				if (m_rg_pb_me > 1)
+				{
+					m_rg_pb_me = 1;
+				}
+			}			
+
+			//弾獲得数初期化
+			((UserData*)Save::GetData())->SHG_Ammunition = 0;
+			((UserData*)Save::GetData())->AR_Ammunition = 0;
+			((UserData*)Save::GetData())->SR_Ammunition = 0;
+			((UserData*)Save::GetData())->RL_Ammunition = 0;
+			((UserData*)Save::GetData())->RG_Ammunition = 0;
 		}
 
 		//HitBoxの内容を更新

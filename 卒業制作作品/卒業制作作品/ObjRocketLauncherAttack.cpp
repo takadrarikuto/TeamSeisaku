@@ -77,22 +77,19 @@ void CObjRocketLauncherAttack::Init()
 //アクション
 void CObjRocketLauncherAttack::Action()
 {
-	//アニメーションフレーム更新
-	m_ani_time++;
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();	
 
-	//メニューを開くと停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
+		//アニメーションフレーム更新
+		m_ani_time++;
+
 		//位置更新
 		m_RLx += m_RLvx;
 		m_RLy += m_RLvy;
-
-		////SE処理
-		//if (Attack_flg == true)
-		//{
-		//	Audio::Start(1); //音楽スタート
-		//	Attack_flg = false; //Attackフラグfalse
-		//}	
 
 		//アニメーション処理
 		if (m_ani_time > 6)

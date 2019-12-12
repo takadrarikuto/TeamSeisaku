@@ -49,6 +49,7 @@ void CObjTime::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	bool Time_Pena = Event->GetEveTimPena();
+	int Eve_Ins = Event->GetEveIns();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
@@ -75,20 +76,20 @@ void CObjTime::Action()
 		//	m_Gen_flg = true;			
 		//}
 		//敵無力化イベント
-		/*else*/ if (m_Event_Rand_num>= 0)
+		/*else*/ /*if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
-		}
+		}*/
 		//ミーム実態無力化イベント
 		/*if (m_Event_Rand_num >= 0)
 		{
 			m_MND_flg = true;
 		}*/
 		//修理イベント
-		/*if (m_Event_Rand_num >= 0)
+		if (m_Event_Rand_num >= 0)
 		{
 			m_Repairing_flg = true;			
-		}*/
+		}
 		m_Stop_flg = true;
 	}
 	//タイム再スタート処理

@@ -64,9 +64,10 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
-	//イベント情報取得
-	CObjEvent* eve = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	bool EveMiss_flg = eve->GetEveMiss();
+	//イベント
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_time = Event->GetEveIns();
+	bool EveMiss_flg = Event->GetEveMiss();
 	//bool EveSuccess_flg = eve->GetEveSuc();
 
 	//設置型アイテムオブジェクト
@@ -158,6 +159,12 @@ void CObjTopback::Draw()
 
 	//タイムストップフラグオンでイベント用背景表示
 	if (Menu_flg == false && TStop_flg == true)
+	{
+		Draw::Draw(30, &src, &dst, a, 0.0f);
+	}
+
+	//イベント用背景表示
+	if (Eve_time > 0)
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}

@@ -12,6 +12,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //イベント成功フラグ
 extern bool m_EveSuccess_flg;
 
@@ -67,6 +70,7 @@ void CObjGenerator2::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int App_Rand = Event->GetApp_Rand(); //対応数　2
+	int Eve_Ins = Event->GetEveIns();
 
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
@@ -105,11 +109,16 @@ void CObjGenerator2::Action()
 	m_Gen2x -= hvx;
 	m_Gen2y -= hvy;
 
-	//フォント表示時間減少
-	if (m_Font_time > 0)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
-		m_Font_time--;
+		//フォント表示時間減少
+		if (m_Font_time > 0)
+		{
+			m_Font_time--;
+		}
 	}
+	
 }
 
 //ドロー

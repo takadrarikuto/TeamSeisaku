@@ -112,6 +112,10 @@ void CObjZombieEnemy::Action()
 	//ボス
 	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -133,42 +137,9 @@ void CObjZombieEnemy::Action()
 		m_zev_max = 2.0f;
 	}
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{				 
-		////計算頻度を落とし、斜め移動を防ぐ
-		//static int   count = 20;
-		//static float br = 0.0f;
-		//count++;
-		//if (count > 20)
-		//{
-		//	count = 0;
-		//	int ar = atan2(hpy, hpx)*180.0f / 3.14;
-
-		//	if (ar < 0)
-		//	{
-		//		ar = 360 + ar;
-		//	}
-		//	br = ar;
-		//}
-
-		//if (br >= 45 && br < 136)//上 45度以上　136度未満
-		//{
-		//	m_UDani_frame = 6;		
-		//}
-		//else if (br > 0 && br < 45 || br >= 315) //右　0度以上かつ45度未満　315度以上
-		//{			
-		//	m_UDani_frame = 4;
-		//}
-		//else if (br > 225 && br < 316)//下　225度以上　316未満
-		//{			
-		//	m_UDani_frame = 2;
-		//}
-		//else if (br >= 135 && br <= 225)//左　135度以上　225度未満
-		//{
-		//	m_UDani_frame = 0;
-		//}
-
 		//移動処理
 		//主人公が上に居ると上に移動
 		if (hy < m_zey)
