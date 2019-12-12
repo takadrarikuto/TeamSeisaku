@@ -4,6 +4,7 @@
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
 #include "GameL\DrawFont.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjInstallation_Type_AR.h"
@@ -67,8 +68,8 @@ void CObjInstallation_Type_AR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			hero->SetAR(90);
-			aitemfont->SetAitemNum(90);
+			((UserData*)Save::GetData())->AR_Ammunition += 40; //アサルトライフル
+			aitemfont->SetAitemNum(40);
 			aitemfont->SetAGF(2);
 			Audio::Start(12); //効果音再生
 			//補充フラグ

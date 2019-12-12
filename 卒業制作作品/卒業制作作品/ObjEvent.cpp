@@ -170,6 +170,13 @@ void CObjEvent::Action()
 			m_Event_TimePenalty = true;
 			Audio::Start(17);
 		}
+		/*else if (Rep_flg == true)
+		{
+			m_Event_TimePenalty = true;
+			Audio::Start(17);
+		}*/
+		//EveMiss_flg = true;
+		//Audio::Start(17);
 	}
 	
 	//ålŒö‚©‚ç‘•’u‚Ü‚Å‚Ì‹——£‘ª’è

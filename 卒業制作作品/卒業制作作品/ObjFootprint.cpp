@@ -32,9 +32,6 @@ void CObjFootprint::Init()
 	m_HitBox_x = 24; //x当たり判定サイズ
 	m_HitBox_y = 24; // 当たり判定サイズ
 
-	//当たり判定用HitBoxを作成
-	/*Hits::SetHitBox(this, m_Fx, m_Fy, m_HitBox_x, m_HitBox_y, ELEMENT_WHITE, OBJ_FOOTPRINT, 8);*/
-
 }
 
 //アクション
@@ -63,7 +60,6 @@ void CObjFootprint::Action()
 		m_Delete_time = 300;
 
 		this->SetStatus(false); //オブジェクト破棄
-		//Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 
 }

@@ -1104,7 +1104,7 @@ void CObjTutoHero::Action()
 				//	m_vx -= 6;
 				//}
 
-				//Audio::Start(3);	//ダメージ音	
+				Audio::Start(14);	//ダメージ音	
 				hit_h->SetInvincibility(true);	//無敵オン
 
 				if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
