@@ -14,6 +14,9 @@ using namespace GameL;
 //死亡処理
 bool m_END_death_flg = false; //死亡フラグ
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjEnemy_Neutralization_Device::CObjEnemy_Neutralization_Device(float x, float y)
 {
@@ -62,6 +65,7 @@ void CObjEnemy_Neutralization_Device::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int App_Rand = Event->GetApp_Rand(); //対応数　3
+	int Eve_Ins = Event->GetEveIns();
 
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
@@ -99,11 +103,16 @@ void CObjEnemy_Neutralization_Device::Action()
 	m_Enemy_Neu_Devx -= hvx;
 	m_Enemy_Neu_Devy -= hvy;
 
-	//フォント表示時間減少
-	if (m_Font_time > 0)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
-		m_Font_time--;
+		//フォント表示時間減少
+		if (m_Font_time > 0)
+		{
+			m_Font_time--;
+		}
 	}
+	
 }
 
 //ドロー

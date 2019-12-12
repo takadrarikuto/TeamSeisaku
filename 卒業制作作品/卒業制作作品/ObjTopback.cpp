@@ -61,6 +61,10 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//イベント
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_time = Event->GetEveIns();
+
 	//設置型アイテムオブジェクト
 	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
 	int SHG_Rep_Font = IT_SHG->GetRepFontTime();
@@ -147,7 +151,7 @@ void CObjTopback::Draw()
 	dst.m_bottom = 180.0f;//115
 
 	//タイムストップフラグオンでイベントタイム用背景表示
-	if (Menu_flg == false && TStop_flg == true)
+	if (Eve_time > 0)
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
