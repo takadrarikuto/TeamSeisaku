@@ -17,6 +17,9 @@ bool m_END2_death_flg = false; //死亡フラグ
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
+
 //コンストラクタ
 CObjEnemy_Neutralization_Device2::CObjEnemy_Neutralization_Device2(float x, float y)
 {
@@ -83,6 +86,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 					TStart_flg = true;
 					m_END2_death_flg = true;
 					time->SetTStart(TStart_flg);
+					m_EveSuccess_flg = true;
 					Audio::Start(19);
 				}
 				if (App_Rand == 4)

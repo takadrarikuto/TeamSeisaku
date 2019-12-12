@@ -205,14 +205,14 @@ void CObjBoss::Action()
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
 
-					if (i % 2 == 0 && i != 0)
-					{
-						m_Bat_Enemy_x += 50.0f; //x位置修正
-					}
-					else if (i % 2 != 0)
-					{
-						m_Bat_Enemy_y += 30.0f; //y位置修正
-					}		
+		//			if (i % 2 == 0 && i != 0)
+		//			{
+		//				m_Bat_Enemy_x += 50.0f; //x位置修正
+		//			}
+		//			else if (i % 2 != 0)
+		//			{
+		//				m_Bat_Enemy_y += 30.0f; //y位置修正
+		//			}		
 
 					m_Bat_Enemy_Restriction += 1; //蝙蝠生成カウント
 				}	

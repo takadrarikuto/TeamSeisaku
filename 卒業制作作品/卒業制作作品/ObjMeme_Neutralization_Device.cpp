@@ -17,6 +17,9 @@ bool m_Meme_death_flg = false; //死亡フラグ
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
+
 //コンストラクタ
 CObjMeme_Neutralization_Device::CObjMeme_Neutralization_Device(float x, float y)
 {
@@ -85,6 +88,7 @@ void CObjMeme_Neutralization_Device::Action()
 					TStart_flg = true;
 					m_Meme_death_flg = true;
 					time->SetTStart(TStart_flg);
+					m_EveSuccess_flg = true;
 					Audio::Start(19);
 				}
 				if (App_Rand == 5)
