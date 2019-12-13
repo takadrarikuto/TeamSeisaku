@@ -14,6 +14,12 @@ using namespace GameL;
 //死亡処理
 bool m_Meme_death_flg = false; //死亡フラグ
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
+
 //コンストラクタ
 CObjMeme_Neutralization_Device::CObjMeme_Neutralization_Device(float x, float y)
 {
@@ -59,10 +65,7 @@ void CObjMeme_Neutralization_Device::Action()
 	//イベント情報取得 
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int App_Rand = Event->GetApp_Rand(); //対応数　5
-
-	//アイテムフォント情報取得
-	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
-	aitemfont->SetToolBox(true); //画像表示
+	int Eve_Ins = Event->GetEveIns();
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -76,18 +79,14 @@ void CObjMeme_Neutralization_Device::Action()
 			m_Font_time = 90; //フォント表示タイム設定
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
-				if (MND == true)
+				//ミーム実態イベントor故障イベント時クリア判定
+				if (MND == true || App_Rand == 5)
 				{
 					TStart_flg = true;
 					m_Meme_death_flg = true;
 					time->SetTStart(TStart_flg);
+					m_EveSuccess_flg = true;
 					Audio::Start(19);
-				}
-				if (App_Rand == 5)
-				{
-					TStart_flg = true;
-					time->SetTStart(TStart_flg);
-					aitemfont->SetToolBox(true); //画像表示
 				}
 			}
 		}		
@@ -101,11 +100,15 @@ void CObjMeme_Neutralization_Device::Action()
 	m_Meme_Neu_Devx -= hvx;
 	m_Meme_Neu_Devy -= hvy;
 
-	//フォント表示時間減少
-	if (m_Font_time > 0)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
-		m_Font_time--;
-	}
+		//フォント表示時間減少
+		if (m_Font_time > 0)
+		{
+			m_Font_time--;
+		}
+	}	
 }
 
 //ドロー
@@ -115,9 +118,13 @@ void CObjMeme_Neutralization_Device::Draw()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool END = time->GetENDFlg();
 
+	//イベント情報取得 
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　5
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.7f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 
 	//主人公に当たるとフォント表示
@@ -151,7 +158,7 @@ void CObjMeme_Neutralization_Device::Draw()
 	dst_cpu.m_left = 0.0f + m_Meme_Neu_Devx - 10;
 	dst_cpu.m_right = (m_dst_size + 10) + m_Meme_Neu_Devx - 10;
 	dst_cpu.m_bottom = (m_dst_size + 10) + m_Meme_Neu_Devy - 20;
-	if (END == true)
+	if (END == true || App_Rand == 5)
 	{		
 		Draw::Draw(7, &src_cpu, &dst_cpu, c, 0.0f);
 		Draw::Draw(7, &src, &dst, c, 0.0f);

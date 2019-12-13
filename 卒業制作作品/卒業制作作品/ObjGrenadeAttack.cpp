@@ -69,15 +69,12 @@ void CObjGrenadeAttack::Init()
 //アクション
 void CObjGrenadeAttack::Action()
 {
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}	
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//主人公位置取得
 		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -119,11 +116,11 @@ void CObjGrenadeAttack::Action()
 			{
 				//移動停止
 				m_Grevx = 0.0f;
-				m_Grevy = 0.0f;
-				//主人公の移動に合わせる
-				m_Grex += (-hvx);
-				m_Grey += (-hvy);
-			}			
+				m_Grevy = 0.0f;				
+			}	
+			//主人公の移動に合わせる
+			m_Grex += (-hvx);
+			m_Grey += (-hvy);
 		}		
 		if (EXP_time >= 180)
 		{

@@ -103,6 +103,10 @@ void CObjFire_Lizard::Action()
 	//ボス
 	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -114,8 +118,8 @@ void CObjFire_Lizard::Action()
 		EXPDamage = EXPAttack->GetEXP();
 	}
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//移動処理		
 		//主人公が上に居ると上に移動
