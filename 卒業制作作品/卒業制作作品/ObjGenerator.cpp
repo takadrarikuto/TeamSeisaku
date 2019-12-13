@@ -30,9 +30,6 @@ CObjGenerator::CObjGenerator(float x, float y)
 void CObjGenerator::Init()
 {
 	//初期化
-	m_Genvx = 0.0f; //位置更新
-	m_Genvy = 0.0f;
-
 	//フォント表示タイム
 	m_Font_time = 0;
 

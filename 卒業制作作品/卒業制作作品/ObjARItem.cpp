@@ -55,7 +55,7 @@ void CObjARItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		((UserData*)Save::GetData())->AR_Ammunition += 100; //アサルトライフル		
+		hero->SetAR(100); //アサルトライフル		
 		aitemfont->SetAitemNum(100); //弾数表示
 		aitemfont->SetAGF(2); //フォント表示
 		Audio::Start(12); //効果音再生

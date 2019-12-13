@@ -120,6 +120,11 @@ void CObjHero::Init()
 	m_rg_pb_r = 0;//レールガン
 	m_gre_pb_r = 0;//グレネード
 
+	m_sg_pb_h = 0;//ショットガン　回復用
+	m_ar_pb_h = 0;//アサルトライフル　回復用
+	m_sr_pb_h = 0;//スナイパーライフル　回復用
+	m_rl_pb_h = 0;//ロケットランチャー　回復用
+	m_rg_pb_h = 0;//レールガン　回復用
 
 	//------------------------------------------(未使用)
 	//最大所持弾数
@@ -1303,11 +1308,11 @@ void CObjHero::Action()
 				//Audio::Start(13);
 			}
 	
-			//弾の補充処理
+			//弾の回復処理
 			//ショットガン
 			if (((UserData*)Save::GetData())->SHG_Ammunition > 0)
 			{
-				m_sg_pb_me += ((UserData*)Save::GetData())->SHG_Ammunition;
+				m_sg_pb_me += m_sg_pb_h;
 				//弾を回復した時上限を超えないようにする
 				if (m_sg_pb_me > 60)
 				{
@@ -1319,7 +1324,7 @@ void CObjHero::Action()
 			//アサルトライフル
 			if (((UserData*)Save::GetData())->AR_Ammunition > 0)
 			{
-				m_ar_pb_me += ((UserData*)Save::GetData())->AR_Ammunition;
+				m_ar_pb_me += m_ar_pb_h;
 				//弾を回復した時上限を超えないようにする
 				if (m_ar_pb_me > 200)
 				{
@@ -1330,7 +1335,7 @@ void CObjHero::Action()
 			//スナイパーライフル
 			if (((UserData*)Save::GetData())->SR_Ammunition > 0)
 			{
-				m_sr_pb_me += ((UserData*)Save::GetData())->SR_Ammunition;
+				m_sr_pb_me += m_sr_pb_h;
 				//弾を回復した時上限を超えないようにする
 				if (m_sr_pb_me > 30)
 				{
@@ -1341,7 +1346,7 @@ void CObjHero::Action()
 			//ロケットランチャー
 			if (((UserData*)Save::GetData())->RL_Ammunition > 0)
 			{
-				m_rl_pb_me += ((UserData*)Save::GetData())->RL_Ammunition;
+				m_rl_pb_me += m_rl_pb_h;
 				//弾を回復した時上限を超えないようにする
 				if (m_rl_pb_me > 2)
 				{
@@ -1352,14 +1357,21 @@ void CObjHero::Action()
 			//レールガン
 			if (((UserData*)Save::GetData())->RG_Ammunition > 0)
 			{
-				m_rg_pb_me += ((UserData*)Save::GetData())->RG_Ammunition;
+				m_rg_pb_me += m_rg_pb_h;
 				//弾を回復した時上限を超えないようにする
 				if (m_rg_pb_me > 1)
 				{
 					m_rg_pb_me = 1;
 				}
 				((UserData*)Save::GetData())->RG_Ammunition = 0;
-			}			
+			}		
+
+			//初期化
+			m_sg_pb_h = 0;//ショットガン　回復用
+			m_ar_pb_h = 0;//アサルトライフル　回復用
+			m_sr_pb_h = 0;//スナイパーライフル　回復用
+			m_rl_pb_h = 0;//ロケットランチャー　回復用
+			m_rg_pb_h = 0;//レールガン　回復用
 		}
 
 		//HitBoxの内容を更新
