@@ -133,7 +133,6 @@ void CObjInstallation_Type_ShotGun::Draw()
 
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		//Font::StrDraw(L"ショットガンが再補充されました。", 0, 570, 30, c); 
 		swprintf_s(str, L"ショットガンが再補充されました。");
 		Font::StrDraw(str, 0, 570, 30, c); 
 	}

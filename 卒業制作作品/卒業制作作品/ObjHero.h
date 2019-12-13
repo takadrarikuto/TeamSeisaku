@@ -70,12 +70,6 @@ public:
 
 	void SetGRE(int gre) { m_gre_pb_me = gre; }	//グレネードセット用
 
-	void SetSHG(int shg) { m_sg_pb_h = shg; }	//ショットガン弾回復設定用
-	void SetAR(int ar) { m_ar_pb_h = ar; }	//アサルトライフル弾回復設定用
-	void SetSR(int sr) { m_sr_pb_h = sr; }	//スナイパーライフル弾回復設定用
-	void SetRL(int rl) { m_rl_pb_h = rl; }	//ロケットランチャー弾回復設定用
-	void SetRG(int rg) { m_rg_pb_h = rg; }	//レールガン弾回復設定用
-
 private:
 	float m_x; //位置更新
 	float m_y;
@@ -152,12 +146,6 @@ private:
 	int m_rl_pb_num;//ロケットランチャー残り弾数
 	int m_rg_pb_num;//レールガン残り弾数
 	int m_gre_pb_num;//グレネード残り弾数
-
-	int m_sg_pb_h;//ショットガン　回復用
-	int m_ar_pb_h;//アサルトライフル　回復用
-	int m_sr_pb_h;//スナイパーライフル　回復用
-	int m_rl_pb_h;//ロケットランチャー　回復用
-	int m_rg_pb_h;//レールガン　回復用
 
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ

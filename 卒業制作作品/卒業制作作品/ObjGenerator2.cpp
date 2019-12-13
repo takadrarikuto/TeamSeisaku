@@ -81,7 +81,7 @@ void CObjGenerator2::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//発電機イベントor修理イベント時クリア判定
-				if (GEN == true || App_Rand == 2)
+				if (GEN == true/* || App_Rand == 2*/)
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);

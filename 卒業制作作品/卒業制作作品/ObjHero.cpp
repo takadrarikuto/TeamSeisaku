@@ -120,12 +120,6 @@ void CObjHero::Init()
 	m_rg_pb_r = 0;//レールガン
 	m_gre_pb_r = 0;//グレネード
 
-	m_sg_pb_h = 0;//ショットガン　回復用
-	m_ar_pb_h = 0;//アサルトライフル　回復用
-	m_sr_pb_h = 0;//スナイパーライフル　回復用
-	m_rl_pb_h = 0;//ロケットランチャー　回復用
-	m_rg_pb_h = 0;//レールガン　回復用
-
 	//------------------------------------------(未使用)
 	//最大所持弾数
 	m_sg_pb_num = 80; //ショットガン(70)
@@ -1312,66 +1306,60 @@ void CObjHero::Action()
 			//ショットガン
 			if (((UserData*)Save::GetData())->SHG_Ammunition > 0)
 			{
-				m_sg_pb_me += m_sg_pb_h;
+				m_sg_pb_me += ((UserData*)Save::GetData())->SHG_Ammunition;
 				//弾を回復した時上限を超えないようにする
 				if (m_sg_pb_me > 60)
 				{
 					m_sg_pb_me = 60;
 				}
-				//弾獲得数初期化
-				((UserData*)Save::GetData())->SHG_Ammunition = 0;
-			}			
+			}
 			//アサルトライフル
 			if (((UserData*)Save::GetData())->AR_Ammunition > 0)
 			{
-				m_ar_pb_me += m_ar_pb_h;
+				m_ar_pb_me += ((UserData*)Save::GetData())->AR_Ammunition;
 				//弾を回復した時上限を超えないようにする
 				if (m_ar_pb_me > 200)
 				{
 					m_ar_pb_me = 200;
 				}
-				((UserData*)Save::GetData())->AR_Ammunition = 0;
 			}
 			//スナイパーライフル
 			if (((UserData*)Save::GetData())->SR_Ammunition > 0)
 			{
-				m_sr_pb_me += m_sr_pb_h;
+				m_sr_pb_me += ((UserData*)Save::GetData())->SR_Ammunition;
 				//弾を回復した時上限を超えないようにする
 				if (m_sr_pb_me > 30)
 				{
 					m_sr_pb_me = 30;
 				}
-				((UserData*)Save::GetData())->SR_Ammunition = 0;
 			}
 			//ロケットランチャー
 			if (((UserData*)Save::GetData())->RL_Ammunition > 0)
 			{
-				m_rl_pb_me += m_rl_pb_h;
+				m_rl_pb_me += ((UserData*)Save::GetData())->RL_Ammunition;
 				//弾を回復した時上限を超えないようにする
 				if (m_rl_pb_me > 2)
 				{
 					m_rl_pb_me = 2;
 				}
-				((UserData*)Save::GetData())->RL_Ammunition = 0;
-			}			
+			}
 			//レールガン
 			if (((UserData*)Save::GetData())->RG_Ammunition > 0)
 			{
-				m_rg_pb_me += m_rg_pb_h;
+				m_rg_pb_me += ((UserData*)Save::GetData())->RG_Ammunition;
 				//弾を回復した時上限を超えないようにする
 				if (m_rg_pb_me > 1)
 				{
 					m_rg_pb_me = 1;
 				}
-				((UserData*)Save::GetData())->RG_Ammunition = 0;
-			}		
+			}
 
-			//初期化
-			m_sg_pb_h = 0;//ショットガン　回復用
-			m_ar_pb_h = 0;//アサルトライフル　回復用
-			m_sr_pb_h = 0;//スナイパーライフル　回復用
-			m_rl_pb_h = 0;//ロケットランチャー　回復用
-			m_rg_pb_h = 0;//レールガン　回復用
+			//弾獲得数初期化
+			((UserData*)Save::GetData())->SHG_Ammunition = 0;
+			((UserData*)Save::GetData())->AR_Ammunition = 0;
+			((UserData*)Save::GetData())->SR_Ammunition = 0;
+			((UserData*)Save::GetData())->RL_Ammunition = 0;
+			((UserData*)Save::GetData())->RG_Ammunition = 0;
 		}
 
 		//HitBoxの内容を更新

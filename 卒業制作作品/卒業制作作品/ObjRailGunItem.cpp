@@ -55,7 +55,6 @@ void CObjRailGunItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		hero->SetRG(1);//レールガン	
 		aitemfont->SetAGF(5); //フォント表示
 		aitemfont->SetAitemNum(1); //弾数表示
 		Audio::Start(12); //効果音再生
