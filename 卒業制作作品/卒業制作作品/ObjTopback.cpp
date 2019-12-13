@@ -2,6 +2,8 @@
 #include "GameL\DrawTexture.h"
 #include "GameHead.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
+#include "GameL\Audio.h"
 #include "ObjTopback.h"
 
 //使用するネームスペース
@@ -25,16 +27,17 @@ extern bool END_flg;
 extern bool MND_flg;
 extern bool Rep_flg;
 
-/*//イベント失敗フラグ
-extern bool EveMiss_flg;
+//イベント失敗フラグ
+extern bool m_EveMiss_flg;
 
 //イベント成功フラグ
-extern bool EveSuccess_flg;*/
+extern bool m_EveSuccess_flg;
 
 //イニシャライズ
 void CObjTopback::Init()
 {
-
+	evemiss_time = 0;
+	evesuc_time = 0;
 }
 
 //アクション
@@ -61,9 +64,15 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//イベント
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_time = Event->GetEveIns();
+	bool EveMiss_flg = Event->GetEveMiss();
+	//bool EveSuccess_flg = eve->GetEveSuc();
+
 	//設置型アイテムオブジェクト
 	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
-	int SHG_Rep_Font = IT_SHG->GetRepFontTime();
+	bool SHG_Rep_Font_flg = IT_SHG->GetRepFontflg();
 
 	//アイテム獲得情報取得
 	CObjAitemFont* aitf = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
@@ -71,6 +80,8 @@ void CObjTopback::Draw()
 
 	//描画カラー情報　R=RED  G=Green  B=Blue A=alpha(透過情報)
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	float a[4] = { 1.0f,1.0f,1.0f,0.6f };
 	float a2[4] = { 1.0f,1.0f,1.0f,0.8f };
 
@@ -146,15 +157,75 @@ void CObjTopback::Draw()
 	dst.m_right = 675.0f;//115
 	dst.m_bottom = 180.0f;//115
 
-	//タイムストップフラグオンでイベントタイム用背景表示
+	//タイムストップフラグオンでイベント用背景表示
 	if (Menu_flg == false && TStop_flg == true)
 	{
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
-	/*if (Menu_flg == false && EveMiss_flg == true)
+
+	//イベント失敗時
+	if (Menu_flg == false && EveMiss_flg == true)
 	{
-		Draw::Draw(30, &src, &dst, a, 0.0f);
+		//切り取り位置の設定
+		src.m_top = 0.0f;
+		src.m_left = 0.0f;
+		src.m_right = 100.0f;
+		src.m_bottom = 100.0f;
+		//描画
+		dst.m_top = 120.0f;//63
+		dst.m_left = 0.0f;//0
+		dst.m_right = 270.0f;//115
+		dst.m_bottom = 180.0f;//115
+
+		evemiss_time++;
+		if (evemiss_time == 1)
+		{
+			Audio::Start(17);
+		}
+		if (evemiss_time < 200)
+		{
+			Draw::Draw(30, &src, &dst, a, 0.0f);
+			Font::StrDraw(L"イベント失敗", 25, 133, 35, r);
+		}
+		if (evemiss_time > 200)
+		{
+			EveMiss_flg = false;
+		}
+	}
+	/*if (EveMiss_flg == false)
+	{
+		evemiss_time = 0;
 	}*/
+
+	//イベント成功時
+	if (Menu_flg == false && m_EveSuccess_flg == true)
+	{
+		//切り取り位置の設定
+		src.m_top = 0.0f;
+		src.m_left = 0.0f;
+		src.m_right = 100.0f;
+		src.m_bottom = 100.0f;
+		//描画
+		dst.m_top = 120.0f;//63
+		dst.m_left = 0.0f;//0
+		dst.m_right = 270.0f;//115
+		dst.m_bottom = 180.0f;//115
+
+		evesuc_time++;
+		if (evesuc_time < 200)
+		{
+			Draw::Draw(30, &src, &dst, a, 0.0f);
+			Font::StrDraw(L"イベント成功！", 15, 133, 35, y);
+		}
+		if (evesuc_time > 200)
+		{
+			m_EveSuccess_flg = false;
+		}
+	}
+	if (m_EveSuccess_flg == false)
+	{
+		evesuc_time = 0;
+	}
 
 	//------------------------------------------------------------------
 
@@ -248,10 +319,9 @@ void CObjTopback::Draw()
 		}
 	}
 	//設置型アイテム補充時用背景------------------------------------------------
-	if (SHG_Rep_Font == true)
+	if (SHG_Rep_Font_flg == true)
 	{
 		Draw::Draw(30, &src, &dst, a2, 0.0f);
 	}
-
 	//------------------------------------------------------------------
 }

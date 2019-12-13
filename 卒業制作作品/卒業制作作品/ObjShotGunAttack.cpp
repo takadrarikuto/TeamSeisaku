@@ -49,36 +49,33 @@ void CObjShotGunAttack::Init()
 //アクション
 void CObjShotGunAttack::Action()
 {
-	//メニューを開くと停止
-	if (Menu_flg == false)
-	{
-	//斜め移動修正処理
-	float r = 0.0f;
-	r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
-	r = sqrt(r); //ルートを求める
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
 
-	//斜めベクトルを求める
-	if (r == 0.0f)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
-		; //0なら何もしない
-	}
-	else
-	{
-		m_SGvx = 5.0f / r * m_SGvx;
-		m_SGvy = 5.0f / r * m_SGvy;
-	}
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
+		r = sqrt(r); //ルートを求める
 
-	//位置更新
-	m_SGx += m_SGvx;
-	m_SGy += m_SGvy;
-	}
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_SGvx = 5.0f / r * m_SGvx;
+			m_SGvy = 5.0f / r * m_SGvy;
+		}
 
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}
+		//位置更新
+		m_SGx += m_SGvx;
+		m_SGy += m_SGvy;
+	}
 
 
 	//主人公位置取得

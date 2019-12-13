@@ -4,6 +4,7 @@
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
 #include "GameL\DrawFont.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjInstallation_Type_SR.h"
@@ -66,7 +67,7 @@ void CObjInstallation_Type_SR::Action()
 		{
 			aitemfont->SetAGF(3);
 			aitemfont->SetAitemNum(10);
-			hero->SetSR(10);
+			((UserData*)Save::GetData())->SR_Ammunition += 10;//スナイパーライフル
 			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;
@@ -96,7 +97,7 @@ void CObjInstallation_Type_SR::Draw()
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	RECT_F src;
 	RECT_F dst;
