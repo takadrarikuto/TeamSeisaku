@@ -163,12 +163,6 @@ void CObjTopback::Draw()
 		Draw::Draw(30, &src, &dst, a, 0.0f);
 	}
 
-	//イベント用背景表示
-	if (Eve_time > 0)
-	{
-		Draw::Draw(30, &src, &dst, a, 0.0f);
-	}
-
 	//イベント失敗時
 	if (Menu_flg == false && EveMiss_flg == true)
 	{
@@ -329,6 +323,5 @@ void CObjTopback::Draw()
 	{
 		Draw::Draw(30, &src, &dst, a2, 0.0f);
 	}
-
 	//------------------------------------------------------------------
 }
