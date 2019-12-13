@@ -103,7 +103,7 @@ void CObjTutorial::Draw()
 	}
 	else if (m_tuto_time < 500 || m_tuto_time < 750)
 	{
-		Font::StrDraw(L"‡A.’e‚ª–³‚­‚È‚é‚Æ«ƒL[‚ÅƒŠƒ[ƒh‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B", 100, 150, 20, blk);
+		Font::StrDraw(L"‡A.‰ºƒL[‚ÅƒŠƒ[ƒh‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B", 100, 150, 20, blk);
 	}
 	else if (m_tuto_time < 750 || m_tuto_time < 1000)
 	{
@@ -116,6 +116,6 @@ void CObjTutorial::Draw()
 	else if (m_tuto_time < 1250 || m_tuto_time < 1500)
 	{
 	
-		Font::StrDraw(L"‡D.WASDƒL[‚ÅˆÚ“®‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B“G‚ÉŒü‚¯‚Ä’e‚ð‘Å‚Á‚Ä‚Ý‚Ü‚µ‚å‚¤B", 100, 150, 20, blk);
+		Font::StrDraw(L"‡D.WASDƒL[‚ÅˆÚ“®‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B“G‚ð“|‚µ‚Ä‚Ý‚Ü‚µ‚å‚¤B", 100, 150, 20, blk);
 	}
 }

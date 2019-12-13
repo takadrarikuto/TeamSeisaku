@@ -106,13 +106,16 @@ void CObjBoss::Action()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool END_flg = time->GetENDFlg();
 	bool MND_flg = time->GetMNDFlg();
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
 
 	//移動停止
 	m_bvx = 0.0f;
 	m_bvy = 0.0f;
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//主人公の移動ベクトルをボスの移動ベクトルに入れる
 		m_bvx += hvx;
@@ -196,25 +199,25 @@ void CObjBoss::Action()
 			if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
 			{
 				m_Bat_Enemy_co_num = rand() % 5;
-				for (int i = 0; i <= m_Bat_Enemy_co_num; i++)
+				for (int i = 1; i <= m_Bat_Enemy_co_num; i++)
 				{
 					//蝙蝠オブジェクト作成
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
-					Audio::Start(20);
 
-					if (i % 2 == 0 && i != 0)
-					{
-						m_Bat_Enemy_x += 50.0f; //x位置修正
-					}
-					else if (i % 2 != 0)
-					{
-						m_Bat_Enemy_y += 30.0f; //y位置修正
-					}		
+		//			if (i % 2 == 0 && i != 0)
+		//			{
+		//				m_Bat_Enemy_x += 50.0f; //x位置修正
+		//			}
+		//			else if (i % 2 != 0)
+		//			{
+		//				m_Bat_Enemy_y += 30.0f; //y位置修正
+		//			}		
 
 					m_Bat_Enemy_Restriction += 1; //蝙蝠生成カウント
-				}							
-			}	
+				}	
+				Audio::Start(20);
+			}				
 			m_Bat_Enemy_Generation = 0;
 		}
 		//火トカゲ
@@ -247,7 +250,7 @@ void CObjBoss::Action()
 		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
 			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 5;
-			for (int c = 0; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
+			for (int c = 1; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
 			{
 				//球体型敵オブジェクト作成
 				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x + m_Sphere_Type_Enemy_x, e_y + m_Sphere_Type_Enemy_y);
