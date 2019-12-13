@@ -1415,13 +1415,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 15;
+								m_hero_en -= 15 +( 5 * (((UserData*)Save::GetData())->choose-1));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 20;
+								m_hero_hp -= 20 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 80;		//無敵時間をセット
@@ -1432,13 +1432,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 5;
+								m_hero_en -= 5 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 10;
+								m_hero_hp -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 60;		//無敵時間をセット
@@ -1449,13 +1449,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 20;
+								m_hero_en -= 20 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 25;
+								m_hero_hp -= 25 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 60;		//無敵時間をセット
@@ -1466,13 +1466,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 10;
+								m_hero_en -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 2;
+								m_hero_hp -= 2 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 20;		//無敵時間をセット
@@ -1511,13 +1511,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 10;
+								m_hero_en -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 10;
+								m_hero_hp -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 30;		//無敵時間をセット
