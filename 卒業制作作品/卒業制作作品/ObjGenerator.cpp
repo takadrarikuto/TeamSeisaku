@@ -99,6 +99,8 @@ void CObjGenerator::Action()
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);
 					aitemfont->SetToolBox(true); //‰æ‘œ•\Ž¦
+					m_EveSuccess_flg = true;
+					Audio::Start(19);
 				}
 			}
 		}		
