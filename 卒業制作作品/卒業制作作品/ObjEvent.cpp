@@ -112,6 +112,10 @@ void CObjEvent::Action()
 			m_Event_Instruction_time = EVENT_INSTRUCTION; //イベント指示表示タイム : 3秒増加
 			Audio::Start(16);
 		}					
+		else if (TStop_flg == false)
+		{
+			m_Event_time_flg = false;
+		}
 		if (m_Event_Instruction_time > 0)
 		{
 			//イベント指示表示タイム減少
@@ -206,10 +210,8 @@ void CObjEvent::Draw()
 			swprintf_s(str, L"%d:%d", minute, second);
 		
 		Font::StrDraw(str, 27, 85, 28, c);
-	}
+
 	//イベント内容
-	if (m_Event_Instruction_time > 0)
-	{
 		//発電機イベント
 		if (Gen_flg == true)
 		{
@@ -237,4 +239,5 @@ void CObjEvent::Draw()
 		Font::StrDraw(event, 7, 127, 20, c);
 		Font::StrDraw(event_a, 7, 153, 20, c);
 	}
+		
 }
