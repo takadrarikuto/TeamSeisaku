@@ -61,7 +61,7 @@ private:
 	int m_Frie_Bird_Restriction_num; //‰Î‚Ì’¹¶¬”§ŒÀŒ¸­
 	int m_Frie_Bird_Restriction_max; //‰Î‚Ì’¹¶¬”§ŒÀÅ‘å’l
 //‹…‘ÌŒ^“G
-	int m_Sphere_Type_Enemy_Restriction_Rand; //‹…‘ÌŒ^“G¶¬”ƒ‰ƒ“ƒ_ƒ€
+	int m_Sphere_Type_Enemy_Restriction; //‹…‘ÌŒ^“G¶¬”
 	bool m_Sphere_Type_Enemy_Restriction_Stop_flg; //‹…‘ÌŒ^¶¬’â~ƒtƒ‰ƒO
 	float m_Sphere_Type_Enemy_x; //xˆÊ’uC³
 	float m_Sphere_Type_Enemy_y; //yˆÊ’uC³
