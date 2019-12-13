@@ -84,7 +84,7 @@ void ObjDifficulty_Level::Action()
 				//難易度によって設定を変える
 				if (((UserData*)Save::GetData())->choose >= 0)
 				{
-					((UserData*)Save::GetData())->Level_Time = 10850; //10850 = タイムを3分に設定
+					((UserData*)Save::GetData())->Level_Time = 9150; //10850 = タイムを3分に設定
 					//武器別残り弾数
 					((UserData*)Save::GetData())->SHG_Ammunition = 60; //ショットガン
 					//武器別所持弾数(装備分)
