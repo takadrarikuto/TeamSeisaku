@@ -1313,6 +1313,8 @@ void CObjHero::Action()
 				{
 					m_sg_pb_me = 60;
 				}
+				//弾獲得数初期化
+				((UserData*)Save::GetData())->SHG_Ammunition = 0;
 			}			
 			//アサルトライフル
 			if (((UserData*)Save::GetData())->AR_Ammunition > 0)
@@ -1323,6 +1325,7 @@ void CObjHero::Action()
 				{
 					m_ar_pb_me = 200;
 				}
+				((UserData*)Save::GetData())->AR_Ammunition = 0;
 			}
 			//スナイパーライフル
 			if (((UserData*)Save::GetData())->SR_Ammunition > 0)
@@ -1333,6 +1336,7 @@ void CObjHero::Action()
 				{
 					m_sr_pb_me = 30;
 				}
+				((UserData*)Save::GetData())->SR_Ammunition = 0;
 			}
 			//ロケットランチャー
 			if (((UserData*)Save::GetData())->RL_Ammunition > 0)
@@ -1343,6 +1347,7 @@ void CObjHero::Action()
 				{
 					m_rl_pb_me = 2;
 				}
+				((UserData*)Save::GetData())->RL_Ammunition = 0;
 			}			
 			//レールガン
 			if (((UserData*)Save::GetData())->RG_Ammunition > 0)
@@ -1353,14 +1358,8 @@ void CObjHero::Action()
 				{
 					m_rg_pb_me = 1;
 				}
+				((UserData*)Save::GetData())->RG_Ammunition = 0;
 			}			
-
-			//弾獲得数初期化
-			((UserData*)Save::GetData())->SHG_Ammunition = 0;
-			((UserData*)Save::GetData())->AR_Ammunition = 0;
-			((UserData*)Save::GetData())->SR_Ammunition = 0;
-			((UserData*)Save::GetData())->RL_Ammunition = 0;
-			((UserData*)Save::GetData())->RG_Ammunition = 0;
 		}
 
 		//HitBoxの内容を更新

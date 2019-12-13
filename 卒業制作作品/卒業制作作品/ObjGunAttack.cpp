@@ -52,9 +52,9 @@ void CObjGunAttack::Action()
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
 	{
-	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+		//位置更新
+		m_gax += m_gavx;
+		m_gay += m_gavy;
 	}
 
 	////SE処理

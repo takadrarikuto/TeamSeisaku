@@ -97,7 +97,7 @@ void CObjInstallation_Type_SR::Draw()
 	//•`‰æƒJƒ‰[î•ñ
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//•
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	RECT_F src;
 	RECT_F dst;

@@ -116,11 +116,11 @@ void CObjGrenadeAttack::Action()
 			{
 				//ˆÚ“®’âŽ~
 				m_Grevx = 0.0f;
-				m_Grevy = 0.0f;
-				//ŽålŒö‚ÌˆÚ“®‚É‡‚í‚¹‚é
-				m_Grex += (-hvx);
-				m_Grey += (-hvy);
-			}			
+				m_Grevy = 0.0f;				
+			}	
+			//ŽålŒö‚ÌˆÚ“®‚É‡‚í‚¹‚é
+			m_Grex += (-hvx);
+			m_Grey += (-hvy);
 		}		
 		if (EXP_time >= 180)
 		{

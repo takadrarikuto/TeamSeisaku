@@ -71,34 +71,25 @@ void CObjGenerator::Action()
 	int App_Rand = Event->GetApp_Rand(); //対応数　1
 	int Eve_Ins = Event->GetEveIns();
 
-	//アイテムフォント情報取得
-	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
-
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
 
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
-	{
-		
+	{	
 		if (TStop_flg == true)
 		{
 			m_Font_time = 90; //フォント表示タイム設定
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
-				if (GEN == true)
+				//発電機イベントor修理イベント時クリア判定
+				if (GEN == true || App_Rand == 1)
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);
 					m_EveSuccess_flg = true;
 					Audio::Start(19);
-				}
-				if (App_Rand == 1)
-				{
-					TStart_flg = true;
-					time->SetTStart(TStart_flg);
-					aitemfont->SetToolBox(true); //画像表示
 				}
 			}
 		}		
@@ -127,9 +118,13 @@ void CObjGenerator::Draw()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool GEN = time->GetGenFlg();
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　1
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 
 	//主人公に当たるとフォント表示
@@ -152,7 +147,7 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	if (GEN == true)
+	if (GEN == true || App_Rand == 1)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}
