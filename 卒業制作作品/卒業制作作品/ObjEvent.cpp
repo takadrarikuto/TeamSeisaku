@@ -176,10 +176,12 @@ void CObjEvent::Draw()
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
 
+	/*
 	//ƒCƒxƒ“ƒgî•ñæ“¾
 	CObjEvent* eve = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	bool EveMiss_flg = eve->GetEveMiss();
 	bool EveSuccess_flg = eve->GetEveSuc();
+	*/
 
 	//m_time‚©‚ç•b•ª‚ğ‹‚ß‚é
 	int minute;//•ª

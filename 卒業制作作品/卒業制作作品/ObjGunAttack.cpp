@@ -47,14 +47,19 @@ void CObjGunAttack::Action()
 {
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int Eve_Ins = Event->GetEveIns();
+	int Eve_Ins;
+	if (Event != nullptr)
+	{
+		Eve_Ins = Event->GetEveIns();
+	}
+	
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
 	{
-	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+		//位置更新
+		m_gax += m_gavx;
+		m_gay += m_gavy;
 	}
 
 	////SE処理

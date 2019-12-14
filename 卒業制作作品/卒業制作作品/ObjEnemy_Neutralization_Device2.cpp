@@ -66,9 +66,6 @@ void CObjEnemy_Neutralization_Device2::Action()
 	int App_Rand = Event->GetApp_Rand(); //対応数　4
 	int Eve_Ins = Event->GetEveIns();
 
-	//アイテムフォント情報取得
-	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
-
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_end->SetPos(m_Enemy_Neu_Dev2x, m_Enemy_Neu_Dev2y); //当たり判定の位置更新
@@ -81,19 +78,14 @@ void CObjEnemy_Neutralization_Device2::Action()
 			m_Font_time = 90; //フォント表示タイム設定
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
-				if (END == true)
+				//敵無力化イベントor故障イベント時クリア判定
+				if (END == true/* || App_Rand == 4*/)
 				{
 					TStart_flg = true;
 					m_END2_death_flg = true;
 					time->SetTStart(TStart_flg);
 					m_EveSuccess_flg = true;
 					Audio::Start(19);
-				}
-				if (App_Rand == 4)
-				{
-					TStart_flg = true;
-					time->SetTStart(TStart_flg);
-					aitemfont->SetToolBox(true); //画像表示
 				}
 			}
 		}		
@@ -126,9 +118,13 @@ void CObjEnemy_Neutralization_Device2::Draw()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool END = time->GetENDFlg();
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　4
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 
 	//主人公に当たるとフォント表示
@@ -151,7 +147,7 @@ void CObjEnemy_Neutralization_Device2::Draw()
 	dst.m_left = 0.0f + m_Enemy_Neu_Dev2x;
 	dst.m_right = 55.0f + m_Enemy_Neu_Dev2x;
 	dst.m_bottom = 105.0f + m_Enemy_Neu_Dev2y;
-	if (END == true)
+	if (END == true || App_Rand == 4)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}

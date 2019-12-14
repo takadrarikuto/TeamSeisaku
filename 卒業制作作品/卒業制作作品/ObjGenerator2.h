@@ -20,8 +20,6 @@ public:
 private:
 	float m_Gen2x; //位置情報
 	float m_Gen2y;
-	float m_Gen2vx; //位置更新
-	float m_Gen2vy;
 
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;

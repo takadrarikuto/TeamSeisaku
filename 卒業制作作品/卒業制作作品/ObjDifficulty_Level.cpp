@@ -30,10 +30,7 @@ void ObjDifficulty_Level::Init()
 
 //アクション
 void ObjDifficulty_Level::Action()
-{
-	//タイム情報取得
-	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	
+{	
 	//上キーで上に移動
 	if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose > 0 && m_time == 0)
 	{
@@ -84,7 +81,7 @@ void ObjDifficulty_Level::Action()
 				//難易度によって設定を変える
 				if (((UserData*)Save::GetData())->choose >= 0)
 				{
-					((UserData*)Save::GetData())->Level_Time = 10850; //10850 = タイムを3分に設定
+					((UserData*)Save::GetData())->Level_Time = 9150; //10850 = タイムを3分に設定
 					//武器別残り弾数
 					((UserData*)Save::GetData())->SHG_Ammunition = 60; //ショットガン
 					//武器別所持弾数(装備分)

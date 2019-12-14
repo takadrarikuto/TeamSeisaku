@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\UserData.h"
 
 #include <time.h>
 
@@ -78,7 +79,7 @@ void CObjBoss::Init()
 	m_Frie_Lizard_Restriction_num = 0; //‰ÎƒgƒJƒQ¶¬”§ŒÀŒ¸­
 	m_Frie_Lizard_Restriction_max = 5; //‰ÎƒgƒJƒQ¶¬”§ŒÀÅ‘å’l
 //‹…‘ÌŒ^“G	
-	m_Sphere_Type_Enemy_Restriction_Rand = 3; //‹…‘ÌŒ^“G¶¬”ƒ‰ƒ“ƒ_ƒ€
+	m_Sphere_Type_Enemy_Restriction = 5 + (((UserData*)Save::GetData())->choose - 1); //‹…‘ÌŒ^“G¶¬”
 	m_Sphere_Type_Enemy_Restriction_Stop_flg = false; //‹…‘ÌŒ^¶¬’â~ƒtƒ‰ƒO
 
 	m_Sphere_Type_Enemy_x = 0.0f; //xˆÊ’uC³
@@ -205,14 +206,14 @@ void CObjBoss::Action()
 					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
 					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
 
-		//			if (i % 2 == 0 && i != 0)
-		//			{
-		//				m_Bat_Enemy_x += 50.0f; //xˆÊ’uC³
-		//			}
-		//			else if (i % 2 != 0)
-		//			{
-		//				m_Bat_Enemy_y += 30.0f; //yˆÊ’uC³
-		//			}		
+					if (i % 2 == 0 && i != 0)
+					{
+						m_Bat_Enemy_x += 50.0f; //xˆÊ’uC³
+					}
+					else if (i % 2 != 0)
+					{
+						m_Bat_Enemy_y += 30.0f; //yˆÊ’uC³
+					}		
 
 					m_Bat_Enemy_Restriction += 1; //åå•¶¬ƒJƒEƒ“ƒg
 				}	
@@ -249,8 +250,7 @@ void CObjBoss::Action()
 		//“G–³—Í‰»ƒCƒxƒ“ƒg“G¶¬
 		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
-			m_Sphere_Type_Enemy_Restriction_Rand = rand() % 5;
-			for (int c = 1; c < m_Sphere_Type_Enemy_Restriction_Rand; c++)
+			for (int c = 1; c < m_Sphere_Type_Enemy_Restriction; c++)
 			{
 				//‹…‘ÌŒ^“GƒIƒuƒWƒFƒNƒgì¬
 				CObjSphere_Type_Enemy* obj_ste = new CObjSphere_Type_Enemy(e_x + m_Sphere_Type_Enemy_x, e_y + m_Sphere_Type_Enemy_y);
@@ -279,7 +279,6 @@ void CObjBoss::Action()
 		if (END_flg == false)
 		{
 			m_Sphere_Type_Enemy_Restriction_Stop_flg = false; //‹…‘ÌŒ^¶¬’â~ƒtƒ‰ƒO
-			m_Sphere_Type_Enemy_Restriction_Rand = 5;
 		}
 		if (MND_flg == false)
 		{
