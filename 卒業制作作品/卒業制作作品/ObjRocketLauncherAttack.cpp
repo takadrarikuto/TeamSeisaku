@@ -77,17 +77,8 @@ void CObjRocketLauncherAttack::Init()
 //アクション
 void CObjRocketLauncherAttack::Action()
 {
-	//イベント情報取得
-	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int Eve_Ins;
-	if (Event != nullptr)
-	{
-		Eve_Ins = Event->GetEveIns();
-	}
-	
-
 	//メニューを開く、イベント情報表示中は行動停止
-	if (Menu_flg == false && Eve_Ins == 0)
+	if (Menu_flg == false)
 	{
 		//アニメーションフレーム更新
 		m_ani_time++;
