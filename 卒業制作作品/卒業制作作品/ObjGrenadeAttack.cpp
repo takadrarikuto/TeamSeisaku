@@ -91,8 +91,9 @@ void CObjGrenadeAttack::Action()
 		//爆破処理
 		EXP_time++;
 		//位置更新
-		m_Grex +=m_Grevx;
-		m_Grey +=m_Grevy;
+		//主人公の移動に合わせる
+		m_Grex += (-hvx) + m_Grevx;
+		m_Grey += (-hvy) + m_Grevy;
 
 
 		//HitBoxの内容を更新 
@@ -123,9 +124,6 @@ void CObjGrenadeAttack::Action()
 				m_Grevx = 0.0f;
 				m_Grevy = 0.0f;				
 			}	
-			//主人公の移動に合わせる
-			m_Grex += (-hvx);
-			m_Grey += (-hvy);
 		}		
 		if (EXP_time >= 180)
 		{

@@ -144,7 +144,7 @@ void CObjTitle::Draw()
 	float b[4] = { 1,1,1,1 };
 
 	//タイトル
-	Font::StrDraw(L"SCP354（仮）", 225, 125, 60, b);
+	Font::StrDraw(L"SCP-354 事案報告書", 175, 125, 60, b);
 
 		if (choose == 0)
 			Font::StrDraw(L"◆ゲームスタート", GAME_START_POS_X , GAME_START_POS_Y, GAME_START_FONT_SIZE, r);

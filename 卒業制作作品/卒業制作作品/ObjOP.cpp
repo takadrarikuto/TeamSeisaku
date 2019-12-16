@@ -59,11 +59,11 @@ void CObjOP::Draw()
 		m_y -= 0.6f;
 	}
 	Font::StrDraw(L"～あらすじ～", GAME_OP_X, GAME_OP_Y + m_y + 400, 40, p);
-	Font::StrDraw(L"　とある組織の機動部隊の生き残りである主人公は、", GAME_OP_X, GAME_OP_Y + m_y + 500, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"あるオブジェクトを収容するためにエリア３５４に", GAME_OP_X, GAME_OP_Y + m_y + 550, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"　財団の機動部隊の生き残りである主人公は、", GAME_OP_X, GAME_OP_Y + m_y + 500, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"SCP-354を収容するためにエリア３５４に", GAME_OP_X, GAME_OP_Y + m_y + 550, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"送られました。", GAME_OP_X, GAME_OP_Y + m_y + 600, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"　だがある時、そのオブジェクトの収容違反が発生し", GAME_OP_X, GAME_OP_Y + m_y + 700, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"施設が壊滅しました。主人公はある機械を起動させ、", GAME_OP_X, GAME_OP_Y + m_y + 750, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"　だがそこは、SCP-354の収容違反が発生し", GAME_OP_X, GAME_OP_Y + m_y + 700, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"施設が壊滅していました。主人公はある機械を起動させ、", GAME_OP_X, GAME_OP_Y + m_y + 750, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"オブジェクトを鎮静化、または無力化するために", GAME_OP_X, GAME_OP_Y + m_y + 800, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"発電機を起動します。", GAME_OP_X, GAME_OP_Y + m_y + 850, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"　ですがオブジェクトからは数々の妨害を与えてきます。", GAME_OP_X, GAME_OP_Y + m_y + 950, GAME_OP_FONT_SIZE, p);
