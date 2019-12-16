@@ -110,6 +110,8 @@ void CObjBoss::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
+	int Eve_Rep_E = Event->GetEvePena_Enemy();
+	int Eve_Rep_M = Event->GetEvePena_Meme();
 
 	//移動停止
 	m_bvx = 0.0f;
@@ -247,8 +249,11 @@ void CObjBoss::Action()
 		//	}			
 		//	m_Frie_Bird_Generation = 0;
 		//}
+		int Eve_Rep_E = Event->GetEvePena_Enemy();
+		int Eve_Rep_M = Event->GetEvePena_Meme();
+
 		//敵無力化イベント時敵生成
-		if (END_flg == true && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
+		if ((END_flg == true || Eve_Rep_E == true) && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
 		{
 			for (int c = 1; c < m_Sphere_Type_Enemy_Restriction; c++)
 			{
@@ -266,14 +271,18 @@ void CObjBoss::Action()
 				}
 			}			
 			m_Sphere_Type_Enemy_Restriction_Stop_flg = true; //球体型生成停止フラグ
+			Eve_Rep_E = false;
+			Event->SetEvePena_Enemy(Eve_Rep_E);
 		}		
-		if (MND_flg == true && m_Meme_Medium_Boss_Restriction_Stop_flg == false)
+		if ((MND_flg == true || Eve_Rep_M == true) && m_Meme_Medium_Boss_Restriction_Stop_flg == false)
 		{
 			//ミーム実態(中ボス)オブジェクト作成
 			CObjMeme_Medium_Boss* obj_mmb = new CObjMeme_Medium_Boss(e_x, e_y);
 			Objs::InsertObj(obj_mmb, OBJ_MEME_MEDIUM_BOSS, 5);
 
 			m_Meme_Medium_Boss_Restriction_Stop_flg = true; //ミーム実態生成停止フラグ
+			Eve_Rep_M = false;
+			Event->SetEvePena_Meme(Eve_Rep_M);
 		}
 		//初期化処理
 		if (END_flg == false)
