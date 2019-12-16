@@ -103,12 +103,13 @@ void CSceneTutorial::InitScene()
 	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
 	Audio::LoadAudio(4, L"ショットガン銃声.wav", EFFECT);
 	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
-	//6
-	//7
-	//8
+	Audio::LoadAudio(6, L"ロケットランチャー.wav", EFFECT);
+	Audio::LoadAudio(7, L"レールガン.wav", EFFECT);
+	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
 	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
+	Audio::LoadAudio(12, L"アイテム獲得音.wav", EFFECT);
 	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
 	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
