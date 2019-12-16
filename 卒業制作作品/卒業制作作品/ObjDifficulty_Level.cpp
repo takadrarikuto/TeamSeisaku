@@ -30,10 +30,7 @@ void ObjDifficulty_Level::Init()
 
 //アクション
 void ObjDifficulty_Level::Action()
-{
-	//タイム情報取得
-	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	
+{	
 	//上キーで上に移動
 	if (Input::GetVKey(VK_UP) == true && ((UserData*)Save::GetData())->choose > 0 && m_time == 0)
 	{

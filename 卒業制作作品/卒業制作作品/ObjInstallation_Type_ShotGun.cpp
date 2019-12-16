@@ -74,9 +74,9 @@ void CObjInstallation_Type_ShotGun::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
+			((UserData*)Save::GetData())->SHG_load += 20;//ショットガン
 			aitemfont->SetAGF(1); 
-			aitemfont->SetAitemNum(20);
-			((UserData*)Save::GetData())->SHG_Ammunition += 20;//ショットガン
+			aitemfont->SetAitemNum(20);			
 			Audio::Start(12); //効果音再生
 
 			//再補充タイム
@@ -133,7 +133,6 @@ void CObjInstallation_Type_ShotGun::Draw()
 
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		//Font::StrDraw(L"ショットガンが再補充されました。", 0, 570, 30, c); 
 		swprintf_s(str, L"ショットガンが再補充されました。");
 		Font::StrDraw(str, 0, 570, 30, c); 
 	}

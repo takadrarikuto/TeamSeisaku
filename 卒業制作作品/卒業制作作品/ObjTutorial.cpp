@@ -14,9 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //チュートリアルONOFFフラグ
 extern bool Tuto_flg;
 

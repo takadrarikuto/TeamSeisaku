@@ -3,7 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\DrawTexture.h"
-#include "SceneStage.h"
+#include"GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjED.h"
@@ -59,19 +59,32 @@ void CObjED::Draw()
 	{
 		m_y -= 0.6f;
 	}
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 400, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 450, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 500, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 600, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 650, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 700, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 800, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 850, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 950, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 1000, GAME_ED_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_ED_X, GAME_ED_Y + m_y + 1050, GAME_ED_FONT_SIZE, p);
+	//0イージー1ノーマル2ハード
 
-	Font::StrDraw(L"ＥＮＤ", GAME_ED_X, GAME_ED_Y + m_y + 1200, GAME_ED_FONT_SIZE, p);
+	if (((UserData*)Save::GetData())->choose > 0)
+	{
+		if (((UserData*)Save::GetData())->choose >= 1)
+		{
+			if (((UserData*)Save::GetData())->choose == 2)
+			{
+
+			}
+		}		
+	}
+	
+	Font::StrDraw(L"文書354-i 事案報告書", GAME_ED_X, GAME_ED_Y + m_y + 400, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"[データ削除済]の夜、エリア354から救援信号を受信し連絡を試みました。", GAME_ED_X, GAME_ED_Y + m_y + 450, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"エリア354機動部隊[編集済み]を派遣し、職員の救出と制圧を命令されました。", GAME_ED_X, GAME_ED_Y + m_y + 500, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"しかし機動部隊がエリア354へ到着した2時間後全職員からの連絡が途絶えました。", GAME_ED_X, GAME_ED_Y + m_y + 600, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"その[データ削除済]分後にエリア354発電システムの回復を確認しました。", GAME_ED_X, GAME_ED_Y + m_y + 650, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"エリア354に再度連絡を試みました。", GAME_ED_X, GAME_ED_Y + m_y + 700, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"連絡を行った直後にエリア354からのすべての通信は喪失しました。", GAME_ED_X, GAME_ED_Y + m_y + 800, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"その後の調査によってエリア354の核弾頭が起爆したことが確認されました。", GAME_ED_X, GAME_ED_Y + m_y + 850, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"これによりエリア354の職員及び機動部隊の全滅、施設の全破壊という結果に終わった。", GAME_ED_X, GAME_ED_Y + m_y + 950, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"またオブジェクトは不活性化しており、エンティティを排出しなくなった。", GAME_ED_X, GAME_ED_Y + m_y + 1000, GAME_ED_FONT_SIZE, p);
+	Font::StrDraw(L"最後のエンティティが水溜まりから出てきてから[データ削除済]が経過した。", GAME_ED_X, GAME_ED_Y + m_y + 1050, GAME_ED_FONT_SIZE, p);
+
+	Font::StrDraw(L"閲覧終了", GAME_ED_X, GAME_ED_Y + m_y + 1200, GAME_ED_FONT_SIZE, p);
 
 	Font::StrDraw(L"※Enterでタイトルへ", GAME_ED_X, GAME_ED_Y + m_y + 1300, GAME_ED_FONT_SIZE, p);
 

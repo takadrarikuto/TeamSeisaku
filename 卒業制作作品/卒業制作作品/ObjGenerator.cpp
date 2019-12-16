@@ -30,9 +30,6 @@ CObjGenerator::CObjGenerator(float x, float y)
 void CObjGenerator::Init()
 {
 	//初期化
-	m_Genvx = 0.0f; //位置更新
-	m_Genvy = 0.0f;
-
 	//フォント表示タイム
 	m_Font_time = 0;
 
@@ -84,7 +81,7 @@ void CObjGenerator::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//発電機イベントor修理イベント時クリア判定
-				if (GEN == true || App_Rand == 1)
+				if (GEN == true/* || App_Rand == 1*/)
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);

@@ -66,8 +66,13 @@ void CObjTopback::Draw()
 
 	//イベント
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int Eve_time = Event->GetEveIns();
-	bool EveMiss_flg = Event->GetEveMiss();
+	int Eve_time;
+	bool EveMiss_flg;
+	if (Event != nullptr)
+	{
+		Eve_time = Event->GetEveIns();
+		EveMiss_flg = Event->GetEveMiss();
+	}
 	//bool EveSuccess_flg = eve->GetEveSuc();
 
 	//設置型アイテムオブジェクト
