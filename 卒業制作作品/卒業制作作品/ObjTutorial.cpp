@@ -112,7 +112,6 @@ void CObjTutorial::Draw()
 	}
 	else if (m_tuto_time < 1250 || m_tuto_time < 1500)
 	{
-	
 		Font::StrDraw(L"‡D.WASDƒL[‚ÅˆÚ“®‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B“G‚ð“|‚µ‚Ä‚Ý‚Ü‚µ‚å‚¤B", 100, 150, 20, blk);
 	}
 }
