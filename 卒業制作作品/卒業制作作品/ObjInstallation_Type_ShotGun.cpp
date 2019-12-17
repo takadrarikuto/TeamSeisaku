@@ -74,13 +74,14 @@ void CObjInstallation_Type_ShotGun::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			((UserData*)Save::GetData())->SHG_load += 20;//ショットガン
+			//((UserData*)Save::GetData())->SHG_load += 20;//ショットガン
+			hero->SetSG(60);
 			aitemfont->SetAGF(1); 
-			aitemfont->SetAitemNum(20);			
+			aitemfont->SetAitemNum(60);			
 			Audio::Start(12); //効果音再生
 
 			//再補充タイム
-			m_Replenishment_time = 300;
+			m_Replenishment_time = 1800;
 			//再補充完了フォント表示タイム
 			m_Replenishment_Font_time = REPLENIShHMENT_FONT_TIME;
 		}

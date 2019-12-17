@@ -144,7 +144,7 @@ void CObjGenerator2::Draw()
 	dst.m_left = 0.0f + m_Gen2x;
 	dst.m_right = m_dst_size + m_Gen2x;
 	dst.m_bottom = m_dst_size + m_Gen2y;
-	if (GEN == true || App_Rand == 2)
+	if (GEN == true || (App_Rand > 20 && App_Rand <= 40))
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}

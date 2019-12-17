@@ -559,7 +559,6 @@ void CObjZombieEnemy::Action()
 			}				
 		}		
 	}
-	//OBJ_NET OBJ_NET_V
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
 	if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr || hit_ze->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
 		|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr 
@@ -573,28 +572,31 @@ void CObjZombieEnemy::Action()
 
 		for (int j = 0; j < 10; j++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r > 0 && r < 30) || r >= 330)
+			if (hit_data[j] != nullptr)
 			{
-				m_RightHit_flg = true; //右
-				m_zevx = -0.65f;
-			}
-			else if (r >= 30 && r < 150)
-			{
-				m_UpHit_flg = true;    //上
-				m_zevy = 0.65f;
-			}
-			else if (r >= 150 && r <= 210)
-			{
-				m_LeftHit_flg = true;	 //左
-				m_zevx = 0.65f;
-			}
-			else if (r > 210 && r < 330)
-			{
-				m_DownHit_flg = true;	 //下
-				m_zevy = -0.65f;
-			}
+				float r = hit_data[j]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 30) || r >= 330)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 30 && r < 150)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 150 && r <= 210)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 210 && r < 330)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
+			}			
 		}		
 	}
 	//ミーム
@@ -605,27 +607,30 @@ void CObjZombieEnemy::Action()
 
 		for (int j = 0; j < 10; j++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r > 0 && r < 45) || r >= 315)
+			if (hit_data[j] != nullptr)
 			{
-				m_RightHit_flg = true; //右
-				m_zevx = -0.65f;
-			}
-			else if (r >= 45 && r < 135)
-			{
-				m_UpHit_flg = true;    //上
-				m_zevy = 0.65f;
-			}
-			else if (r >= 135 && r <= 225)
-			{
-				m_LeftHit_flg = true;	 //左
-				m_zevx = 0.65f;
-			}
-			else if (r > 225 && r < 315)
-			{
-				m_DownHit_flg = true;	 //下
-				m_zevy = -0.65f;
+				float r = hit_data[j]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 45) || r >= 315)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 45 && r < 135)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 135 && r <= 225)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 225 && r < 315)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
 			}
 		}		
 	}
@@ -637,28 +642,31 @@ void CObjZombieEnemy::Action()
 
 		for (int i = 0; i < hit_ze->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r > 0 && r < 25) || r >= 335)
+			if (hit_data[i] != nullptr)
 			{
-				m_RightHit_flg = true; //右
-				m_zevx = -0.65f;
-			}
-			else if (r >= 25 && r < 155)
-			{
-				m_UpHit_flg = true;    //上
-				m_zevy = 0.65f;
-			}
-			else if (r >= 155 && r <= 205)
-			{
-				m_LeftHit_flg = true;	 //左
-				m_zevx = 0.65f;
-			}
-			else if (r > 205 && r < 335)
-			{
-				m_DownHit_flg = true;	 //下
-				m_zevy = -0.65f;
-			}				
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 25) || r >= 335)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 25 && r < 155)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 155 && r <= 205)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 205 && r < 335)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
+			}							
 		}		
 	}
 	//ネット(横)

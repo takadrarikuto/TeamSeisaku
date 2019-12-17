@@ -147,7 +147,7 @@ void CObjEnemy_Neutralization_Device::Draw()
 	dst.m_left = 0.0f + m_Enemy_Neu_Devx;
 	dst.m_right = 55.0f + m_Enemy_Neu_Devx;
 	dst.m_bottom = 105.0f + m_Enemy_Neu_Devy;
-	if (END == true || App_Rand == 3)
+	if (END == true || (App_Rand > 40 && App_Rand <= 60))
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}

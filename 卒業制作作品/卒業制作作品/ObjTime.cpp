@@ -30,7 +30,7 @@ void CObjTime::Init()
 	 //イベントランダム変数
 	m_Event_Rand_num = 0;
 	//イベント開始時間
-	m_time_event = 9050;
+	m_time_event = ((UserData*)Save::GetData())->Event_Time;
 
 	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ

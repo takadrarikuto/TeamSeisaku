@@ -89,14 +89,16 @@ void CObjInstallation_Type_RandBox::Action()
 			{
 				aitemfont->SetAGF(4);
 				aitemfont->SetAitemNum(2);
-				((UserData*)Save::GetData())->RL_Ammunition += 2;//ロケットランチャー
+				hero->SetRL(2);
+				//((UserData*)Save::GetData())->RL_Ammunition += 2;//ロケットランチャー
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 80 && m_Rand_aitem_num <= 85)
 			{
 				aitemfont->SetAGF(5);
 				aitemfont->SetAitemNum(1);
-				((UserData*)Save::GetData())->RG_Ammunition += 1;//レールガン
+				hero->SetRG(1);
+				//((UserData*)Save::GetData())->RG_Ammunition += 1;//レールガン
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 85 && m_Rand_aitem_num <= 99)
@@ -110,7 +112,7 @@ void CObjInstallation_Type_RandBox::Action()
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム
-			m_Replenishment_time = 3000;
+			m_Replenishment_time = 3600;
 		}
 	}
 	else

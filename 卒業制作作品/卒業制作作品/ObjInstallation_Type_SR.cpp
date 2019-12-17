@@ -65,14 +65,15 @@ void CObjInstallation_Type_SR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			((UserData*)Save::GetData())->SR_load += 10;//スナイパーライフル
+			//((UserData*)Save::GetData())->SR_load += 10;//スナイパーライフル
+			hero->SetSR(30);
 			aitemfont->SetAGF(3);
-			aitemfont->SetAitemNum(10);
+			aitemfont->SetAitemNum(30);
 			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム
-			m_Replenishment_time = 3000;
+			m_Replenishment_time = 1800;
 		}
 	}
 	else
