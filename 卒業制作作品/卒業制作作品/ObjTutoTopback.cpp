@@ -164,10 +164,10 @@ void CObjTutoTopback::Draw()
 
 	if (g_zombie_count_tu >= 6)
 	{
-		Font::StrDraw(L"チュートリアルクリア！", 70, 130, 30, r);
+		Font::StrDraw(L"チュートリアルクリア！", 70, 150, 30, r);
 		Font::StrDraw(L"◆Enterでゲームスタート", 400, 520, 27, c);
 
-		Font::StrDraw(L"○○", 100, 200, 27, blk);
+		Font::StrDraw(L"イベントでは、以下の装置・アイテムを使用します。", 80, 215, 27, blk);
 
 		//発電機
 		//切り取り処理

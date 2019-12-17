@@ -80,7 +80,7 @@ void CObjMeme_Neutralization_Device::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//ミーム実態イベントor故障イベント時クリア判定
-				if (MND == true/* || App_Rand == 5*/)
+				if (MND == true || (App_Rand > 80 && App_Rand <= 100))
 				{
 					TStart_flg = true;
 					m_Meme_death_flg = true;

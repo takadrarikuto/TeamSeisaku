@@ -65,9 +65,9 @@ void CObjInstallation_Type_SR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
+			((UserData*)Save::GetData())->SR_load += 10;//スナイパーライフル
 			aitemfont->SetAGF(3);
 			aitemfont->SetAitemNum(10);
-			((UserData*)Save::GetData())->SR_Ammunition += 10;//スナイパーライフル
 			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;

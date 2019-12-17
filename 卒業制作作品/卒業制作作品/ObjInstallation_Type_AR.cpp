@@ -68,7 +68,7 @@ void CObjInstallation_Type_AR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			((UserData*)Save::GetData())->AR_Ammunition += 40; //アサルトライフル
+			((UserData*)Save::GetData())->AR_load += 40; //アサルトライフル		
 			aitemfont->SetAitemNum(40);
 			aitemfont->SetAGF(2);
 			Audio::Start(12); //効果音再生

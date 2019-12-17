@@ -59,8 +59,8 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
 	Audio::LoadAudio(4, L"ショットガン銃声.wav", EFFECT);
 	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
-	//6
-	//7
+	Audio::LoadAudio(6, L"ロケットランチャー.wav", EFFECT);
+	Audio::LoadAudio(7, L"レールガン.wav", EFFECT);
 	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
