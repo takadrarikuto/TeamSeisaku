@@ -85,18 +85,18 @@ void CObjHero::Init()
 
 	//所持弾数(装備分)
 	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = ((UserData*)Save::GetData())->SHG_Number_of_Ammunition;//ショットガン現在弾数用(上部表示用)//30
-	m_ar_pb = ((UserData*)Save::GetData())->AR_Number_of_Ammunition;//アサルトライフル現在弾数用(上部表示用)//30
-	m_sr_pb = ((UserData*)Save::GetData())->SR_Number_of_Ammunition;//スナイパーライフル現在弾数用(上部表示用)//5
-	m_rl_pb = ((UserData*)Save::GetData())->RL_Number_of_Ammunition;//ロケットランチャー現在弾数用(上部表示用)
-	m_rg_pb = ((UserData*)Save::GetData())->RG_Number_of_Ammunition;//レールガン現在弾数用(上部表示用)
+	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)
+	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)
+	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)
+	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
+	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
 
 	//所持弾数(計算用)
-	m_sg_pb_c = ((UserData*)Save::GetData())->SHG_Number_of_Ammunition;//ショットガン現在弾数用
-	m_ar_pb_c = ((UserData*)Save::GetData())->AR_Number_of_Ammunition;//アサルトライフル現在弾数用
-	m_sr_pb_c = ((UserData*)Save::GetData())->SR_Number_of_Ammunition;//スナイパーライフル現在弾数用
-	m_rl_pb_c = ((UserData*)Save::GetData())->RL_Number_of_Ammunition;//ロケットランチャー現在弾数用
-	m_rg_pb_c = ((UserData*)Save::GetData())->RG_Number_of_Ammunition;//レールガン現在弾数用
+	m_sg_pb_c = 6;//ショットガン現在弾数用
+	m_ar_pb_c = 20;//アサルトライフル現在弾数用
+	m_sr_pb_c = 5;//スナイパーライフル現在弾数用
+	m_rl_pb_c = 1;//ロケットランチャー現在弾数用
+	m_rg_pb_c = 1;//レールガン現在弾数用
 
 	m_sg_pb_cc = 0;//ショットガン現在弾数用
 	m_ar_pb_cc = 0;//アサルトライフル現在弾数用
@@ -105,11 +105,11 @@ void CObjHero::Init()
 	m_rg_pb_cc = 0;//レールガン現在弾数用
 
 	//メニュー表示用
-	m_sg_pb_me = ((UserData*)Save::GetData())->SHG_Ammunition;//ショットガン
-	m_ar_pb_me = ((UserData*)Save::GetData())->AR_Ammunition;//アサルトライフル
-	m_sr_pb_me = ((UserData*)Save::GetData())->SR_Ammunition;//スナイパーライフル
-	m_rl_pb_me = ((UserData*)Save::GetData())->RL_Ammunition;//ロケットランチャー
-	m_rg_pb_me = ((UserData*)Save::GetData())->RG_Ammunition;//レールガン
+	m_sg_pb_me = 60;//ショットガン
+	m_ar_pb_me = 200;//アサルトライフル
+	m_sr_pb_me = 30;//スナイパーライフル
+	m_rl_pb_me = 2;//ロケットランチャー
+	m_rg_pb_me = 1;//レールガン
 	m_gre_pb_me = 3;//グレネード
 
 	//リロード用
@@ -148,6 +148,8 @@ void CObjHero::Init()
 	m_speed_power = 0.5f;//通常速度
 
 	m_inputf = true;	// true = 入力可	false = 入力不可
+
+	m_time_dead = 100;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 8);
@@ -686,6 +688,7 @@ void CObjHero::Action()
 						m_Weapon_switching = 5;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 				else if (m_Weapon_switching > 0)
@@ -695,6 +698,7 @@ void CObjHero::Action()
 						m_Weapon_switching -= 1;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 			}
@@ -707,6 +711,7 @@ void CObjHero::Action()
 						m_Weapon_switching = 0;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 				else if (m_Weapon_switching < 5)
@@ -716,6 +721,7 @@ void CObjHero::Action()
 						m_Weapon_switching += 1;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 			}
@@ -911,6 +917,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(3);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -998,6 +1005,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(6);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -1041,6 +1049,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(7);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -1311,7 +1320,8 @@ void CObjHero::Action()
 				if (m_sg_pb_me > 60)
 				{
 					m_sg_pb_me = 60;
-				}
+				}				
+				((UserData*)Save::GetData())->SHG_load = 0; //弾獲得数初期化
 			}
 			//アサルトライフル
 			if (((UserData*)Save::GetData())->AR_load > 0)
@@ -1322,6 +1332,7 @@ void CObjHero::Action()
 				{
 					m_ar_pb_me = 200;
 				}
+				((UserData*)Save::GetData())->AR_load = 0; //弾獲得数初期化
 			}
 			//スナイパーライフル
 			if (((UserData*)Save::GetData())->SR_load > 0)
@@ -1332,6 +1343,7 @@ void CObjHero::Action()
 				{
 					m_sr_pb_me = 30;
 				}
+				((UserData*)Save::GetData())->SR_load = 0; //弾獲得数初期化
 			}
 			//ロケットランチャー
 			if (((UserData*)Save::GetData())->RL_load > 0)
@@ -1342,6 +1354,7 @@ void CObjHero::Action()
 				{
 					m_rl_pb_me = 2;
 				}
+				((UserData*)Save::GetData())->RL_load = 0; //弾獲得数初期化
 			}
 			//レールガン
 			if (((UserData*)Save::GetData())->RG_load > 0)
@@ -1352,14 +1365,19 @@ void CObjHero::Action()
 				{
 					m_rg_pb_me = 1;
 				}
+				((UserData*)Save::GetData())->RG_load = 0; //弾獲得数初期化
 			}
-
-			//弾獲得数初期化
-			((UserData*)Save::GetData())->SHG_load = 0;
-			((UserData*)Save::GetData())->AR_load = 0;
-			((UserData*)Save::GetData())->SR_load = 0;
-			((UserData*)Save::GetData())->RL_load = 0;
-			((UserData*)Save::GetData())->RG_load = 0;
+			//グレネード
+			if (((UserData*)Save::GetData())->GRE_load > 0)
+			{
+				m_gre_pb_me += ((UserData*)Save::GetData())->GRE_load;
+				//グレネードを回復した時上限を超えないようにする
+				if (m_gre_pb_me > 3)
+				{
+					m_gre_pb_me = 3;
+				}
+				((UserData*)Save::GetData())->GRE_load = 0; //グレネード獲得数初期化
+			}
 		}
 
 		//HitBoxの内容を更新
@@ -1371,7 +1389,7 @@ void CObjHero::Action()
 		float MMB_y;
 
 		//メニューを開くと行動停止
-		if (Menu_flg == false)
+		if (Menu_flg == false && Eve_Ins == 0)
 		{
 			//当たり判定を行うオブジェクト情報群
 			int data_base[3] =
@@ -1598,27 +1616,32 @@ void CObjHero::Action()
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 			Audio::Start(15);
+			//m_time_dead = 120;			
 		}
-
+		
 		if (m_del == true)
 		{
 			m_eff_flag = true;			//画像切り替え用フラグ
 			//m_speed_power = 0.0f;			//動きを止める
 		}
 
-		if (m_time_dead > 0)
+		if (m_blood_flg == true)
 		{
-			m_time_dead--;
-			if (m_time_dead <= 0)
+		//	for (; m_time_dead > 0;)
 			{
-				Scene::SetScene(new CSceneOver());
-				m_time_dead = 0;
-				g_zombie_count_tu = 0; //チュートリアル敵撃破数用
-				Dead_flg = false;
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
-			}
+				m_time_dead--;
+				if (m_time_dead <= 0)
+				{
+					Scene::SetScene(new CSceneOver());
+					m_time_dead = 0;
+					g_zombie_count_tu = 0; //チュートリアル敵撃破数用
+					Dead_flg = false;
+					this->SetStatus(false); //オブジェクト破棄
+					Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
+				}
+			}			
 		}
+		
 	}
 }
 

@@ -79,7 +79,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//敵無力化イベントor故障イベント時クリア判定
-				if (END == true/* || App_Rand == 4*/)
+				if (END == true || (App_Rand > 60 && App_Rand <= 80))
 				{
 					TStart_flg = true;
 					m_END2_death_flg = true;
@@ -147,7 +147,7 @@ void CObjEnemy_Neutralization_Device2::Draw()
 	dst.m_left = 0.0f + m_Enemy_Neu_Dev2x;
 	dst.m_right = 55.0f + m_Enemy_Neu_Dev2x;
 	dst.m_bottom = 105.0f + m_Enemy_Neu_Dev2y;
-	if (END == true || App_Rand == 4)
+	if (END == true || (App_Rand > 60 && App_Rand <= 80))
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}

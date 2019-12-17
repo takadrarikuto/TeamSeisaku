@@ -117,7 +117,7 @@ struct UserData
 	int SR_Attack = 50; //スナイパーライフル
 	int RL_Attack = 150; //ロケットランチャー
 	int RG_Attack = 200; //レールガン
-	int GRE_Attack = 100;	//グレネード
+	int GRE_Attack = 100; //グレネード
 	int EXP_Attack = 50; //爆発
 	//有刺鉄線
 	int BarbedWireSmall_Attack = 2;
@@ -141,9 +141,12 @@ struct UserData
 	int SR_load = 0; //スナイパーライフル
 	int RL_load = 0; //ロケットランチャー
 	int RG_load = 0; //レールガン
+	int GRE_load = 0; //グレネード
 
 	//難易度変更
 	int choose = 0;
+	//イベント開始タイム
+	int Event_Time = 0;
 };
 //------------------------------------------------
 
@@ -326,5 +329,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //ゲーム開始時のシーンクラス登録
 
 //#define SET_GAME_START  CSceneTitle
+//#define SET_GAME_START  CSceneClear
 //#define SET_GAME_START  CSceneStage
 #define SET_GAME_START  CSceneDifficulty_Level

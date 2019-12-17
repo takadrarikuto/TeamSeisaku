@@ -529,15 +529,180 @@ void CObjZombieEnemy::Action()
 			hit_data = hit_ze->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
 
 			float r = 0;
-			for (int j = 0; j < 10; j++) {
-				if (hit_data[j] != nullptr) {
+			for (int j = 0; j < 10; j++) 
+			{
+				if (hit_data[j] != nullptr) 
+				{
 					r = hit_data[j]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 30) || r >= 330)
+					{
+						m_RightHit_flg = true; //右
+						m_zevx = -0.65f;
+					}
+					else if (r >= 30 && r < 150)
+					{
+						m_UpHit_flg = true;    //上
+						m_zevy = 0.65f;
+					}
+					else if (r >= 150 && r <= 210)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_zevx = 0.65f;
+					}
+					else if (r > 210 && r < 330)
+					{
+						m_DownHit_flg = true;	 //下
+						m_zevy = -0.65f;
+					}									
 				}
 			}				
 		}		
 	}
-
 	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
+	if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr || hit_ze->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+		|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr 
+		|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
+	{
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR);
+		hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR2);
+		hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+		hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
+
+		for (int j = 0; j < 10; j++)
+		{
+			if (hit_data[j] != nullptr)
+			{
+				float r = hit_data[j]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 30) || r >= 330)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 30 && r < 150)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 150 && r <= 210)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 210 && r < 330)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
+			}			
+		}		
+	}
+	//ミーム
+	if (hit_ze->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
+	{
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE);
+
+		for (int j = 0; j < 10; j++)
+		{
+			if (hit_data[j] != nullptr)
+			{
+				float r = hit_data[j]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 45) || r >= 315)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 45 && r < 135)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 135 && r <= 225)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 225 && r < 315)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
+			}
+		}		
+	}
+	//ネット(縦)
+	if (hit_ze->CheckObjNameHit(OBJ_NET_V) != nullptr)
+	{
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchObjNameHit(OBJ_NET_V);
+
+		for (int i = 0; i < hit_ze->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 25) || r >= 335)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 25 && r < 155)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 155 && r <= 205)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 205 && r < 335)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
+			}							
+		}		
+	}
+	//ネット(横)
+	if (hit_ze->CheckObjNameHit(OBJ_NET) != nullptr)
+	{
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchObjNameHit(OBJ_NET);
+		for (int i = 0; i < hit_ze->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 65) || r >= 295)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -0.65f;
+				}
+				else if (r >= 65 && r < 115)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = 0.65f;
+				}
+				else if (r >= 115 && r <= 245)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = 0.65f;
+				}
+				else if (r > 245 && r < 295)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -0.65f;
+				}
+			}
+		}
+	}
 	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
 		HIT_DATA** hit_data;

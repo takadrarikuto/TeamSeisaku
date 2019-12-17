@@ -37,7 +37,10 @@ void CObjEvent::Init()
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ
 	m_Event_TimePenalty = false;
-
+	//イベントペナルティ(球体型敵)フラグ
+	m_EventPenalty_Enemy_flg = false;
+	//イベントペナルティ(ミーム実態)フラグ
+	m_EventPenalty_Meme_flg = false;
 	//イベント指示表示タイム
 	m_Event_Instruction_time = 0;  
 
@@ -101,9 +104,9 @@ void CObjEvent::Action()
 			//装置修理イベント
 			else if (Rep_flg == true)
 			{
-				m_Event_time = 3650; //3650 ＝ 60秒
-				m_App_Rand_Flg = rand() % 5; //装置故障イベント時の装置ランダム選択
-				//1 = 発電機,2 = 発電機2,3 = 敵無力化装置,4 = 敵無力化装置2,5 = 対ミーム実態敵無力化装置
+				m_Event_time = 5450; //5450 ＝ 90秒
+				m_App_Rand_Flg = rand() % 100; //装置故障イベント時の装置ランダム選択
+				//1^20 = 発電機,21^40 = 発電機2,41^60 = 敵無力化装置,61^80 = 敵無力化装置2,81^100 = 対ミーム実態敵無力化装置
 				//工具箱オブジェクト作成
 				CObjToolBox* Toolbox = new CObjToolBox(Wall_X + 1220, Wall_Y - 150);
 				Objs::InsertObj(Toolbox, OBJ_TOOLBOX, 4);
@@ -136,27 +139,42 @@ void CObjEvent::Action()
 		m_Event_TimePenalty = false;
 	}
 	//イベントタイムが0になるor主人公の体力が0になる時初期化
-	if (m_Event_time <= 0 || h_hp <= 0)
+	if (m_Event_time <= 0 || h_hp <= 0 && TStop_flg ==true)
 	{
 		//イベントタイム
 		m_Event_time_flg = false;
 		TStop_flg = false;
 		TStart_flg = true;
 		//イベント指示表示タイム
-		m_Event_Instruction_time = EVENT_INSTRUCTION; //3秒
+		m_Event_Instruction_time = 0; 
 		time->SetTStart(TStart_flg);
 
-		//イベントタイムペナルティ
+	//イベントタイムペナルティ
+		//発電機イベント
 		if (Gen_flg == true)
 		{
 			m_Event_TimePenalty = true;
 		}
-		/*else if (Rep_flg == true)
+		//修理イベント
+		if (Rep_flg == true)
 		{
-			m_Event_TimePenalty = true;
-			Audio::Start(17);
-		}*/
-		
+			//対象が発電気の時
+			if (m_App_Rand_Flg <= 20 || (m_App_Rand_Flg > 20 && m_App_Rand_Flg <= 40))
+			{
+				m_Event_TimePenalty = true;
+			}
+			//対象が無力化装置の時
+			else if ((m_App_Rand_Flg > 40 && m_App_Rand_Flg <= 60) || (m_App_Rand_Flg > 60 && m_App_Rand_Flg <= 80))
+			{				
+				m_EventPenalty_Enemy_flg = true;//イベントペナルティ(球体型敵)フラグ				
+			}
+			//対象が対ミーム実態無力化装置の時
+			else if (m_App_Rand_Flg > 80 && m_App_Rand_Flg <= 100)
+			{
+				//イベントペナルティ(ミーム実態)フラグ
+				m_EventPenalty_Meme_flg = true;
+			}
+		}
 	}
 	if (m_Event_time <= 0)
 	{

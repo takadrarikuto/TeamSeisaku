@@ -81,7 +81,7 @@ void CObjGenerator::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//発電機イベントor修理イベント時クリア判定
-				if (GEN == true/* || App_Rand == 1*/)
+				if (GEN == true || App_Rand <= 20)
 				{
 					TStart_flg = true;
 					time->SetTStart(TStart_flg);
@@ -144,7 +144,7 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	if (GEN == true || App_Rand == 1)
+	if (GEN == true || App_Rand <= 20)
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}

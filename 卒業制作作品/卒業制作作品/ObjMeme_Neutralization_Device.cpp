@@ -80,7 +80,7 @@ void CObjMeme_Neutralization_Device::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//ミーム実態イベントor故障イベント時クリア判定
-				if (MND == true/* || App_Rand == 5*/)
+				if (MND == true || (App_Rand > 80 && App_Rand <= 100))
 				{
 					TStart_flg = true;
 					m_Meme_death_flg = true;
@@ -158,7 +158,7 @@ void CObjMeme_Neutralization_Device::Draw()
 	dst_cpu.m_left = 0.0f + m_Meme_Neu_Devx - 10;
 	dst_cpu.m_right = (m_dst_size + 10) + m_Meme_Neu_Devx - 10;
 	dst_cpu.m_bottom = (m_dst_size + 10) + m_Meme_Neu_Devy - 20;
-	if (END == true || App_Rand == 5)
+	if (END == true || (App_Rand > 80 && App_Rand <= 100))
 	{		
 		Draw::Draw(7, &src_cpu, &dst_cpu, c, 0.0f);
 		Draw::Draw(7, &src, &dst, c, 0.0f);

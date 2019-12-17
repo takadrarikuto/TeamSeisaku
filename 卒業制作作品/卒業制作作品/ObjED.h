@@ -6,7 +6,7 @@ using namespace GameL;
 
 //•`‰æŠÖŒW‚Ì’è”
 
-#define GAME_ED_X (50)
+#define GAME_ED_X (40)
 #define GAME_ED_Y (150)
 #define GAME_ED_FONT_SIZE (25)
 

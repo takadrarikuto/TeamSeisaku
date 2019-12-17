@@ -20,12 +20,14 @@ using namespace GameL;
 //イニシャライズ
 void ObjDifficulty_Level::Init()
 {
+//初期化
 	m_key_flag = false;
 	((UserData*)Save::GetData())->choose = 0;
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
 	m_andf2 = false;
+
 }
 
 //アクション
@@ -82,6 +84,7 @@ void ObjDifficulty_Level::Action()
 				if (((UserData*)Save::GetData())->choose >= 0)
 				{
 					((UserData*)Save::GetData())->Level_Time = 9150; //10850 = タイムを3分に設定
+					((UserData*)Save::GetData())->Event_Time = 9050; //イベント開始タイム 30秒後に設定
 					//武器別残り弾数
 					((UserData*)Save::GetData())->SHG_Ammunition = 60; //ショットガン
 					//武器別所持弾数(装備分)
@@ -89,6 +92,7 @@ void ObjDifficulty_Level::Action()
 					if (((UserData*)Save::GetData())->choose >= 1)
 					{
 						((UserData*)Save::GetData())->Level_Time = 18050; //18050 = タイムを5分に設定
+						((UserData*)Save::GetData())->Event_Time = 16250; //イベント開始タイム 30秒後に設定
 						//武器別残り弾数
 						((UserData*)Save::GetData())->AR_Ammunition = 200; //アサルトライフル
 						((UserData*)Save::GetData())->SR_Ammunition = 30; //スナイパーライフル
@@ -98,6 +102,7 @@ void ObjDifficulty_Level::Action()
 						if (((UserData*)Save::GetData())->choose == 2)
 						{
 							((UserData*)Save::GetData())->Level_Time = 25250; //25250 = タイムを7分に設定
+							((UserData*)Save::GetData())->Event_Time = 23450; //イベント開始タイム 30秒後に設定
 							//武器別残り弾数
 							((UserData*)Save::GetData())->RL_Ammunition = 2; //ロケットランチャー
 							((UserData*)Save::GetData())->RG_Ammunition = 1; //レールガン
@@ -105,7 +110,7 @@ void ObjDifficulty_Level::Action()
 							((UserData*)Save::GetData())->RL_Number_of_Ammunition = 1; //ロケットランチャー
 							((UserData*)Save::GetData())->RG_Number_of_Ammunition = 1; //レールガン
 						}
-					}
+					}					
 				}
 			}
 		}
