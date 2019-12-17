@@ -149,6 +149,8 @@ void CObjHero::Init()
 
 	m_inputf = true;	// true = “ü—Í‰Â	false = “ü—Í•s‰Â
 
+	m_time_dead = 100;
+
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_HERO, 8);
 }
@@ -1614,7 +1616,7 @@ void CObjHero::Action()
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 			Audio::Start(15);
-			m_time_dead = 120;			
+			//m_time_dead = 120;			
 		}
 		
 		if (m_del == true)
