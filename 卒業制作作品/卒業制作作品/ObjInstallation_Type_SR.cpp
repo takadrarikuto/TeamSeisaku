@@ -65,9 +65,22 @@ void CObjInstallation_Type_SR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			((UserData*)Save::GetData())->SR_load += 10;//スナイパーライフル
+			if (((UserData*)Save::GetData())->choose == 0)
+			{
+				((UserData*)Save::GetData())->SR_load += 30; //スナイパーライフル		
+				aitemfont->SetAitemNum(30); //グレネード数表示
+			}
+			else if (((UserData*)Save::GetData())->choose == 1)
+			{
+				((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル	
+				aitemfont->SetAitemNum(20); //グレネード数表示
+			}
+			else if (((UserData*)Save::GetData())->choose == 2)
+			{
+				((UserData*)Save::GetData())->SR_load += 10; //スナイパーライフル	
+				aitemfont->SetAitemNum(10); //グレネード数表示
+			}
 			aitemfont->SetAGF(3);
-			aitemfont->SetAitemNum(10);
 			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;

@@ -54,10 +54,22 @@ void CObjGrenadeItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		((UserData*)Save::GetData())->GRE_load += 3; //主人公に当たるとグレネード補充
-		//hero->SetGRE(3);		
+		if (((UserData*)Save::GetData())->choose == 0)
+		{
+			((UserData*)Save::GetData())->GRE_load += 3; //グレネード補充		
+			aitemfont->SetAitemNum(3); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 1)
+		{
+			((UserData*)Save::GetData())->GRE_load += 2; //グレネード補充		
+			aitemfont->SetAitemNum(2); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 2)
+		{
+			((UserData*)Save::GetData())->GRE_load += 1; //グレネード補充			
+			aitemfont->SetAitemNum(1); //グレネード数表示
+		}
 		aitemfont->SetAGF(6); //フォント表示
-		aitemfont->SetAitemNum(3); //グレネード数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
