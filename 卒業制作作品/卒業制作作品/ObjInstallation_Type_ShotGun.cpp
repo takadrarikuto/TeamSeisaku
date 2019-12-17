@@ -80,7 +80,7 @@ void CObjInstallation_Type_ShotGun::Action()
 			Audio::Start(12); //効果音再生
 
 			//再補充タイム
-			m_Replenishment_time = 300;
+			m_Replenishment_time = 1800;
 			//再補充完了フォント表示タイム
 			m_Replenishment_Font_time = REPLENIShHMENT_FONT_TIME;
 		}

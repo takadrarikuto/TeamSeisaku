@@ -166,63 +166,63 @@ void CObjBoss::Action()
 
 		//エネミー生成処理
 		//ゾンビ
-		//if (m_Zombie_Generation >= m_Zombie_time_max)
-		//{
-		//	if (m_Zombie_Restriction < m_Zombie_Restriction_max)
-		//	{
-		//		//ゾンビの伏せている、立っている描画切り替え処理
-		//		Ze_dst_flg_num = rand() % 3;
-		//		if (Ze_dst_flg_num % 2 == 0)
-		//		{
-		//			Ze_dst_flg = true;
-		//		}
-		//		else if (Ze_dst_flg_num % 2 != 0)
-		//		{
-		//			Ze_dst_flg = false;
-		//		}
-
-		//		//ゾンビオブジェクト作成
-		//		CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
-		//		Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
-
-		//		Audio::Start(11);
-
-		//		//ゾンビ生成座標記録
-		//		m_Enemy_Generation_x = e_x;
-		//		m_Enemy_Generation_y = e_y;
-
-		//		//srand(time(NULL)); // ランダム情報を初期化
-		//		m_Zombie_Restriction++; //ゾンビ生成カウント
-		//	}			
-		//	m_Zombie_Generation = 0;
-		//}
-		//蝙蝠
-		if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
+		if (m_Zombie_Generation >= m_Zombie_time_max)
 		{
-			if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
+			if (m_Zombie_Restriction < m_Zombie_Restriction_max)
 			{
-				m_Bat_Enemy_co_num = rand() % 5;
-				for (int i = 1; i <= m_Bat_Enemy_co_num; i++)
+				//ゾンビの伏せている、立っている描画切り替え処理
+				Ze_dst_flg_num = rand() % 3;
+				if (Ze_dst_flg_num % 2 == 0)
 				{
-					//蝙蝠オブジェクト作成
-					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
-					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
+					Ze_dst_flg = true;
+				}
+				else if (Ze_dst_flg_num % 2 != 0)
+				{
+					Ze_dst_flg = false;
+				}
 
-					if (i % 2 == 0 && i != 0)
-					{
-						m_Bat_Enemy_x += 50.0f; //x位置修正
-					}
-					else if (i % 2 != 0)
-					{
-						m_Bat_Enemy_y += 30.0f; //y位置修正
-					}		
+				//ゾンビオブジェクト作成
+				CObjZombieEnemy* obj_ze = new CObjZombieEnemy(e_x, e_y, Ze_dst_flg);
+				Objs::InsertObj(obj_ze, OBJ_ENEMY, 5);
 
-					m_Bat_Enemy_Restriction += 1; //蝙蝠生成カウント
-				}	
-				Audio::Start(20);
-			}				
-			m_Bat_Enemy_Generation = 0;
+				Audio::Start(11);
+
+				//ゾンビ生成座標記録
+				m_Enemy_Generation_x = e_x;
+				m_Enemy_Generation_y = e_y;
+
+				//srand(time(NULL)); // ランダム情報を初期化
+				m_Zombie_Restriction++; //ゾンビ生成カウント
+			}			
+			m_Zombie_Generation = 0;
 		}
+		//蝙蝠
+		//if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
+		//{
+		//	if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
+		//	{
+		//		m_Bat_Enemy_co_num = rand() % 5;
+		//		for (int i = 1; i <= m_Bat_Enemy_co_num; i++)
+		//		{
+		//			//蝙蝠オブジェクト作成
+		//			CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
+		//			Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
+
+		//			if (i % 2 == 0 && i != 0)
+		//			{
+		//				m_Bat_Enemy_x += 50.0f; //x位置修正
+		//			}
+		//			else if (i % 2 != 0)
+		//			{
+		//				m_Bat_Enemy_y += 30.0f; //y位置修正
+		//			}		
+
+		//			m_Bat_Enemy_Restriction += 1; //蝙蝠生成カウント
+		//		}	
+		//		Audio::Start(20);
+		//	}				
+		//	m_Bat_Enemy_Generation = 0;
+		//}
 		//火トカゲ
 		//if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max)
 		//{

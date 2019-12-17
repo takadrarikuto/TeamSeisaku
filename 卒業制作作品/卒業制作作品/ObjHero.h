@@ -68,6 +68,11 @@ public:
 	void SetLeftHit(float leh) { m_LeftHit_flg = leh; }	 //左
 	void SetrightHit(float rih) { m_RightHit_flg = rih; } //右
 
+	void SetSG(int sg) { m_sg_pb_me = sg; }	//ショットガンセット用
+	void SetAR(int ar) { m_ar_pb_me = ar; }	//アサルトライフルセット用
+	void SetSR(int sr) { m_sr_pb_me = sr; }	//スナイパーライフルセット用
+	void SetRL(int rl) { m_rl_pb_me = rl; }	//ロケットランチャーセット用
+	void SetRG(int rg) { m_rg_pb_me = rg; }	//レールガンセット用
 	void SetGRE(int gre) { m_gre_pb_me = gre; }	//グレネードセット用
 
 private:
