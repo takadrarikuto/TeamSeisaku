@@ -297,43 +297,6 @@ void CObjTutoHero::Action()
 					}
 				}
 			}
-
-			/*if (r > 0 && r < 45 || r >= 315)
-			{
-			m_LightHit_flg = true; //右
-			}
-			else if (r >= 45 && r < 136)
-			{
-			m_UpHit_flg = true;    //上
-			}
-			else if (r >= 135 && r <= 225)
-			{
-			m_LeftHit_flg = true;	 //左
-			}
-			else if (r > 225 && r < 316)
-			{
-			m_DownHit_flg = true;	 //下
-			}
-
-			if (hit_h->CheckObjNameHit(OBJ_WALL) != nullptr)
-			{
-			if (m_LeftHit_flg == true)//左に当たり判定があった場合
-			{
-			m_x = GenX + 100;
-			}
-			else if (m_LightHit_flg == true)//右に当たり判定があった場合
-			{
-			m_x = GenX - m_dst_size;
-			}
-			else if (m_DownHit_flg == true)//下に当たり判定があった場合
-			{
-			m_y = GenY - m_dst_size;
-			}
-			else if (m_UpHit_flg == true)//上に当たり判定があった場合
-			{
-			m_y = GenY + 40;
-			}
-			}*/
 		}
 
 		//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
@@ -378,6 +341,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching = 5;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 			else if (m_Weapon_switching > 0)
@@ -387,6 +351,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching -= 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 		}
@@ -399,6 +364,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching = 0;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 			else if (m_Weapon_switching < 5)
@@ -408,6 +374,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching += 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 		}

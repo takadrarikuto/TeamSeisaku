@@ -686,6 +686,7 @@ void CObjHero::Action()
 						m_Weapon_switching = 5;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 				else if (m_Weapon_switching > 0)
@@ -695,6 +696,7 @@ void CObjHero::Action()
 						m_Weapon_switching -= 1;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 			}
@@ -707,6 +709,7 @@ void CObjHero::Action()
 						m_Weapon_switching = 0;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 				else if (m_Weapon_switching < 5)
@@ -716,6 +719,7 @@ void CObjHero::Action()
 						m_Weapon_switching += 1;
 						m_Weapon_switching_flg = false;
 						m_bt = 0; //攻撃頻度初期化
+						Audio::Start(1);
 					}
 				}
 			}
@@ -911,6 +915,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(3);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -998,6 +1003,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(6);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -1041,6 +1047,7 @@ void CObjHero::Action()
 							Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 						}
 						//Attack_flg = true; //Attackフラグtrue
+						Audio::Start(7);
 					}
 					//攻撃間隔
 					else if (m_bt == m_bt_max)
@@ -1371,7 +1378,7 @@ void CObjHero::Action()
 		float MMB_y;
 
 		//メニューを開くと行動停止
-		if (Menu_flg == false)
+		if (Menu_flg == false && Eve_Ins == 0)
 		{
 			//当たり判定を行うオブジェクト情報群
 			int data_base[3] =
@@ -1598,27 +1605,32 @@ void CObjHero::Action()
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 			Audio::Start(15);
+			m_time_dead = 120;			
 		}
-
+		
 		if (m_del == true)
 		{
 			m_eff_flag = true;			//画像切り替え用フラグ
 			//m_speed_power = 0.0f;			//動きを止める
 		}
 
-		if (m_time_dead > 0)
+		if (m_blood_flg == true)
 		{
-			m_time_dead--;
-			if (m_time_dead <= 0)
+		//	for (; m_time_dead > 0;)
 			{
-				Scene::SetScene(new CSceneOver());
-				m_time_dead = 0;
-				g_zombie_count_tu = 0; //チュートリアル敵撃破数用
-				Dead_flg = false;
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
-			}
+				m_time_dead--;
+				if (m_time_dead <= 0)
+				{
+					Scene::SetScene(new CSceneOver());
+					m_time_dead = 0;
+					g_zombie_count_tu = 0; //チュートリアル敵撃破数用
+					Dead_flg = false;
+					this->SetStatus(false); //オブジェクト破棄
+					Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
+				}
+			}			
 		}
+		
 	}
 }
 
