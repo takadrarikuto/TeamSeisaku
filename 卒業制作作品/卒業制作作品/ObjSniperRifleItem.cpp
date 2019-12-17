@@ -55,7 +55,6 @@ void CObjSniperRifleItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		hero->SetSR(30);
 		((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル		
 		aitemfont->SetAGF(3); //フォント表示
 		aitemfont->SetAitemNum(30); //弾数表示
