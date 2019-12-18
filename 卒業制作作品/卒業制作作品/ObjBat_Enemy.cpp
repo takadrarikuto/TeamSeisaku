@@ -85,11 +85,6 @@ void CObjBat_Enemy::Init()
 //アクション
 void CObjBat_Enemy::Action()
 {
-	//上下左右別当たり判定確認フラグ初期化
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_RightHit_flg = false; //右
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -254,7 +249,14 @@ void CObjBat_Enemy::Action()
 			}
 		}
 	}
-
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 	if (hit_be->CheckElementHit(ELEMENT_WALL2) == true)
 	{
@@ -286,101 +288,15 @@ void CObjBat_Enemy::Action()
 			}
 		}
 	}
-
-	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_be->CheckElementHit(ELEMENT_FIELD) == true)
+	else
 	{
-		HIT_DATA** hit_data;
-		hit_data = hit_be->SearchElementHit(ELEMENT_FIELD);
-
-		for (int i = 0; i < hit_be->GetCount(); i++)
-		{
-			if (hit_data[i] != nullptr)
-			{
-				float r = hit_data[i]->r;
-				//発、敵無力
-				if (hit_be->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
-					|| hit_be->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
-				{
-					float r = hit_data[i]->r;
-					//角度で上下左右を判定
-					if ((r < 4 && r >= 0) || r > 356)
-					{
-						m_bevx = m_bevx - m_bev_max;
-					}
-					else if (r > 2 && r < 178)
-					{
-						m_bevy = m_bevy + m_bev_max;
-					}
-					else if (r > 176 && r < 184)
-					{
-						m_bevx = m_bevx + m_bev_max;
-					}
-					else if (r > 182 && r < 358)
-					{
-						m_bevy = m_bevy - m_bev_max;
-					}
-				}
-				//ミーム
-				if (hit_be->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
-				{
-					float r = hit_data[i]->r;
-					//角度で上下左右を判定
-					if ((r > 0 && r < 45) || r >= 315)
-					{
-						m_RightHit_flg = true; //右
-						m_bevx = m_bevx - m_bev_max;
-					}
-					else if (r >= 45 && r < 135)
-					{
-						m_UpHit_flg = true;    //上
-						m_bevy = m_bevy + m_bev_max;
-					}
-					else if (r >= 135 && r <= 225)
-					{
-						m_LeftHit_flg = true;	 //左
-						m_bevx = m_bevx + m_bev_max;
-					}
-					else if (r > 225 && r < 315)
-					{
-						m_DownHit_flg = true;	 //下
-						m_bevy = m_bevy - m_bev_max;
-					}
-				}
-			}
-		}
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
-	if (hit_be->CheckElementHit(ELEMENT_FIELD2) == true)
-	{
-		HIT_DATA** hit_data;
-		hit_data = hit_be->SearchElementHit(ELEMENT_FIELD2);
 
-		for (int i = 0; i < hit_be->GetCount(); i++)
-		{
-			if (hit_data[i] != nullptr)
-			{
-				float r = hit_data[i]->r;
-
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
-				{
-					m_bevx = m_bevx - m_bev_max;
-				}
-				else if (r > 2 && r < 178)
-				{
-					m_bevy = m_bevy + m_bev_max;
-				}
-				else if (r > 176 && r < 184)
-				{
-					m_bevx = m_bevx + m_bev_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_bevy = m_bevy - m_bev_max;
-				}
-			}
-		}
-	}
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
 	{

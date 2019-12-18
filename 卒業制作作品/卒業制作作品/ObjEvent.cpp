@@ -30,9 +30,9 @@ void CObjEvent::Init()
 	bool END_flg = time->GetENDFlg();
 
 	//イベント時間
-	m_Event_time = 1850; 
+	m_Event_time = 0; 
 	//装置故障イベント時の装置ランダム選択
-	m_App_Rand_Flg = 1;
+	m_App_Rand_Flg = 0;
 	//イベントフラグ
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ
@@ -105,7 +105,7 @@ void CObjEvent::Action()
 			else if (Rep_flg == true)
 			{
 				m_Event_time = 5450; //5450 ＝ 90秒
-				m_App_Rand_Flg = rand() % 100; //装置故障イベント時の装置ランダム選択
+				m_App_Rand_Flg = rand() % 101; //装置故障イベント時の装置ランダム選択
 				//1^20 = 発電機,21^40 = 発電機2,41^60 = 敵無力化装置,61^80 = 敵無力化装置2,81^100 = 対ミーム実態敵無力化装置
 				//工具箱オブジェクト作成
 				CObjToolBox* Toolbox = new CObjToolBox(Wall_X + 1220, Wall_Y - 150);
@@ -113,6 +113,7 @@ void CObjEvent::Action()
 			}
 			m_Event_time_flg = true;			
 			m_Event_Instruction_time = EVENT_INSTRUCTION; //イベント指示表示タイム : 3秒増加
+			m_EveMiss_flg = false;
 			Audio::Start(16);
 		}					
 		else if (TStop_flg == false)
@@ -139,17 +140,23 @@ void CObjEvent::Action()
 		m_Event_TimePenalty = false;
 	}
 	//イベントタイムが0になるor主人公の体力が0になる時初期化
-	if (m_Event_time <= 0 || h_hp <= 0 && TStop_flg ==true)
+	if (m_Event_time <= 0 || h_hp <= 0)
 	{
-		//イベントタイム
-		m_Event_time_flg = false;
-		TStop_flg = false;
-		TStart_flg = true;
-		//イベント指示表示タイム
-		m_Event_Instruction_time = 0; 
-		time->SetTStart(TStart_flg);
+		if (TStop_flg == true)
+		{
+			//初期化
+			//イベントタイム
+			m_Event_time_flg = false;
+			TStop_flg = false;
+			TStart_flg = true;
+			//イベント指示表示タイム
+			m_Event_Instruction_time = 0;
+			m_App_Rand_Flg = 0;
+			time->SetTStart(TStart_flg);
+			m_EveMiss_flg = true;
+		}
 
-	//イベントタイムペナルティ
+		//イベントタイムペナルティ
 		//発電機イベント
 		if (Gen_flg == true)
 		{
@@ -165,7 +172,7 @@ void CObjEvent::Action()
 			}
 			//対象が無力化装置の時
 			else if ((m_App_Rand_Flg > 40 && m_App_Rand_Flg <= 60) || (m_App_Rand_Flg > 60 && m_App_Rand_Flg <= 80))
-			{				
+			{
 				m_EventPenalty_Enemy_flg = true;//イベントペナルティ(球体型敵)フラグ				
 			}
 			//対象が対ミーム実態無力化装置の時
@@ -175,10 +182,6 @@ void CObjEvent::Action()
 				m_EventPenalty_Meme_flg = true;
 			}
 		}
-	}
-	if (m_Event_time <= 0)
-	{
-		m_EveMiss_flg = true;
 	}
 }
 

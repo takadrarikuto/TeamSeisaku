@@ -71,20 +71,20 @@ void CObjTime::Action()
 		m_Event_Rand_num = rand() % 100;
 		//イベントランダム選択処理
 		//発電機イベント
-		if (m_Event_Rand_num > 0/*< 50*/)
-		{
-			m_Gen_flg = true;			
-		}
+		//if (m_Event_Rand_num > 0/*< 50*/)
+		//{
+		//	m_Gen_flg = true;			
+		//}
 		//敵無力化イベント
 		/*else*/ /*if (m_Event_Rand_num>= 0)
 		{
 			m_END_flg = true;
 		}*/
 		//ミーム実態無力化イベント
-		/*if (m_Event_Rand_num >= 0)
+		if (m_Event_Rand_num >= 0)
 		{
 			m_MND_flg = true;
-		}*/
+		}
 		//修理イベント
 		/*if (m_Event_Rand_num >= 0)
 		{
@@ -96,8 +96,6 @@ void CObjTime::Action()
 	if (m_Start_flg == true)
 	{		
 		//初期化処理
-		//タイム増加ペナルティ
-		//m_time_Increase = 0;
 		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;

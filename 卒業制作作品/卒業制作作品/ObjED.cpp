@@ -51,7 +51,7 @@ void CObjED::Draw()
 
 	float p[4] = { 1,1,1,1 };
 
-	if (m_y > -1200)
+	if (m_y > -1300)
 	{
 		m_y -= 0.6f;
 	}
@@ -101,6 +101,11 @@ void CObjED::Draw()
 	Font::StrDraw(L"閲覧終了", GAME_ED_X, GAME_ED_Y + m_y + 1400, GAME_ED_FONT_SIZE, p);
 
 	Font::StrDraw(L"※Enterでタイトルへ", GAME_ED_X, GAME_ED_Y + m_y + 1500, GAME_ED_FONT_SIZE, p);
+
+	Font::StrDraw(L"「SCP-354 事案報告書」は「Dave Rapp」作「SCP-354」に基づきます。", GAME_ED_X, GAME_ED_Y + m_y + 1600, GAME_CC_FONT_SIZE, p);
+	Font::StrDraw(L"本家(英文) http://scp-wiki.net/scp-354", GAME_ED_X, GAME_ED_Y + m_y + 1630, GAME_CC_FONT_SIZE, p);
+	Font::StrDraw(L"日本語訳版 http://ja.scp-wiki.net/scp-354", GAME_ED_X, GAME_ED_Y + m_y + 1660, GAME_CC_FONT_SIZE, p);
+	Font::StrDraw(L"このゲームはCC BY-SA 3.03.0ライセンスの下で提供されている", GAME_ED_X, GAME_ED_Y + m_y + 1685, GAME_CC_FONT_SIZE, p);
 
 	if (Input::GetVKey(VK_RETURN) == true)
 	{

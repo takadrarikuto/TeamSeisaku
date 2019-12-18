@@ -94,7 +94,7 @@ void CObjInstallation_Type_ShotGun::Action()
 			Audio::Start(12); //効果音再生
 
 			//再補充タイム
-			m_Replenishment_time = 1800;
+			m_Replenishment_time = 200/*1800*/;
 			//再補充完了フォント表示タイム
 			m_Replenishment_Font_time = REPLENIShHMENT_FONT_TIME;
 		}
@@ -118,14 +118,14 @@ void CObjInstallation_Type_ShotGun::Action()
 		//再補充完了フォント表示タイム減少処理
 		if (m_Replenishment_Font_time > 0)
 		{
-			m_Replenishment_Font_time--; //再補充完了フォント表示タイム現象										
-			m_Replenishment_Font_flg = true; //再補充完了フォント表示
-
 			//効果音再生
 			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
 			{
-				Audio::Start(8); 
-			}			
+				m_Replenishment_Font_flg = true; //再補充完了フォント表示
+				Audio::Start(8);
+			}
+
+			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
 		}
 		else if (m_Replenishment_Font_time == 0)
 		{
@@ -147,7 +147,7 @@ void CObjInstallation_Type_ShotGun::Draw()
 
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		swprintf_s(str, L"ショットガンが再補充されました。");
+		swprintf_s(str, L"ショットガンの弾が再補充されました。");
 		Font::StrDraw(str, 0, 570, 30, c); 
 	}
 	

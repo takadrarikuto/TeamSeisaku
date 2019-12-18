@@ -85,9 +85,9 @@ void CObjHero::Init()
 
 	//所持弾数(装備分)
 	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)//30
-	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)//30
-	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)//5
+	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)
+	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)
+	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)
 	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
 	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
 
@@ -334,61 +334,6 @@ void CObjHero::Action()
 						}
 					}
 				}
-				//----------------------------------------ここ
-				//当たり判定処理
-				/*if (m_LeftHit_flg == true)//左に当たり判定があった場合
-				{
-					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
-					{
-						m_x = GenX + GenHitX;
-					}
-					//敵無力化装置
-					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-					{
-						m_x = EndX + EndHitX;
-					}
-				}
-				else if (m_RightHit_flg == true)//右に当たり判定があった場合
-				{
-					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
-					{
-						m_x = GenX - m_dst_size;
-					}
-					//敵無力化装置
-					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-					{
-						m_x = EndX - m_dst_size;
-					}
-				}
-				else if (m_DownHit_flg == true)//下に当たり判定があった場合
-				{
-					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
-					{
-						m_y = GenY - m_dst_size;
-					}
-					//敵無力化装置
-					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-					{
-						m_y = EndY - m_dst_size;
-					}
-				}
-				else if (m_UpHit_flg == true)//上に当たり判定があった場合
-				{
-					//発電機
-					if (hit_h->CheckObjNameHit(OBJ_GENERATOR) != nullptr)
-					{
-						m_y = GenY + GenHitY;
-					}
-					//敵無力化装置
-					else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-					{
-						m_y = EndY + EndHitY;
-					}
-				}*/
-				//--------------------------------------------
 			}
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
@@ -493,43 +438,6 @@ void CObjHero::Action()
 						}
 					}
 				}
-
-				/*if (r > 0 && r < 45 || r >= 315)
-				{
-					m_LightHit_flg = true; //右
-				}
-				else if (r >= 45 && r < 136)
-				{
-					m_UpHit_flg = true;    //上
-				}
-				else if (r >= 135 && r <= 225)
-				{
-					m_LeftHit_flg = true;	 //左
-				}
-				else if (r > 225 && r < 316)
-				{
-					m_DownHit_flg = true;	 //下
-				}
-
-				if (hit_h->CheckObjNameHit(OBJ_WALL) != nullptr)
-				{
-					if (m_LeftHit_flg == true)//左に当たり判定があった場合
-					{
-						m_x = GenX + 100;
-					}
-					else if (m_LightHit_flg == true)//右に当たり判定があった場合
-					{
-						m_x = GenX - m_dst_size;
-					}
-					else if (m_DownHit_flg == true)//下に当たり判定があった場合
-					{
-						m_y = GenY - m_dst_size;
-					}
-					else if (m_UpHit_flg == true)//上に当たり判定があった場合
-					{
-						m_y = GenY + 40;
-					}
-				}*/
 			}
 
 			//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）

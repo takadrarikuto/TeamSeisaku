@@ -92,12 +92,6 @@ void CObjZombieEnemy::Init()
 //アクション
 void CObjZombieEnemy::Action()
 {
-	//上下左右別当たり判定確認フラグ初期化
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_RightHit_flg = false; //右
-
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX(); //位置
@@ -279,24 +273,31 @@ void CObjZombieEnemy::Action()
 				//角度で上下左右を判定
 				if ((r < 88 && r >= 0) || r > 292)
 				{
-					m_zevx = -0.15f; //右
+					m_zevx = -m_zev_max; //右
 				}
 				if (r > 88 && r < 92)
 				{
-					m_zevy = 0.15f;//上
+					m_zevy = m_zev_max;//上
 				}
 				if (r > 92 && r < 268)
 				{
-					m_zevx = 0.15f;//左
+					m_zevx = m_zev_max;//左
 				}
 				if (r > 268 && r < 292)
 				{
-					m_zevy = -0.15f; //下
+					m_zevy = -m_zev_max; //下
 				}
 			}
 		}		
 	}
-
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
 	{
@@ -311,24 +312,31 @@ void CObjZombieEnemy::Action()
 				//角度で上下左右を判定
 				if ((r < 2 && r >= 0) || r > 358)
 				{
-					m_zevx = -0.15f; //右
+					m_zevx = -m_zev_max; //右
 				}
 				if (r > 2 && r < 178)
 				{
-					m_zevy = 0.15f;//上
+					m_zevy = m_zev_max;//上
 				}
 				if (r > 178 && r < 182)
 				{
-					m_zevx = 0.15f;//左
+					m_zevx = m_zev_max;//左
 				}
 				if (r > 182 && r < 358)
 				{
-					m_zevy = -0.15f; //下
+					m_zevy = -m_zev_max; //下
 				}
 			}
 		}		
 	}
-
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -347,22 +355,22 @@ void CObjZombieEnemy::Action()
 					if ((r > 0 && r < 30) || r >= 330)
 					{
 						m_RightHit_flg = true; //右
-						m_zevx = -0.65f;
+						m_zevx = -m_zev_max;
 					}
 					else if (r >= 30 && r < 150)
 					{
 						m_UpHit_flg = true;    //上
-						m_zevy = 0.65f;
+						m_zevy = m_zev_max;
 					}
 					else if (r >= 150 && r <= 210)
 					{
 						m_LeftHit_flg = true;	 //左
-						m_zevx = 0.65f;
+						m_zevx = m_zev_max;
 					}
 					else if (r > 210 && r < 330)
 					{
 						m_DownHit_flg = true;	 //下
-						m_zevy = -0.65f;
+						m_zevy = -m_zev_max;
 					}
 				}
 				//ミーム
@@ -373,26 +381,60 @@ void CObjZombieEnemy::Action()
 					if ((r > 0 && r < 45) || r >= 315)
 					{
 						m_RightHit_flg = true; //右
-						m_zevx = -0.65f;
+						m_zevx = -m_zev_max;
 					}
 					else if (r >= 45 && r < 135)
 					{
 						m_UpHit_flg = true;    //上
-						m_zevy = 0.65f;
+						m_zevy = m_zev_max;
 					}
 					else if (r >= 135 && r <= 225)
 					{
 						m_LeftHit_flg = true;	 //左
-						m_zevx = 0.65f;
+						m_zevx = m_zev_max;
 					}
 					else if (r > 225 && r < 315)
 					{
 						m_DownHit_flg = true;	 //下
-						m_zevy = -0.65f;
+						m_zevy = -m_zev_max;
+					}
+				}
+				//有刺鉄線の壁
+				if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE) != nullptr)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 30) || r >= 330)
+					{
+						m_RightHit_flg = true; //右
+						m_zevx = -m_zev_max;
+					}
+					else if (r >= 30 && r < 150)
+					{
+						m_UpHit_flg = true;    //上
+						m_zevy = m_zev_max;
+					}
+					else if (r >= 150 && r <= 210)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_zevx = m_zev_max;
+					}
+					else if (r > 210 && r < 330)
+					{
+						m_DownHit_flg = true;	 //下
+						m_zevy = -m_zev_max;
 					}
 				}
 			}
 		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
 	if (hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
@@ -412,26 +454,34 @@ void CObjZombieEnemy::Action()
 					if ((r > 0 && r < 30) || r >= 330)
 					{
 						m_RightHit_flg = true; //右
-						m_zevx = -0.65f;
+						m_zevx = -m_zev_max;
 					}
 					else if (r >= 30 && r < 150)
 					{
 						m_UpHit_flg = true;    //上
-						m_zevy = 0.65f;
+						m_zevy = m_zev_max;
 					}
 					else if (r >= 150 && r <= 210)
 					{
 						m_LeftHit_flg = true;	 //左
-						m_zevx = 0.65f;
+						m_zevx = m_zev_max;
 					}
 					else if (r > 210 && r < 330)
 					{
 						m_DownHit_flg = true;	 //下
-						m_zevy = -0.65f;
+						m_zevy = -m_zev_max;
 					}
 				}
 			}
 		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
 	if (hit_ze->CheckElementHit(ELEMENT_NET_S) == true)
 	{
@@ -449,30 +499,38 @@ void CObjZombieEnemy::Action()
 					{
 						float r = hit_data[i]->r;
 						//角度で上下左右を判定
-						if ((r > 0 && r < 25) || r >= 335)
+						if ((r > 0 && r < 65) || r >= 295)
 						{
 							m_RightHit_flg = true; //右
-							m_zevx = -0.65f;
+							m_zevx = -m_zev_max;
 						}
-						else if (r >= 25 && r < 155)
+						else if (r >= 65 && r < 115)
 						{
 							m_UpHit_flg = true;    //上
-							m_zevy = 0.65f;
+							m_zevy = m_zev_max;
 						}
-						else if (r >= 155 && r <= 205)
+						else if (r >= 115 && r <= 245)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_zevx = 0.65f;
+							m_zevx = m_zev_max;
 						}
-						else if (r > 205 && r < 335)
+						else if (r > 245 && r < 295)
 						{
 							m_DownHit_flg = true;	 //下
-							m_zevy = -0.65f;
+							m_zevy = -m_zev_max;
 						}
 					}
 				}
 			}
 		}		
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
 	if (hit_ze->CheckElementHit(ELEMENT_NET_V) == true)
 	{
@@ -490,190 +548,45 @@ void CObjZombieEnemy::Action()
 					{
 						float r = hit_data[i]->r;
 						//角度で上下左右を判定
-						if ((r > 0 && r < 65) || r >= 295)
+						if ((r > 0 && r < 25) || r >= 335)
 						{
 							m_RightHit_flg = true; //右
-							m_zevx = -0.65f;
+							m_zevx = -m_zev_max;
 						}
-						else if (r >= 65 && r < 115)
+						else if (r >= 25 && r < 155)
 						{
 							m_UpHit_flg = true;    //上
-							m_zevy = 0.65f;
+							m_zevy = m_zev_max;
 						}
-						else if (r >= 115 && r <= 245)
+						else if (r >= 155 && r <= 205)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_zevx = 0.65f;
+							m_zevx = m_zev_max;
 						}
-						else if (r > 245 && r < 295)
+						else if (r > 205 && r < 335)
 						{
 							m_DownHit_flg = true;	 //下
-							m_zevy = -0.65f;
-						}
+							m_zevy = -m_zev_max;
+						}						
 					}
 				}
 			}
 		}		
 	}
-	//当たり判定を行うオブジェクト情報群
-	int data_base[4] =
+	else
 	{
-		ELEMENT_FIELD,ELEMENT_FIELD2,ELEMENT_NET_S,ELEMENT_NET_V,
-	};
-	//オブジェクト情報群と当たり判定行い。当たっていればノックバック
-	for (int i = 0; i < 3; i++)
-	{
-		if (hit_ze->CheckElementHit(data_base[i]) == true)
-		{
-			HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
-			hit_data = hit_ze->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-			float r = 0;
-			for (int j = 0; j < 10; j++) 
-			{
-				if (hit_data[j] != nullptr) 
-				{
-					r = hit_data[j]->r;
-					//角度で上下左右を判定
-					if ((r > 0 && r < 30) || r >= 330)
-					{
-						m_RightHit_flg = true; //右
-						m_zevx = -0.65f;
-					}
-					else if (r >= 30 && r < 150)
-					{
-						m_UpHit_flg = true;    //上
-						m_zevy = 0.65f;
-					}
-					else if (r >= 150 && r <= 210)
-					{
-						m_LeftHit_flg = true;	 //左
-						m_zevx = 0.65f;
-					}
-					else if (r > 210 && r < 330)
-					{
-						m_DownHit_flg = true;	 //下
-						m_zevy = -0.65f;
-					}									
-				}
-			}				
-		}		
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
-	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr || hit_ze->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
-		|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr 
-		|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
+	//有刺鉄線の壁
+	if (hit_ze->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
+		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR);
-		hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR2);
-		hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-		hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
-
-		for (int j = 0; j < 10; j++)
-		{
-			if (hit_data[j] != nullptr)
-			{
-				float r = hit_data[j]->r;
-				//角度で上下左右を判定
-				if ((r > 0 && r < 30) || r >= 330)
-				{
-					m_RightHit_flg = true; //右
-					m_zevx = -0.65f;
-				}
-				else if (r >= 30 && r < 150)
-				{
-					m_UpHit_flg = true;    //上
-					m_zevy = 0.65f;
-				}
-				else if (r >= 150 && r <= 210)
-				{
-					m_LeftHit_flg = true;	 //左
-					m_zevx = 0.65f;
-				}
-				else if (r > 210 && r < 330)
-				{
-					m_DownHit_flg = true;	 //下
-					m_zevy = -0.65f;
-				}
-			}			
-		}		
-	}
-	//ミーム
-	if (hit_ze->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
-	{
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE);
-
-		for (int j = 0; j < 10; j++)
-		{
-			if (hit_data[j] != nullptr)
-			{
-				float r = hit_data[j]->r;
-				//角度で上下左右を判定
-				if ((r > 0 && r < 45) || r >= 315)
-				{
-					m_RightHit_flg = true; //右
-					m_zevx = -0.65f;
-				}
-				else if (r >= 45 && r < 135)
-				{
-					m_UpHit_flg = true;    //上
-					m_zevy = 0.65f;
-				}
-				else if (r >= 135 && r <= 225)
-				{
-					m_LeftHit_flg = true;	 //左
-					m_zevx = 0.65f;
-				}
-				else if (r > 225 && r < 315)
-				{
-					m_DownHit_flg = true;	 //下
-					m_zevy = -0.65f;
-				}
-			}
-		}		
-	}
-	//ネット(縦)
-	if (hit_ze->CheckObjNameHit(OBJ_NET_V) != nullptr)
-	{
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchObjNameHit(OBJ_NET_V);
-
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			if (hit_data[i] != nullptr)
-			{
-				float r = hit_data[i]->r;
-				//角度で上下左右を判定
-				if ((r > 0 && r < 25) || r >= 335)
-				{
-					m_RightHit_flg = true; //右
-					m_zevx = -0.65f;
-				}
-				else if (r >= 25 && r < 155)
-				{
-					m_UpHit_flg = true;    //上
-					m_zevy = 0.65f;
-				}
-				else if (r >= 155 && r <= 205)
-				{
-					m_LeftHit_flg = true;	 //左
-					m_zevx = 0.65f;
-				}
-				else if (r > 205 && r < 335)
-				{
-					m_DownHit_flg = true;	 //下
-					m_zevy = -0.65f;
-				}
-			}							
-		}		
-	}
-	//ネット(横)
-	if (hit_ze->CheckObjNameHit(OBJ_NET) != nullptr)
-	{
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchObjNameHit(OBJ_NET);
+		hit_data = hit_ze->SearchElementHit(ELEMENT_BARBED_V);
 		for (int i = 0; i < hit_ze->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
@@ -683,61 +596,257 @@ void CObjZombieEnemy::Action()
 				if ((r > 0 && r < 65) || r >= 295)
 				{
 					m_RightHit_flg = true; //右
-					m_zevx = -0.65f;
+					m_zevx = -m_zev_max;
 				}
 				else if (r >= 65 && r < 115)
 				{
 					m_UpHit_flg = true;    //上
-					m_zevy = 0.65f;
+					m_zevy = m_zev_max;
 				}
 				else if (r >= 115 && r <= 245)
 				{
 					m_LeftHit_flg = true;	 //左
-					m_zevx = 0.65f;
+					m_zevx = m_zev_max;
 				}
 				else if (r > 245 && r < 295)
 				{
 					m_DownHit_flg = true;	 //下
-					m_zevy = -0.65f;
+					m_zevy = -m_zev_max;
 				}
 			}
 		}
 	}
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
+	else
 	{
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
-		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD2);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			if (hit_data[i] != nullptr)
-			{
-				float r = hit_data[i]->r;
-
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
-				{
-					m_RightHit_flg = true; //右
-					m_zevx = m_zevx - m_zev_max;
-				}
-				else if (r > 2 && r < 178)
-				{
-					m_UpHit_flg = true;    //上
-					m_zevy = m_zevy + m_zev_max;
-				}
-				else if (r > 176 && r < 184)
-				{
-					m_LeftHit_flg = true;	 //左
-					m_zevx = m_zevx + m_zev_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_DownHit_flg = true;	 //下
-					m_zevy = m_zevy - m_zev_max;
-				}
-			}
-		}		
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
+	////当たり判定を行うオブジェクト情報群
+	//int data_base[4] =
+	//{
+	//	ELEMENT_FIELD,ELEMENT_FIELD2,ELEMENT_NET_S,ELEMENT_NET_V,
+	//};
+	////オブジェクト情報群と当たり判定行い。当たっていればノックバック
+	//for (int i = 0; i < 3; i++)
+	//{
+	//	if (hit_ze->CheckElementHit(data_base[i]) == true)
+	//	{
+	//		HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
+	//		hit_data = hit_ze->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
+
+	//		float r = 0;
+	//		for (int j = 0; j < 10; j++) 
+	//		{
+	//			if (hit_data[j] != nullptr) 
+	//			{
+	//				r = hit_data[j]->r;
+	//				//角度で上下左右を判定
+	//				if ((r > 0 && r < 30) || r >= 330)
+	//				{
+	//					m_RightHit_flg = true; //右
+	//					m_zevx = -m_zev_max;
+	//				}
+	//				else if (r >= 30 && r < 150)
+	//				{
+	//					m_UpHit_flg = true;    //上
+	//					m_zevy = m_zev_max;
+	//				}
+	//				else if (r >= 150 && r <= 210)
+	//				{
+	//					m_LeftHit_flg = true;	 //左
+	//					m_zevx = m_zev_max;
+	//				}
+	//				else if (r > 210 && r < 330)
+	//				{
+	//					m_DownHit_flg = true;	 //下
+	//					m_zevy = -m_zev_max;
+	//				}									
+	//			}
+	//		}				
+	//	}		
+	//}
+	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
+	//if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr || hit_ze->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+	//	|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr 
+	//	|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
+	//{
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR);
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR2);
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
+
+	//	for (int j = 0; j < 10; j++)
+	//	{
+	//		if (hit_data[j] != nullptr)
+	//		{
+	//			float r = hit_data[j]->r;
+	//			//角度で上下左右を判定
+	//			if ((r > 0 && r < 30) || r >= 330)
+	//			{
+	//				m_RightHit_flg = true; //右
+	//				m_zevx = -m_zev_max;
+	//			}
+	//			else if (r >= 30 && r < 150)
+	//			{
+	//				m_UpHit_flg = true;    //上
+	//				m_zevy = m_zev_max;
+	//			}
+	//			else if (r >= 150 && r <= 210)
+	//			{
+	//				m_LeftHit_flg = true;	 //左
+	//				m_zevx = m_zev_max;
+	//			}
+	//			else if (r > 210 && r < 330)
+	//			{
+	//				m_DownHit_flg = true;	 //下
+	//				m_zevy = -m_zev_max;
+	//			}
+	//		}			
+	//	}		
+	//}
+	////ミーム
+	//if (hit_ze->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
+	//{
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE);
+
+	//	for (int j = 0; j < 10; j++)
+	//	{
+	//		if (hit_data[j] != nullptr)
+	//		{
+	//			float r = hit_data[j]->r;
+	//			//角度で上下左右を判定
+	//			if ((r > 0 && r < 45) || r >= 315)
+	//			{
+	//				m_RightHit_flg = true; //右
+	//				m_zevx = -m_zev_max;
+	//			}
+	//			else if (r >= 45 && r < 135)
+	//			{
+	//				m_UpHit_flg = true;    //上
+	//				m_zevy = m_zev_max;
+	//			}
+	//			else if (r >= 135 && r <= 225)
+	//			{
+	//				m_LeftHit_flg = true;	 //左
+	//				m_zevx = m_zev_max;
+	//			}
+	//			else if (r > 225 && r < 315)
+	//			{
+	//				m_DownHit_flg = true;	 //下
+	//				m_zevy = -m_zev_max;
+	//			}
+	//		}
+	//	}		
+	//}
+	////ネット(縦)
+	//if (hit_ze->CheckObjNameHit(OBJ_NET_V) != nullptr)
+	//{
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_NET_V);
+
+	//	for (int i = 0; i < hit_ze->GetCount(); i++)
+	//	{
+	//		if (hit_data[i] != nullptr)
+	//		{
+	//			float r = hit_data[i]->r;
+	//			//角度で上下左右を判定
+	//			if ((r > 0 && r < 25) || r >= 335)
+	//			{
+	//				m_RightHit_flg = true; //右
+	//				m_zevx = -m_zev_max;
+	//			}
+	//			else if (r >= 25 && r < 155)
+	//			{
+	//				m_UpHit_flg = true;    //上
+	//				m_zevy = m_zev_max;
+	//			}
+	//			else if (r >= 155 && r <= 205)
+	//			{
+	//				m_LeftHit_flg = true;	 //左
+	//				m_zevx = m_zev_max;
+	//			}
+	//			else if (r > 205 && r < 335)
+	//			{
+	//				m_DownHit_flg = true;	 //下
+	//				m_zevy = -m_zev_max;
+	//			}
+	//		}							
+	//	}		
+	//}
+	////ネット(横)
+	//if (hit_ze->CheckObjNameHit(OBJ_NET) != nullptr)
+	//{
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchObjNameHit(OBJ_NET);
+	//	for (int i = 0; i < hit_ze->GetCount(); i++)
+	//	{
+	//		if (hit_data[i] != nullptr)
+	//		{
+	//			float r = hit_data[i]->r;
+	//			//角度で上下左右を判定
+	//			if ((r > 0 && r < 65) || r >= 295)
+	//			{
+	//				m_RightHit_flg = true; //右
+	//				m_zevx = -m_zev_max;
+	//			}
+	//			else if (r >= 65 && r < 115)
+	//			{
+	//				m_UpHit_flg = true;    //上
+	//				m_zevy = m_zev_max;
+	//			}
+	//			else if (r >= 115 && r <= 245)
+	//			{
+	//				m_LeftHit_flg = true;	 //左
+	//				m_zevx = m_zev_max;
+	//			}
+	//			else if (r > 245 && r < 295)
+	//			{
+	//				m_DownHit_flg = true;	 //下
+	//				m_zevy = -m_zev_max;
+	//			}
+	//		}
+	//	}
+	//}
+	//if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
+	//{
+	//	HIT_DATA** hit_data;
+	//	hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
+	//	hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD2);
+	//	for (int i = 0; i < hit_ze->GetCount(); i++)
+	//	{
+	//		if (hit_data[i] != nullptr)
+	//		{
+	//			float r = hit_data[i]->r;
+
+	//			//角度で上下左右を判定
+	//			if ((r < 4 && r >= 0) || r > 356)
+	//			{
+	//				m_RightHit_flg = true; //右
+	//				m_zevx = m_zevx - m_zev_max;
+	//			}
+	//			else if (r > 2 && r < 178)
+	//			{
+	//				m_UpHit_flg = true;    //上
+	//				m_zevy = m_zevy + m_zev_max;
+	//			}
+	//			else if (r > 176 && r < 184)
+	//			{
+	//				m_LeftHit_flg = true;	 //左
+	//				m_zevx = m_zevx + m_zev_max;
+	//			}
+	//			else if (r > 182 && r < 358)
+	//			{
+	//				m_DownHit_flg = true;	 //下
+	//				m_zevy = m_zevy - m_zev_max;
+	//			}
+	//		}
+	//	}		
+	//}
 	
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
@@ -787,7 +896,7 @@ void CObjZombieEnemy::Action()
 		else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
 			m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-			m_time_d = 100;		//点滅時間をセット
+			m_time_d = 80;		//点滅時間をセット
 		}
 	}
 	
