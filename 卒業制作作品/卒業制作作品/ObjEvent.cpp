@@ -146,7 +146,7 @@ void CObjEvent::Action()
 		TStop_flg = false;
 		TStart_flg = true;
 		//イベント指示表示タイム
-		m_Event_Instruction_time = EVENT_INSTRUCTION; //3秒
+		m_Event_Instruction_time = 0; 
 		time->SetTStart(TStart_flg);
 
 	//イベントタイムペナルティ

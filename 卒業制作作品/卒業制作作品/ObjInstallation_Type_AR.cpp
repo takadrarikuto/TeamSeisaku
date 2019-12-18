@@ -68,14 +68,28 @@ void CObjInstallation_Type_AR::Action()
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
-			((UserData*)Save::GetData())->AR_load += 40; //アサルトライフル		
-			aitemfont->SetAitemNum(40);
+			//主人公に当たると弾補充
+			if (((UserData*)Save::GetData())->choose == 0)
+			{
+				((UserData*)Save::GetData())->AR_load += 200; //アサルトライフル		
+				aitemfont->SetAitemNum(200); //弾数表示
+			}
+			else if (((UserData*)Save::GetData())->choose == 1)
+			{
+				((UserData*)Save::GetData())->AR_load += 100; //アサルトライフル		
+				aitemfont->SetAitemNum(100); //弾数表示
+			}
+			else if (((UserData*)Save::GetData())->choose == 2)
+			{
+				((UserData*)Save::GetData())->AR_load += 60; //アサルトライフル		
+				aitemfont->SetAitemNum(60); //弾数表示
+			}
 			aitemfont->SetAGF(2);
 			Audio::Start(12); //効果音再生
 			//補充フラグ
 			m_Replenishment_flg = true;
 			//再補充タイム
-			m_Replenishment_time = 3000;
+			m_Replenishment_time = 1800;
 		}
 	}
 	else

@@ -55,9 +55,22 @@ void CObjShotGunItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		((UserData*)Save::GetData())->SHG_load += 30;//ショットガン			
+		if (((UserData*)Save::GetData())->choose == 0)
+		{
+			((UserData*)Save::GetData())->SHG_load += 30;//ショットガン		
+			aitemfont->SetAitemNum(30); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 1)
+		{
+			((UserData*)Save::GetData())->SHG_load += 24;//ショットガン
+			aitemfont->SetAitemNum(24); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 2)
+		{
+			((UserData*)Save::GetData())->SHG_load += 18;//ショットガン	
+			aitemfont->SetAitemNum(18); //グレネード数表示
+		}					
 		aitemfont->SetAGF(1); //フォント表示
-		aitemfont->SetAitemNum(30); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

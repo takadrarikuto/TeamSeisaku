@@ -55,9 +55,22 @@ void CObjSniperRifleItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル		
+		if (((UserData*)Save::GetData())->choose == 0)
+		{
+			((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル		
+			aitemfont->SetAitemNum(20); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 1)
+		{
+			((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル	
+			aitemfont->SetAitemNum(15); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 2)
+		{
+			((UserData*)Save::GetData())->SR_load += 10; //スナイパーライフル	
+			aitemfont->SetAitemNum(10); //グレネード数表示
+		}			
 		aitemfont->SetAGF(3); //フォント表示
-		aitemfont->SetAitemNum(15); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
