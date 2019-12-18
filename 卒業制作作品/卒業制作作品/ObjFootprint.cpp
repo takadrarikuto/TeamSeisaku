@@ -56,10 +56,6 @@ void CObjFootprint::Action()
 	m_Fx -= hvx;
 	m_Fy -= hvy;
 
-	//HitBoxの内容を更新 
-	//CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	//hit_exp->SetPos(m_Fx, m_Fy); //当たり判定の位置更新
-
 	////描画フレームが5になるとSE発生
 	//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
 	if (m_Delete_time <= 0)

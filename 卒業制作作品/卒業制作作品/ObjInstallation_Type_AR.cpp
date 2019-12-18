@@ -40,6 +40,11 @@ void CObjInstallation_Type_AR::Init()
 	//再補充タイム
 	m_Replenishment_time = 0;
 
+	//再補充完了フォント表示フラグ
+	m_Replenishment_Font_flg = false;
+	//再補充完了フォント表示タイム
+	m_Replenishment_Font_time = 0;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_IT_ARx, m_IT_ARy, m_HitSize_x, m_HitSize_y, ELEMENT_ITEM, OBJ_INSTALL_TYPE_AR, 6);
 
@@ -90,6 +95,8 @@ void CObjInstallation_Type_AR::Action()
 			m_Replenishment_flg = true;
 			//再補充タイム
 			m_Replenishment_time = 1800;
+			//再補充完了フォント表示タイム
+			m_Replenishment_Font_time = REPLENIShHMENT_FONT_TIME;
 		}
 	}
 	else
@@ -106,6 +113,26 @@ void CObjInstallation_Type_AR::Action()
 	{
 		m_Replenishment_time--;
 	}
+	else if (m_Replenishment_time == 0)
+	{
+		//再補充完了フォント表示タイム減少処理
+		if (m_Replenishment_Font_time > 0)
+		{
+			//効果音再生
+			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+			{
+				m_Replenishment_Font_flg = true; //再補充完了フォント表示
+				Audio::Start(8);
+			}
+
+			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
+		}
+		else if (m_Replenishment_Font_time == 0)
+		{
+			//再補充完了フォント表示フラグ初期化
+			m_Replenishment_Font_flg = false;
+		}
+	}
 }
 
 //ドロー
@@ -115,6 +142,14 @@ void CObjInstallation_Type_AR::Draw()
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
+
+	wchar_t str[256];
+
+	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
+	{
+		swprintf_s(str, L"アサルトライフルの弾が再補充されました。");
+		Font::StrDraw(str, 0, 570, 30, c);
+	}
 
 	RECT_F src;
 	RECT_F dst;

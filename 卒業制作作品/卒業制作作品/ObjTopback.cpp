@@ -78,6 +78,12 @@ void CObjTopback::Draw()
 	//設置型アイテムオブジェクト
 	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
 	bool SHG_Rep_Font_flg = IT_SHG->GetRepFontflg();
+	CObjInstallation_Type_AR* IT_AR = (CObjInstallation_Type_AR*)Objs::GetObj(OBJ_INSTALL_TYPE_AR);
+	bool AR_Rep_Font_flg = IT_AR->GetRepFontflg();
+	CObjInstallation_Type_SR* IT_SR = (CObjInstallation_Type_SR*)Objs::GetObj(OBJ_INSTALL_TYPE_SR);
+	bool SR_Rep_Font_flg = IT_SR->GetRepFontflg();
+	CObjInstallation_Type_RandBox* IT_RAND = (CObjInstallation_Type_RandBox*)Objs::GetObj(OBJ_INSTALL_TYPE_RANDBOX);
+	bool RAND_Rep_Font_flg = IT_RAND->GetRepFontflg();
 
 	//アイテム獲得情報取得
 	CObjAitemFont* aitf = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
@@ -324,7 +330,7 @@ void CObjTopback::Draw()
 		}
 	}
 	//設置型アイテム補充時用背景------------------------------------------------
-	if (SHG_Rep_Font_flg == true)
+	if (SHG_Rep_Font_flg == true || AR_Rep_Font_flg == true || SR_Rep_Font_flg == true || RAND_Rep_Font_flg == true)
 	{
 		Draw::Draw(30, &src, &dst, a2, 0.0f);
 	}
