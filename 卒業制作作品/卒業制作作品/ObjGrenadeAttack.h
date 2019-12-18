@@ -21,4 +21,5 @@ private:
 	int Stop_max; //’â~ˆÊ’u
 	int EXP_time; //”š”jŠÔ
 
+	bool m_HitBox_Delete; //HitBoxíœƒtƒ‰ƒO
 };

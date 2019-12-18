@@ -38,6 +38,9 @@ void CObjARAttack::Init()
 	//当たり判定サイズ
 	Hitbox_size = 10;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_ARx, m_ARy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ARATTACK, 2);
 
@@ -54,13 +57,6 @@ void CObjARAttack::Action()
 		m_ARy += m_ARvy;
 	}
 
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}
-
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
@@ -76,36 +72,21 @@ void CObjARAttack::Action()
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_ARx < hx - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_ARx > hx + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		if (m_ARy < hy - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_ARy > hy + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
-	
-	/*OBJ_AR_ITEM
-	OBJ_ARMOR
-	OBJ_GRENADE_ITEM
-	OBJ_HEAL
-	OBJ_RAILGUN_ITEM
-	OBJ_ROCKETLAUNCHER_ITEM
-	OBJ_SHOTGUN_ITEM
-	OBJ_SNIPERRIFLE_ITEM
-	OBJ_TOOLBOX
-	*/
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ar->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
@@ -117,8 +98,7 @@ void CObjARAttack::Action()
 		}
 		else 
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	//壁オブジェクト、有刺鉄線オブジェクトと接触するとオブジェクト破棄ELEMENT_BARBED_V
@@ -126,8 +106,7 @@ void CObjARAttack::Action()
 		|| hit_ar->CheckElementHit(ELEMENT_NET_S) == true || hit_ar->CheckElementHit(ELEMENT_NET_V) == true
 		|| hit_ar->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		m_HitBox_Delete = true;
 	}
 	//フィールドエレメントと接触すると削除
 	if (hit_ar->CheckElementHit(ELEMENT_FIELD) == true || hit_ar->CheckElementHit(ELEMENT_FIELD2) == true)
@@ -142,9 +121,17 @@ void CObjARAttack::Action()
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}		
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

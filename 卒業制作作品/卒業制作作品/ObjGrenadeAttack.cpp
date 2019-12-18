@@ -61,6 +61,9 @@ void CObjGrenadeAttack::Init()
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 192.0f;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 
@@ -122,8 +125,8 @@ void CObjGrenadeAttack::Action()
 			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 
 		//敵オブジェクトと接触するとオブジェクト破棄
@@ -141,10 +144,19 @@ void CObjGrenadeAttack::Action()
 				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 				Audio::Start(9);
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+				m_HitBox_Delete = true;
 			}
 		}
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

@@ -92,17 +92,17 @@ void CObjEvent::Action()
 				m_Event_time = 1850; //1850 ＝ 30秒
 			}
 			//敵無力化装置イベント
-			else if (END_flg == true)
+			if (END_flg == true)
 			{
 				m_Event_time = 3650; //3650 ＝ 60秒
 			}
 			//ミーム実態無力化装置イベント
-			else if (MND_flg == true)
+			if (MND_flg == true)
 			{
 				m_Event_time = 3650; //3650 ＝ 60秒
 			}
 			//装置修理イベント
-			else if (Rep_flg == true)
+			if (Rep_flg == true)
 			{
 				m_Event_time = 5450; //5450 ＝ 90秒
 				m_App_Rand_Flg = rand() % 101; //装置故障イベント時の装置ランダム選択
@@ -154,6 +154,10 @@ void CObjEvent::Action()
 			m_App_Rand_Flg = 0;
 			time->SetTStart(TStart_flg);
 			m_EveMiss_flg = true;
+			Gen_flg = false;
+			END_flg = false;
+			MND_flg = false;
+			Rep_flg = false;
 		}
 
 		//イベントタイムペナルティ
@@ -171,12 +175,12 @@ void CObjEvent::Action()
 				m_Event_TimePenalty = true;
 			}
 			//対象が無力化装置の時
-			else if ((m_App_Rand_Flg > 40 && m_App_Rand_Flg <= 60) || (m_App_Rand_Flg > 60 && m_App_Rand_Flg <= 80))
+			if ((m_App_Rand_Flg > 40 && m_App_Rand_Flg <= 60) || (m_App_Rand_Flg > 60 && m_App_Rand_Flg <= 80))
 			{
 				m_EventPenalty_Enemy_flg = true;//イベントペナルティ(球体型敵)フラグ				
 			}
 			//対象が対ミーム実態無力化装置の時
-			else if (m_App_Rand_Flg > 80 && m_App_Rand_Flg <= 100)
+			if (m_App_Rand_Flg > 80 && m_App_Rand_Flg <= 100)
 			{
 				//イベントペナルティ(ミーム実態)フラグ
 				m_EventPenalty_Meme_flg = true;
