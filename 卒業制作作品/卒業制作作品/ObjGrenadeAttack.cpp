@@ -42,12 +42,12 @@ void CObjGrenadeAttack::Init()
 	//耐久力フラグがオンの時
 	if (En_flg == true)
 	{
-		((UserData*)Save::GetData())->GRE_Attack = 50; //爆発
+		m_EXPDameg_num = 50; //爆発ダメージ
 	}
 	//体力フラグがオンの時
 	if (Hp_flg == true)
 	{
-		((UserData*)Save::GetData())->GRE_Attack = 100; //爆発
+		m_EXPDameg_num = 100; //爆発ダメージ
 	}
 
 	//爆破時間
@@ -122,7 +122,7 @@ void CObjGrenadeAttack::Action()
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
 
@@ -141,7 +141,7 @@ void CObjGrenadeAttack::Action()
 			else
 			{
 				//爆発オブジェクト作成
-				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, m_EXPDameg_num);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 				Audio::Start(9);
 

@@ -138,6 +138,10 @@ void CObjEvent::Action()
 	{
 		m_Event_time_flg = false;
 		m_Event_TimePenalty = false;
+		Gen_flg = false;
+		END_flg = false;
+		MND_flg = false;
+		Rep_flg = false;
 	}
 	//イベントタイムが0になる時初期化
 	if (m_Event_time <= 0)

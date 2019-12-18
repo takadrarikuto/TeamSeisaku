@@ -43,6 +43,8 @@ private:
 	int m_at; //攻撃頻度
 	int m_at_max; //攻撃頻度最大値
 
+	int m_EXPDameg_num; //爆発ダメージ
+
 	//死亡処理
 	int m_fb_death_time; //死亡タイム
 	int m_fb_death_time_max; //死亡タイム最大値

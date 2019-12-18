@@ -3,6 +3,17 @@
 
 using namespace GameL;
 
+//武器別ダメージ
+#define Gun_Attack  10;  //ハンドガン
+#define SHG_Attack  30;  //ショットガン
+#define AR_Attack  20;   //アサルトライフル
+#define SR_Attack  50;   //スナイパーライフル
+#define RL_Attack  150;  //ロケットランチャー
+#define RG_Attack  200;  //レールガン
+
+//有刺鉄線
+#define BarbedWireSmall_Attack  2;
+
 class CObjZombieEnemy : public CObj, public CBaseStatus
 {
 public:
@@ -15,7 +26,7 @@ public:
 	
 	float GetX() { return m_zex; } //x位置情報取得用
 	float GetY() { return m_zey; } //y位置情報取得用
-	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
+	int GetHP() { return m_ze_hp; }	//エネミーのHPを取得
 	int GetDMG() { return m_damage; }//攻撃力を取得
 
 private:
@@ -36,6 +47,8 @@ private:
 	bool m_DownHit_flg;	 //下
 	bool m_LeftHit_flg;	 //左
 	bool m_RightHit_flg; //右
+
+	int m_ze_hp; //体力
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム

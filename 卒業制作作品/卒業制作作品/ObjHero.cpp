@@ -130,9 +130,6 @@ void CObjHero::Init()
 	m_gre_pb_num = 3;//グレネード(3)
 	//------------------------------------------
 
-	//ダメージ量
-	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-
 	//描画サイズ
 	m_dst_size = 64.0f;
 	//当たり判定サイズ
@@ -1135,17 +1132,11 @@ void CObjHero::Action()
 
 						//【計算2】
 						//全体初期弾数が打った数より大きいと計算2へ
-						if (m_rl_pb_me > m_rl_pb_cc)
+						if (m_rl_pb_me >= m_rl_pb_cc)
 						{
 							//【計算2】
 							//計算後 = 全体初期弾数 - 打った数
 							m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
-						}
-						else if (m_rl_pb_me <= m_sr_pb_cc)
-						{
-							//【計算3】							
-							m_rl_pb_cc = m_rl_pb_me; //打った数と全体初期弾数を合わせる
-							m_rl_pb_me = 0; //全体初期弾数を0にする
 						}
 
 						//計算後 = 現在残り弾数 + 打った数
@@ -1173,13 +1164,7 @@ void CObjHero::Action()
 							//計算後 = 全体初期弾数 - 打った数
 							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
 						}
-						//全体初期弾数が打った数より小さいと計算3へ
-						else if (m_rg_pb_me <= m_rg_pb_cc)
-						{
-							//【計算3】								
-							m_rg_pb_cc = m_rg_pb_me; //打った数と全体初期弾数を合わせる							
-							m_rg_pb_me = 0; //全体初期弾数を0にする
-						}
+						
 						//計算後 = 現在残り弾数 + 打った数
 						m_rg_pb = m_rg_pb + m_rg_pb_cc;
 						Audio::Start(13);
@@ -1302,20 +1287,6 @@ void CObjHero::Action()
 							r = hit_data[j]->r;
 						}
 					}
-					//角度で上下左右を判定
-					//if ((r < 45 && r >= 0) || r > 315)
-					//if (r > 90 && r < 270)
-					//{
-					//	m_vy = -5;		//右
-					//	m_vx += 6;
-					//}
-					//else
-					//{
-					//	m_vy = -5;		//左
-					//	m_vx -= 6;
-					//}
-
-					//Audio::Start(3);	//ダメージ音
 
 					if (m_time_d <= 0)
 					{
@@ -1325,13 +1296,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 15 +( 5 * (((UserData*)Save::GetData())->choose-1));
+								m_hero_en -= 15 +( 5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 20 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_hp -= 20 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 80;		//無敵時間をセット
@@ -1342,13 +1313,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 5 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_en -= 5 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_hp -= 10 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 60;		//無敵時間をセット
@@ -1359,13 +1330,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 20 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_en -= 20 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 25 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_hp -= 25 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 60;		//無敵時間をセット
@@ -1376,13 +1347,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_en -= 10 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 2 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_hp -= 2 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 20;		//無敵時間をセット
@@ -1421,13 +1392,13 @@ void CObjHero::Action()
 							//耐久力フラグがオンの時、耐久力を減らす
 							if (En_flg == true)
 							{
-								m_hero_en -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_en -= 10 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= 10 + (5 * (((UserData*)Save::GetData())->choose - 1));
+								m_hero_hp -= 10 + (5 * (((UserData*)Save::GetData())->choose));
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 30;		//無敵時間をセット
@@ -1465,7 +1436,7 @@ void CObjHero::Action()
 							//体力フラグがオンの時(耐久力が0の場合)、HPを減らす
 							if (Hp_flg == true)
 							{
-								m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+								m_hero_hp -= BarbedWireSmall_Attack;
 								Audio::Start(14);//ダメージ音
 							}
 							m_time_d = 30;		//無敵時間をセット
