@@ -77,18 +77,18 @@ void CObjInstallation_Type_ShotGun::Action()
 			//主人公に当たると弾補充
 			if (((UserData*)Save::GetData())->choose == 0)
 			{
-				((UserData*)Save::GetData())->SHG_load += 60;//ショットガン		
-				aitemfont->SetAitemNum(60); //グレネード数表示
+				((UserData*)Save::GetData())->SHG_load += 30;//ショットガン		
+				aitemfont->SetAitemNum(30); //グレネード数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 1)
 			{
-				((UserData*)Save::GetData())->SHG_load += 48;//ショットガン
-				aitemfont->SetAitemNum(48); //グレネード数表示
+				((UserData*)Save::GetData())->SHG_load += 24;//ショットガン
+				aitemfont->SetAitemNum(24); //グレネード数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 2)
 			{
-				((UserData*)Save::GetData())->SHG_load += 30;//ショットガン	
-				aitemfont->SetAitemNum(30); //グレネード数表示
+				((UserData*)Save::GetData())->SHG_load += 18;//ショットガン	
+				aitemfont->SetAitemNum(18); //グレネード数表示
 			}
 			aitemfont->SetAGF(1); 
 			Audio::Start(12); //効果音再生
@@ -118,14 +118,14 @@ void CObjInstallation_Type_ShotGun::Action()
 		//再補充完了フォント表示タイム減少処理
 		if (m_Replenishment_Font_time > 0)
 		{
-			m_Replenishment_Font_time--; //再補充完了フォント表示タイム現象										
-			m_Replenishment_Font_flg = true; //再補充完了フォント表示
-
 			//効果音再生
 			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
 			{
-				Audio::Start(8); 
-			}			
+				m_Replenishment_Font_flg = true; //再補充完了フォント表示
+				Audio::Start(8);
+			}
+
+			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
 		}
 		else if (m_Replenishment_Font_time == 0)
 		{
@@ -147,7 +147,7 @@ void CObjInstallation_Type_ShotGun::Draw()
 
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		swprintf_s(str, L"ショットガンが再補充されました。");
+		swprintf_s(str, L"ショットガンの弾が再補充されました。");
 		Font::StrDraw(str, 0, 570, 30, c); 
 	}
 	
