@@ -68,29 +68,32 @@ void CObjTime::Action()
 	//イベント開始、計測停止処理
 	if (m_time == m_time_event && m_time > 50)
 	{		
-		m_Event_Rand_num = rand() % 100;
-		//イベントランダム選択処理
-		//発電機イベント
-		//if (m_Event_Rand_num > 0/*< 50*/)
-		//{
-		//	m_Gen_flg = true;			
-		//}
-		//敵無力化イベント
-		/*else*/ /*if (m_Event_Rand_num>= 0)
+		if (m_Stop_flg == false)
 		{
-			m_END_flg = true;
-		}*/
-		//ミーム実態無力化イベント
-		if (m_Event_Rand_num >= 0)
-		{
-			m_MND_flg = true;
-		}
-		//修理イベント
-		/*if (m_Event_Rand_num >= 0)
-		{
-			m_Repairing_flg = true;			
-		}*/
-		m_Stop_flg = true;
+			m_Event_Rand_num = rand() % 100;
+			//イベントランダム選択処理
+			//発電機イベント
+			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 40)
+			{
+				m_Gen_flg = true;
+			}
+			//敵無力化イベント
+			if (m_Event_Rand_num > 40 && m_Event_Rand_num >= 60)
+			{
+				m_END_flg = true;
+			}
+			//ミーム実態無力化イベント
+			if (m_Event_Rand_num > 60 && m_Event_Rand_num >= 80)
+			{
+				m_MND_flg = true;
+			}
+			//修理イベント
+			if (m_Event_Rand_num >= 80)
+			{
+				m_Repairing_flg = true;
+			}
+			m_Stop_flg = true;
+		}		
 	}
 	//タイム再スタート処理
 	if (m_Start_flg == true)

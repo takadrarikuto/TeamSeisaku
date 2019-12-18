@@ -139,8 +139,8 @@ void CObjEvent::Action()
 		m_Event_time_flg = false;
 		m_Event_TimePenalty = false;
 	}
-	//イベントタイムが0になるor主人公の体力が0になる時初期化
-	if (m_Event_time <= 0 || h_hp <= 0)
+	//イベントタイムが0になる時初期化
+	if (m_Event_time <= 0)
 	{
 		if (TStop_flg == true)
 		{
@@ -182,6 +182,13 @@ void CObjEvent::Action()
 				m_EventPenalty_Meme_flg = true;
 			}
 		}
+	}
+
+	//主人公のHPが0になると表示停止
+	if (h_hp <= 0)
+	{
+		m_EveMiss_flg = false;
+		m_EveSuccess_flg = false;
 	}
 }
 
@@ -242,19 +249,19 @@ void CObjEvent::Draw()
 			swprintf_s(event_a, L"クリア条件 : 発電機を再起動しろ。"); //クリア条件
 		}
 		//敵無力化装置イベント
-		else if (END_flg == true)
+		if (END_flg == true)
 		{
 			swprintf_s(event, L"イベント発生中 : SCP-354-3が大量発生しました。"); //イベント内容
 			swprintf_s(event_a, L"クリア条件 : 無力化装置を起動し、SCP-354-3を排除しろ。"); //クリア条件
 		}
 		//ミーム実態無力化装置イベント
-		else if (MND_flg == true)
+		if (MND_flg == true)
 		{
 			swprintf_s(event, L"イベント発生中 : SCP-354-13が出現しました。"); //イベント内容
 			swprintf_s(event_a, L"クリア条件 : 対ミーム実態無力化装置を起動し、SCP-354-13を排除しろ。"); //クリア条件
 		}
 		//装置修理イベント
-		else if (Rep_flg == true)
+		if (Rep_flg == true)
 		{
 			swprintf_s(event, L"イベント発生中 : 装置が故障しました。"); //イベント内容
 			swprintf_s(event_a, L"クリア条件 : ツールボックスを回収し、故障した装置を直せ。"); //クリア条件

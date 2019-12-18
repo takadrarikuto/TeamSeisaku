@@ -51,6 +51,8 @@ void CObjTopback::Draw()
 {
 	//主人公から各残り弾数情報を取得(装備分)
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	int h_hp = hero->GetHP();
+	
 	hg_pb_e = hero->GetHG_E();	//ハンドガン
 	sg_pb_e = hero->GetSG_E();	//ショットガン
 	ar_pb_e = hero->GetAR_E();	//アサルトライフル
@@ -188,25 +190,29 @@ void CObjTopback::Draw()
 		dst.m_right = 270.0f;//115
 		dst.m_bottom = 180.0f;//115
 
-		evemiss_time++;
-		if (evemiss_time == 1)
+		//主人公のHPが0になると表示停止
+		if (h_hp > 0)
 		{
-			Audio::Start(17);
+			evemiss_time++;
+			if (evemiss_time == 1)
+			{
+				Audio::Start(17);
+			}
+			if (evemiss_time < 200)
+			{
+				Draw::Draw(30, &src, &dst, a, 0.0f);
+				Font::StrDraw(L"イベント失敗", 25, 133, 35, r);
+			}
+			if (evemiss_time > 200)
+			{
+				EveMiss_flg = false;
+			}
 		}
-		if (evemiss_time < 200)
+		else
 		{
-			Draw::Draw(30, &src, &dst, a, 0.0f);
-			Font::StrDraw(L"イベント失敗", 25, 133, 35, r);
-		}
-		if (evemiss_time > 200)
-		{
-			EveMiss_flg = false;
+			m_EveSuccess_flg = false;
 		}
 	}
-	/*if (EveMiss_flg == false)
-	{
-		evemiss_time = 0;
-	}*/
 
 	//イベント成功時
 	if (Menu_flg == false && m_EveSuccess_flg == true)
@@ -222,13 +228,21 @@ void CObjTopback::Draw()
 		dst.m_right = 270.0f;//115
 		dst.m_bottom = 180.0f;//115
 
-		evesuc_time++;
-		if (evesuc_time < 200)
+		//主人公のHPが0になると表示停止
+		if (h_hp > 0)
 		{
-			Draw::Draw(30, &src, &dst, a, 0.0f);
-			Font::StrDraw(L"イベント成功！", 15, 133, 35, y);
-		}
-		if (evesuc_time > 200)
+			evesuc_time++;
+			if (evesuc_time < 200)
+			{
+				Draw::Draw(30, &src, &dst, a, 0.0f);
+				Font::StrDraw(L"イベント成功！", 15, 133, 35, y);
+			}
+			if (evesuc_time > 200)
+			{
+				m_EveSuccess_flg = false;
+			}
+		}		
+		else
 		{
 			m_EveSuccess_flg = false;
 		}
@@ -330,9 +344,24 @@ void CObjTopback::Draw()
 		}
 	}
 	//設置型アイテム補充時用背景------------------------------------------------
-	if (SHG_Rep_Font_flg == true || AR_Rep_Font_flg == true || SR_Rep_Font_flg == true || RAND_Rep_Font_flg == true)
+	if (Menu_flg == false)
 	{
-		Draw::Draw(30, &src, &dst, a2, 0.0f);
+		//切り取り位置の設定
+		src.m_top = 0.0f;
+		src.m_left = 0.0f;
+		src.m_right = 100.0f;
+		src.m_bottom = 100.0f;
+		//描画
+		dst.m_top = 565.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 800.0f;
+		dst.m_bottom = 600.0f;
+
+		if (SHG_Rep_Font_flg == true || AR_Rep_Font_flg == true || SR_Rep_Font_flg == true || RAND_Rep_Font_flg == true)
+		{
+			Draw::Draw(30, &src, &dst, a2, 0.0f);
+		}
 	}
+	
 	//------------------------------------------------------------------
 }
