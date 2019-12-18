@@ -97,9 +97,22 @@ void CObjTopback::Draw()
 	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	float a[4] = { 1.0f,1.0f,1.0f,0.6f };
 	float a2[4] = { 1.0f,1.0f,1.0f,0.8f };
+	float a3[4] = { 1.0f,1.0f,1.0f,0.4f };
 
 	RECT_F src;		//描画元切り取り位置
 	RECT_F dst;		//描画先表示位置
+
+	//切り取り位置の設定
+	src.m_top = 0.0f;
+	src.m_left = 0.0f;
+	src.m_right = 100.0f;
+	src.m_bottom = 100.0f;
+	//上部描画
+	dst.m_top = 63.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 800.0f;
+	dst.m_bottom = 600.0f;
+	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
 	//上部用背景--------------------------------------------------
 	//切り取り位置の設定
