@@ -43,11 +43,24 @@ void CObjTutoTopback::Draw()
 	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float a[4] = { 1.0f,1.0f,1.0f,0.6f };//透明
 	float a2[4] = { 1.0f,1.0f,1.0f,0.8f };//透明2
+	float a3[4] = { 1.0f,1.0f,1.0f,0.4f };//透明3
 
 	RECT_F src;		//描画元切り取り位置
 	RECT_F dst;		//描画先表示位置
 	RECT_F src_cpu;
 	RECT_F dst_cpu;
+
+	//切り取り位置の設定
+	src.m_top = 0.0f;
+	src.m_left = 0.0f;
+	src.m_right = 100.0f;
+	src.m_bottom = 100.0f;
+	//上部描画
+	dst.m_top = 63.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 800.0f;
+	dst.m_bottom = 600.0f;
+	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
 	//切り取り位置の設定
 	src.m_top = 0.0f;
@@ -241,9 +254,9 @@ void CObjTutoTopback::Draw()
 	}
 	else
 	{
-		Font::StrDraw(L"◆Enterでチュートリアルスキップ", 455, 180, 22, b);
+		Font::StrDraw(L"◆Enterでチュートリアルスキップ", 455, 180, 22, g);
 	}
 
-	Font::StrDraw(L"※チュートリアルでは", 455, 70, 20, blk);
-	Font::StrDraw(L"メニュー画面を開くことができません", 455, 95, 20, blk);
+	Font::StrDraw(L"※チュートリアルでは", 455, 70, 20, c);
+	Font::StrDraw(L"メニュー画面を開くことができません", 455, 95, 20, c);
 }

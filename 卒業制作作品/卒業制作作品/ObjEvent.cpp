@@ -136,12 +136,12 @@ void CObjEvent::Action()
 	}	
 	if(TStop_flg == false)
 	{
-		m_Event_time_flg = false;
-		m_Event_TimePenalty = false;
-		Gen_flg = false;
-		END_flg = false;
-		MND_flg = false;
-		Rep_flg = false;
+	//初期化		
+		m_Event_time_flg = false; //イベントタイムフラグ
+		m_Event_TimePenalty = false; //発電機イベントペナルティ
+	//修理イベントペナルティ
+		m_EventPenalty_Enemy_flg = false; //イベントペナルティ(球体型敵)フラグ
+		m_EventPenalty_Meme_flg = false; //イベントペナルティ(ミーム実態)フラグ	
 	}
 	//イベントタイムが0になる時初期化
 	if (m_Event_time <= 0)
@@ -149,7 +149,7 @@ void CObjEvent::Action()
 		if (TStop_flg == true)
 		{
 			//初期化
-			//イベントタイム
+			//イベントタイム関係
 			m_Event_time_flg = false;
 			TStop_flg = false;
 			TStart_flg = true;
@@ -158,10 +158,11 @@ void CObjEvent::Action()
 			m_App_Rand_Flg = 0;
 			time->SetTStart(TStart_flg);
 			m_EveMiss_flg = true;
-			Gen_flg = false;
-			END_flg = false;
-			MND_flg = false;
-			Rep_flg = false;
+			//イベント別タイム設定
+			Gen_flg = false; //発電機イベント
+			END_flg = false; //敵無力化装置イベント
+			MND_flg = false; //ミーム実態無力化装置イベント
+			Rep_flg = false; //装置修理イベント
 		}
 
 		//イベントタイムペナルティ
@@ -185,9 +186,8 @@ void CObjEvent::Action()
 			}
 			//対象が対ミーム実態無力化装置の時
 			if (m_App_Rand_Flg > 80 && m_App_Rand_Flg <= 100)
-			{
-				//イベントペナルティ(ミーム実態)フラグ
-				m_EventPenalty_Meme_flg = true;
+			{			
+				m_EventPenalty_Meme_flg = true; //イベントペナルティ(ミーム実態)フラグ
 			}
 		}
 	}

@@ -92,26 +92,26 @@ void CObjTutorial::Draw()
 
 	if (m_tuto_time < 250)
 	{
-		Font::StrDraw(L"チュートリアルを開始します。", 100, 150, 20, blk);
+		Font::StrDraw(L"チュートリアルを開始します。", 100, 150, 20, c);
 	}
 	else if (m_tuto_time < 250 || m_tuto_time < 500)
 	{
-		Font::StrDraw(L"①.上キーで弾を打つことができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"①.上キーで弾を打つことができます。", 100, 150, 20, c);
 	}
 	else if (m_tuto_time < 500 || m_tuto_time < 750)
 	{
-		Font::StrDraw(L"②.下キーでリロードすることができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"②.下キーでリロードすることができます。", 100, 150, 20, c);
 	}
 	else if (m_tuto_time < 750 || m_tuto_time < 1000)
 	{
-		Font::StrDraw(L"③.左右キーで武器を変更することができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"③.左右キーで武器を変更することができます。", 100, 150, 20, c);
 	}
 	else if (m_tuto_time < 1000 || m_tuto_time < 1250)
 	{
-		Font::StrDraw(L"④.Qキーでグレネードを投げることができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"④.Qキーでグレネードを投げることができます。", 100, 150, 20, c);
 	}
 	else if (m_tuto_time < 1250 || m_tuto_time < 1500)
 	{
-		Font::StrDraw(L"⑤.WASDキーで移動することができます。敵を倒してみましょう。", 100, 150, 20, blk);
+		Font::StrDraw(L"⑤.WASDキーで移動することができます。敵を倒してみましょう。", 100, 150, 20, c);
 	}
 }
