@@ -63,7 +63,7 @@ void CSceneTutorial::InitScene()
 
 	//チュートリアルオブジェクト作成
 	CObjTutorial* tuto = new CObjTutorial();
-	Objs::InsertObj(tuto, OBJ_TUTORIAL, 13);
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 20);
 
 	//主人公機オブジェクト作成(チュートリアル用)
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);

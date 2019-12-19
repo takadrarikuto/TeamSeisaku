@@ -71,6 +71,8 @@ void CObjTutoZombieEnemy::Init()
 
 	m_zombie_count_tu = 0;
 
+	m_time_d = 0;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
 }
@@ -229,63 +231,6 @@ void CObjTutoZombieEnemy::Action()
 	//HitBoxの内容を更新
 	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_ze->SetPos(m_zex, m_zey); //当たり判定の位置更新
-
-	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
-	{
-		//主人公と障害物がどの角度で当たっているか調べる
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 88 && r >= 0) || r > 292)
-			{
-				m_zevx = -0.15f; //右
-			}
-			if (r > 88 && r < 92)
-			{
-				m_zevy = 0.15f;//上
-			}
-			if (r > 92 && r < 268)
-			{
-				m_zevx = 0.15f;//左
-			}
-			if (r > 268 && r < 292)
-			{
-				m_zevy = -0.15f; //下
-			}
-		}
-	}
-
-	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
-	{
-		//主人公と障害物がどの角度で当たっているか調べる
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL2);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 2 && r >= 0) || r > 358)
-			{
-				m_zevx = -0.15f; //右
-			}
-			if (r > 2 && r < 178)
-			{
-				m_zevy = 0.15f;//上
-			}
-			if (r > 178 && r < 182)
-			{
-				m_zevx = 0.15f;//左
-			}
-			if (r > 182 && r < 358)
-			{
-				m_zevy = -0.15f; //下
-			}
-		}
-	}
 
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
