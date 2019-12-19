@@ -84,8 +84,9 @@ void CObjGenerator2::Action()
 				if (GEN == true || (App_Rand > 20 && App_Rand <= 40))
 				{
 					TStart_flg = true;
-					time->SetTStart(TStart_flg);
 					m_EveSuccess_flg = true;
+					GEN = false;
+					time->SetTStart(TStart_flg);					
 					Audio::Start(19);
 				}
 			}
@@ -117,7 +118,7 @@ void CObjGenerator2::Draw()
 
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int App_Rand = Event->GetApp_Rand(); //対応数　1
+	int App_Rand = Event->GetApp_Rand(); 
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

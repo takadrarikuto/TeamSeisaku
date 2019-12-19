@@ -84,8 +84,9 @@ void CObjMeme_Neutralization_Device::Action()
 				{
 					TStart_flg = true;
 					m_Meme_death_flg = true;
-					time->SetTStart(TStart_flg);
 					m_EveSuccess_flg = true;
+					MND = false;
+					time->SetTStart(TStart_flg);					
 					Audio::Start(19);
 				}
 			}
@@ -120,7 +121,7 @@ void CObjMeme_Neutralization_Device::Draw()
 
 	//イベント情報取得 
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int App_Rand = Event->GetApp_Rand(); //対応数　5
+	int App_Rand = Event->GetApp_Rand(); 
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
