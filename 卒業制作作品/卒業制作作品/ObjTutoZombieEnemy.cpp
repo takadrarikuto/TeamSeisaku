@@ -44,6 +44,8 @@ void CObjTutoZombieEnemy::Init()
 
 	m_zombie_count_tu = 0;
 
+	m_time_d = 0;
+
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
 	Hits::SetHitBox(this, m_zex, m_zey, Hitbox_size, Hitbox_size, ELEMENT_ENEMY, OBJ_ENEMY, 4);
 }
