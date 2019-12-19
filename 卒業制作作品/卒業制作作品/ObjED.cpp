@@ -69,8 +69,8 @@ void CObjED::Draw()
 		if (((UserData*)Save::GetData())->choose >= 1)
 		{
 			Font::StrDraw(L"しかし機動部隊がエリア354へ到着した2時間後全職員からの連絡が", GAME_ED_X, GAME_ED_Y + m_y + 700, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"途絶えました。その[データ削除済]分後にエリア354電力システムの", GAME_ED_X, GAME_ED_Y + m_y + 750, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"回復を確認しました。エリア354に再度連絡を試みました。", GAME_ED_X, GAME_ED_Y + m_y + 800, GAME_ED_FONT_SIZE, p);
+			Font::StrDraw(L"途絶えました。その[編集済]分後にエリア354電力システムの回復を", GAME_ED_X, GAME_ED_Y + m_y + 750, GAME_ED_FONT_SIZE, p);
+			Font::StrDraw(L"確認しました。エリア354に再度連絡を試みました。", GAME_ED_X, GAME_ED_Y + m_y + 800, GAME_ED_FONT_SIZE, p);
 			if (((UserData*)Save::GetData())->choose == 2)
 			{
 				Font::StrDraw(L"連絡を行った直後にエリア354からのすべての通信は喪失しました。", GAME_ED_X, GAME_ED_Y + m_y + 900, GAME_ED_FONT_SIZE, p);

@@ -72,13 +72,13 @@ void CObjInstallation_Type_SR::Action()
 		{
 			if (((UserData*)Save::GetData())->choose == 0)
 			{
-				((UserData*)Save::GetData())->SR_load += 30; //スナイパーライフル		
-				aitemfont->SetAitemNum(30); //グレネード数表示
+				((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル		
+				aitemfont->SetAitemNum(20); //グレネード数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 1)
 			{
-				((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル	
-				aitemfont->SetAitemNum(20); //グレネード数表示
+				((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル	
+				aitemfont->SetAitemNum(15); //グレネード数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 2)
 			{

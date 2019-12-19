@@ -57,18 +57,18 @@ void CObjShotGunItem::Action()
 		//主人公に当たると弾補充
 		if (((UserData*)Save::GetData())->choose == 0)
 		{
-			((UserData*)Save::GetData())->SHG_load += 30;//ショットガン		
-			aitemfont->SetAitemNum(30); //グレネード数表示
+			((UserData*)Save::GetData())->SHG_load += 24;//ショットガン		
+			aitemfont->SetAitemNum(24); //グレネード数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 1)
 		{
-			((UserData*)Save::GetData())->SHG_load += 24;//ショットガン
-			aitemfont->SetAitemNum(24); //グレネード数表示
+			((UserData*)Save::GetData())->SHG_load += 18;//ショットガン
+			aitemfont->SetAitemNum(18); //グレネード数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 2)
 		{
-			((UserData*)Save::GetData())->SHG_load += 18;//ショットガン	
-			aitemfont->SetAitemNum(18); //グレネード数表示
+			((UserData*)Save::GetData())->SHG_load += 12;//ショットガン	
+			aitemfont->SetAitemNum(12); //グレネード数表示
 		}					
 		aitemfont->SetAGF(1); //フォント表示
 		Audio::Start(12); //効果音再生

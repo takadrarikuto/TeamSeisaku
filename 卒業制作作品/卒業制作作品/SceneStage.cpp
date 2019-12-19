@@ -185,7 +185,7 @@ void CSceneStage::InitScene()
 	
 
 	//有刺鉄線(ミニ)オブジェクト作成 x=68 y=53
-	//CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
+	CObjBarbedWireSmall* BarbedS;
 	////左内
 	//for (int y = 120; y < 650; y += 53)
 	//{
@@ -210,18 +210,18 @@ void CSceneStage::InitScene()
 	//	BarbedS = new CObjBarbedWireSmall(1175, y);
 	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
 	//}
-	////上
-	//for (int x = 302; x < 504; x += 68)
-	//{
-	//	BarbedS = new CObjBarbedWireSmall(x, -225);
-	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	//}
-	////下
-	//for (int x = 302; x < 504; x += 68)
-	//{
-	//	BarbedS = new CObjBarbedWireSmall(x, 800);
-	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	//}
+	//上
+	for (int x = 302; x < 504; x += 68)
+	{
+		BarbedS = new CObjBarbedWireSmall(x, -225);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
+	}
+	//下
+	for (int x = 302; x < 504; x += 68)
+	{
+		BarbedS = new CObjBarbedWireSmall(x, 800);
+		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
+	}
 
 	//網オブジェクト作成(横) x=202 y=72
 	CObjNet* Net = new CObjNet(0, 0);

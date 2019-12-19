@@ -110,8 +110,8 @@ void CObjBoss::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
-	int Eve_Rep_E = Event->GetEvePena_Enemy();
-	int Eve_Rep_M = Event->GetEvePena_Meme();
+	bool Eve_Rep_E = Event->GetEvePena_Enemy();
+	bool Eve_Rep_M = Event->GetEvePena_Meme();
 
 	//移動停止
 	m_bvx = 0.0f;
@@ -191,7 +191,6 @@ void CObjBoss::Action()
 				m_Enemy_Generation_x = e_x;
 				m_Enemy_Generation_y = e_y;
 
-				//srand(time(NULL)); // ランダム情報を初期化
 				m_Zombie_Restriction++; //ゾンビ生成カウント
 			}			
 			m_Zombie_Generation = 0;
@@ -249,8 +248,6 @@ void CObjBoss::Action()
 			}			
 			m_Frie_Bird_Generation = 0;
 		}
-		int Eve_Rep_E = Event->GetEvePena_Enemy();
-		int Eve_Rep_M = Event->GetEvePena_Meme();
 
 		//敵無力化イベント時敵生成
 		if ((END_flg == true || Eve_Rep_E == true) && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)

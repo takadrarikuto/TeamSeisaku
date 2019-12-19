@@ -58,16 +58,6 @@ void CObjFire_Lizard::Init()
 	//攻撃頻度最大値
 	m_at_max = 5;
 
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
-	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-
 	//ダメージ点滅時間用
 	m_time_d = 0;	
 
@@ -85,12 +75,6 @@ void CObjFire_Lizard::Init()
 //アクション
 void CObjFire_Lizard::Action()
 {
-	//上下左右別当たり判定確認フラグ初期化
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_RightHit_flg = false; //右
-
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX(); //位置
@@ -343,9 +327,43 @@ void CObjFire_Lizard::Action()
 						m_DownHit_flg = true;	 //下
 						m_flvy = m_flvy - m_flv_max;
 					}
-				}				
+				}	
+				//有刺鉄線の壁
+				if (hit_fl->CheckObjNameHit(OBJ_BARBED_WIRE) != nullptr)
+				{
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 30) || r >= 330)
+					{
+						m_RightHit_flg = true; //右
+						m_flvx = -m_flv_max;
+					}
+					else if (r >= 30 && r < 150)
+					{
+						m_UpHit_flg = true;    //上
+						m_flvy = m_flv_max;
+					}
+					else if (r >= 150 && r <= 210)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_flvx = m_flv_max;
+					}
+					else if (r > 210 && r < 330)
+					{
+						m_DownHit_flg = true;	 //下
+						m_flvy = -m_flv_max;
+					}
+				}
 			}
 		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
 	}
 	if (hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
 	{
@@ -381,44 +399,194 @@ void CObjFire_Lizard::Action()
 			}
 		}
 	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+
+	if (hit_fl->CheckElementHit(ELEMENT_NET_S) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_NET_S);
+		if (hit_data != nullptr)
+		{
+			//ネット(縦)
+			if (hit_fl->CheckObjNameHit(OBJ_NET_V) != nullptr)
+			{
+				for (int i = 0; i < hit_fl->GetCount(); i++)
+				{
+					if (hit_data[i] != nullptr)
+					{
+						float r = hit_data[i]->r;
+						//角度で上下左右を判定
+						if ((r > 0 && r < 65) || r >= 295)
+						{
+							m_RightHit_flg = true; //右
+							m_flvx = -m_flv_max;
+						}
+						else if (r >= 65 && r < 115)
+						{
+							m_UpHit_flg = true;    //上
+							m_flvy = m_flv_max;
+						}
+						else if (r >= 115 && r <= 245)
+						{
+							m_LeftHit_flg = true;	 //左
+							m_flvx = m_flv_max;
+						}
+						else if (r > 245 && r < 295)
+						{
+							m_DownHit_flg = true;	 //下
+							m_flvy = -m_flv_max;
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+	if (hit_fl->CheckElementHit(ELEMENT_NET_V) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_NET_V);
+		if (hit_data != nullptr)
+		{
+			//ネット(横)
+			if (hit_fl->CheckObjNameHit(OBJ_NET) != nullptr)
+			{
+				for (int i = 0; i < hit_fl->GetCount(); i++)
+				{
+					if (hit_data[i] != nullptr)
+					{
+						float r = hit_data[i]->r;
+						//角度で上下左右を判定
+						if ((r > 0 && r < 25) || r >= 335)
+						{
+							m_RightHit_flg = true; //右
+							m_flvx = -m_flv_max;
+						}
+						else if (r >= 25 && r < 155)
+						{
+							m_UpHit_flg = true;    //上
+							m_flvy = m_flv_max;
+						}
+						else if (r >= 155 && r <= 205)
+						{
+							m_LeftHit_flg = true;	 //左
+							m_flvx = m_flv_max;
+						}
+						else if (r > 205 && r < 335)
+						{
+							m_DownHit_flg = true;	 //下
+							m_flvy = -m_flv_max;
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+	//有刺鉄線の壁
+	if (hit_fl->CheckElementHit(ELEMENT_BARBED_V) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_BARBED_V);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 65) || r >= 295)
+				{
+					m_RightHit_flg = true; //右
+					m_flvx = -m_flv_max;
+				}
+				else if (r >= 65 && r < 115)
+				{
+					m_UpHit_flg = true;    //上
+					m_flvy = m_flv_max;
+				}
+				else if (r >= 115 && r <= 245)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_flvx = m_flv_max;
+				}
+				else if (r > 245 && r < 295)
+				{
+					m_DownHit_flg = true;	 //下
+					m_flvy = -m_flv_max;
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
 	{
 		//ハンドガン
 		if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_hero_hp -= Gun_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_hero_hp -= SHG_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_hero_hp -= AR_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_hero_hp -= SR_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_hero_hp -= RL_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_hero_hp -= RG_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
@@ -428,7 +596,7 @@ void CObjFire_Lizard::Action()
 		//有刺鉄線
 		else if (hit_fl->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+			m_hero_hp -= BarbedWireSmall_Attack;
 			m_time_d = 80;		//点滅時間をセット
 		}
 	}

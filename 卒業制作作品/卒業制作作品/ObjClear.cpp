@@ -88,5 +88,7 @@ void CObjClear::Draw()
 
 	Font::StrDraw(L"ゲームクリア", 350, 190, 60, y);
 
+	Font::StrDraw(L"あなたは生き残ることができました", 300, 240, 60, y);
+
 	Font::StrDraw(L"◆次へ", 450, 350, 40, b);
 }

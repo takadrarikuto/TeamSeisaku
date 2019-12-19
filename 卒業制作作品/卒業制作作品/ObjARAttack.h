@@ -21,4 +21,6 @@ private:
 
 	int m_Distance_max; //íœ‹——£Å‘å’l
 
+	bool m_HitBox_Delete; //HitBoxíœƒtƒ‰ƒO
+
 };

@@ -58,16 +58,6 @@ void CObjBat_Enemy::Init()
 	//攻撃頻度最大値
 	m_at_max = 5;
 
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
-	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
-
 	//ダメージ点滅時間用
 	m_time_d = 0;
 
@@ -303,37 +293,37 @@ void CObjBat_Enemy::Action()
 		//ハンドガン
 		if (hit_be->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
+			m_hero_hp -= Gun_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_be->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
+			m_hero_hp -= SHG_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_be->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
+			m_hero_hp -= AR_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_be->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
+			m_hero_hp -= SR_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_be->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
+			m_hero_hp -= RL_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_be->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
+			m_hero_hp -= RG_Attack;
 			m_time_d = 1;		//点滅時間をセット
 		}
 		//爆発

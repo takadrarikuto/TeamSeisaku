@@ -57,18 +57,18 @@ void CObjSniperRifleItem::Action()
 		//主人公に当たると弾補充
 		if (((UserData*)Save::GetData())->choose == 0)
 		{
-			((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル		
-			aitemfont->SetAitemNum(20); //グレネード数表示
+			((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル		
+			aitemfont->SetAitemNum(15); //グレネード数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 1)
 		{
-			((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル	
-			aitemfont->SetAitemNum(15); //グレネード数表示
+			((UserData*)Save::GetData())->SR_load += 10; //スナイパーライフル	
+			aitemfont->SetAitemNum(10); //グレネード数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 2)
 		{
-			((UserData*)Save::GetData())->SR_load += 10; //スナイパーライフル	
-			aitemfont->SetAitemNum(10); //グレネード数表示
+			((UserData*)Save::GetData())->SR_load += 5; //スナイパーライフル	
+			aitemfont->SetAitemNum(5); //グレネード数表示
 		}			
 		aitemfont->SetAGF(3); //フォント表示
 		Audio::Start(12); //効果音再生
