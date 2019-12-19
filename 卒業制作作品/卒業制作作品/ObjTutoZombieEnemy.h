@@ -3,6 +3,15 @@
 
 using namespace GameL;
 
+//武器別ダメージ
+#define Gun_Attack  10;  //ハンドガン
+#define SHG_Attack  30;  //ショットガン
+#define AR_Attack  20;   //アサルトライフル
+#define SR_Attack  50;   //スナイパーライフル
+#define RL_Attack  150;  //ロケットランチャー
+#define RG_Attack  200;  //レールガン
+
+
 class CObjTutoZombieEnemy : public CObj, public CBaseStatus
 {
 public:

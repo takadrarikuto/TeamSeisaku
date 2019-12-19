@@ -41,6 +41,9 @@ void CObjShotGunAttack::Init()
 	//当たり判定サイズ
 	Hitbox_size = 10;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SGx, m_SGy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_SHOTGUNATTACK, 2);
 
@@ -49,12 +52,8 @@ void CObjShotGunAttack::Init()
 //アクション
 void CObjShotGunAttack::Action()
 {
-	//イベント情報取得
-	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int Eve_Ins = Event->GetEveIns();
-
 	//メニューを開く、イベント情報表示中は行動停止
-	if (Menu_flg == false && Eve_Ins == 0)
+	if (Menu_flg == false)
 	{
 		//斜め移動修正処理
 		float r = 0.0f;
@@ -93,23 +92,19 @@ void CObjShotGunAttack::Action()
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_SGx < hx - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_SGx > hx + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		if (m_SGy < hy - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_SGy > hy + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	
@@ -125,8 +120,7 @@ void CObjShotGunAttack::Action()
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	//壁オブジェクトと接触するとオブジェクト破棄
@@ -134,8 +128,7 @@ void CObjShotGunAttack::Action()
 		|| hit_sg->CheckElementHit(ELEMENT_NET_S) == true || hit_sg->CheckElementHit(ELEMENT_NET_V) == true
 		|| hit_sg->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		m_HitBox_Delete = true;
 	}
 	//フィールドエレメントと接触すると削除
 	if (hit_sg->CheckElementHit(ELEMENT_FIELD) == true || hit_sg->CheckElementHit(ELEMENT_FIELD2) == true)
@@ -150,9 +143,17 @@ void CObjShotGunAttack::Action()
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

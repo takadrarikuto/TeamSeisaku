@@ -42,12 +42,12 @@ void CObjGrenadeAttack::Init()
 	//耐久力フラグがオンの時
 	if (En_flg == true)
 	{
-		((UserData*)Save::GetData())->GRE_Attack = 50; //爆発
+		m_EXPDameg_num = 50; //爆発ダメージ
 	}
 	//体力フラグがオンの時
 	if (Hp_flg == true)
 	{
-		((UserData*)Save::GetData())->GRE_Attack = 100; //爆発
+		m_EXPDameg_num = 100; //爆発ダメージ
 	}
 
 	//爆破時間
@@ -61,6 +61,9 @@ void CObjGrenadeAttack::Init()
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 192.0f;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 
@@ -69,12 +72,8 @@ void CObjGrenadeAttack::Init()
 //アクション
 void CObjGrenadeAttack::Action()
 {
-	//イベント情報取得
-	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int Eve_Ins = Event->GetEveIns();
-
 	//メニューを開く、イベント情報表示中は行動停止
-	if (Menu_flg == false && Eve_Ins == 0)
+	if (Menu_flg == false)
 	{
 		//主人公位置取得
 		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -86,8 +85,9 @@ void CObjGrenadeAttack::Action()
 		//爆破処理
 		EXP_time++;
 		//位置更新
-		m_Grex +=m_Grevx;
-		m_Grey +=m_Grevy;
+		//主人公の移動に合わせる
+		m_Grex += (-hvx) + m_Grevx;
+		m_Grey += (-hvy) + m_Grevy;
 
 
 		//HitBoxの内容を更新 
@@ -116,20 +116,17 @@ void CObjGrenadeAttack::Action()
 			{
 				//移動停止
 				m_Grevx = 0.0f;
-				m_Grevy = 0.0f;
-				//主人公の移動に合わせる
-				m_Grex += (-hvx);
-				m_Grey += (-hvy);
-			}			
+				m_Grevy = 0.0f;				
+			}	
 		}		
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 
 		//敵オブジェクトと接触するとオブジェクト破棄
@@ -144,13 +141,22 @@ void CObjGrenadeAttack::Action()
 			else
 			{
 				//爆発オブジェクト作成
-				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, m_EXPDameg_num);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 				Audio::Start(9);
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+				m_HitBox_Delete = true;
 			}
 		}
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

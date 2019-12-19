@@ -28,9 +28,6 @@ void CObjAitemFont::Init()
 	//フォント表示フラグ
 	m_Font_flg = false; 
 
-	//ツールボックス画像表示フラグ
-	m_ToolBox_flg = false;
-
 }
 
 //アクション
@@ -53,10 +50,6 @@ void CObjAitemFont::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float fc[4] = { 0.0f ,0.0f, 0.0f, 1.0f };
-
-	RECT_F src;
-	RECT_F dst;
 
 	//1、ショット2、アサルト3、スナイパー4、レールガン弾5
 	//レールガン弾6、グレネード7、体力8、アーマー、ツールボックス9
@@ -102,23 +95,6 @@ void CObjAitemFont::Draw()
 		}		
 		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, c); //アイテム取得でフォント表示
 	}	
-	
-
-	//切り取り処理
-	src.m_top = 60.0f;
-	src.m_left = 4.0f;
-	src.m_right = 40.0f;
-	src.m_bottom = 94.0f;
-
-	//描画処理
-	dst.m_top = 750.0f;
-	dst.m_left = 550.0f;
-	dst.m_right = 800.0f;
-	dst.m_bottom = 600.0f;
-	if (m_ToolBox_flg == true)
-	{
-		Draw::Draw(7, &src, &dst, c, 0.0f);
-	}
 	
 
 }

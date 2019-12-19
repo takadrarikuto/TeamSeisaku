@@ -59,8 +59,8 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
 	Audio::LoadAudio(4, L"ショットガン銃声.wav", EFFECT);
 	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
-	//6
-	//7
+	Audio::LoadAudio(6, L"ロケットランチャー.wav", EFFECT);
+	Audio::LoadAudio(7, L"レールガン.wav", EFFECT);
 	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
@@ -185,31 +185,31 @@ void CSceneStage::InitScene()
 	
 
 	//有刺鉄線(ミニ)オブジェクト作成 x=68 y=53
-	CObjBarbedWireSmall* BarbedS = new CObjBarbedWireSmall(200, 200);
-	//左内
-	for (int y = 120; y < 650; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(-25, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	}
-	//左外
-	for (int y = -30; y < 500; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(-425, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	}
-	//右内
-	for (int y = -30; y < 500; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(775, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	}
-	//右外
-	for (int y = 120; y < 650; y += 53)
-	{
-		BarbedS = new CObjBarbedWireSmall(1175, y);
-		Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	}
+	CObjBarbedWireSmall* BarbedS;
+	////左内
+	//for (int y = 120; y < 650; y += 53)
+	//{
+	//	BarbedS = new CObjBarbedWireSmall(-25, y);
+	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
+	//}
+	////左外
+	//for (int y = -30; y < 500; y += 53)
+	//{
+	//	BarbedS = new CObjBarbedWireSmall(-425, y);
+	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
+	//}
+	////右内
+	//for (int y = -30; y < 500; y += 53)
+	//{
+	//	BarbedS = new CObjBarbedWireSmall(775, y);
+	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
+	//}
+	////右外
+	//for (int y = 120; y < 650; y += 53)
+	//{
+	//	BarbedS = new CObjBarbedWireSmall(1175, y);
+	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
+	//}
 	//上
 	for (int x = 302; x < 504; x += 68)
 	{

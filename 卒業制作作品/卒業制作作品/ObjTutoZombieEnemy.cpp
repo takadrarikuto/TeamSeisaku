@@ -58,14 +58,6 @@ void CObjTutoZombieEnemy::Init()
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -295,136 +287,42 @@ void CObjTutoZombieEnemy::Action()
 		}
 	}
 
-	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	//if (hit->CheckElementHit(ELEMENT_FIELD) == true)
-	//{
-
-	//	HIT_DATA** hit_data;
-	//	hit_data = hit->SearchElementHit(ELEMENT_FIELD);
-
-	//	float r = 0;
-
-	//	for (int i = 0; i < 10; i++)
-	//	{
-	//		if (hit_data[i] != nullptr)
-	//		{
-	//			r = hit_data[i]->r;
-
-	//			//角度で上下左右を判定
-	//			if (r > 0 && r < 45 || r >= 315)
-	//			{
-	//				//右
-	//				m_hit_right = true;
-	//			}
-	//			else if (r >= 45 && r < 136)
-	//			{
-	//				//上
-	//				m_hit_up = true;
-	//			}
-	//			else if (r >= 135 && r <= 225)
-	//			{
-	//				//左
-	//				m_hit_left = true;
-	//			}
-	//			else if (r > 225 && r < 316)
-	//			{
-	//				//下
-	//				m_hit_down = true;
-	//			}
-
-
-	//			//左に当たり判定があった場合
-	//			if (m_hit_left == true)
-	//			{
-	//				m_vx = m_vx + SPEEDPOWER;
-	//			}
-
-	//			//右に当たり判定があった場合
-	//			if (m_hit_right == true)
-	//			{
-	//				m_vx = m_vx - SPEEDPOWER;
-	//			}
-
-	//			//下に当たり判定があった場合
-	//			if (m_hit_down == true)
-	//			{
-	//				m_vy = m_vy - SPEEDPOWER;
-	//			}
-
-	//			//上に当たり判定があった場合
-	//			if (m_hit_up == true)
-	//			{
-	//				m_vy = m_vy + SPEEDPOWER;
-	//			}
-
-	//			//主人公と敵の間に障害物があった場合
-	//			if ((m_hit_left == true || m_hit_right == true) && Input::GetVKey('W'))
-	//			{
-	//				m_posture = 2.0f;
-	//				m_vy = m_vy - SPEEDPOWER;
-	//			}
-	//			else if ((m_hit_left == true || m_hit_right == true) && Input::GetVKey('S'))
-	//			{
-	//				m_posture = 0.0f;
-	//				m_vy = m_vy + SPEEDPOWER;
-	//			}
-	//			else if ((m_hit_up == true || m_hit_down == true) && Input::GetVKey('A'))
-	//			{
-	//				m_posture = 3.0f;
-	//				m_vx = m_vx - SPEEDPOWER;
-	//			}
-	//			else if ((m_hit_up == true || m_hit_down == true) && Input::GetVKey('D'))
-	//			{
-	//				m_posture = 1.0f;
-	//				m_vx = m_vx + SPEEDPOWER;
-	//			}
-
-	//		}
-	//	}
-	//}
-
 	//敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
 	//ハンドガン
 	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
+		m_hero_hp -= Gun_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//ショットガン
 	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
+		m_hero_hp -= SHG_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//アサルトライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
+		m_hero_hp -= AR_Attack;
 		m_time_d = 30;		//点滅時間をセット
 	}
 	//スナイパーライフル
 	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-		m_time_d = 30;		//点滅時間をセット
+		m_hero_hp -= SR_Attack;
+		m_time_d = 5;		//点滅時間をセット
 	}
 	//ロケットランチャー
 	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-		m_time_d = 30;		//点滅時間をセット
+		m_hero_hp -= RL_Attack;
+		m_time_d = 5;		//点滅時間をセット
 	}
 	//レールガン
 	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//グレネード
-	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-		m_time_d = 30;		//点滅時間をセット
+		m_hero_hp -= RG_Attack;
+		m_time_d = 5;		//点滅時間をセット
 	}
 	//爆発
 	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)

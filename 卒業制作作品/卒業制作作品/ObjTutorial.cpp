@@ -14,9 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //チュートリアルONOFFフラグ
 extern bool Tuto_flg;
 
@@ -44,7 +41,7 @@ void CObjTutorial::Action()
 		if (m_key_flag == true)
 		{
 			m_andf = true;
-			Audio::Start(1);
+			Audio::Start(12);
 			m_key_flag = false;
 		}
 	}
@@ -115,7 +112,6 @@ void CObjTutorial::Draw()
 	}
 	else if (m_tuto_time < 1250 || m_tuto_time < 1500)
 	{
-	
 		Font::StrDraw(L"⑤.WASDキーで移動することができます。敵を倒してみましょう。", 100, 150, 20, blk);
 	}
 }

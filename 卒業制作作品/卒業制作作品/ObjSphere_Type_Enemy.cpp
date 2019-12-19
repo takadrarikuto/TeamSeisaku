@@ -68,12 +68,12 @@ void CObjSphere_Type_Enemy::Init()
 	//耐久力フラグがオンの時
 	if (En_flg == true)
 	{
-		((UserData*)Save::GetData())->EXP_Attack = 25; //爆発
+		m_EXPDameg_num  = 25; //爆発ダメージ
 	}
 	//体力フラグがオンの時
 	if (Hp_flg == true)
 	{
-		((UserData*)Save::GetData())->EXP_Attack = 50; //爆発
+		m_EXPDameg_num = 50; //爆発ダメージ
 	}
 
 	//描画サイズ
@@ -257,7 +257,7 @@ void CObjSphere_Type_Enemy::Action()
 	//レールガンオブジェクトと接触したら敵ダメージ
 	if (hit_st_e->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
+		m_hero_hp -= RG_Attack;
 	}
 
 	//爆発処理
@@ -265,7 +265,7 @@ void CObjSphere_Type_Enemy::Action()
 	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, m_EXPDameg_num);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 		Audio::Start(9);
 		this->SetStatus(false); //オブジェクト破棄
@@ -275,7 +275,7 @@ void CObjSphere_Type_Enemy::Action()
 	if (m_hero_hp < 0 || m_END_death_flg == true || m_END2_death_flg == true)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_st_ex - 64, m_st_ey - 64, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_st_ex - 64, m_st_ey - 64, m_exp_blood_dst_size, m_EXPDameg_num);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 		Audio::Start(9);
 		this->SetStatus(false); //オブジェクト破棄

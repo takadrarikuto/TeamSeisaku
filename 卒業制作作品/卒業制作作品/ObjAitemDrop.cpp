@@ -44,12 +44,17 @@ void CObjAitemDrop::Action()
 	//“GˆÊ’uŽæ“¾
 	CObjZombieEnemy* Zombie = (CObjZombieEnemy*)Objs::GetObj(OBJ_ENEMY); //ƒ]ƒ“ƒr
 	//CObjFire_Bird* Fire_Bird = (CObjFire_Bird*)Objs::GetObj(OBJ_FIRE_BIRD); //‰Î‚Ì’¹
-	//CObjFire_Lizard* Fire_Lizard = (CObjFire_Lizard*)Objs::GetObj(OBJ_FIRE_LIZARD); //‰ÎƒgƒJƒQ
+	CObjFire_Lizard* Fire_Lizard = (CObjFire_Lizard*)Objs::GetObj(OBJ_FIRE_LIZARD); //‰ÎƒgƒJƒQ
 	//CObjBat_Enemy* Bat = (CObjBat_Enemy*)Objs::GetObj(OBJ_BAT_ENEMY); //åžå•
 	if (Zombie != nullptr)
 	{
 		Z_X = Zombie->GetX();
 		Z_Y = Zombie->GetY();
+	}
+	if (Fire_Lizard != nullptr)
+	{
+		FL_X = Fire_Lizard->GetX();
+		FL_Y = Fire_Lizard->GetY();
 	}
 
 	if (m_Aitem_Drop_flg == true)

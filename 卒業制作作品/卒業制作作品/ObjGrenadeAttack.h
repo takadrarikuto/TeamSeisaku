@@ -21,4 +21,7 @@ private:
 	int Stop_max; //停止位置
 	int EXP_time; //爆破時間
 
+	int m_EXPDameg_num; //爆発ダメージ
+
+	bool m_HitBox_Delete; //HitBox削除フラグ
 };

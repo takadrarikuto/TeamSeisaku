@@ -3,6 +3,14 @@
 
 using namespace GameL;
 
+//武器別ダメージ
+#define Gun_Attack  10;  //ハンドガン
+#define SHG_Attack  30;  //ショットガン
+#define AR_Attack  20;   //アサルトライフル
+#define SR_Attack  50;   //スナイパーライフル
+#define RL_Attack  150;  //ロケットランチャー
+#define RG_Attack  200;  //レールガン
+
 class CObjBat_Enemy : public CObj, public CBaseStatus
 {
 public:
@@ -34,7 +42,7 @@ private:
 	bool m_LeftHit_flg;	 //左
 	bool m_RightHit_flg; //右
 
-						 //上下左右別
+	//上下左右別
 	int m_UDani_frame;	//描画フレーム
 	int m_LRani_frame;
 	bool m_ani_frame_flg; 	//描画フレーム切り替えフラグ

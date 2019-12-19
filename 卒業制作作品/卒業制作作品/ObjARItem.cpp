@@ -55,8 +55,21 @@ void CObjARItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		((UserData*)Save::GetData())->AR_Ammunition += 100; //アサルトライフル		
-		aitemfont->SetAitemNum(100); //弾数表示
+		if (((UserData*)Save::GetData())->choose == 0)
+		{
+			((UserData*)Save::GetData())->AR_load += 60; //アサルトライフル		
+			aitemfont->SetAitemNum(60); //弾数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 1)
+		{
+			((UserData*)Save::GetData())->AR_load += 40; //アサルトライフル		
+			aitemfont->SetAitemNum(40); //弾数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 2)
+		{
+			((UserData*)Save::GetData())->AR_load += 20; //アサルトライフル		
+			aitemfont->SetAitemNum(20); //弾数表示
+		}
 		aitemfont->SetAGF(2); //フォント表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
