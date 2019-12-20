@@ -75,7 +75,6 @@ void CObjTopback::Draw()
 		Eve_time = Event->GetEveIns();
 		EveMiss_flg = Event->GetEveMiss();
 	}
-	//bool EveSuccess_flg = eve->GetEveSuc();
 
 	//設置型アイテムオブジェクト
 	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
@@ -219,11 +218,14 @@ void CObjTopback::Draw()
 			if (evemiss_time > 200)
 			{
 				EveMiss_flg = false;
+				Event->SetEveMiss(EveMiss_flg);
+				evemiss_time = 0;
 			}
 		}
 		else
 		{
-			m_EveSuccess_flg = false;
+			EveMiss_flg = false;
+			evemiss_time = 0;
 		}
 	}
 
@@ -253,17 +255,17 @@ void CObjTopback::Draw()
 			if (evesuc_time > 200)
 			{
 				m_EveSuccess_flg = false;
+				m_EveSuccess_flg = false;
+				evesuc_time = 0;
 			}
 		}		
 		else
 		{
 			m_EveSuccess_flg = false;
+			evesuc_time = 0;
 		}
 	}
-	if (m_EveSuccess_flg == false)
-	{
-		evesuc_time = 0;
-	}
+	
 
 	//------------------------------------------------------------------
 

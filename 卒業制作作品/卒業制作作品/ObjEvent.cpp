@@ -97,7 +97,7 @@ void CObjEvent::Action()
 			//発電機イベント
 			if (Gen_flg == true)
 			{
-				m_Event_time = 1850; //1850 ＝ 30秒
+				m_Event_time = 50; //1850 ＝ 30秒
 			}
 			//敵無力化装置イベント
 			if (END_flg == true)
@@ -166,12 +166,9 @@ void CObjEvent::Action()
 			//イベントタイム関係
 			m_Event_time_flg = false;
 			TStop_flg = false;
-			TStart_flg = true;
-			m_App_Rand_Flg = 0;
+			TStart_flg = true;			
 			time->SetTStart(TStart_flg);
 			m_EveMiss_flg = true;
-			Aitem_Font = false;
-			Aitem_Font->SetTool_Box(Aitem_Font);
 		}
 
 		//イベントタイムペナルティ
@@ -198,6 +195,7 @@ void CObjEvent::Action()
 			{			
 				m_EventPenalty_Meme_flg = true; //イベントペナルティ(ミーム実態)フラグ
 			}
+			m_App_Rand_Flg = 0;
 		}
 	}
 

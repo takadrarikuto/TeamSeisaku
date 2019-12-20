@@ -629,7 +629,7 @@ void CObjZombieEnemy::Action()
 		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_ze_hp -= SHG_Attack;
-			m_time_d = 5;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
