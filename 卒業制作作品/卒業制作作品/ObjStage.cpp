@@ -75,12 +75,7 @@ void CObjStage::Action()
 		m_bx -= m_bvx;
 		m_by -= m_bvy;
 
-		//エネミー生成処理
 		m_Heal_Generation++; //回復アイテム生成頻度
-		//m_Bat_Enemy_Generation++; //蝙蝠生成頻度
-		//m_Frie_Lizard_Generation++; //火トカゲ敵生成頻度
-		//m_Frie_Bird_Generation++; //火の鳥敵生成頻度
-		//m_Sphere_Type_Enemy_Generation++; //球体型敵敵生成頻度
 
 		e_x = rand() % 192 + m_bx;
 		e_y = rand() % 64 + m_by;
@@ -115,6 +110,10 @@ void CObjStage::Action()
 void CObjStage::Draw()
 {
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+	//hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
+
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
 	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
 

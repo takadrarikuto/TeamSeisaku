@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
+#include "GameL\UserData.h"
 #include "GameL\Audio.h"
 
 #include "GameHead.h"
@@ -53,6 +54,11 @@ void CObjTutoHero::Init()
 	m_ga_vx_max = 5.0f;
 	m_ga_vy_max = 5.0f;
 
+	//足跡生成タイム
+	m_Footprint_time = 10;
+	//足跡生成フラグ
+	m_Footprint_flg = false;
+
 	//上下左右別当たり判定確認フラグ
 	m_UpHit_flg = false;    //上
 	m_DownHit_flg = false;	 //下
@@ -81,7 +87,6 @@ void CObjTutoHero::Init()
 	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)//5
 	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
 	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
-
 	//所持弾数(計算用)
 	m_sg_pb_c = 6;//ショットガン現在弾数用
 	m_ar_pb_c = 20;//アサルトライフル現在弾数用
@@ -114,7 +119,6 @@ void CObjTutoHero::Init()
 
 	//m_rel_time_hg = 0;
 
-
 	//------------------------------------------(未使用)
 	//最大所持弾数
 	m_sg_pb_num = 80; //ショットガン(70)
@@ -124,7 +128,6 @@ void CObjTutoHero::Init()
 	m_rg_pb_num = 1;//レールガン(1)
 	m_gre_pb_num = 3;//グレネード(3)
 	//------------------------------------------
-
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -141,6 +144,9 @@ void CObjTutoHero::Init()
 	m_speed_power = 0.5f;//通常速度
 
 	m_inputf = true;	// true = 入力可	false = 入力不可
+
+	//無敵時間
+	m_time_d = 0;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_TUTO_HERO, 8);
@@ -219,6 +225,30 @@ void CObjTutoHero::Action()
 			}
 		}
 
+		//足跡生成処理
+		if (m_Footprint_flg == true)
+		{
+			m_Footprint_time--; //足跡生成タイム減少
+								//足跡生成タイムが0以下になると足跡生成
+			if (m_Footprint_time <= 0)
+			{
+				//上下を向いていると縦向き
+				if (m_UDani_frame == 0 || m_UDani_frame == 4)
+				{
+					CObjFootprint* Foot = new CObjFootprint(m_x + 20, m_y + 20, 0.0f);
+					Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
+				}
+				//左右を向いていると横向き
+				else if (m_UDani_frame == 6 || m_UDani_frame == 2)
+				{
+					CObjFootprint* Foot = new CObjFootprint(m_x + 20, m_y + 20, 90.0f);
+					Objs::InsertObj(Foot, OBJ_FOOTPRINT, 2);
+				}
+
+				m_Footprint_time = 10; //足跡生成タイム初期化
+			}
+		}
+
 		//アニメーション処理
 		if (m_ani_time > 6)
 		{
@@ -238,106 +268,6 @@ void CObjTutoHero::Action()
 		//HitBoxの内容を更新
 		CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
 		hit_h->SetPos(m_x, m_y); //当たり判定の位置更新
-
-		//設置物オブジェクト情報作成
-		/*CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-		float GenX = Gen->GetGenX();
-		float GenY = Gen->GetGenY();
-		float GenHitX = Gen->GetGenHitX();
-		float GenHitY = Gen->GetGenHitY();
-		CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-		float EndX = End->GetEndX();
-		float EndY = End->GetEndY();
-		float EndHitX = End->GetEndHitX();
-		float EndHitY = End->GetEndHitY();*/
-
-		//上下左右別当たり判定確認フラグ常時初期化
-		m_UpHit_flg = false;    //上
-		m_DownHit_flg = false;	 //下
-		m_LeftHit_flg = false;	 //左
-		m_RightHit_flg = false; //右
-
-		//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-		/*if (hit_h->CheckElementHit(ELEMENT_FIELD) == true)
-		{
-			//主人公と障害物がどの角度で当たっているか調べる
-			HIT_DATA** hit_data;
-			hit_data = hit_h->SearchElementHit(ELEMENT_FIELD);
-			float r = hit_data[0]->r;
-			if (hit_data != nullptr)
-			{
-				//角度で上下左右を判定
-				if ((r > 0 && r < 45) || r >= 315)
-				{
-					m_RightHit_flg = true; //右
-				}
-				else if (r >= 45 && r < 136)
-				{
-					m_UpHit_flg = true;    //上
-				}
-				else if (r >= 135 && r <= 225)
-				{
-					m_LeftHit_flg = true;	 //左
-				}
-				else if (r > 225 && r < 316)
-				{
-					m_DownHit_flg = true;	 //下
-				}
-			}
-			//当たり判定処理
-			if (m_LeftHit_flg == true)//左に当たり判定があった場合
-			{
-				//発電機
-				if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
-				{
-					m_x = GenX + GenHitX;
-				}
-				//敵無力化装置
-				else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-				{
-					m_x = EndX + EndHitX;
-				}
-			}
-			else if (m_RightHit_flg == true)//右に当たり判定があった場合
-			{
-				//発電機
-				if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
-				{
-					m_x = GenX - m_dst_size;
-				}
-				//敵無力化装置
-				else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-				{
-					m_x = EndX - m_dst_size;
-				}
-			}
-			else if (m_DownHit_flg == true)//下に当たり判定があった場合
-			{
-				//発電機
-				if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
-				{
-					m_y = GenY - m_dst_size;
-				}
-				//敵無力化装置
-				else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-				{
-					m_y = EndY - m_dst_size;
-				}
-			}
-			else if (m_UpHit_flg == true)//上に当たり判定があった場合
-			{
-				//発電機
-				if (hit_h->CheckObjNameHit(OBJ_APPARATUS) != nullptr)
-				{
-					m_y = GenY + GenHitY;
-				}
-				//敵無力化装置
-				else if (hit_h->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr)
-				{
-					m_y = EndY + EndHitY;
-				}
-			}
-		}*/
 
 		//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 		if (hit_h->CheckElementHit(ELEMENT_WALL) == true)
@@ -369,43 +299,6 @@ void CObjTutoHero::Action()
 					}
 				}
 			}
-
-			/*if (r > 0 && r < 45 || r >= 315)
-			{
-			m_LightHit_flg = true; //右
-			}
-			else if (r >= 45 && r < 136)
-			{
-			m_UpHit_flg = true;    //上
-			}
-			else if (r >= 135 && r <= 225)
-			{
-			m_LeftHit_flg = true;	 //左
-			}
-			else if (r > 225 && r < 316)
-			{
-			m_DownHit_flg = true;	 //下
-			}
-
-			if (hit_h->CheckObjNameHit(OBJ_WALL) != nullptr)
-			{
-			if (m_LeftHit_flg == true)//左に当たり判定があった場合
-			{
-			m_x = GenX + 100;
-			}
-			else if (m_LightHit_flg == true)//右に当たり判定があった場合
-			{
-			m_x = GenX - m_dst_size;
-			}
-			else if (m_DownHit_flg == true)//下に当たり判定があった場合
-			{
-			m_y = GenY - m_dst_size;
-			}
-			else if (m_UpHit_flg == true)//上に当たり判定があった場合
-			{
-			m_y = GenY + 40;
-			}
-			}*/
 		}
 
 		//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
@@ -450,6 +343,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching = 5;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 			else if (m_Weapon_switching > 0)
@@ -459,6 +353,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching -= 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 		}
@@ -471,6 +366,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching = 0;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 			else if (m_Weapon_switching < 5)
@@ -480,6 +376,7 @@ void CObjTutoHero::Action()
 					m_Weapon_switching += 1;
 					m_Weapon_switching_flg = false;
 					m_bt = 0; //攻撃頻度初期化
+					Audio::Start(1);
 				}
 			}
 		}
@@ -541,7 +438,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_hg_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//ハンドガンアタックオブジェクト作成
@@ -586,48 +483,48 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_sg_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max, -m_ga_vy_max, 150.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max / 3, -m_ga_vy_max, 150.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max, -m_ga_vy_max, 210.0f);
+						obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max / 3, -m_ga_vy_max, 210.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max, 60.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max / 3, 60.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max, 120.0f);
+						obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max / 3, 120.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max, m_ga_vy_max, -30.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max / 3, m_ga_vy_max, -30.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 0.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max, m_ga_vy_max, 30.0f);
+						obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max / 3, m_ga_vy_max, 30.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//ショットガンアタックオブジェクト作成
-						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max, 240.0f);
+						CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max / 3, 240.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
-						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max, 300.0f);
+						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max / 3, 300.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
 					//Attack_flg = true; //Attackフラグtrue
@@ -646,7 +543,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_ar_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//アサルトアタックオブジェクト作成
@@ -689,7 +586,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_sr_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//スナイパーアタックオブジェクト作成
@@ -733,7 +630,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_rl_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//ロケットランチャーアタックオブジェクト作成
@@ -776,7 +673,7 @@ void CObjTutoHero::Action()
 				if (m_bt == 1)
 				{
 					m_rg_pb -= 1;//弾数を1減らす
-								 //上
+					//上
 					if (m_UDani_frame == 0)
 					{
 						//レールガンアタックオブジェクト作成
@@ -884,19 +781,6 @@ void CObjTutoHero::Action()
 						m_sg_pb_me = 0; //全体初期弾数を0にする
 					}
 
-					//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-					/*if (m_sg_pb_me <= 0)
-					{
-					//計算後 = 打った数 + 全体初期弾数
-					m_sg_pb = m_sg_pb_cc + m_sg_pb_me;
-					m_sg_pb_me = 0;
-					}
-					else
-					{
-					//計算後 = 現在残り弾数 + 打った数
-					m_sg_pb = m_sg_pb + m_sg_pb_cc;
-					}*/
-
 					//計算後 = 現在残り弾数 + 打った数
 					m_sg_pb = m_sg_pb + m_sg_pb_cc;
 					Audio::Start(13);
@@ -927,18 +811,6 @@ void CObjTutoHero::Action()
 						m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
 						m_ar_pb_me = 0; //全体初期弾数を0にする
 					}
-					//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-					/*if (m_ar_pb_me <= 0)
-					{
-					//計算後 = 打った数 + 全体初期弾数
-					m_ar_pb = m_ar_pb_cc + m_ar_pb_me;
-					m_ar_pb_me = 0;
-					}
-					else
-					{
-					//計算後 = 現在残り弾数 + 打った数
-					m_ar_pb = m_ar_pb + m_ar_pb_cc;
-					}*/
 
 					//計算後 = 現在残り弾数 + 打った数
 					m_ar_pb = m_ar_pb + m_ar_pb_cc;
@@ -970,18 +842,6 @@ void CObjTutoHero::Action()
 						m_sr_pb_cc = m_sr_pb_me; //打った数と全体初期弾数を合わせる
 						m_sr_pb_me = 0; //全体初期弾数を0にする
 					}
-					//計算2の数値が0以下になる場合マイナスを表示させない(弾数0でしかリロードさせないようにしたためコメント)
-					/*if (m_sr_pb_me <= 0)
-					{
-					//計算後 = 打った数 + 全体初期弾数
-					m_sr_pb = m_sr_pb_cc + m_sr_pb_me;
-					m_sr_pb_me = 0;
-					}
-					else
-					{
-					//計算後 = 現在残り弾数 + 打った数
-					m_sr_pb = m_sr_pb + m_sr_pb_cc;
-					}*/
 
 					//計算後 = 現在残り弾数 + 打った数
 					m_sr_pb = m_sr_pb + m_sr_pb_cc;
@@ -1065,167 +925,6 @@ void CObjTutoHero::Action()
 			m_rl_pb_cc = 0;
 			m_rg_pb_cc = 0;
 		}
-
-		//設置物オブジェクト情報作成
-		/*CObjGenerator* Gen = (CObjGenerator*)Objs::GetObj(OBJ_APPARATUS);
-		float GenX = Gen->GetGenX();
-		float GenY = Gen->GetGenY();
-		float GenHitX = Gen->GetGenHitX();
-		float GenHitY = Gen->GetGenHitY();
-		CObjEnemy_Neutralization_Device* End = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-		float EndX = End->GetEndX();
-		float EndY = End->GetEndY();
-		float EndHitX = End->GetEndHitX();
-		float EndHitY = End->GetEndHitY();*/
-
-		//HitBoxの内容を更新
-		//CHitBox* hit_h = Hits::GetHitBox(this); //当たり判定情報取得
-
-		//当たり判定を行うオブジェクト情報群
-		int data_base[3] =
-		{
-			ELEMENT_ENEMY,ELEMENT_MAGIC,
-		};
-		//オブジェクト情報群と当たり判定行い。当たっていればノックバック
-		for (int i = 0; i < 3; i++)
-		{
-			if (hit_h->CheckElementHit(data_base[i]) == true)
-			{
-				HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
-				hit_data = hit_h->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-				float r = 0;
-				for (int j = 0; j < 10; j++) {
-					if (hit_data[j] != nullptr) {
-						r = hit_data[j]->r;
-					}
-				}
-				//角度で上下左右を判定
-				//if ((r < 45 && r >= 0) || r > 315)
-				//if (r > 90 && r < 270)
-				//{
-				//	m_vy = -5;		//右
-				//	m_vx += 6;
-				//}
-				//else
-				//{
-				//	m_vy = -5;		//左
-				//	m_vx -= 6;
-				//}
-
-				//Audio::Start(3);	//ダメージ音	
-				hit_h->SetInvincibility(true);	//無敵オン
-
-				if (hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr)
-				{
-					//m_hero_hp -= 5;
-					m_time_d = 80;		//無敵時間をセット
-				}
-				else if (hit_h->CheckObjNameHit(OBJ_BOSS) != nullptr)
-				{
-					//m_hero_hp -= 2;
-					m_time_d = 30;		//無敵時間をセット
-				}
-				else if (hit_h->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-				{
-					CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
-					int EXPDamage = EXPAttack->GetEXP();
-					//m_hero_hp -= EXPDamage;
-					m_time_d = 80;		//無敵時間をセット
-				}
-				//敵の攻撃によってHPが0以下になった場合
-				if (m_hero_hp <= 0)
-					m_hero_hp = 0;	//HPを0にする					
-			}
-		}
-
-		if (m_hero_hp <= 0 && m_blood_flg == false)
-		{
-			hit_h->SetInvincibility(true);	//無敵にする
-			Dead_flg = true;
-			m_eff_flag = true;			//画像切り替え用フラグ
-			m_speed_power = 0.0f;			//動きを止める	
-			m_blood_flg = true; //血しぶき表示停止フラグ
-			//血しぶきオブジェクト作成
-			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
-			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
-		}
-
-		if (m_del == true)
-		{
-			hit_h->SetInvincibility(true);	//無敵にする
-			m_eff_flag = true;			//画像切り替え用フラグ
-			//m_speed_power = 0.0f;			//動きを止める
-
-		}
-
-		if (m_time_d > 0)
-		{
-			m_time_d--;
-			if (m_time_d <= 0)
-			{
-				m_time_d = 0;
-				hit_h->SetInvincibility(false);	//無敵オフ
-			}
-		}
-
-		if (m_time_dead > 0)
-		{
-			m_time_dead--;
-			if (m_time_dead <= 0)
-			{
-				Scene::SetScene(new CSceneOver());
-				m_time_dead = 0;
-				Dead_flg = false;
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
-			}
-		}
-
-		////敵機・敵弾・トラップ系オブジェクトと接触したら主人公機無敵時間開始
-		//if ((hit_h->CheckObjNameHit(OBJ_ENEMY) != nullptr || hit_h->CheckObjNameHit(OBJ_ENEMYBULLET) != nullptr
-		//	|| hit_h->CheckObjNameHit(OBJ_BOMB) != nullptr)
-		//	&& hp != 0 && m_ht == 0)
-		//{
-		//	m_hf = true;
-		//	hp -= 1;
-		//}
-		////敵機オブジェクトor敵弾オブジェクトと3回接触したら主人公機削除
-		//else if (hp == 0)
-		//{
-		//	//爆発オブジェクト作成
-		//	CObjExplosion* obj_exp = new CObjExplosion(m_x - 16, m_y - 16, m_exp_dst_size);
-		//	Objs::InsertObj(obj_exp, OBJ_EXPLOSION, 2);
-
-		//	Exp_flg = true; //Explosionフラグtrue
-		//	GameOver_flg = true; //ゲームオーバーフラグtrue
-
-		//	this->SetStatus(false); //自身の削除命令を出す
-		//	Hits::DeleteHitBox(this); //主人公機が所有するHitBoxを削除する		
-		//}
-
-		//HP増減処理
-		//if (hit_h->CheckObjNameHit(OBJ_ITEM) != nullptr)
-		//{
-		//	hp += 1;
-		//}
-		////体力増加限界設定
-		////難易度によって体力増加限界を変更
-		//if (Difficult_flg == true && hp > 3)
-		//{
-		//	hp = 3;
-		//	//ポイントを獲得
-		//}
-		//else if (Usually_flg == true && hp > 5)
-		//{
-		//	hp = 5;
-		//	//ポイントを獲得
-		//}
-		//else if (hp > 10)
-		//{
-		//	hp = 10;
-		//	//ポイントを獲得
-		//}
 	}
 
 }

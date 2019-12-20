@@ -8,6 +8,9 @@
 //使用するネームスペース
 using namespace GameL;
 
+//メニューONOFFフラグ
+extern bool Menu_flg;
+
 //コンストラクタ
 CObjFootprint::CObjFootprint(float x, float y,float r)
 {
@@ -32,9 +35,6 @@ void CObjFootprint::Init()
 	m_HitBox_x = 24; //x当たり判定サイズ
 	m_HitBox_y = 24; // 当たり判定サイズ
 
-	//当たり判定用HitBoxを作成
-	/*Hits::SetHitBox(this, m_Fx, m_Fy, m_HitBox_x, m_HitBox_y, ELEMENT_WHITE, OBJ_FOOTPRINT, 8);*/
-
 }
 
 //アクション
@@ -45,16 +45,16 @@ void CObjFootprint::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
-	//オブジェクト削除
-	m_Delete_time--;
+	//メニューを開くと行動停止
+	if (Menu_flg == false)
+	{
+		//オブジェクト削除
+		m_Delete_time--;
+	}
 
 	//主人公の移動に合わせる
 	m_Fx -= hvx;
 	m_Fy -= hvy;
-
-	//HitBoxの内容を更新 
-	//CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
-	//hit_exp->SetPos(m_Fx, m_Fy); //当たり判定の位置更新
 
 	////描画フレームが5になるとSE発生
 	//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
@@ -63,7 +63,6 @@ void CObjFootprint::Action()
 		m_Delete_time = 300;
 
 		this->SetStatus(false); //オブジェクト破棄
-		//Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}
 
 }

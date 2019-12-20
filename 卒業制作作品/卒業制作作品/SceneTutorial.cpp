@@ -63,7 +63,7 @@ void CSceneTutorial::InitScene()
 
 	//チュートリアルオブジェクト作成
 	CObjTutorial* tuto = new CObjTutorial();
-	Objs::InsertObj(tuto, OBJ_TUTORIAL, 13);
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 20);
 
 	//主人公機オブジェクト作成(チュートリアル用)
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
@@ -103,14 +103,18 @@ void CSceneTutorial::InitScene()
 	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
 	Audio::LoadAudio(4, L"ショットガン銃声.wav", EFFECT);
 	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
-	//6
-	//7
-	//8
+	Audio::LoadAudio(6, L"ロケットランチャー.wav", EFFECT);
+	Audio::LoadAudio(7, L"レールガン.wav", EFFECT);
+	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
 	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
 	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
+	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
+	Audio::LoadAudio(12, L"アイテム獲得音.wav", EFFECT);
 	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
 	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
+	Audio::LoadAudio(18, L"成功音.wav", EFFECT);//チュートリアル用
+
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.1);
 	Audio::Start(0);    //音楽スタート
@@ -145,7 +149,6 @@ void CSceneTutorial::Scene()
 		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
 
 		Tuto_flg = true;
+		Audio::Start(11);
 	}
-
-	
 }

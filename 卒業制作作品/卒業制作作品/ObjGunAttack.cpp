@@ -38,6 +38,9 @@ void CObjGunAttack::Init()
 	//当たり判定サイズ
 	Hitbox_size = 10;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_gax, m_gay, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_GUNATTACK, 2);
 }
@@ -45,21 +48,13 @@ void CObjGunAttack::Init()
 //アクション
 void CObjGunAttack::Action()
 {
-	//メニューを開くと停止
+	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
-	//位置更新
-	m_gax += m_gavx;
-	m_gay += m_gavy;
+		//位置更新
+		m_gax += m_gavx;
+		m_gay += m_gavy;
 	}
-
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}
-	
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -76,23 +71,19 @@ void CObjGunAttack::Action()
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_gax < hx - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_gax > hx + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		if (m_gay < hy - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_gay > hy + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	
@@ -108,8 +99,7 @@ void CObjGunAttack::Action()
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	//壁オブジェクトと接触するとオブジェクト破棄
@@ -117,8 +107,7 @@ void CObjGunAttack::Action()
 		|| hit_ga->CheckElementHit(ELEMENT_NET_S) == true || hit_ga->CheckElementHit(ELEMENT_NET_V) == true
 		|| hit_ga->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		m_HitBox_Delete = true;
 	}
 	//フィールドエレメントと接触すると削除
 	if (hit_ga->CheckElementHit(ELEMENT_FIELD) == true || hit_ga->CheckElementHit(ELEMENT_FIELD2) == true)
@@ -133,9 +122,17 @@ void CObjGunAttack::Action()
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

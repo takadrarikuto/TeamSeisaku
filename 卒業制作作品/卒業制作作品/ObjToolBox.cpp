@@ -55,8 +55,8 @@ void CObjToolBox::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		aitemfont->SetAGF(9); //フォント表示
-		aitemfont->SetToolBox(true); //画像表示
 		Audio::Start(12); //効果音再生
+
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //工具箱が所有するHitBoxを削除する
 	}

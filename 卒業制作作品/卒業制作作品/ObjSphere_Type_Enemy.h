@@ -3,6 +3,9 @@
 
 using namespace GameL;
 
+//武器別ダメージ
+#define RG_Attack  200;  //レールガン
+
 class CObjSphere_Type_Enemy : public CObj, public CBaseStatus
 {
 public:
@@ -37,5 +40,5 @@ private:
 	int m_at; //攻撃頻度
 	int m_at_max; //攻撃頻度最大値
 
-	
+	int m_EXPDameg_num; //爆発ダメージ
 };

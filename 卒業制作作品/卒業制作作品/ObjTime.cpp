@@ -30,9 +30,8 @@ void CObjTime::Init()
 	 //イベントランダム変数
 	m_Event_Rand_num = 0;
 	//イベント開始時間
-	m_time_event = 9050;
+	m_time_event = ((UserData*)Save::GetData())->Event_Time;
 
-	m_flag_time = true;
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
 
@@ -49,6 +48,7 @@ void CObjTime::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	bool Time_Pena = Event->GetEveTimPena();
+	int Eve_Ins = Event->GetEveIns();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
@@ -67,36 +67,37 @@ void CObjTime::Action()
 	//イベント開始、計測停止処理
 	if (m_time == m_time_event && m_time > 50)
 	{		
-		m_Event_Rand_num = rand() % 100;
-		//イベントランダム選択処理
-		//発電機イベント
-		if (m_Event_Rand_num > 0/*< 50*/)
+		if (m_Stop_flg == false)
 		{
-			m_Gen_flg = true;			
-		}
-		//敵無力化イベント
-		/*else if (m_Event_Rand_num>= 0)
-		{
-			m_END_flg = true;
-		}
-		//ミーム実態無力化イベント
-		/*if (m_Event_Rand_num >= 0)
-		{
-			m_MND_flg = true;
-		}*/
-		//修理イベント
-		/*if (m_Event_Rand_num >= 0)
-		{
-			m_Repairing_flg = true;			
-		}*/
-		m_Stop_flg = true;
+			m_Event_Rand_num = rand() % 100;
+			//イベントランダム選択処理
+			////発電機イベント
+			//if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100/*50*/)
+			//{
+			//	m_Gen_flg = true;
+			//}
+			////敵無力化イベント
+			//if (m_Event_Rand_num > 50 && m_Event_Rand_num <= 65)
+			//{
+			//	m_END_flg = true;
+			//}
+			////ミーム実態無力化イベント
+			//if (m_Event_Rand_num > 65 && m_Event_Rand_num <= 80)
+			//{
+			//	m_MND_flg = true;
+			//}
+			//修理イベント
+			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100)
+			{
+				m_Repairing_flg = true;
+			}
+			m_Stop_flg = true;
+		}		
 	}
 	//タイム再スタート処理
 	if (m_Start_flg == true)
 	{		
 		//初期化処理
-		//タイム増加ペナルティ
-		//m_time_Increase = 0;
 		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;

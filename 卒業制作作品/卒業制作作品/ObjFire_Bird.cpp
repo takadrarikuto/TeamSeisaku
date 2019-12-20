@@ -17,6 +17,12 @@ extern bool Menu_flg;
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
+//HP ONOFFフラグ
+extern bool Hp_flg;
+
+//耐久力ONOFFフラグ
+extern bool En_flg;
+
 //コンストラクタ
 CObjFire_Bird::CObjFire_Bird(float fbx, float fby)
 {
@@ -65,7 +71,16 @@ void CObjFire_Bird::Init()
 	m_fb_Flashing_flg = false; //点滅フラグ
 
 	//ダメージ
-	((UserData*)Save::GetData())->EXP_Attack; //爆発
+	//耐久力フラグがオンの時
+	if (En_flg == true)
+	{
+		m_EXPDameg_num = 25; //爆発ダメージ
+	}
+	//体力フラグがオンの時
+	if (Hp_flg == true)
+	{
+		m_EXPDameg_num = 50; //爆発ダメージ
+	}
 
 	//描画サイズ
 	m_dst_size = 96.0f;
@@ -101,11 +116,15 @@ void CObjFire_Bird::Action()
 	//ボス
 	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//死亡タイム更新
 		m_fb_death_time++;
@@ -291,15 +310,17 @@ void CObjFire_Bird::Action()
 		{
 			m_fb_Flashing_time = 0;
 		}
+		if (m_fb_Flashing_time == 40)
+		{
+			Audio::Start(21);
+		}
 	}
 	if (m_hero_hp <= 0)
 	{
-		AitemDrop->SetAitemDrop(true);
-		AitemDrop->SetFire_BirdDrop(true);
 		boss->SetFBR(1);
 
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, ((UserData*)Save::GetData())->EXP_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_fbx, m_fby, m_exp_blood_dst_size, m_EXPDameg_num);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 		Audio::Start(9);
 		m_fb_death_time = 0; //死亡タイム初期化
