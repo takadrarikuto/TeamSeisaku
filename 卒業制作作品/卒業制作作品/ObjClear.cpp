@@ -66,14 +66,15 @@ void CObjClear::Draw()
 	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
 	float a[4] = { 1.0f,1.0f,1.0f,0.5f };
 
+	//背景用
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
 
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 800.0f;
-	src.m_bottom = 600.0f;
+	src.m_right = 1920.0f;
+	src.m_bottom = 1080.0f;
 
 	//表示位置の設定
 	dst.m_top = 0.0f;
@@ -84,9 +85,32 @@ void CObjClear::Draw()
 	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
 	Draw::Draw(4, &src, &dst, c, 0.0f);
 
+	//ロゴ用
+	RECT_F src_rogo;//描写元切り取り位置
+	RECT_F dst_rogo;//描写先表示位置
+
+	//切り取り位置の設定
+	src_rogo.m_top = 120.0f;
+	src_rogo.m_left = 60.0f;
+	src_rogo.m_right = 560.0f;
+	src_rogo.m_bottom = 320.0f;
+
+	//表示位置の設定
+	dst_rogo.m_top = 230.0f;
+	dst_rogo.m_left = 570.0f;
+	dst_rogo.m_right = 700.0f;
+	dst_rogo.m_bottom = 310.0f;
+
+	//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
+	Draw::Draw(5, &src_rogo, &dst_rogo, c, 0.0f);
+
 	float p[4] = { 1,1,1,1 };
 
-	Font::StrDraw(L"ゲームクリア", 350, 190, 60, y);
+	Font::StrDraw(L"ゲームクリア", 220, 50, 60, y);
 
-	Font::StrDraw(L"◆次へ", 450, 350, 40, b);
+	Font::StrDraw(L"あなたは生き残ることができました", 70, 150, 40, y);
+
+	Font::StrDraw(L"これから装置を起動しに行きます", 100, 350, 40, y);
+
+	Font::StrDraw(L"◆次へ", 20, 550, 40, b);
 }

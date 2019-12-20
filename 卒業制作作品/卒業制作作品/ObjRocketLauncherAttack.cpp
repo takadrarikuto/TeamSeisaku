@@ -49,16 +49,19 @@ void CObjRocketLauncherAttack::Init()
 	//耐久力フラグがオンの時
 	if (En_flg == true)
 	{
-		((UserData*)Save::GetData())->RL_Attack = 75; //爆発
+		m_EXPDameg_num = 75; //爆発ダメージ
 	}
 	//体力フラグがオンの時
 	if (Hp_flg == true)
 	{
-		((UserData*)Save::GetData())->RL_Attack = 150; //爆発
+		m_EXPDameg_num = 150; //爆発ダメージ
 	}
 
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 320.0f;
+
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
 
 	if (m_RLr == 0 || m_RLr == 180)
 	{
@@ -71,7 +74,6 @@ void CObjRocketLauncherAttack::Init()
 		Hits::SetHitBox(this, m_RLx, m_RLy, 70, 32, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 	}
 	
-
 }
 
 //アクション
@@ -125,38 +127,38 @@ void CObjRocketLauncherAttack::Action()
 		if (m_RLx < hx - 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 		else if (m_RLx > hx + 32 + 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 		if (m_RLy < hy - 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 		else if (m_RLy > hy + 32 + 64 * m_Distance_max)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 	}
 
@@ -172,11 +174,11 @@ void CObjRocketLauncherAttack::Action()
 		else
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
 	}	
 	//壁オブジェクトと接触するとオブジェクト破棄
@@ -185,11 +187,11 @@ void CObjRocketLauncherAttack::Action()
 		|| hit_rl->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		//爆発オブジェクト作成
-		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+		CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, m_EXPDameg_num);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 		Audio::Start(9);
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = true;
 	}
 	//フィールドエレメントと接触すると削除
 	if (hit_rl->CheckElementHit(ELEMENT_FIELD) == true || hit_rl->CheckElementHit(ELEMENT_FIELD2) == true)
@@ -205,12 +207,22 @@ void CObjRocketLauncherAttack::Action()
 		else
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, ((UserData*)Save::GetData())->RL_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 140, m_RLy - 140, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 			Audio::Start(9);
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+			m_HitBox_Delete = true;
 		}
+	}
+
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

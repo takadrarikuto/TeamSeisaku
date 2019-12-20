@@ -22,4 +22,6 @@ class CObjGunAttack :public CObj, public CBaseStatus
 		float m_gar; //画像角度調整
 
 		int m_Distance_max; //削除距離最大値
+
+		bool m_HitBox_Delete; //HitBox削除フラグ
 };

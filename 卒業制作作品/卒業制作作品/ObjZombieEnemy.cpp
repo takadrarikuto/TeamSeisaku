@@ -40,7 +40,7 @@ void CObjZombieEnemy::Init()
 	m_zevy = 0.0f;
 
 	//体力
-	m_hero_hp = 50;
+	m_ze_hp = 50; 
 
 	//移動ベクトル最大値
 	m_zev_max = 0.0f;
@@ -63,15 +63,6 @@ void CObjZombieEnemy::Init()
 	m_at = 0;
 	//攻撃頻度最大値
 	m_at_max = 5;
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
-	((UserData*)Save::GetData())->BarbedWireSmall_Attack;
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -624,229 +615,6 @@ void CObjZombieEnemy::Action()
 		m_LeftHit_flg = false;	 //左
 		m_RightHit_flg = false; //右
 	}
-	////当たり判定を行うオブジェクト情報群
-	//int data_base[4] =
-	//{
-	//	ELEMENT_FIELD,ELEMENT_FIELD2,ELEMENT_NET_S,ELEMENT_NET_V,
-	//};
-	////オブジェクト情報群と当たり判定行い。当たっていればノックバック
-	//for (int i = 0; i < 3; i++)
-	//{
-	//	if (hit_ze->CheckElementHit(data_base[i]) == true)
-	//	{
-	//		HIT_DATA** hit_data;							//当たった時の細かな情報を入れるための構造体
-	//		hit_data = hit_ze->SearchElementHit(data_base[i]);	//hit_dateに主人公と当たっている他全てのHitBoxとの情報を入れる
-
-	//		float r = 0;
-	//		for (int j = 0; j < 10; j++) 
-	//		{
-	//			if (hit_data[j] != nullptr) 
-	//			{
-	//				r = hit_data[j]->r;
-	//				//角度で上下左右を判定
-	//				if ((r > 0 && r < 30) || r >= 330)
-	//				{
-	//					m_RightHit_flg = true; //右
-	//					m_zevx = -m_zev_max;
-	//				}
-	//				else if (r >= 30 && r < 150)
-	//				{
-	//					m_UpHit_flg = true;    //上
-	//					m_zevy = m_zev_max;
-	//				}
-	//				else if (r >= 150 && r <= 210)
-	//				{
-	//					m_LeftHit_flg = true;	 //左
-	//					m_zevx = m_zev_max;
-	//				}
-	//				else if (r > 210 && r < 330)
-	//				{
-	//					m_DownHit_flg = true;	 //下
-	//					m_zevy = -m_zev_max;
-	//				}									
-	//			}
-	//		}				
-	//	}		
-	//}
-	////敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	//if (hit_ze->CheckObjNameHit(OBJ_GENERATOR) != nullptr || hit_ze->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
-	//	|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE) != nullptr 
-	//	|| hit_ze->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
-	//{
-	//	HIT_DATA** hit_data;
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR);
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_GENERATOR2);
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
-
-	//	for (int j = 0; j < 10; j++)
-	//	{
-	//		if (hit_data[j] != nullptr)
-	//		{
-	//			float r = hit_data[j]->r;
-	//			//角度で上下左右を判定
-	//			if ((r > 0 && r < 30) || r >= 330)
-	//			{
-	//				m_RightHit_flg = true; //右
-	//				m_zevx = -m_zev_max;
-	//			}
-	//			else if (r >= 30 && r < 150)
-	//			{
-	//				m_UpHit_flg = true;    //上
-	//				m_zevy = m_zev_max;
-	//			}
-	//			else if (r >= 150 && r <= 210)
-	//			{
-	//				m_LeftHit_flg = true;	 //左
-	//				m_zevx = m_zev_max;
-	//			}
-	//			else if (r > 210 && r < 330)
-	//			{
-	//				m_DownHit_flg = true;	 //下
-	//				m_zevy = -m_zev_max;
-	//			}
-	//		}			
-	//	}		
-	//}
-	////ミーム
-	//if (hit_ze->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
-	//{
-	//	HIT_DATA** hit_data;
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE);
-
-	//	for (int j = 0; j < 10; j++)
-	//	{
-	//		if (hit_data[j] != nullptr)
-	//		{
-	//			float r = hit_data[j]->r;
-	//			//角度で上下左右を判定
-	//			if ((r > 0 && r < 45) || r >= 315)
-	//			{
-	//				m_RightHit_flg = true; //右
-	//				m_zevx = -m_zev_max;
-	//			}
-	//			else if (r >= 45 && r < 135)
-	//			{
-	//				m_UpHit_flg = true;    //上
-	//				m_zevy = m_zev_max;
-	//			}
-	//			else if (r >= 135 && r <= 225)
-	//			{
-	//				m_LeftHit_flg = true;	 //左
-	//				m_zevx = m_zev_max;
-	//			}
-	//			else if (r > 225 && r < 315)
-	//			{
-	//				m_DownHit_flg = true;	 //下
-	//				m_zevy = -m_zev_max;
-	//			}
-	//		}
-	//	}		
-	//}
-	////ネット(縦)
-	//if (hit_ze->CheckObjNameHit(OBJ_NET_V) != nullptr)
-	//{
-	//	HIT_DATA** hit_data;
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_NET_V);
-
-	//	for (int i = 0; i < hit_ze->GetCount(); i++)
-	//	{
-	//		if (hit_data[i] != nullptr)
-	//		{
-	//			float r = hit_data[i]->r;
-	//			//角度で上下左右を判定
-	//			if ((r > 0 && r < 25) || r >= 335)
-	//			{
-	//				m_RightHit_flg = true; //右
-	//				m_zevx = -m_zev_max;
-	//			}
-	//			else if (r >= 25 && r < 155)
-	//			{
-	//				m_UpHit_flg = true;    //上
-	//				m_zevy = m_zev_max;
-	//			}
-	//			else if (r >= 155 && r <= 205)
-	//			{
-	//				m_LeftHit_flg = true;	 //左
-	//				m_zevx = m_zev_max;
-	//			}
-	//			else if (r > 205 && r < 335)
-	//			{
-	//				m_DownHit_flg = true;	 //下
-	//				m_zevy = -m_zev_max;
-	//			}
-	//		}							
-	//	}		
-	//}
-	////ネット(横)
-	//if (hit_ze->CheckObjNameHit(OBJ_NET) != nullptr)
-	//{
-	//	HIT_DATA** hit_data;
-	//	hit_data = hit_ze->SearchObjNameHit(OBJ_NET);
-	//	for (int i = 0; i < hit_ze->GetCount(); i++)
-	//	{
-	//		if (hit_data[i] != nullptr)
-	//		{
-	//			float r = hit_data[i]->r;
-	//			//角度で上下左右を判定
-	//			if ((r > 0 && r < 65) || r >= 295)
-	//			{
-	//				m_RightHit_flg = true; //右
-	//				m_zevx = -m_zev_max;
-	//			}
-	//			else if (r >= 65 && r < 115)
-	//			{
-	//				m_UpHit_flg = true;    //上
-	//				m_zevy = m_zev_max;
-	//			}
-	//			else if (r >= 115 && r <= 245)
-	//			{
-	//				m_LeftHit_flg = true;	 //左
-	//				m_zevx = m_zev_max;
-	//			}
-	//			else if (r > 245 && r < 295)
-	//			{
-	//				m_DownHit_flg = true;	 //下
-	//				m_zevy = -m_zev_max;
-	//			}
-	//		}
-	//	}
-	//}
-	//if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true || hit_ze->CheckElementHit(ELEMENT_FIELD2) == true)
-	//{
-	//	HIT_DATA** hit_data;
-	//	hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
-	//	hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD2);
-	//	for (int i = 0; i < hit_ze->GetCount(); i++)
-	//	{
-	//		if (hit_data[i] != nullptr)
-	//		{
-	//			float r = hit_data[i]->r;
-
-	//			//角度で上下左右を判定
-	//			if ((r < 4 && r >= 0) || r > 356)
-	//			{
-	//				m_RightHit_flg = true; //右
-	//				m_zevx = m_zevx - m_zev_max;
-	//			}
-	//			else if (r > 2 && r < 178)
-	//			{
-	//				m_UpHit_flg = true;    //上
-	//				m_zevy = m_zevy + m_zev_max;
-	//			}
-	//			else if (r > 176 && r < 184)
-	//			{
-	//				m_LeftHit_flg = true;	 //左
-	//				m_zevx = m_zevx + m_zev_max;
-	//			}
-	//			else if (r > 182 && r < 358)
-	//			{
-	//				m_DownHit_flg = true;	 //下
-	//				m_zevy = m_zevy - m_zev_max;
-	//			}
-	//		}
-	//	}		
-	//}
 	
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
 	if (m_time_d == 0)
@@ -854,54 +622,53 @@ void CObjZombieEnemy::Action()
 		//ハンドガン
 		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_ze_hp -= Gun_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_ze_hp -= SHG_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_ze_hp -= AR_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_ze_hp -= SR_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_ze_hp -= RL_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_ze_hp -= RG_Attack;
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
 		{
-			m_hero_hp -= EXPDamage;
+			m_ze_hp -= EXPDamage;
 		}
 		//有刺鉄線
 		else if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
-			m_hero_hp -= ((UserData*)Save::GetData())->BarbedWireSmall_Attack;
+			m_ze_hp -= BarbedWireSmall_Attack;
 			m_time_d = 80;		//点滅時間をセット
 		}
 	}
 	
-
-	if (m_hero_hp <= 0)
+	if (m_ze_hp <= 0)
 	{		
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetZombieDrop(true);

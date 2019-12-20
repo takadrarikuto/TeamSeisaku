@@ -83,6 +83,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 				{
 					TStart_flg = true;
 					m_END2_death_flg = true;
+					END = false;
 					time->SetTStart(TStart_flg);
 					m_EveSuccess_flg = true;
 					Audio::Start(19);
@@ -120,7 +121,7 @@ void CObjEnemy_Neutralization_Device2::Draw()
 
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int App_Rand = Event->GetApp_Rand(); //対応数　4
+	int App_Rand = Event->GetApp_Rand(); 
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

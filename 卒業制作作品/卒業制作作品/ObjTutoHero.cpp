@@ -145,6 +145,9 @@ void CObjTutoHero::Init()
 
 	m_inputf = true;	// true = “ü—Í‰Â	false = “ü—Í•s‰Â
 
+	//–³“GŠÔ
+	m_time_d = 0;
+
 	//“–‚½‚è”»’è—pHitBox‚ğì¬
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_TUTO_HERO, 8);
 }

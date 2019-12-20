@@ -63,14 +63,14 @@ void CObjED::Draw()
 	{
 		Font::StrDraw(L"文書354-i 事案報告書", GAME_ED_X, GAME_ED_Y + m_y + 400, GAME_ED_FONT_SIZE, p);
 		Font::StrDraw(L"[データ削除済]の夜、エリア354から救援信号を受信し連絡を", GAME_ED_X, GAME_ED_Y + m_y + 450, GAME_ED_FONT_SIZE, p);
-		Font::StrDraw(L"試みました。エリア354機動部隊[編集済み]を派遣し、", GAME_ED_X, GAME_ED_Y + m_y + 500, GAME_ED_FONT_SIZE, p);
-		Font::StrDraw(L"職員の救出と制圧を命令されました。職員の救出と制圧を", GAME_ED_X, GAME_ED_Y + m_y + 550, GAME_ED_FONT_SIZE, p);
-		Font::StrDraw(L"命令されました。", GAME_ED_X, GAME_ED_Y + m_y + 600, GAME_ED_FONT_SIZE, p);
+		Font::StrDraw(L"試みました。しかしエリア354からの応答はありませんでした。", GAME_ED_X, GAME_ED_Y + m_y + 500, GAME_ED_FONT_SIZE, p);
+		Font::StrDraw(L"この収容違反に対処するために機動部隊[編集済み]を派遣し", GAME_ED_X, GAME_ED_Y + m_y + 550, GAME_ED_FONT_SIZE, p);
+		Font::StrDraw(L"職員の救出と制圧を命令されました。", GAME_ED_X, GAME_ED_Y + m_y + 600, GAME_ED_FONT_SIZE, p);
 		if (((UserData*)Save::GetData())->choose >= 1)
 		{
 			Font::StrDraw(L"しかし機動部隊がエリア354へ到着した2時間後全職員からの連絡が", GAME_ED_X, GAME_ED_Y + m_y + 700, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"途絶えました。その[データ削除済]分後にエリア354電力システムの", GAME_ED_X, GAME_ED_Y + m_y + 750, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"回復を確認しました。エリア354に再度連絡を試みました。", GAME_ED_X, GAME_ED_Y + m_y + 800, GAME_ED_FONT_SIZE, p);
+			Font::StrDraw(L"途絶えました。その後、エリア354の電力システムの回復を確認し、", GAME_ED_X, GAME_ED_Y + m_y + 750, GAME_ED_FONT_SIZE, p);
+			Font::StrDraw(L"エリア354に再度連絡を試みました。", GAME_ED_X, GAME_ED_Y + m_y + 800, GAME_ED_FONT_SIZE, p);
 			if (((UserData*)Save::GetData())->choose == 2)
 			{
 				Font::StrDraw(L"連絡を行った直後にエリア354からのすべての通信は喪失しました。", GAME_ED_X, GAME_ED_Y + m_y + 900, GAME_ED_FONT_SIZE, p);
