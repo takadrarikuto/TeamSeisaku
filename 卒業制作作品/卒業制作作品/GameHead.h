@@ -113,18 +113,7 @@ struct UserData
 
 	//レベル別タイム設定
 	int Level_Time = 0;
-	//武器別所持弾数(装備分)
-	int SHG_Number_of_Ammunition = 0; //ショットガン
-	int AR_Number_of_Ammunition = 0; //アサルトライフル
-	int SR_Number_of_Ammunition = 0; //スナイパーライフル
-	int RL_Number_of_Ammunition = 0; //ロケットランチャー
-	int RG_Number_of_Ammunition = 0; //レールガン
-	//武器別残り弾数
-	int SHG_Ammunition = 0;	//ショットガン
-	int AR_Ammunition = 0; //アサルトライフル
-	int SR_Ammunition = 0; //スナイパーライフル
-	int RL_Ammunition = 0; //ロケットランチャー
-	int RG_Ammunition = 0; //レールガン
+
 	//武器装填
 	int SHG_load = 0;	//ショットガン
 	int AR_load = 0; //アサルトライフル
@@ -319,6 +308,3 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //ゲーム開始時のシーンクラス登録
 
 #define SET_GAME_START  CSceneTitle
-//#define SET_GAME_START  CSceneClear
-//#define SET_GAME_START  CSceneStage
-//#define SET_GAME_START  CSceneDifficulty_Level
