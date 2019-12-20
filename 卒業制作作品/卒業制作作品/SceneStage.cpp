@@ -71,9 +71,9 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
 	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
 	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
-	//18
 	Audio::LoadAudio(19, L"起動音.wav", EFFECT);
 	Audio::LoadAudio(20, L"羽ばたき音.wav", EFFECT);
+	Audio::LoadAudio(21, L"カウントダウン.wav", EFFECT);
 
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.3);

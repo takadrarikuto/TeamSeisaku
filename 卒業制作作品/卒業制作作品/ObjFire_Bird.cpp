@@ -310,6 +310,10 @@ void CObjFire_Bird::Action()
 		{
 			m_fb_Flashing_time = 0;
 		}
+		if (m_fb_Flashing_time == 40)
+		{
+			Audio::Start(21);
+		}
 	}
 	if (m_hero_hp <= 0)
 	{
