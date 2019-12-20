@@ -317,8 +317,6 @@ void CObjFire_Bird::Action()
 	}
 	if (m_hero_hp <= 0)
 	{
-		AitemDrop->SetAitemDrop(true);
-		AitemDrop->SetFire_BirdDrop(true);
 		boss->SetFBR(1);
 
 		//爆発オブジェクト作成

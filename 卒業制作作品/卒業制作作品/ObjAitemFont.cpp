@@ -28,6 +28,9 @@ void CObjAitemFont::Init()
 	//フォント表示フラグ
 	m_Font_flg = false; 
 
+	//ツールボックス獲得フラグ
+	m_Tool_Box_flg = false;
+
 }
 
 //アクション
@@ -92,6 +95,7 @@ void CObjAitemFont::Draw()
 		else if (Aitem_Get_Font == 9)
 		{
 			swprintf_s(str, L"ツールボックスを獲得しました。");
+			m_Tool_Box_flg = true;
 		}		
 		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, c); //アイテム取得でフォント表示
 	}	

@@ -68,6 +68,14 @@ void CObjGenerator2::Action()
 	int App_Rand = Event->GetApp_Rand(); //対応数　2
 	int Eve_Ins = Event->GetEveIns();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_Gen2x, m_Gen2y); //当たり判定の位置更新
@@ -81,12 +89,15 @@ void CObjGenerator2::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//発電機イベントor修理イベント時クリア判定
-				if (GEN == true || (App_Rand > 20 && App_Rand <= 40))
+				if (GEN == true || (App_Rand > 20 && App_Rand <= 40 && Tool_Box_flg == true))
 				{
 					TStart_flg = true;
 					m_EveSuccess_flg = true;
 					GEN = false;
-					time->SetTStart(TStart_flg);					
+					Tool_Box_flg = false;
+					Aitem_Font->SetTool_Box(Tool_Box_flg);
+					time->SetTStart(TStart_flg);	
+					Event->SetApp_Rand(0);
 					Audio::Start(19);
 				}
 			}

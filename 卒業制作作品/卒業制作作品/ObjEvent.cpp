@@ -32,7 +32,7 @@ void CObjEvent::Init()
 	//イベント時間
 	m_Event_time = 0; 
 	//装置故障イベント時の装置ランダム選択
-	m_App_Rand_Flg = 1;
+	m_App_Rand_Flg = 0;
 	//イベントフラグ
 	m_Event_time_flg = false;
 	//イベントタイムペナルティ
@@ -75,6 +75,14 @@ void CObjEvent::Action()
 		Tool_box_Y = Tool->GetToolY();
 	}
 
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+
 	//壁4(下)情報取得
 	CObjWall4* Wall4 = (CObjWall4*)Objs::GetObj(OBJ_WALL);
 	float Wall_X = Wall4->GetX() - h_vx;
@@ -105,7 +113,12 @@ void CObjEvent::Action()
 			if (Rep_flg == true)
 			{
 				m_Event_time = 5450; //5450 ＝ 90秒
-				m_App_Rand_Flg = rand() % 100; //装置故障イベント時の装置ランダム選択
+				m_App_Rand_Flg = rand() % 101; //装置故障イベント時の装置ランダム選択
+				m_App_Rand_Flg = 10;
+				if (m_App_Rand_Flg == 0)
+				{
+					m_App_Rand_Flg = 1; //装置故障イベント時の装置ランダム選択が0のままになった時1にする
+				}
 				//1^20 = 発電機,21^40 = 発電機2,41^60 = 敵無力化装置,61^80 = 敵無力化装置2,81^100 = 対ミーム実態敵無力化装置
 				//工具箱オブジェクト作成
 				CObjToolBox* Toolbox = new CObjToolBox(Wall_X + 1220, Wall_Y - 150);
@@ -154,14 +167,11 @@ void CObjEvent::Action()
 			m_Event_time_flg = false;
 			TStop_flg = false;
 			TStart_flg = true;
-			m_App_Rand_Flg = 1;
+			m_App_Rand_Flg = 0;
 			time->SetTStart(TStart_flg);
 			m_EveMiss_flg = true;
-			//イベント別タイム設定
-			Gen_flg = false; //発電機イベント
-			END_flg = false; //敵無力化装置イベント
-			MND_flg = false; //ミーム実態無力化装置イベント
-			Rep_flg = false; //装置修理イベント
+			Aitem_Font = false;
+			Aitem_Font->SetTool_Box(Aitem_Font);
 		}
 
 		//イベントタイムペナルティ
@@ -173,7 +183,7 @@ void CObjEvent::Action()
 		//修理イベント
 		if (Rep_flg == true)
 		{
-			//対象が発電気の時
+			//対象が発電気の時			
 			if ((m_App_Rand_Flg > 0 && m_App_Rand_Flg <= 20) || (m_App_Rand_Flg > 20 && m_App_Rand_Flg <= 40))
 			{
 				m_Event_TimePenalty = true;
