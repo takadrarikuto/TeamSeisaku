@@ -281,14 +281,7 @@ void CObjZombieEnemy::Action()
 			}
 		}		
 	}
-	else
-	{
-		//上下左右別当たり判定確認フラグ初期化
-		m_UpHit_flg = false;    //上
-		m_DownHit_flg = false;	 //下
-		m_LeftHit_flg = false;	 //左
-		m_RightHit_flg = false; //右
-	}
+	
 	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
 	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
 	{
@@ -320,14 +313,7 @@ void CObjZombieEnemy::Action()
 			}
 		}		
 	}
-	else
-	{
-		//上下左右別当たり判定確認フラグ初期化
-		m_UpHit_flg = false;    //上
-		m_DownHit_flg = false;	 //下
-		m_LeftHit_flg = false;	 //左
-		m_RightHit_flg = false; //右
-	}
+	
 	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -488,7 +474,7 @@ void CObjZombieEnemy::Action()
 				{
 					if (hit_data[i] != nullptr)
 					{
-						float r = hit_data[i]->r;
+						float r = hit_data[i]->r;						
 						//角度で上下左右を判定
 						if ((r > 0 && r < 65) || r >= 295)
 						{
@@ -537,7 +523,7 @@ void CObjZombieEnemy::Action()
 				{
 					if (hit_data[i] != nullptr)
 					{
-						float r = hit_data[i]->r;
+						float r = hit_data[i]->r;							
 						//角度で上下左右を判定
 						if ((r > 0 && r < 25) || r >= 335)
 						{
@@ -558,7 +544,7 @@ void CObjZombieEnemy::Action()
 						{
 							m_DownHit_flg = true;	 //下
 							m_zevy = -m_zev_max;
-						}						
+						}
 					}
 				}
 			}
