@@ -14,9 +14,12 @@ public:
 
 	void SetAGF(int agf) { Aitem_Get_Font = agf; } //アイテム把握変数設定用
 	void SetAitemNum(int Aitemnum) { m_Aitem_num = Aitemnum; } //アイテム表示数変数設定用
+	void SetTool_Box(bool t_b) { m_Tool_Box_flg = t_b; } //ツールボックス獲得フラグ設定用
 
 	int GetA_G_F() { return Aitem_Get_Font; }	//アイテムフォントを取得
 
+	bool GetTool_Box() { return m_Tool_Box_flg; } //ツールボックス獲得フラグ取得用
+	
 private:
 	float m_Aitem_Font_x; //位置情報
 	float m_Aitem_Font_y;
@@ -29,5 +32,7 @@ private:
 	bool m_Font_flg; //フォント表示フラグ
 
 	wchar_t str[256]; //フォント配列
+
+	bool m_Tool_Box_flg; //ツールボックス獲得フラグ
 
 };

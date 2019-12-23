@@ -75,6 +75,14 @@ void CObjEvent::Action()
 		Tool_box_Y = Tool->GetToolY();
 	}
 
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+
 	//壁4(下)情報取得
 	CObjWall4* Wall4 = (CObjWall4*)Objs::GetObj(OBJ_WALL);
 	float Wall_X = Wall4->GetX() - h_vx;
@@ -89,7 +97,7 @@ void CObjEvent::Action()
 			//発電機イベント
 			if (Gen_flg == true)
 			{
-				m_Event_time = 1850; //1850 ＝ 30秒
+				m_Event_time = 50; //1850 ＝ 30秒
 			}
 			//敵無力化装置イベント
 			if (END_flg == true)
@@ -106,6 +114,11 @@ void CObjEvent::Action()
 			{
 				m_Event_time = 5450; //5450 ＝ 90秒
 				m_App_Rand_Flg = rand() % 101; //装置故障イベント時の装置ランダム選択
+				m_App_Rand_Flg = 10;
+				if (m_App_Rand_Flg == 0)
+				{
+					m_App_Rand_Flg = 1; //装置故障イベント時の装置ランダム選択が0のままになった時1にする
+				}
 				//1^20 = 発電機,21^40 = 発電機2,41^60 = 敵無力化装置,61^80 = 敵無力化装置2,81^100 = 対ミーム実態敵無力化装置
 				//工具箱オブジェクト作成
 				CObjToolBox* Toolbox = new CObjToolBox(Wall_X + 1220, Wall_Y - 150);
@@ -136,12 +149,13 @@ void CObjEvent::Action()
 	}	
 	if(TStop_flg == false)
 	{
-		m_Event_time_flg = false;
-		m_Event_TimePenalty = false;
-		Gen_flg = false;
-		END_flg = false;
-		MND_flg = false;
-		Rep_flg = false;
+	//初期化				
+		m_Event_Instruction_time = 0; //イベント指示表示タイム
+		m_Event_time_flg = false; //イベントタイムフラグ
+		m_Event_TimePenalty = false; //発電機イベントペナルティ
+	//修理イベントペナルティ
+		m_EventPenalty_Enemy_flg = false; //イベントペナルティ(球体型敵)フラグ
+		m_EventPenalty_Meme_flg = false; //イベントペナルティ(ミーム実態)フラグ	
 	}
 	//イベントタイムが0になる時初期化
 	if (m_Event_time <= 0)
@@ -149,19 +163,12 @@ void CObjEvent::Action()
 		if (TStop_flg == true)
 		{
 			//初期化
-			//イベントタイム
+			//イベントタイム関係
 			m_Event_time_flg = false;
 			TStop_flg = false;
-			TStart_flg = true;
-			//イベント指示表示タイム
-			m_Event_Instruction_time = 0;
-			m_App_Rand_Flg = 0;
+			TStart_flg = true;			
 			time->SetTStart(TStart_flg);
 			m_EveMiss_flg = true;
-			Gen_flg = false;
-			END_flg = false;
-			MND_flg = false;
-			Rep_flg = false;
 		}
 
 		//イベントタイムペナルティ
@@ -173,8 +180,8 @@ void CObjEvent::Action()
 		//修理イベント
 		if (Rep_flg == true)
 		{
-			//対象が発電気の時
-			if (m_App_Rand_Flg <= 20 || (m_App_Rand_Flg > 20 && m_App_Rand_Flg <= 40))
+			//対象が発電気の時			
+			if ((m_App_Rand_Flg > 0 && m_App_Rand_Flg <= 20) || (m_App_Rand_Flg > 20 && m_App_Rand_Flg <= 40))
 			{
 				m_Event_TimePenalty = true;
 			}
@@ -185,10 +192,10 @@ void CObjEvent::Action()
 			}
 			//対象が対ミーム実態無力化装置の時
 			if (m_App_Rand_Flg > 80 && m_App_Rand_Flg <= 100)
-			{
-				//イベントペナルティ(ミーム実態)フラグ
-				m_EventPenalty_Meme_flg = true;
+			{			
+				m_EventPenalty_Meme_flg = true; //イベントペナルティ(ミーム実態)フラグ
 			}
+			m_App_Rand_Flg = 0;
 		}
 	}
 
@@ -211,13 +218,6 @@ void CObjEvent::Draw()
 	bool END_flg = time->GetENDFlg();
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
-
-	/*
-	//イベント情報取得
-	CObjEvent* eve = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	bool EveMiss_flg = eve->GetEveMiss();
-	bool EveSuccess_flg = eve->GetEveSuc();
-	*/
 
 	//m_timeから秒分を求める
 	int minute;//分

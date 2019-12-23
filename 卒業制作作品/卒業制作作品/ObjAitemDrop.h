@@ -15,7 +15,6 @@ public:
 	void SetAitemDrop(bool aitem_drop) { m_Aitem_Drop_flg = aitem_drop; } //アイテムドロップフラグ設定用
 //どのエネミーからドロップするか確認するフラグ設定用
 	void SetZombieDrop(bool zombie_drop) { m_Zombie_Drop_flg = zombie_drop; } //ゾンビ
-	void SetFire_BirdDrop(bool fire_bird_drop) { m_Fire_Bird_Drop_flg = fire_bird_drop; } //火の鳥
 	void SetFire_LizardDrop(bool fire_lizard_drop) { m_Fire_Lizard_Drop_flg = fire_lizard_drop; } //火トカゲ
 	void SetBatDrop(bool bat_drop) { Bat_Drop_flg = bat_drop; } //蝙蝠
 
@@ -25,14 +24,11 @@ private:
 
 //どのエネミーからドロップするか確認するフラグ
 	bool m_Zombie_Drop_flg; //ゾンビ
-	bool m_Fire_Bird_Drop_flg; //火の鳥
 	bool m_Fire_Lizard_Drop_flg; //火トカゲ
 	bool Bat_Drop_flg; //蝙蝠
 //エネミー別で座標を記録する
 	float Z_X; //ゾンビ
 	float Z_Y;
-	float FB_X; //火の鳥
-	float FB_Y;
 	float FL_X; //火トカゲ
 	float FL_Y;
 	float B_X; //蝙蝠

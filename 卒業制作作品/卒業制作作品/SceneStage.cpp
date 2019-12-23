@@ -71,9 +71,9 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
 	Audio::LoadAudio(16, L"警告音.wav", EFFECT);
 	Audio::LoadAudio(17, L"イベント失敗音.wav", EFFECT);
-	//18
 	Audio::LoadAudio(19, L"起動音.wav", EFFECT);
 	Audio::LoadAudio(20, L"羽ばたき音.wav", EFFECT);
+	Audio::LoadAudio(21, L"カウントダウン.wav", EFFECT);
 
 	//バックミュージックスタート
 	//float Volume = Audio::VolumeMaster(-0.3);
@@ -186,30 +186,6 @@ void CSceneStage::InitScene()
 
 	//有刺鉄線(ミニ)オブジェクト作成 x=68 y=53
 	CObjBarbedWireSmall* BarbedS;
-	////左内
-	//for (int y = 120; y < 650; y += 53)
-	//{
-	//	BarbedS = new CObjBarbedWireSmall(-25, y);
-	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	//}
-	////左外
-	//for (int y = -30; y < 500; y += 53)
-	//{
-	//	BarbedS = new CObjBarbedWireSmall(-425, y);
-	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	//}
-	////右内
-	//for (int y = -30; y < 500; y += 53)
-	//{
-	//	BarbedS = new CObjBarbedWireSmall(775, y);
-	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	//}
-	////右外
-	//for (int y = 120; y < 650; y += 53)
-	//{
-	//	BarbedS = new CObjBarbedWireSmall(1175, y);
-	//	Objs::InsertObj(BarbedS, OBJ_BARBED_WIRE_SMALL, 3);
-	//}
 	//上
 	for (int x = 302; x < 504; x += 68)
 	{
