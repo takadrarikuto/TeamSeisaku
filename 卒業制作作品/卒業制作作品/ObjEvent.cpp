@@ -97,7 +97,7 @@ void CObjEvent::Action()
 			//発電機イベント
 			if (Gen_flg == true)
 			{
-				m_Event_time = 50; //1850 ＝ 30秒
+				m_Event_time = 1850; //1850 ＝ 30秒
 			}
 			//敵無力化装置イベント
 			if (END_flg == true)
