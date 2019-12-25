@@ -67,6 +67,14 @@ void CObjMeme_Neutralization_Device::Action()
 	int App_Rand = Event->GetApp_Rand(); //対応数　5
 	int Eve_Ins = Event->GetEveIns();
 
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_end->SetPos(m_Meme_Neu_Devx, m_Meme_Neu_Devy); //当たり判定の位置更新
@@ -80,13 +88,16 @@ void CObjMeme_Neutralization_Device::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//ミーム実態イベントor故障イベント時クリア判定
-				if (MND == true || (App_Rand > 80 && App_Rand <= 100))
+				if (MND == true || (App_Rand > 80 && App_Rand <= 100 && Tool_Box_flg == true))
 				{
 					TStart_flg = true;
 					m_Meme_death_flg = true;
 					m_EveSuccess_flg = true;
 					MND = false;
-					time->SetTStart(TStart_flg);					
+					Tool_Box_flg = false;
+					Aitem_Font->SetTool_Box(Tool_Box_flg);
+					time->SetTStart(TStart_flg);	
+					Event->SetApp_Rand(0);
 					Audio::Start(19);
 				}
 			}

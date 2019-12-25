@@ -25,9 +25,11 @@ public:
 	int GetEveIns() { return m_Event_Instruction_time; } //イベント指示表示タイム取得用
 
 	void SetEveTimPena(bool T_P) { m_Event_TimePenalty = T_P; } //イベントタイムペナルティ設定用
-	void SetEvePena_Enemy(bool P_E) { m_EventPenalty_Enemy_flg = P_E; } //イベントペナルティ(球体型敵)フラグ
-	void SetEvePena_Meme(bool P_M) { m_EventPenalty_Meme_flg = P_M; } //イベントペナルティ(ミーム実態)フラグ
+	void SetApp_Rand(int app_r_f) { m_App_Rand_Flg = app_r_f; } //装置故障イベント時の装置ランダム選択設定用
+	void SetEvePena_Enemy(bool P_E) { m_EventPenalty_Enemy_flg = P_E; } //イベントペナルティ(球体型敵)フラグ設定用
+	void SetEvePena_Meme(bool P_M) { m_EventPenalty_Meme_flg = P_M; } //イベントペナルティ(ミーム実態)フラグ設定用
 
+	void SetEveMiss(bool EveMiss) { m_EveMiss_flg = EveMiss; } //時間停止フラグ設定用
 private:
 	int m_Event_time;	//イベント時間
 	bool m_Event_TimePenalty; //イベントタイムペナルティ

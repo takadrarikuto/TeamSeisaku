@@ -57,7 +57,7 @@ void CObjRocketLauncherItem::Action()
 		//主人公に当たると弾補充
 		((UserData*)Save::GetData())->RL_load += 1;//ロケットランチャー		
 		aitemfont->SetAGF(4); //フォント表示
-		aitemfont->SetAitemNum(2); //弾数表示
+		aitemfont->SetAitemNum(1); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

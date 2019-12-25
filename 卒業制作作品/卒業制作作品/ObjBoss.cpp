@@ -69,7 +69,7 @@ void CObjBoss::Init()
 	m_Bat_Enemy_x = 0.0f; //x位置修正
 	m_Bat_Enemy_y = 0.0f; //y位置修正
 //火の鳥	
-	m_Frie_Bird_time_max = 600; //火の鳥生成タイム最大値	
+	m_Frie_Bird_time_max = 900; //火の鳥生成タイム最大値	
 	m_Frie_Bird_Restriction = 0; //火の鳥生成数制限
 	m_Frie_Bird_Restriction_num = 0; //火の鳥生成数制限減少
 	m_Frie_Bird_Restriction_max = 2; //火の鳥生成数制限最大値	
