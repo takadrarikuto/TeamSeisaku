@@ -9,12 +9,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//計測停止フラグ
-//extern bool m_Stop_flg;
-
-//イベント用タイムONOFFフラグ
-//extern bool m_Evetime_flg;
-
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
@@ -114,6 +108,7 @@ void CObjTopback::Draw()
 	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
 	//上部用背景--------------------------------------------------
+	//左側帯状背景
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -126,6 +121,7 @@ void CObjTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 	
+	//武器表示背景
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -139,6 +135,7 @@ void CObjTopback::Draw()
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 
 	//切り取り位置の設定
+	//右側帯状背景
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;

@@ -326,15 +326,6 @@ void CSceneStage::InitScene()
 	//イベントタイムオブジェクト作成
 	CObjEvent*objev = new CObjEvent();
 	Objs::InsertObj(objev, OBJ_EVENT, 20);
-
-	//音楽情報読み込み 
-	//Audio::LoadAudio(0, L"ステージBGM.wav",BACK_MUSIC);
-
-	//バックミュージックスタート
-	//ボリュームを0.6にする
-	//float v = Audio::VolumeMaster(0.6);
-
-	//Audio::Start(0); //音楽スタート
 	
 }
 

@@ -405,6 +405,9 @@
     <ClInclude Include="ObjToolBox.h">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClInclude>
+    <ClInclude Include="ObjTutoAiming.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\照準</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameL\Audio.cpp">
@@ -694,6 +697,9 @@
     </ClCompile>
     <ClCompile Include="ObjToolBox.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjTutoAiming.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\照準</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

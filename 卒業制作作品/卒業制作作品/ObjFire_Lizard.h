@@ -14,6 +14,9 @@ using namespace GameL;
 //有刺鉄線
 #define BarbedWireSmall_Attack  2;
 
+//ダメージ点滅時間用
+#define TIME_D 5
+
 class CObjFire_Lizard : public CObj, public CBaseStatus
 {
 public:

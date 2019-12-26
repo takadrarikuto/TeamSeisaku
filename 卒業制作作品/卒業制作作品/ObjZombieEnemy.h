@@ -20,6 +20,9 @@ using namespace GameL;
 //HitBoxFlg初期化タイム
 #define HitBoxFlg_TIME 20; 
 
+//ダメージ点滅時間用
+#define TIME_D 5
+
 class CObjZombieEnemy : public CObj, public CBaseStatus
 {
 public:

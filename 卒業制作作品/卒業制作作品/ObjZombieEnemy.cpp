@@ -14,9 +14,6 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
-//メニューキー制御用フラグ
-extern bool m_key_flag_menu;
-
 //コンストラクタ
 CObjZombieEnemy::CObjZombieEnemy(float zex, float zey, bool zeaf)
 {
@@ -588,7 +585,7 @@ void CObjZombieEnemy::Action()
 		if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_ze_hp -= Gun_Attack;
-			m_time_d = 5;		//点滅時間をセット
+			m_time_d = TIME_D;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
@@ -600,25 +597,25 @@ void CObjZombieEnemy::Action()
 		else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_ze_hp -= AR_Attack;
-			m_time_d = 5;		//点滅時間をセット
+			m_time_d = TIME_D;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_ze_hp -= SR_Attack;
-			m_time_d = 5;		//点滅時間をセット
+			m_time_d = TIME_D;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_ze_hp -= RL_Attack;
-			m_time_d = 5;		//点滅時間をセット
+			m_time_d = TIME_D;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_ze_hp -= RG_Attack;
-			m_time_d = 5;		//点滅時間をセット
+			m_time_d = TIME_D;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)

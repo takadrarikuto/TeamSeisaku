@@ -11,15 +11,8 @@
 //使用するネームスペース
 using namespace GameL;
 
-//難易度フラグ
-//extern bool Usually_flg; //普通
-//extern bool Difficult_flg; //難しい
-
 //メニューONOFFフラグ
 bool Menu_flg = false;
-
-//メニューキー制御用フラグ
-bool m_key_flag_menu = true;
 
 //死亡時動き停止フラグ
 bool Dead_flg = false;
@@ -119,7 +112,6 @@ void CObjMenu::Action()
 				m_and = 0.0f;
 				m_andf = false;
 				Menu_flg = false;
-				m_key_flag_menu = true;
 				this->SetStatus(false);		//画像の削除
 			}
 		}
@@ -133,7 +125,6 @@ void CObjMenu::Action()
 				m_and = 0.0f;
 				m_andf2 = false;
 				Menu_flg = false;
-				m_key_flag_menu = true;
 				this->SetStatus(false);		//画像の削除
 				Scene::SetScene(new CSceneTitle());
 			}
@@ -157,13 +148,6 @@ void CObjMenu::Draw()
 	rg_pb_me = hero->GetRG();
 	gre_pb_me = hero->GetGRE();
 
-	//sg_pb_r = hero->GetSG_R();	//各残り弾数情報を取得(全体)
-	//ar_pb_r = hero->GetAR_R();
-	//sr_pb_r = hero->GetSR_R();
-	//rl_pb_r = hero->GetRL_R();
-	//rg_pb_r = hero->GetRG_R();
-	//gre_pb_r = hero->GetGRE_R();
-
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 	float pc[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -178,7 +162,6 @@ void CObjMenu::Draw()
 	RECT_F dst;//描写先表示位置
 
 	wchar_t str[128];
-	//wchar_t sga[128];
 
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)
