@@ -310,11 +310,13 @@ void CObjFire_Bird::Action()
 		{
 			m_fb_Flashing_time = 0;
 		}
+		if (m_fb_Flashing_time == 40)
+		{
+			Audio::Start(21);
+		}
 	}
 	if (m_hero_hp <= 0)
 	{
-		AitemDrop->SetAitemDrop(true);
-		AitemDrop->SetFire_BirdDrop(true);
 		boss->SetFBR(1);
 
 		//爆発オブジェクト作成

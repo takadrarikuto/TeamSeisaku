@@ -56,6 +56,7 @@ void CObjToolBox::Action()
 	{
 		aitemfont->SetAGF(9); //フォント表示
 		Audio::Start(12); //効果音再生
+
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //工具箱が所有するHitBoxを削除する
 	}

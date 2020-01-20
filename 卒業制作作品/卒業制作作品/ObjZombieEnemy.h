@@ -14,6 +14,12 @@ using namespace GameL;
 //有刺鉄線
 #define BarbedWireSmall_Attack  2;
 
+//HitBox接触後のベクトル変化
+#define HitBox_V 0.15
+
+//HitBoxFlg初期化タイム
+#define HitBoxFlg_TIME 20; 
+
 class CObjZombieEnemy : public CObj, public CBaseStatus
 {
 public:
@@ -49,6 +55,8 @@ private:
 	bool m_RightHit_flg; //右
 
 	int m_ze_hp; //体力
+
+	int m_HitBoxFlg_time; //HitBoxFlg初期化タイム
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム

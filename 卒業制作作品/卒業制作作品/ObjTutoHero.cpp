@@ -466,7 +466,6 @@ void CObjTutoHero::Action()
 						CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
 					}
-					//Attack_flg = true; //AttackÉtÉâÉOtrue
 					Audio::Start(3);
 				}
 				//çUåÇä‘äu
@@ -527,7 +526,6 @@ void CObjTutoHero::Action()
 						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max / 3, 300.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
-					//Attack_flg = true; //AttackÉtÉâÉOtrue
 					Audio::Start(4);
 				}
 				//çUåÇä‘äu
@@ -571,7 +569,7 @@ void CObjTutoHero::Action()
 						CObjARAttack* obj_ara = new CObjARAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
 					}
-					//Attack_flg = true; //AttackÉtÉâÉOtrue
+					Audio::Start(3);
 				}
 				//çUåÇä‘äu
 				else if (m_bt == m_bt_max)
@@ -614,7 +612,6 @@ void CObjTutoHero::Action()
 						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
-					//Attack_flg = true; //AttackÉtÉâÉOtrue
 					Audio::Start(5);
 				}
 				//çUåÇä‘äu
@@ -658,7 +655,7 @@ void CObjTutoHero::Action()
 						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
 					}
-					//Attack_flg = true; //AttackÉtÉâÉOtrue
+					Audio::Start(6);
 				}
 				//çUåÇä‘äu
 				else if (m_bt == m_bt_max)
@@ -701,7 +698,7 @@ void CObjTutoHero::Action()
 						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
-					//Attack_flg = true; //AttackÉtÉâÉOtrue
+					Audio::Start(7);
 				}
 				//çUåÇä‘äu
 				else if (m_bt == m_bt_max)
@@ -926,7 +923,6 @@ void CObjTutoHero::Action()
 			m_rg_pb_cc = 0;
 		}
 	}
-
 }
 
 //ÉhÉçÅ[
