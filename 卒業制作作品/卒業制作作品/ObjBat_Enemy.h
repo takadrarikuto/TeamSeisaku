@@ -11,9 +11,6 @@ using namespace GameL;
 #define RL_Attack  150;  //ロケットランチャー
 #define RG_Attack  200;  //レールガン
 
-//ダメージ点滅時間用
-#define TIME_D 5
-
 class CObjBat_Enemy : public CObj, public CBaseStatus
 {
 public:

@@ -17,6 +17,9 @@ bool Tuto_flg = false;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //コンストラクタ
 CObjTutoZombieEnemy::CObjTutoZombieEnemy(float x, float y)
 {

@@ -14,6 +14,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //HP ONOFFフラグ
 extern bool Hp_flg;
 
@@ -258,8 +261,18 @@ void CObjSphere_Type_Enemy::Action()
 	}
 
 	//爆発処理
-	//主人公に当たる、体力が0になる、敵無力化装置を起動すると自身の座標に合わせて爆発する
-	if (m_hero_hp < 0 || m_END_death_flg == true || m_END2_death_flg == true || hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
+	//主人公に当たると主人公に座標に合わせて爆発する
+	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
+	{
+		//爆発オブジェクト作成
+		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, m_EXPDameg_num);
+		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+		Audio::Start(9);
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}	
+	//体力が0になる、敵無力化装置を起動すると自身の座標に合わせて爆発する
+	if (m_hero_hp < 0 || m_END_death_flg == true || m_END2_death_flg == true)
 	{
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_st_ex - 64, m_st_ey - 64, m_exp_blood_dst_size, m_EXPDameg_num);
