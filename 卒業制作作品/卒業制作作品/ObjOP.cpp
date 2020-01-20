@@ -57,7 +57,7 @@ void CObjOP::Draw()
 	
 	Font::StrDraw(L"～あらすじ～", GAME_OP_X, GAME_OP_Y + m_y + 400, 40, p);
 	Font::StrDraw(L"　財団の機動部隊の一員である主人公は、SCP-354を収容する", GAME_OP_X, GAME_OP_Y + m_y + 500, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"ためにエリア３５４に送られました。", GAME_OP_X, GAME_OP_Y + m_y + 550, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"ためにエリア354に送られました。", GAME_OP_X, GAME_OP_Y + m_y + 550, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"　だがそこは、SCP-354の収容違反が発生し施設が壊滅して", GAME_OP_X, GAME_OP_Y + m_y + 650, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"いました。主人公はある機械を起動させ、オブジェクトを", GAME_OP_X, GAME_OP_Y + m_y + 700, GAME_OP_FONT_SIZE, p);
 	Font::StrDraw(L"鎮静化、または無力化するために発電機を起動します。", GAME_OP_X, GAME_OP_Y + m_y + 750, GAME_OP_FONT_SIZE, p);
@@ -68,6 +68,5 @@ void CObjOP::Draw()
 	if (Input::GetVKey(VK_RETURN) == true)
 	{
 		Scene::SetScene(new CSceneOperation());
-		//Scene::SetScene(new CSceneStage());
 	}
 }

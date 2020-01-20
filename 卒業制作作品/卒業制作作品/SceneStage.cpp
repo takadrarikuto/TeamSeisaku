@@ -103,10 +103,10 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(Gen2, OBJ_GENERATOR2, 2);
 
 	//敵無力化装置オブジェクト作成
-	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);//(400,200)
+	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
-	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
+	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
@@ -327,15 +327,6 @@ void CSceneStage::InitScene()
 	CObjEvent*objev = new CObjEvent();
 	Objs::InsertObj(objev, OBJ_EVENT, 20);
 
-	//音楽情報読み込み 
-	//Audio::LoadAudio(0, L"ステージBGM.wav",BACK_MUSIC);
-
-	//バックミュージックスタート
-	//ボリュームを0.6にする
-	//float v = Audio::VolumeMaster(0.6);
-
-	//Audio::Start(0); //音楽スタート
-	
 }
 
 void CSceneStage::Scene()

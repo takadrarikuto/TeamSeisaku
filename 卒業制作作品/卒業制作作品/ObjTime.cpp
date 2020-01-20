@@ -16,9 +16,6 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
-//イベント用タイムONOFFフラグ
-//bool m_Evetime_flg = false;
-
 //イニシャライズ
 void CObjTime::Init()
 {

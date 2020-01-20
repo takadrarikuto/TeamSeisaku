@@ -66,22 +66,7 @@ void CObjBlood_splash::Action()
 	hit_exp->SetPos(m_bspx, m_bspy); //当たり判定の位置更新
 
 	////描画フレームが5になるとSE発生
-	//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
-	if (m_ani_flame == 1)
-	{		
-		//if (Exp_flg == true)
-		//{
-		//	//Audio::Start(4); //音楽スタート
-		//	Exp_flg = false;
-		//}
-		////Boss爆発
-		//if (B_Exp_flg == true)
-		//{
-		//	//Audio::Start(5); //音楽スタート
-		//	B_Exp_flg = false;
-		//}
-	}
-	else if (m_ani_flame == 5)
+	if (m_ani_flame == 5)
 	{
 		m_ani_flame = 5;
 
