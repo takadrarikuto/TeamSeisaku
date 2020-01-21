@@ -14,6 +14,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //コンストラクタ
 CObjFire_Lizard::CObjFire_Lizard(float flx, float fly)
 {
@@ -553,37 +556,37 @@ void CObjFire_Lizard::Action()
 		if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= Gun_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= SHG_Attack;
-			m_time_d = 1;		//点滅時間をセット
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//アサルトライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= AR_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= SR_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= RL_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= RG_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 5;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)

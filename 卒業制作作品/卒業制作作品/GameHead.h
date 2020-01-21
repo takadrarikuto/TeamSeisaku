@@ -156,7 +156,6 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 
 //標準
 #include "ObjAiming.h"
-#include "ObjTutoAiming.h"
 
 //エネミー
 #include "ObjZombieEnemy.h"

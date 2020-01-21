@@ -14,6 +14,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //HP ONOFFフラグ
 extern bool Hp_flg;
 

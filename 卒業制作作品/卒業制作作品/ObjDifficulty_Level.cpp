@@ -14,9 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//bool check = false;
-//bool m_c = true;
-
 //イニシャライズ
 void ObjDifficulty_Level::Init()
 {
@@ -130,11 +127,7 @@ void ObjDifficulty_Level::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			//Scene::SetScene(new CSceneOP());
-			//Scene::SetScene(new CSceneStage());
 			Scene::SetScene(new CSceneTutorial());
-			/*
-			*/
 		}
 	}
 	//タイトルに戻る処理

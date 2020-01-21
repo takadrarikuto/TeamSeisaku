@@ -3,20 +3,6 @@
 
 using namespace GameL;
 
-#define HG_E 10//ハンドガンの残り弾数(上部表示用)
-#define SG_E 6//ショットガンの残り弾数(上部表示用)
-#define AR_E 20//アサルトライフルの残り弾数(上部表示用)
-#define SR_E 5//スナイパーライフルの残り弾数(上部表示用)
-#define RL_E 1//ロケットランチャーの残り弾数(上部表示用)
-#define RG_E 1//レールガンの残り弾数(上部表示用)
-
-#define SG_R 60 //ショットガンの残り弾数(メニュー表示用)
-#define AR_R 200 //アサルトライフルの残り弾数(メニュー表示用)
-#define SR_R 30 //スナイパーライフルの残り弾数(メニュー表示用)
-#define RL_R 2 //ロケットランチャーの残り弾数(メニュー表示用)
-#define RG_R 1 //レールガンの残り弾数(メニュー表示用)
-#define GRE_R 3//グレネードの残り数(メニュー表示用)
-
 class CObjHero : public CObj, public CBaseStatus
 {
 public:
@@ -158,6 +144,13 @@ private:
 	int m_rl_pb_r;//ロケットランチャー　リロード用
 	int m_rg_pb_r;//レールガン　リロード用
 	int m_gre_pb_r;//グレネード　リロード用
+
+	int m_sg_pb_num;//ショットガン残り弾数
+	int m_ar_pb_num;//アサルトライフル残り弾数
+	int m_sr_pb_num;//スナイパーライフル残り弾数
+	int m_rl_pb_num;//ロケットランチャー残り弾数
+	int m_rg_pb_num;//レールガン残り弾数
+	int m_gre_pb_num;//グレネード残り弾数
 
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ

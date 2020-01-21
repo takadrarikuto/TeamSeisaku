@@ -16,6 +16,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //コンストラクタ
 CObjBoss::CObjBoss(float bx, float by)
 {

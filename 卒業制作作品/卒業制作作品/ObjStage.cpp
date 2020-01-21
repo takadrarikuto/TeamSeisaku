@@ -36,10 +36,6 @@ void CObjStage::Init()
 
 	//敵生成頻度
 	m_Heal_Generation = 0; //回復アイテム生成頻度
-	//m_Bat_Enemy_Generation = 0; //蝙蝠生成頻度
-	//m_Frie_Lizard_Generation = 0; //火トカゲ敵生成頻度
-	//m_Frie_Bird_Generation = 0; //火の鳥敵生成頻度
-	//m_Sphere_Type_Enemy_Generation = 0; //球体型敵敵生成頻度
 
 	//回復アイテム
 	//回復アイテム生成タイム最大値

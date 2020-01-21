@@ -25,7 +25,7 @@ void CObjTutoTopback::Action()
 void CObjTutoTopback::Draw()
 {
 	//主人公から各残り弾数情報を取得(装備分)
-	CObjTutoHero* hero = (CObjTutoHero*)Objs::GetObj(OBJ_HERO);
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	hg_pb_e = hero->GetHG_E();	//ハンドガン
 	sg_pb_e = hero->GetSG_E();	//ショットガン
 	ar_pb_e = hero->GetAR_E();	//アサルトライフル
@@ -62,7 +62,6 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 600.0f;
 	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
-	//左側帯状背景
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -76,7 +75,7 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 
-	//武器表示背景
+
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -90,7 +89,7 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 
-	//右側帯状背景
+
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -104,7 +103,7 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 
-	//イベントタイム用背景
+
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -249,6 +248,9 @@ void CObjTutoTopback::Draw()
 		dst.m_bottom = 395.0f;
 		Draw::Draw(7, &src, &dst, c, 0.0f);
 		Font::StrDraw(L"ツールボックス", 560, 410, 23, blk);
+		
+
+		//Audio::Start(18);
 	}
 	else
 	{

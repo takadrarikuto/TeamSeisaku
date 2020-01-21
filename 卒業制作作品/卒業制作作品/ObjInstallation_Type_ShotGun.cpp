@@ -35,6 +35,9 @@ void CObjInstallation_Type_ShotGun::Init()
 	m_HitSize_x = 100;
 	m_HitSize_y = 60;
 
+	//設置型ショットガンの弾数回復量最大値
+	m_IT_SHG_num_max = 0; 
+
 	//補充フラグ
 	m_Replenishment_flg = false; 
 	//再補充タイム
@@ -77,18 +80,21 @@ void CObjInstallation_Type_ShotGun::Action()
 			//主人公に当たると弾補充
 			if (((UserData*)Save::GetData())->choose == 0)
 			{
-				((UserData*)Save::GetData())->SHG_load += 30;//ショットガン		
-				aitemfont->SetAitemNum(30); //グレネード数表示
+				m_IT_SHG_num_max = 30; //設置型ショットガン弾数回復量変更
+				((UserData*)Save::GetData())->SHG_load += m_IT_SHG_num_max; //ショットガン弾数回復		
+				aitemfont->SetAitemNum(m_IT_SHG_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 1)
 			{
-				((UserData*)Save::GetData())->SHG_load += 24;//ショットガン
-				aitemfont->SetAitemNum(24); //グレネード数表示
+				m_IT_SHG_num_max = 24; //設置型ショットガン弾数回復量変更
+				((UserData*)Save::GetData())->SHG_load += m_IT_SHG_num_max; //ショットガン弾数回復
+				aitemfont->SetAitemNum(m_IT_SHG_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 2)
 			{
-				((UserData*)Save::GetData())->SHG_load += 18;//ショットガン	
-				aitemfont->SetAitemNum(18); //グレネード数表示
+				m_IT_SHG_num_max = 18; //設置型ショットガン弾数回復量変更
+				((UserData*)Save::GetData())->SHG_load += m_IT_SHG_num_max; //ショットガン弾数回復
+				aitemfont->SetAitemNum(m_IT_SHG_num_max); //弾数表示
 			}
 			aitemfont->SetAGF(1); 
 			Audio::Start(12); //効果音再生

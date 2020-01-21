@@ -108,7 +108,6 @@ void CObjTopback::Draw()
 	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
 	//ã•”—p”wŒi--------------------------------------------------
-	//¶‘¤‘Ñó”wŒi
 	//Ø‚èŽæ‚èˆÊ’u‚ÌÝ’è
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -121,7 +120,6 @@ void CObjTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 	
-	//•Ší•\Ž¦”wŒi
 	//Ø‚èŽæ‚èˆÊ’u‚ÌÝ’è
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -135,7 +133,6 @@ void CObjTopback::Draw()
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 
 	//Ø‚èŽæ‚èˆÊ’u‚ÌÝ’è
-	//‰E‘¤‘Ñó”wŒi
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
@@ -174,10 +171,10 @@ void CObjTopback::Draw()
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
 	//•`‰æ
-	dst.m_top = 120.0f;//63
-	dst.m_left = 0.0f;//0
-	dst.m_right = 675.0f;//115
-	dst.m_bottom = 180.0f;//115
+	dst.m_top = 120.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 675.0f;
+	dst.m_bottom = 180.0f;
 
 	//ƒ^ƒCƒ€ƒXƒgƒbƒvƒtƒ‰ƒOƒIƒ“‚ÅƒCƒxƒ“ƒg—p”wŒi•\Ž¦
 	if (Menu_flg == false && TStop_flg == true)
@@ -194,10 +191,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//•`‰æ
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//ŽålŒö‚ÌHP‚ª0‚É‚È‚é‚Æ•\Ž¦’âŽ~
 		if (h_hp > 0)
@@ -235,10 +232,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//•`‰æ
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//ŽålŒö‚ÌHP‚ª0‚É‚È‚é‚Æ•\Ž¦’âŽ~
 		if (h_hp > 0)

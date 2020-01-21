@@ -13,6 +13,9 @@ using namespace GameL;
 //メニューONOFFフラグ
 extern bool Menu_flg;
 
+//メニューキー制御用フラグ
+extern bool m_key_flag_menu;
+
 //死亡処理
 extern bool m_Meme_death_flg; //死亡フラグ
 
