@@ -13,9 +13,6 @@
 #include "GameHead.h"
 #include "SceneStage.h"
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CSceneStage::CSceneStage()
 {
@@ -76,8 +73,11 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(21, L"カウントダウン.wav", EFFECT);
 
 	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(-0.3);
 	Audio::Start(0); //音楽スタート
+
+	//メニューオブジェクト作成
+	CObjMenu* obj_m = new CObjMenu();
+	Objs::InsertObj(obj_m, OBJ_MENU, 21);
 
 	//主人公機オブジェクト作成
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);

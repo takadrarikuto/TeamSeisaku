@@ -14,9 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //耐久力ONOFFフラグ
 extern bool En_flg;
 
@@ -56,6 +53,10 @@ void CObjStage::Action()
 	int WS = hero->GetWS();
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//武器切り替え変数をアニメーションに同期
 	m_ani_frame = WS;

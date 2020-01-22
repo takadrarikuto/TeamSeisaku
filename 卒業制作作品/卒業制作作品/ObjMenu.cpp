@@ -11,13 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//難易度フラグ
-//extern bool Usually_flg; //普通
-//extern bool Difficult_flg; //難しい
-
-//メニューONOFFフラグ
-bool Menu_flg = false;
-
 //メニューキー制御用フラグ
 bool m_key_flag_menu = true;
 
@@ -36,7 +29,9 @@ extern bool Tuto_flg;
 //イニシャライズ
 void CObjMenu::Init()
 {
-	//初期化
+	//初期化	
+	Menu_flg = false; //メニューONOFFフラグ
+
 	choose = 0;
 	m_time = 10;
 	m_and = 1.0f;

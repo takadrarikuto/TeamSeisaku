@@ -8,9 +8,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjBlood_splash::CObjBlood_splash(float x, float y, float size)
 {
@@ -38,6 +35,10 @@ void CObjBlood_splash::Init()
 //アクション
 void CObjBlood_splash::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{

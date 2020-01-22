@@ -13,9 +13,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //イニシャライズ
 void CObjTime::Init()
 {
@@ -46,6 +43,10 @@ void CObjTime::Action()
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	bool Time_Pena = Event->GetEveTimPena();
 	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)

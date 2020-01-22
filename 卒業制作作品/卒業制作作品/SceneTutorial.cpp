@@ -15,9 +15,6 @@ using namespace GameL;
 #include "SceneTutorial.h"
 #include "ObjTutorial.h"
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //チュートリアルONOFFフラグ
 extern bool Tuto_flg;
 
