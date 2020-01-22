@@ -279,6 +279,7 @@ void CSceneStage::InitScene()
 	CObjAitemDrop* obj_ad = new CObjAitemDrop();
 	Objs::InsertObj(obj_ad, OBJ_AITEMDROP, 8);
 
+	//障害--------------------------
 	//設置型ショットガン弾補充
 	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -640);
 	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 8);
@@ -291,6 +292,7 @@ void CSceneStage::InitScene()
 	//設置型ランダムアイテムボックス
 	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1130, 720);
 	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 8);
+	//-------------------------------
 
 	//壁オブジェクト作成
 	//左
