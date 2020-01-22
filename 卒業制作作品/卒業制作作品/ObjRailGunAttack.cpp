@@ -10,9 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjRailGunAttack::CObjRailGunAttack(float x, float y, float vx, float vy, float r)
 {
@@ -53,6 +50,10 @@ void CObjRailGunAttack::Init()
 //アクション
 void CObjRailGunAttack::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{

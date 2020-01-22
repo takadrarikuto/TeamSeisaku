@@ -18,4 +18,6 @@ private:
 	float m_XHitbox_size; //XY当たり判定サイズ
 	float m_YHitbox_size;
 
+	int m_RG_num_max; //レールガン回復量
+
 };

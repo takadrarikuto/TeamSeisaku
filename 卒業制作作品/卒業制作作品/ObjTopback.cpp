@@ -9,15 +9,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//計測停止フラグ
-//extern bool m_Stop_flg;
-
-//イベント用タイムONOFFフラグ
-//extern bool m_Evetime_flg;
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //タイムストップフラグ
 extern bool TStop_flg;
 
@@ -65,6 +56,10 @@ void CObjTopback::Draw()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//イベント
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
@@ -177,10 +172,10 @@ void CObjTopback::Draw()
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
 	//描画
-	dst.m_top = 120.0f;//63
-	dst.m_left = 0.0f;//0
-	dst.m_right = 675.0f;//115
-	dst.m_bottom = 180.0f;//115
+	dst.m_top = 120.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 675.0f;
+	dst.m_bottom = 180.0f;
 
 	//タイムストップフラグオンでイベント用背景表示
 	if (Menu_flg == false && TStop_flg == true)
@@ -197,10 +192,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//描画
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//主人公のHPが0になると表示停止
 		if (h_hp > 0)
@@ -238,10 +233,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//描画
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//主人公のHPが0になると表示停止
 		if (h_hp > 0)

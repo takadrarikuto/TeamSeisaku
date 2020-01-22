@@ -92,8 +92,6 @@ void CObjTitle::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			Scene::SetScene(new CSceneOP());
-			//Scene::SetScene(new CSceneTutorial());
-			//Scene::SetScene(new CSceneDifficulty_Level());
 		}
 	}
 
@@ -144,9 +142,6 @@ void CObjTitle::Draw()
 	dst.m_bottom = 505.0f;
 
 	Draw::Draw(4, &src, &dst, c, 0.0f);
-
-
-	//float b[4] = { 1,1,1,1 };
 
 	//É^ÉCÉgÉã
 	Font::StrDraw(L"SCP-354 éñàƒïÒçêèë", 115, 125, 60, c);
