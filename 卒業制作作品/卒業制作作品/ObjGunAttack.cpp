@@ -47,7 +47,11 @@ void CObjGunAttack::Action()
 {
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg = Menu->GetMenu();
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)

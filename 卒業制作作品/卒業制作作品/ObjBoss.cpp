@@ -111,7 +111,11 @@ void CObjBoss::Action()
 	bool Eve_Rep_M = Event->GetEvePena_Meme();
 	//ƒƒjƒ…[î•ñæ“¾
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg = Menu->GetMenu();
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//ˆÚ“®’â~
 	m_bvx = 0.0f;

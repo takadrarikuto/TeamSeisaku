@@ -7,6 +7,7 @@
 #include "GameL\UserData.h"
 #include"GameL\DrawFont.h"
 #include "GameL\Audio.h"
+#include "GameL\WinInputs.h"
 
 #include <time.h>
 
@@ -74,10 +75,6 @@ void CSceneStage::InitScene()
 
 	//バックミュージックスタート
 	Audio::Start(0); //音楽スタート
-
-	//メニューオブジェクト作成
-	CObjMenu* obj_m = new CObjMenu();
-	Objs::InsertObj(obj_m, OBJ_MENU, 21);
 
 	//主人公機オブジェクト作成
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
@@ -331,5 +328,11 @@ void CSceneStage::InitScene()
 
 void CSceneStage::Scene()
 {
-
+	//メニュオブジェクト作成処理
+	if (Input::GetVKey('E') == true)
+	{
+		//メニューオブジェクト作成
+		CObjMenu* obj_m = new CObjMenu();
+		Objs::InsertObj(obj_m, OBJ_MENU, 21);
+	}
 }

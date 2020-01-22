@@ -167,7 +167,13 @@ void CObjHero::Action()
 
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg = Menu->GetMenu();
+	bool Menu_flg;
+
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();		
+	}
+	
 	//inputフラグがオンの場合入力を可能にする
 	if (m_inputf == true)
 	{
@@ -175,10 +181,10 @@ void CObjHero::Action()
 		if (m_key_flag_menu == true)
 		{
 			if (Input::GetVKey('E') == true)
-			{
+			{				
 				Menu_flg = true;
-				Menu->SetMenu(Menu_flg);
-				m_key_flag_menu = false;
+				Menu->SetMenu(true);
+				m_key_flag_menu = false;				
 			}
 		}
 	}

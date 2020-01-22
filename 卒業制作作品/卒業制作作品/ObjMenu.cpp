@@ -79,7 +79,6 @@ void CObjMenu::Action()
 					m_andf = true;
 					m_key_flag = false;
 					Audio::Start(2);
-					//g_hero_max_hp = 0;
 				}
 			}
 			else
@@ -94,7 +93,6 @@ void CObjMenu::Action()
 				if (m_key_flag == true)
 				{
 					m_andf2 = true;
-					//g_hero_max_hp = 0;
 					Audio::Start(2);
 					m_key_flag = false;
 				}
