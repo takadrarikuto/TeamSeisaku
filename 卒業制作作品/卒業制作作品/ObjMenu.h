@@ -13,9 +13,16 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
+	bool GetMenu() { return Menu_flg; } //メニューONOFFフラグ取得用
+
 	void BackDraw(float top, float left, float right, float bottom, float c[]);
 
+	void SetMenu(bool m_f) { Menu_flg = m_f; } //メニューONOFFフラグ設定用
+
 private:
+	
+	bool Menu_flg; //メニューONOFFフラグ
+
 	bool m_key_flag;//キーフラグ
 	int choose;
 	int m_time;

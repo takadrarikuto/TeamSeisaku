@@ -41,8 +41,6 @@ void CSceneED::InitScene()
 
 	//音楽読み込み
 	Audio::LoadAudio(0, L"EDBGM.wav", BACK_MUSIC);
-	//ボリュームを1.0に戻す
-	//float v = Audio::VolumeMaster(1.5);
 
 	//音楽スタート
 	Audio::Start(0);

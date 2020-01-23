@@ -8,9 +8,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjExplosion::CObjExplosion(float x, float y, float size, int Damage)
 {
@@ -42,6 +39,14 @@ void CObjExplosion::Init()
 //アクション
 void CObjExplosion::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{

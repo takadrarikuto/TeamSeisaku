@@ -14,9 +14,6 @@ using namespace GameL;
 //死亡処理
 bool m_END_death_flg = false; //死亡フラグ
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //イベント成功フラグ
 extern bool m_EveSuccess_flg;
 
@@ -65,6 +62,14 @@ void CObjEnemy_Neutralization_Device::Action()
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int App_Rand = Event->GetApp_Rand();
 	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//アイテムフォント情報取得
 	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
