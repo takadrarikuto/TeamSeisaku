@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjARItem.h"
@@ -13,8 +14,8 @@ using namespace GameL;
 CObjARItem::CObjARItem(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_AR_Item_x = 300;
-	m_AR_Item_y = 100;
+	m_AR_Item_x = x;
+	m_AR_Item_y = y;
 }
 
 //イニシャライズ
@@ -22,14 +23,16 @@ void CObjARItem::Init()
 {
 	//初期化
 	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 30;
 	m_YHitbox_size = 24;
 
+	//アサルトライフルの弾数回復量
+	m_AR_num_max = 0; 
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_AR_Item_x, m_AR_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_AR_ITEM, 7);
-
+	
 }
 
 //アクション
@@ -39,6 +42,9 @@ void CObjARItem::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//主人公の移動に合わせる
 	m_AR_Item_x -= hvx;
@@ -50,7 +56,27 @@ void CObjARItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetAR(300);		//主人公に当たると弾補充
+		//主人公に当たると弾補充
+		if (((UserData*)Save::GetData())->choose == 0)
+		{
+			m_AR_num_max = 60; //アサルトライフルの弾数回復量変更
+			((UserData*)Save::GetData())->AR_load += m_AR_num_max; //アサルトライフル		
+			aitemfont->SetAitemNum(m_AR_num_max); //弾数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 1)
+		{
+			m_AR_num_max = 40; //アサルトライフルの弾数回復量変更
+			((UserData*)Save::GetData())->AR_load += m_AR_num_max; //アサルトライフル		
+			aitemfont->SetAitemNum(m_AR_num_max); //弾数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 2)
+		{
+			m_AR_num_max = 20; //アサルトライフルの弾数回復量変更
+			((UserData*)Save::GetData())->AR_load += m_AR_num_max; //アサルトライフル		
+			aitemfont->SetAitemNum(m_AR_num_max); //弾数表示
+		}
+		aitemfont->SetAGF(2); //フォント表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

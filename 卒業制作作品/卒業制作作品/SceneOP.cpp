@@ -41,8 +41,6 @@ void CSceneOP::InitScene()
 	
 	//音楽読み込み
 	Audio::LoadAudio(0, L"あらすじBGM.wav", BACK_MUSIC);
-	//ボリュームを-0.3にする
-	float v = Audio::VolumeMaster(-0.3);
 
 	//音楽スタート
 	Audio::Start(0);

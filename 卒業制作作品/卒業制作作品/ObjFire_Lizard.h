@@ -3,6 +3,17 @@
 
 using namespace GameL;
 
+//武器別ダメージ
+#define Gun_Attack  10;  //ハンドガン
+#define SHG_Attack  30;  //ショットガン
+#define AR_Attack  20;   //アサルトライフル
+#define SR_Attack  50;   //スナイパーライフル
+#define RL_Attack  150;  //ロケットランチャー
+#define RG_Attack  200;  //レールガン
+
+//有刺鉄線
+#define BarbedWireSmall_Attack  2;
+
 class CObjFire_Lizard : public CObj, public CBaseStatus
 {
 public:
@@ -13,8 +24,8 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	//float GetX() { return m_zex; } //エネミー情報取得用
-	//float GetY() { return m_zey; }
+	float GetX() { return m_flx; } //x位置情報取得用
+	float GetY() { return m_fly; } //y位置情報取得用
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 
 private:

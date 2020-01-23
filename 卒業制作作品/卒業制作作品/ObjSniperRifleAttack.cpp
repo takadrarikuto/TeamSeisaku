@@ -10,9 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjSniperRifleAttack::CObjSniperRifleAttack(float x, float y, float vx, float vy, float r)
 {
@@ -33,6 +30,9 @@ void CObjSniperRifleAttack::Init()
 	//削除距離最大値
 	m_Distance_max = 4;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	if (m_SRr == 0 || m_SRr == 180)
 	{
 		//当たり判定用HitBoxを作成
@@ -50,21 +50,21 @@ void CObjSniperRifleAttack::Init()
 //アクション
 void CObjSniperRifleAttack::Action()
 {
-	//メニューを開くと停止
-	if (Menu_flg == false)
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
 	{
-	//位置更新
-	m_SRx += m_SRvx;
-	m_SRy += m_SRvy;
+		Menu_flg = Menu->GetMenu();
 	}
 
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}
-
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false)
+	{
+		//位置更新
+		m_SRx += m_SRvx;
+		m_SRy += m_SRvy;
+	}
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -88,51 +88,53 @@ void CObjSniperRifleAttack::Action()
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_SRx < hx - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_SRx > hx + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		if (m_SRy < hy - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_SRy > hy + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
-	
 
-	//敵オブジェクトと接触するとオブジェクト破棄
-	if (hit_sr->CheckElementHit(ELEMENT_ENEMY) == true)
+	//壁オブジェクトと接触するとオブジェクト破棄
+	if (hit_sr->CheckElementHit(ELEMENT_WALL) == true || hit_sr->CheckElementHit(ELEMENT_WALL2) == true
+		|| hit_sr->CheckElementHit(ELEMENT_NET_S) == true || hit_sr->CheckElementHit(ELEMENT_NET_V) == true
+		|| hit_sr->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
-		if (hit_sr->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_sr->CheckObjNameHit(OBJ_BOSS) != nullptr
-			|| hit_sr->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+		m_HitBox_Delete = true;
+	}
+	//フィールドエレメントと接触すると削除
+	if (hit_sr->CheckElementHit(ELEMENT_FIELD) == true || hit_sr->CheckElementHit(ELEMENT_FIELD2) == true)
+	{
+		if (hit_sr->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_sr->CheckObjNameHit(OBJ_ARMOR) != nullptr
+			|| hit_sr->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_sr->CheckObjNameHit(OBJ_HEAL) != nullptr
+			|| hit_sr->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_sr->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+			|| hit_sr->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_sr->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+			|| hit_sr->CheckObjNameHit(OBJ_TOOLBOX) != nullptr)
 		{
-			; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+			; //アイテム系には当たらない
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
-	//壁オブジェクトと接触するとオブジェクト破棄
-	if (hit_sr->CheckElementHit(ELEMENT_WALL) == true || hit_sr->CheckElementHit(ELEMENT_WALL2) == true)
+
+	//削除処理
+	if (m_HitBox_Delete == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-	}
-	if (hit_sr->CheckElementHit(ELEMENT_FIELD) == true)
-	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

@@ -14,9 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //チュートリアルONOFFフラグ
 extern bool Tuto_flg;
 
@@ -38,35 +35,32 @@ void CObjTutorial::Init()
 //アクション
 void CObjTutorial::Action()
 {
-	if (g_zombie_count_tu >= 6)
+	//Enterキーで決定
+	if (Input::GetVKey(VK_RETURN) == true)
 	{
-		//Enterキーで決定
-		if (Input::GetVKey(VK_RETURN) == true)
+		if (m_key_flag == true)
 		{
-			if (m_key_flag == true)
-			{
-				m_andf = true;
-				Audio::Start(0);
-				m_key_flag = false;
-			}
+			m_andf = true;
+			Audio::Start(12);
+			m_key_flag = false;
 		}
-		else
-		{
-			m_key_flag = true;
-		}
+	}
+	else
+	{
+		m_key_flag = true;
+	}
 
-		//ステージに移動
-		if (m_andf == true)
+	//ステージに移動
+	if (m_andf == true)
+	{
+		m_and -= 0.03f;
+		if (m_and <= 0.0f)
 		{
-			m_and -= 0.03f;
-			if (m_and <= 0.0f)
-			{
-				m_and = 0.0f;
-				m_andf = false;
-				Tuto_flg = false;
-				Scene::SetScene(new CSceneStage());
-				//Scene::SetScene(new CSceneTutorial());
-			}
+			m_and = 0.0f;
+			m_andf = false;
+			Tuto_flg = false;
+			g_zombie_count_tu = 0;
+			Scene::SetScene(new CSceneStage());
 		}
 	}
 }
@@ -94,43 +88,30 @@ void CObjTutorial::Draw()
 	wchar_t HP[128];
 	wchar_t str[128];
 
-	//メニューを開くと行動停止
-	if (g_zombie_count_tu < 6)
-	{
-		if (Menu_flg == false)
-		{
-			m_tuto_time++;
-		}
-	}
+	m_tuto_time++;
 
-	if (m_tuto_time < 500)
+	if (m_tuto_time < 250)
 	{
-		Font::StrDraw(L"チュートリアルを開始します。", 100, 150, 20, blk);
+		Font::StrDraw(L"チュートリアルを開始します。", 100, 150, 20, c);
 	}
-	else if (m_tuto_time < 500 || m_tuto_time < 1000)
+	else if (m_tuto_time < 250 || m_tuto_time < 500)
 	{
-		Font::StrDraw(L"①↑キーで弾を打つことができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"①.上キーで弾を打つことができます。", 100, 150, 20, c);
 	}
-	else if (m_tuto_time < 1000 || m_tuto_time < 1500)
+	else if (m_tuto_time < 500 || m_tuto_time < 750)
 	{
-		Font::StrDraw(L"②弾が無くなると↓キーでリロードすることができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"②.下キーでリロードすることができます。", 100, 150, 20, c);
 	}
-	else if (m_tuto_time < 1500 || m_tuto_time < 2000)
+	else if (m_tuto_time < 750 || m_tuto_time < 1000)
 	{
-		Font::StrDraw(L"③←→キーで武器を変更することができます。", 100, 150, 20, blk);
+		Font::StrDraw(L"③.左右キーで武器を変更することができます。", 100, 150, 20, c);
 	}
-	else if (m_tuto_time < 2000 || m_tuto_time < 2500)
+	else if (m_tuto_time < 1000 || m_tuto_time < 1250)
 	{
-		Font::StrDraw(L"④敵に向けて弾を打ってみましょう。", 100, 150, 20, blk);
+		Font::StrDraw(L"④.Qキーでグレネードを投げることができます。", 100, 150, 20, c);
 	}
-	else if (m_tuto_time < 2500 || m_tuto_time < 3000)
+	else if (m_tuto_time < 1250 || m_tuto_time < 1500)
 	{
-		Font::StrDraw(L"⑤WASDキーで移動することができます。", 100, 150, 20, blk);
-	}
-	
-	if (g_zombie_count_tu >= 6)
-	{
-		Font::StrDraw(L"チュートリアルクリア！", 100, 200, 30, r);
-		Font::StrDraw(L"◆Enterでゲームスタート", 475, 80, 27, blk);
+		Font::StrDraw(L"⑤.WASDキーで移動することができます。敵を倒してみましょう。", 100, 150, 20, c);
 	}
 }

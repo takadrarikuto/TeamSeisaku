@@ -29,7 +29,7 @@ void CObjWall4::Init()
 	m_YHitbox_size = 50;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL2, OBJ_WALL, 7);
+	Hits::SetHitBox(this, m_Wallx, m_Wally, m_XHitbox_size, m_YHitbox_size, ELEMENT_WALL2, OBJ_WALL, 5);
 
 }
 
@@ -49,13 +49,6 @@ void CObjWall4::Action()
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_exp->SetPos(m_Wallx + 1, m_Wally + 1); //当たり判定の位置更新
 
-	/*if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
-	{
-		hero->SetHP(100);
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
-	}*/
-
 }
 
 //ドロー
@@ -70,13 +63,13 @@ void CObjWall4::Draw()
 	//切り取り処理
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
-	src.m_right = 100.0f;
-	src.m_bottom = 100.0f;
+	src.m_right = 1700.0f;
+	src.m_bottom = 150.0f;
 
 	//描画処理
 	dst.m_top = 0.0f + m_Wally;
 	dst.m_left = 0.0f + m_Wallx;
 	dst.m_right = 2500.0f + m_Wallx;
-	dst.m_bottom = 50.0f + m_Wally;
-	Draw::Draw(31, &src, &dst, c, 0.0f);
+	dst.m_bottom = 150.0f + m_Wally;
+	Draw::Draw(5, &src, &dst, c, 0.0f);
 }

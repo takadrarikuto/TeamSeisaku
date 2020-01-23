@@ -5,10 +5,12 @@ enum OBJ_NAME
 {
 	OBJ_NO_NAME,	//オブジェクト名無し(禁止)
 	//ゲームで使うオブジェクトの名前
-	//OBJ_○○と表記
-	OBJ_HERO,
+	//OBJ_○○と表記	
+	OBJ_HERO, //主人公
 	OBJ_PER_DECISION,
+	OBJ_FOOTPRINT,
 	OBJ_TIME,
+	//銃
 	OBJ_GUNATTACK,
 	OBJ_SHOTGUNATTACK,
 	OBJ_ARATTACK,
@@ -16,22 +18,30 @@ enum OBJ_NAME
 	OBJ_ROCKETLAUNCHERATTACK,
 	OBJ_RAILGUNATTACK,
 	OBJ_GRENADEATTACK,
+	//敵
 	OBJ_ENEMY,
 	OBJ_FIRE_BIRD,
 	OBJ_FIRE_LIZARD,
 	OBJ_BAT_ENEMY,
 	OBJ_SPHERE_TYPE_ENEMY,
+	//中ボス
 	OBJ_MEME_MEDIUM_BOSS,
+	//ボス
 	OBJ_BOSS,
+	//装置
 	OBJ_GENERATOR,
+	OBJ_GENERATOR2,
 	OBJ_ENEMY_NEUTRALIZATION_DEVICE,
+	OBJ_ENEMY_NEUTRALIZATION_DEVICE2,
 	OBJ_MEME_NEUTRALIZATION_DEVICE,
+	//血しぶき、爆発エフェクト
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
 	OBJ_OBJECT,
 	OBJ_TUTORIAL,
 	OBJ_STAGE,
 	OBJ_TITLE,
+	OBJ_LEVEL,
 	OBJ_OP,
 	OBJ_OPERATION,
 	OBJ_CLEAR,
@@ -43,19 +53,29 @@ enum OBJ_NAME
 	OBJ_AIMING,
 	OBJ_HEAL,
 	OBJ_EVENT,
+	//ドロップアイテム
 	OBJ_SHOTGUN_ITEM,
 	OBJ_AR_ITEM,
 	OBJ_SNIPERRIFLE_ITEM,
 	OBJ_ROCKETLAUNCHER_ITEM,
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
+	OBJ_AITEMDROP,
+	//設置型アイテム
+	OBJ_INSTALL_TYPE_SHG,
+	OBJ_INSTALL_TYPE_AR,
+	OBJ_INSTALL_TYPE_SR,
+	OBJ_INSTALL_TYPE_RANDBOX,
 	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE_V,
 	OBJ_BARBED_WIRE_SMALL,
 	OBJ_NET,
+	OBJ_NET_V,
 	OBJ_ARMOR,
 	OBJ_WALL,
 	OBJ_TUTO_HERO,
 	OBJ_TOOLBOX,
+	OBJ_AITEM_FONT,
 };
 //------------------------------------------------
 
@@ -79,6 +99,9 @@ enum HIT_ELEMENTS
 	ELEMENT_WALL2,
 	ELEMENT_FIELD2,
 	ELEMENT_MEME_ND,
+	ELEMENT_NET_V,
+	ELEMENT_NET_S,
+	ELEMENT_BARBED_V,
 };
 //------------------------------------------------
 
@@ -87,16 +110,22 @@ enum HIT_ELEMENTS
 struct UserData
 {
 	int mSeveData;	//サンプルセーブデータ
-	//武器別ダメージ
-	int Gun_Attack = 10;  //ハンドガン
-	int SHG_Attack = 30;	//ショットガン
-	int AR_Attack = 20; //アサルトライフル
-	int SR_Attack = 50; //スナイパーライフル
-	int RL_Attack = 150; //ロケットランチャー
-	int RG_Attack = 200; //レールガン
-	int GRE_Attack = 100;	//グレネード
-	int EXP_Attack = 50; //爆発
 
+	//レベル別タイム設定
+	int Level_Time = 0;
+
+	//武器装填
+	int SHG_load = 0;	//ショットガン
+	int AR_load = 0; //アサルトライフル
+	int SR_load = 0; //スナイパーライフル
+	int RL_load = 0; //ロケットランチャー
+	int RG_load = 0; //レールガン
+	int GRE_load = 0; //グレネード
+
+	//難易度変更
+	int choose = 0;
+	//イベント開始タイム
+	int Event_Time = 0;
 };
 //------------------------------------------------
 
@@ -148,6 +177,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //爆発
 #include "ObjExplosion.h"
 
+//足跡
+#include "ObjFootprint.h"
+
 //ステージ
 #include "ObjStage.h"
 
@@ -158,8 +190,10 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjEnemy_Neutralization_Device2.h"
 #include "ObjMeme_Neutralization_Device.h"
 #include "ObjBarbedWire.h"
+#include "ObjBarbedWireV.h"
 #include "ObjBarbedWireSmall.h"
 #include "ObjNet.h"
+#include "ObjNetV.h"
 
 //アイテム
 #include "ObjHeal.h"//回復
@@ -171,6 +205,11 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 #include "ObjGrenadeItem.h"//グレネード補充用
 #include "ObjArmor.h"//アーマー
 #include "ObjToolBox.h"//工具箱
+#include "ObjAitemDrop.h" //アイテムドロップ
+#include "ObjInstallation_Type_ShotGun.h" //設置型ショットガン補充用
+#include "ObjInstallation_Type_AR.h" //設置型アサルトライフル補充用
+#include "ObjInstallation_Type_SR.h" //設置型スナイパーライフル補充用
+#include "ObjInstallation_Type_RandBox.h" //設置型ランダムアイテムボックス
 
 //イベント
 #include "ObjEvent.h"
@@ -178,11 +217,17 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //タイトル
 #include "ObjTitle.h"
 
+//難易度
+#include "ObjDifficulty_Level.h"
+
 //あらすじ
 #include "ObjOP.h"
 
 //操作説明
 #include "ObjOperation.h"
+
+//フォント
+#include "ObjAitemFont.h"
 
 //チュートリアル
 #include "ObjTutorial.h"
@@ -236,6 +281,9 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //タイトル
 #include "SceneTitle.h"
 
+//難易度
+#include "SceneDifficulty_Level.h"
+
 //あらすじ
 #include "SceneOP.h"
 
@@ -259,5 +307,4 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 
-#define SET_GAME_START  CSceneStage
-
+#define SET_GAME_START  CSceneTitle

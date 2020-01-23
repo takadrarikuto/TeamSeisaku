@@ -29,18 +29,6 @@ void CObjTitle::Init()
 	m_time = 10;
 	m_and = 1.0f;
 	m_andf = false;
-
-	//ゲーム実行して一回のみ
-	static bool init_point = false;
-	if (init_point == false)
-	{
-		//ロード
-		Save::Open();//同フォルダ「UserData」からデータ取得
-
-		init_point = true;
-	}
-
-	Save::Seve();//UserDataの情報フォルダ「UserData」を作成
 }
 
 //アクション
@@ -104,11 +92,6 @@ void CObjTitle::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			Scene::SetScene(new CSceneOP());
-			/*
-			//デバッグテスト用
-			Scene::SetScene(new CSceneStage());
-			Scene::SetScene(new CSceneClear());
-			*/
 		}
 	}
 
@@ -119,8 +102,13 @@ void CObjTitle::Draw()
 {
 	//描写カラー情報
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
-	float bl[4] = { 0.8f,0.8f,0.8f,1.0f, };
+	float bl[4] = { 0.7f,0.7f,0.7f,1.0f, };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float b[4] = { 0.0f,0.5f,1.0f,1.0f };//青
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
+	float g[4] = { 0.0f,1.0f,0.0f,1.0f };//緑
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+	float a[4] = { 1.0f,1.0f,1.0f,0.7f };
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -155,19 +143,16 @@ void CObjTitle::Draw()
 
 	Draw::Draw(4, &src, &dst, c, 0.0f);
 
-
-	float b[4] = { 1,1,1,1 };
-
 	//タイトル
-	Font::StrDraw(L"SCP354（仮）", 225, 125, 60, b);
+	Font::StrDraw(L"SCP-354 事案報告書", 115, 125, 60, c);
 
 		if (choose == 0)
 			Font::StrDraw(L"◆ゲームスタート", GAME_START_POS_X , GAME_START_POS_Y, GAME_START_FONT_SIZE, r);
 		else
-			Font::StrDraw(L"　ゲームスタート", GAME_START_POS_X, GAME_START_POS_Y, GAME_START_FONT_SIZE, b);
+			Font::StrDraw(L"　ゲームスタート", GAME_START_POS_X, GAME_START_POS_Y, GAME_START_FONT_SIZE, a);
 
 		if (choose == 1)
 			Font::StrDraw(L"◆ゲーム終了", GAME_EXIT_POS_X , GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, r);
 		else
-			Font::StrDraw(L"　ゲーム終了", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, b);
+			Font::StrDraw(L"　ゲーム終了", GAME_EXIT_POS_X, GAME_EXIT_POS_Y, GAME_EXIT_FONT_SIZE, a);
 }

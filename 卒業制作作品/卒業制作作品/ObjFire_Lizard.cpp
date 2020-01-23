@@ -3,15 +3,13 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjFire_Lizard.h"
 
 //使用するネームスペース
 using namespace GameL;
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
 
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
@@ -57,15 +55,6 @@ void CObjFire_Lizard::Init()
 	//攻撃頻度最大値
 	m_at_max = 5;
 
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
-
 	//ダメージ点滅時間用
 	m_time_d = 0;	
 
@@ -83,12 +72,6 @@ void CObjFire_Lizard::Init()
 //アクション
 void CObjFire_Lizard::Action()
 {
-	//上下左右別当たり判定確認フラグ初期化
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_RightHit_flg = false; //右
-
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hx = hero->GetX(); //位置
@@ -98,6 +81,24 @@ void CObjFire_Lizard::Action()
 	float hpx = hero->GetPX() - m_flx; //位置更新
 	float hpy = hero->GetPY() - m_fly;
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//アイテムドロップ情報取得
+	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -106,8 +107,8 @@ void CObjFire_Lizard::Action()
 		EXPDamage = EXPAttack->GetEXP();
 	}
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//移動処理		
 		//主人公が上に居ると上に移動
@@ -218,23 +219,26 @@ void CObjFire_Lizard::Action()
 		hit_data = hit_fl->SearchElementHit(ELEMENT_WALL);
 		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 88 && r >= 0) || r > 292)
+			if (hit_data[i] != nullptr)
 			{
-				m_flvx = -0.15f; //右
-			}
-			if (r > 88 && r < 92)
-			{
-				m_flvy = 0.15f;//上
-			}
-			if (r > 92 && r < 268)
-			{
-				m_flvx = 0.15f;//左
-			}
-			if (r > 268 && r < 292)
-			{
-				m_flvy = -0.15f; //下
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 88 && r >= 0) || r > 292)
+				{
+					m_flvx = -0.15f; //右
+				}
+				if (r > 88 && r < 92)
+				{
+					m_flvy = 0.15f;//上
+				}
+				if (r > 92 && r < 268)
+				{
+					m_flvx = 0.15f;//左
+				}
+				if (r > 268 && r < 292)
+				{
+					m_flvy = -0.15f; //下
+				}
 			}
 		}
 	}
@@ -247,23 +251,26 @@ void CObjFire_Lizard::Action()
 		hit_data = hit_fl->SearchElementHit(ELEMENT_WALL2);
 		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 2 && r >= 0) || r > 358)
+			if (hit_data[i] != nullptr)
 			{
-				m_flvx = -0.15f; //右
-			}
-			if (r > 2 && r < 178)
-			{
-				m_flvy = 0.15f;//上
-			}
-			if (r > 178 && r < 182)
-			{
-				m_flvx = 0.15f;//左
-			}
-			if (r > 182 && r < 358)
-			{
-				m_flvy = -0.15f; //下
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 2 && r >= 0) || r > 358)
+				{
+					m_flvx = -0.15f; //右
+				}
+				if (r > 2 && r < 178)
+				{
+					m_flvy = 0.15f;//上
+				}
+				if (r > 178 && r < 182)
+				{
+					m_flvx = 0.15f;//左
+				}
+				if (r > 182 && r < 358)
+				{
+					m_flvy = -0.15f; //下
+				}
 			}
 		}
 	}
@@ -273,83 +280,330 @@ void CObjFire_Lizard::Action()
 	{
 		HIT_DATA** hit_data;
 		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD);
-
-		float r = 0;
-
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < hit_fl->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
-			{
-				r = hit_data[i]->r;
-
-				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
+			{				
+				//発、敵無力
+				if (hit_fl->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_fl->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
 				{
-					m_flvx = m_flvx - m_flv_max;
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r < 4 && r >= 0) || r > 356)
+					{
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r > 2 && r < 178)
+					{
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r > 176 && r < 184)
+					{
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 182 && r < 358)
+					{
+						m_flvy = m_flvy - m_flv_max;
+					}
 				}
-				else if (r > 2 && r < 178)
+				//ミーム
+				if (hit_fl->CheckObjNameHit(OBJ_MEME_NEUTRALIZATION_DEVICE) != nullptr)
 				{
-					m_flvy = m_flvy + m_flv_max;
-				}
-				else if (r > 176 && r < 184)
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 45) || r >= 315)
+					{
+						m_RightHit_flg = true; //右
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r >= 45 && r < 135)
+					{
+						m_UpHit_flg = true;    //上
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r >= 135 && r <= 225)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 225 && r < 315)
+					{
+						m_DownHit_flg = true;	 //下
+						m_flvy = m_flvy - m_flv_max;
+					}
+				}	
+				//有刺鉄線の壁
+				if (hit_fl->CheckObjNameHit(OBJ_BARBED_WIRE) != nullptr)
 				{
-					m_flvx = m_flvx + m_flv_max;
-				}
-				else if (r > 182 && r < 358)
-				{
-					m_flvy = m_flvy - m_flv_max;
+					float r = hit_data[i]->r;
+					//角度で上下左右を判定
+					if ((r > 0 && r < 30) || r >= 330)
+					{
+						m_RightHit_flg = true; //右
+						m_flvx = -m_flv_max;
+					}
+					else if (r >= 30 && r < 150)
+					{
+						m_UpHit_flg = true;    //上
+						m_flvy = m_flv_max;
+					}
+					else if (r >= 150 && r <= 210)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_flvx = m_flv_max;
+					}
+					else if (r > 210 && r < 330)
+					{
+						m_DownHit_flg = true;	 //下
+						m_flvy = -m_flv_max;
+					}
 				}
 			}
 		}
 	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+	if (hit_fl->CheckElementHit(ELEMENT_FIELD2) == true)
+	{
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_FIELD2);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				//発、敵無力
+				if (hit_fl->CheckObjNameHit(OBJ_GENERATOR2) != nullptr
+					|| hit_fl->CheckObjNameHit(OBJ_ENEMY_NEUTRALIZATION_DEVICE2) != nullptr)
+				{
+					//角度で上下左右を判定
+					if ((r < 4 && r >= 0) || r > 356)
+					{
+						m_flvx = m_flvx - m_flv_max;
+					}
+					else if (r > 2 && r < 178)
+					{
+						m_flvy = m_flvy + m_flv_max;
+					}
+					else if (r > 176 && r < 184)
+					{
+						m_flvx = m_flvx + m_flv_max;
+					}
+					else if (r > 182 && r < 358)
+					{
+						m_flvy = m_flvy - m_flv_max;
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 
+	if (hit_fl->CheckElementHit(ELEMENT_NET_S) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_NET_S);
+		if (hit_data != nullptr)
+		{
+			//ネット(縦)
+			if (hit_fl->CheckObjNameHit(OBJ_NET_V) != nullptr)
+			{
+				for (int i = 0; i < hit_fl->GetCount(); i++)
+				{
+					if (hit_data[i] != nullptr)
+					{
+						float r = hit_data[i]->r;
+						//角度で上下左右を判定
+						if ((r > 0 && r < 65) || r >= 295)
+						{
+							m_RightHit_flg = true; //右
+							m_flvx = -m_flv_max;
+						}
+						else if (r >= 65 && r < 115)
+						{
+							m_UpHit_flg = true;    //上
+							m_flvy = m_flv_max;
+						}
+						else if (r >= 115 && r <= 245)
+						{
+							m_LeftHit_flg = true;	 //左
+							m_flvx = m_flv_max;
+						}
+						else if (r > 245 && r < 295)
+						{
+							m_DownHit_flg = true;	 //下
+							m_flvy = -m_flv_max;
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+	if (hit_fl->CheckElementHit(ELEMENT_NET_V) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_NET_V);
+		if (hit_data != nullptr)
+		{
+			//ネット(横)
+			if (hit_fl->CheckObjNameHit(OBJ_NET) != nullptr)
+			{
+				for (int i = 0; i < hit_fl->GetCount(); i++)
+				{
+					if (hit_data[i] != nullptr)
+					{
+						float r = hit_data[i]->r;
+						//角度で上下左右を判定
+						if ((r > 0 && r < 25) || r >= 335)
+						{
+							m_RightHit_flg = true; //右
+							m_flvx = -m_flv_max;
+						}
+						else if (r >= 25 && r < 155)
+						{
+							m_UpHit_flg = true;    //上
+							m_flvy = m_flv_max;
+						}
+						else if (r >= 155 && r <= 205)
+						{
+							m_LeftHit_flg = true;	 //左
+							m_flvx = m_flv_max;
+						}
+						else if (r > 205 && r < 335)
+						{
+							m_DownHit_flg = true;	 //下
+							m_flvy = -m_flv_max;
+						}
+					}
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+	//有刺鉄線の壁
+	if (hit_fl->CheckElementHit(ELEMENT_BARBED_V) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_fl->SearchElementHit(ELEMENT_BARBED_V);
+		for (int i = 0; i < hit_fl->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r > 0 && r < 65) || r >= 295)
+				{
+					m_RightHit_flg = true; //右
+					m_flvx = -m_flv_max;
+				}
+				else if (r >= 65 && r < 115)
+				{
+					m_UpHit_flg = true;    //上
+					m_flvy = m_flv_max;
+				}
+				else if (r >= 115 && r <= 245)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_flvx = m_flv_max;
+				}
+				else if (r > 245 && r < 295)
+				{
+					m_DownHit_flg = true;	 //下
+					m_flvy = -m_flv_max;
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
-	//ハンドガン
-	if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+	if (m_time_d == 0)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ショットガン
-	else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//アサルトライフル
-	else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//スナイパーライフル
-	else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ロケットランチャー
-	else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//レールガン
-	else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//グレネード
-	else if (hit_fl->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//爆発
-	else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-	{
-		m_hero_hp -= EXPDamage;
+		//ハンドガン
+		if (hit_fl->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+		{
+			m_hero_hp -= Gun_Attack;
+			m_time_d = 5;		//点滅時間をセット
+		}
+		//ショットガン
+		else if (hit_fl->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= SHG_Attack;
+			m_time_d = 5;		//点滅時間をセット
+		}
+		//アサルトライフル
+		else if (hit_fl->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
+		{
+			m_hero_hp -= AR_Attack;
+			m_time_d = 5;		//点滅時間をセット
+		}
+		//スナイパーライフル
+		else if (hit_fl->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
+		{
+			m_hero_hp -= SR_Attack;
+			m_time_d = 5;		//点滅時間をセット
+		}
+		//ロケットランチャー
+		else if (hit_fl->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
+		{
+			m_hero_hp -= RL_Attack;
+			m_time_d = 5;		//点滅時間をセット
+		}
+		//レールガン
+		else if (hit_fl->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= RG_Attack;
+			m_time_d = 5;		//点滅時間をセット
+		}
+		//爆発
+		else if (hit_fl->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+		{
+			m_hero_hp -= EXPDamage;
+		}
+		//有刺鉄線
+		else if (hit_fl->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+		{
+			m_hero_hp -= BarbedWireSmall_Attack;
+			m_time_d = 80;		//点滅時間をセット
+		}
 	}
 
 	if (m_time_d > 0)
@@ -362,10 +616,15 @@ void CObjFire_Lizard::Action()
 	}
 
 	if (m_hero_hp <= 0)
-	{
+	{	
+		AitemDrop->SetAitemDrop(true);
+		AitemDrop->SetFire_LizardDrop(true);
+		boss->SetFLR(1);
+
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_flx, m_fly, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+		Audio::Start(15);
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

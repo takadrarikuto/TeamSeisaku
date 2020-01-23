@@ -3,6 +3,7 @@
 #include "GameL\WinInputs.h"
 #include "GameL\SceneManager.h"
 #include "GameL\DrawFont.h"
+#include"GameL\UserData.h"
 
 #include <time.h>
 
@@ -12,32 +13,27 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-//タイム減少フラグ
-extern bool m_Time_GenEve_CutBack_flg;
-extern bool m_Time_Gen2Eve_CutBack_flg;
-
-//イベント用タイムONOFFフラグ
-//bool m_Evetime_flg = false;
-
 //イニシャライズ
 void CObjTime::Init()
 {
 	//初期化
-	m_time = 10850; //10850 = 3分
+	m_time = ((UserData*)Save::GetData())->Level_Time;
+	
+	//時間停止
+	m_time_stop = 0; 
 	 //イベントランダム変数
 	m_Event_Rand_num = 0;
 	//イベント開始時間
-	m_time_event = 9050;
-	
-	m_flag_time = true;
+	m_time_event = ((UserData*)Save::GetData())->Event_Time;
+
 	m_Stop_flg = false; //計測停止フラグ
 	m_Start_flg = false; //測定開始フラグ
 
 	m_Gen_flg = false; //発電機起動フラグ
 	m_END_flg = false; //敵無力化装置フラグ
 	m_MND_flg = false; //ミーム実態無力化装置フラグ
+	m_Repairing_flg = false; //装置修理イベントフラグ
+
 }
 
 //アクション
@@ -46,54 +42,83 @@ void CObjTime::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	bool Time_Pena = Event->GetEveTimPena();
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
-		if (m_time > 0)
+		//タイム減少
+		if (m_time > 0 && m_time_stop == 0)
 		{
 			m_time--;
 		}
+		//タイム停止時間減少
+		if (m_time_stop > 0)
+		{
+			m_time_stop--;
+		}
 	}
 	//イベント開始、計測停止処理
-	if (m_time == m_time_event && m_time > 50 && m_Stop_flg == false)
+	if (m_time == m_time_event && m_time > 50)
 	{		
-		m_Event_Rand_num = rand() % 100;
-		//イベントランダム選択処理
-		if (m_Event_Rand_num > 0/*< 50*/)
+		if (m_Stop_flg == false)
 		{
-			m_Gen_flg = true;
-		}
-		/*else if (m_Event_Rand_num>= 50)
-		{
-			m_END_flg = true;
-		}*/
-		/*if (m_Event_Rand_num >= 0)
-		{
-			m_MND_flg = true;
-		}*/
-		m_Stop_flg = true;
+			m_Event_Rand_num = rand() % 100;
+			//イベントランダム選択処理
+			////発電機イベント
+			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 50)
+			{
+				m_Gen_flg = true;
+			}
+			//敵無力化イベント
+			if (m_Event_Rand_num > 50 && m_Event_Rand_num <= 65)
+			{
+				m_END_flg = true;
+			}
+			//ミーム実態無力化イベント
+			if (m_Event_Rand_num > 65 && m_Event_Rand_num <= 80)
+			{
+				m_MND_flg = true;
+			}
+			//修理イベント
+			if (m_Event_Rand_num > 80 && m_Event_Rand_num <= 100)
+			{
+				m_Repairing_flg = true;
+			}
+			m_Stop_flg = true;
+		}		
 	}
 	//タイム再スタート処理
 	if (m_Start_flg == true)
 	{		
-		//イベント開始時間減少
-		m_time_event -= 1800; //30秒減少
-		//発電機イベント失敗時タイム増加
-		if (Time_Pena == true)
-		{
-			m_time += 1800; //30秒増加
-			Time_Pena = false;
-			Event->SetEveTimPena(Time_Pena);
-		}
 		//初期化処理
 		//タイムストップorスタート
 		m_Stop_flg = false;
 		m_Start_flg = false;
 		//設置物フラグ
 		m_Gen_flg = false;
-		m_END_flg = false;	
-		m_MND_flg = false;		
+		m_END_flg = false;
+		m_MND_flg = false;
+		//装置修理フラグ
+		m_Repairing_flg = false;
+
+		//イベント開始時間減少
+		m_time_event -= 1800; //30秒減少
+		if (Time_Pena == true)
+		{
+			//時間停止
+			m_time_stop = 1800;//30秒増加
+			Time_Pena = false;
+			Event->SetEveTimPena(Time_Pena);
+		}
 	}
 
 	//制限時間0でゲームクリアシーン移行
@@ -115,6 +140,7 @@ void CObjTime::Draw()
 
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
+	float y[4] = { 1.0f,1.0f,0.0f,1.0f };//黄
 	wchar_t str[128];
 
 	//分：秒の値を文字列化
@@ -123,9 +149,14 @@ void CObjTime::Draw()
 	else
 		swprintf_s(str, L"%d:%d", minute, second);
 
-	Font::StrDraw(str, 10, 30, 28, c);
+	Font::StrDraw(str, 10, 30, 28, c);	
 
 	if (minute == 1 && second == 0 || minute == 0)
+	{
+		Font::StrDraw(str, 10, 30, 28, y);
+	}
+
+	if (m_time_stop > 0)
 	{
 		Font::StrDraw(str, 10, 30, 28, r);
 	}

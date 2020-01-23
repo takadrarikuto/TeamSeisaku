@@ -91,6 +91,21 @@
     <Filter Include="ソース ファイル\ステージメイン\設置物\その他">
       <UniqueIdentifier>{b2fb2f55-4129-4fcd-a629-dc5a13cbc5c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム\設置型">
+      <UniqueIdentifier>{c2b56165-f432-4f03-af40-c595367bf517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\フォント">
+      <UniqueIdentifier>{ff02979c-f476-4fca-9eeb-0e04f16b52da}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\難易度設定">
+      <UniqueIdentifier>{0a9da7b3-4553-43c8-a685-21fe05e83ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\主人公関係\足跡">
+      <UniqueIdentifier>{5bd1a4cf-ab13-4207-ba34-274311db8197}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系">
+      <UniqueIdentifier>{3e589f2c-61a1-4587-ab22-ae621c9ffd54}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameHead.h">
@@ -243,9 +258,6 @@
     <ClInclude Include="ObjGenerator.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
-    <ClInclude Include="ObjHeal.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
     <ClInclude Include="ObjEvent.h">
       <Filter>ソース ファイル\ステージメイン\イベント</Filter>
     </ClInclude>
@@ -260,24 +272,6 @@
     </ClInclude>
     <ClInclude Include="ObjEnemy_Neutralization_Device.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjShotGunItem.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjSniperRifleItem.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjARItem.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjGrenadeItem.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjRocketLauncherItem.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
-    <ClInclude Include="ObjRailGunItem.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClInclude>
     <ClInclude Include="ObjWall.h">
       <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
@@ -336,9 +330,6 @@
     <ClInclude Include="ObjMeme_Medium_Boss.h">
       <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
     </ClInclude>
-    <ClInclude Include="ObjArmor.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClInclude>
     <ClInclude Include="ObjBarbedWire.h">
       <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
     </ClInclude>
@@ -354,8 +345,65 @@
     <ClInclude Include="ObjMeme_Neutralization_Device.h">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_AR.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_RandBox.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_ShotGun.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjInstallation_Type_SR.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjNetV.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjAitemFont.h">
+      <Filter>ソース ファイル\フォント</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjBarbedWireV.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjDifficulty_Level.h">
+      <Filter>ソース ファイル\難易度設定</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDifficulty_Level.h">
+      <Filter>ソース ファイル\難易度設定</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjFootprint.h">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\足跡</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjAitemDrop.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjARItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjArmor.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjGrenadeItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjHeal.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRailGunItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjRocketLauncherItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjShotGunItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjSniperRifleItem.h">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClInclude>
     <ClInclude Include="ObjToolBox.h">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -503,9 +551,6 @@
     <ClCompile Include="ObjGenerator.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClCompile>
-    <ClCompile Include="ObjHeal.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
     <ClCompile Include="ObjEvent.cpp">
       <Filter>ソース ファイル\ステージメイン\イベント</Filter>
     </ClCompile>
@@ -520,24 +565,6 @@
     </ClCompile>
     <ClCompile Include="ObjEnemy_Neutralization_Device.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjShotGunItem.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjSniperRifleItem.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjARItem.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjGrenadeItem.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjRocketLauncherItem.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
-    <ClCompile Include="ObjRailGunItem.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
     </ClCompile>
     <ClCompile Include="ObjWall.cpp">
       <Filter>ソース ファイル\ステージメイン\ステージ\壁</Filter>
@@ -596,9 +623,6 @@
     <ClCompile Include="ObjMeme_Medium_Boss.cpp">
       <Filter>ソース ファイル\ステージメイン\中ボス</Filter>
     </ClCompile>
-    <ClCompile Include="ObjArmor.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
-    </ClCompile>
     <ClCompile Include="ObjBarbedWire.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
     </ClCompile>
@@ -611,8 +635,65 @@
     <ClCompile Include="ObjMeme_Neutralization_Device.cpp">
       <Filter>ソース ファイル\ステージメイン\設置物\装置</Filter>
     </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_AR.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_RandBox.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_ShotGun.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjInstallation_Type_SR.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjNetV.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjAitemFont.cpp">
+      <Filter>ソース ファイル\フォント</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjBarbedWireV.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\その他</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjDifficulty_Level.cpp">
+      <Filter>ソース ファイル\難易度設定</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDifficulty_Level.cpp">
+      <Filter>ソース ファイル\難易度設定</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjFootprint.cpp">
+      <Filter>ソース ファイル\ステージメイン\主人公関係\足跡</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjAitemDrop.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjARItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjArmor.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjGrenadeItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjHeal.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRailGunItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjRocketLauncherItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjShotGunItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjSniperRifleItem.cpp">
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\ドロップ系</Filter>
+    </ClCompile>
     <ClCompile Include="ObjToolBox.cpp">
-      <Filter>ソース ファイル\ステージメイン\設置物\アイテム</Filter>
+      <Filter>ソース ファイル\ステージメイン\設置物\アイテム\設置型</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -50,29 +50,23 @@ void CObjOP::Draw()
 
 	float p[4] = { 1,1,1,1 };
 
-	if (Input::GetVKey(VK_RETURN) == true)
-	{
-		m_y -= 3.0f;
-	}
-	else
+	if (m_y > -600)
 	{
 		m_y -= 0.6f;
-	}
+	}	
+	
 	Font::StrDraw(L"～あらすじ～", GAME_OP_X, GAME_OP_Y + m_y + 400, 40, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 500, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 550, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 600, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 700, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 750, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 800, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 900, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 950, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"。", GAME_OP_X, GAME_OP_Y + m_y + 1000, GAME_OP_FONT_SIZE, p);
-	Font::StrDraw(L"※Enterで次へ", GAME_OP_X, GAME_OP_Y + m_y + 1150, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"　財団の機動部隊の一員である主人公は、SCP-354を収容する", GAME_OP_X, GAME_OP_Y + m_y + 500, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"ためにエリア354に送られました。", GAME_OP_X, GAME_OP_Y + m_y + 550, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"　だがそこは、SCP-354の収容違反が発生し施設が壊滅して", GAME_OP_X, GAME_OP_Y + m_y + 650, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"いました。主人公はある機械を起動させ、オブジェクトを", GAME_OP_X, GAME_OP_Y + m_y + 700, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"鎮静化、または無力化するために発電機を起動します。", GAME_OP_X, GAME_OP_Y + m_y + 750, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"　ですがオブジェクトからは数々の妨害を与えてきます。", GAME_OP_X, GAME_OP_Y + m_y + 850, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"主人公は無事機械が発動するまで生き残れるのか・・・", GAME_OP_X, GAME_OP_Y + m_y + 900, GAME_OP_FONT_SIZE, p);
+	Font::StrDraw(L"※Enterで次へ", GAME_OP_X, GAME_OP_Y + m_y + 1000, GAME_OP_FONT_SIZE, p);
 
 	if (Input::GetVKey(VK_RETURN) == true)
 	{
 		Scene::SetScene(new CSceneOperation());
-		//Scene::SetScene(new CSceneStage());
 	}
 }

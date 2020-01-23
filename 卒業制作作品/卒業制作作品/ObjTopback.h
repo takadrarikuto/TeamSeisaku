@@ -23,4 +23,11 @@ private:
 	int rg_pb_e;
 
 	int ws_num;
+
+	int Aitem_get_font;
+
+	int zombie_count_tu;
+
+	int evemiss_time;
+	int evesuc_time;
 };

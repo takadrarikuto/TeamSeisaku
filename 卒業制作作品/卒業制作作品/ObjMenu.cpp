@@ -11,13 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//難易度フラグ
-//extern bool Usually_flg; //普通
-//extern bool Difficult_flg; //難しい
-
-//メニューONOFFフラグ
-bool Menu_flg = false;
-
 //メニューキー制御用フラグ
 bool m_key_flag_menu = true;
 
@@ -36,7 +29,9 @@ extern bool Tuto_flg;
 //イニシャライズ
 void CObjMenu::Init()
 {
-	//初期化
+	//初期化	
+	Menu_flg = false; //メニューONOFFフラグ
+
 	choose = 0;
 	m_time = 10;
 	m_and = 1.0f;
@@ -44,9 +39,6 @@ void CObjMenu::Init()
 	m_andf2 = false;
 	//シーン移動フラグ
 	m_Scene_flg = false;
-	//音楽情報の読み込み
-	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
-	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
 }
 
 //アクション
@@ -59,14 +51,14 @@ void CObjMenu::Action()
 		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
 		{
 			--choose;
-			Audio::Start(0);
+			Audio::Start(1);
 			m_time = 10;
 		}
 		//下キーで下に移動
 		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
 		{
 			++choose;
-			Audio::Start(0);
+			Audio::Start(1);
 			m_time = 10;
 		}
 		if (m_time > 0) {
@@ -86,8 +78,7 @@ void CObjMenu::Action()
 				{
 					m_andf = true;
 					m_key_flag = false;
-					Audio::Start(1);
-					//g_hero_max_hp = 0;
+					Audio::Start(2);
 				}
 			}
 			else
@@ -102,8 +93,7 @@ void CObjMenu::Action()
 				if (m_key_flag == true)
 				{
 					m_andf2 = true;
-					//g_hero_max_hp = 0;
-					Audio::Start(1);
+					Audio::Start(2);
 					m_key_flag = false;
 				}
 			}
@@ -141,8 +131,12 @@ void CObjMenu::Action()
 				Scene::SetScene(new CSceneTitle());
 			}
 		}
+		Audio::Stop(0); //音楽ストップ
 	}
-
+	if (Menu_flg == false)
+	{
+		Audio::Start(0); //音楽スタート
+	}
 }
 
 //ドロー
@@ -215,7 +209,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 250.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/80",sg_pb_me, 15);
+		swprintf_s(str, L"%d/60",sg_pb_me, 15);
 		Font::StrDraw(str, 200, 205, 37, c);
 		//残り弾数が0の時、文字色を赤にする
 		if (sg_pb_me == 0)
@@ -236,7 +230,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 325.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/300", ar_pb_me, 15);
+		swprintf_s(str, L"%d/200", ar_pb_me, 15);
 		Font::StrDraw(str, 200, 285, 37, c);
 		//残り弾数が0の時、文字色を赤にする
 		if (ar_pb_me == 0)
@@ -257,7 +251,7 @@ void CObjMenu::Draw()
 		dst.m_bottom = 400.0f;
 		Draw::Draw(11, &src, &dst, c, 0.0f);
 		//武器所持弾表示
-		swprintf_s(str, L"%d/50", sr_pb_me, 15);
+		swprintf_s(str, L"%d/30", sr_pb_me, 15);
 		Font::StrDraw(str, 200, 360, 37, c);
 		//残り弾数が0の時、文字色を赤にする
 		if (sr_pb_me == 0)
@@ -331,21 +325,25 @@ void CObjMenu::Draw()
 		//表示説明用
 		swprintf_s(str, L"残り弾数/最大所持弾数", 15);
 		Font::StrDraw(str, 410, 370, 25, c);
+		swprintf_s(str, L"選択：上下キー", 15);
+		Font::StrDraw(str, 125, 440, 25, c);
+		swprintf_s(str, L"決定：Enterキー", 15);
+		Font::StrDraw(str, 125, 480, 25, c);
 
 		//操作説明メニュー用
-		//切り取り位置の設定
-		src.m_top = 75.0f;
-		src.m_left = 0.0f;
-		src.m_right = 800.0f;
-		src.m_bottom = 490.0f;
+		////切り取り位置の設定
+		//src.m_top = 75.0f;
+		//src.m_left = 0.0f;
+		//src.m_right = 800.0f;
+		//src.m_bottom = 490.0f;
 
-		//表示位置の設定
-		dst.m_top = 415.0f;
-		dst.m_left = 75.0f;
-		dst.m_right = 375.0f;
-		dst.m_bottom = 565.0f;
-		//0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
-		Draw::Draw(33, &src, &dst, c, 0.0f);
+		////表示位置の設定
+		//dst.m_top = 415.0f;
+		//dst.m_left = 75.0f;
+		//dst.m_right = 375.0f;
+		//dst.m_bottom = 565.0f;
+		////0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
+		//Draw::Draw(33, &src, &dst, c, 0.0f);
 
 		//-------------------------------------------------------------------
 

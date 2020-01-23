@@ -23,4 +23,6 @@ private:
 	int rg_pb_e;
 
 	int ws_num;
+
+	int tuto_se_time;
 };

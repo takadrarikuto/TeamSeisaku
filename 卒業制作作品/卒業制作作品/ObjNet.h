@@ -13,9 +13,8 @@ public:
 	void Draw(); //ドロー
 
 private:
-	float m_Barbedx; //位置情報
-	float m_Barbedy;
+	float m_Netx; //位置情報
+	float m_Nety;
 	float m_XHitbox_size; //XY当たり判定サイズ
 	float m_YHitbox_size;
-
 };

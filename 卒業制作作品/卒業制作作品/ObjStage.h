@@ -62,6 +62,14 @@ private:
 	int rg_pb_e;
 	int gre_pb_e;
 
+	//各残り弾数情報取得用変数(全体)
+	int sg_pb; 
+	int ar_pb; 
+	int sr_pb; 
+	int rl_pb; 
+	int rg_pb; 
+	int gre_pb;
+
 	float m_bx; //位置更新
 	float m_by;
 	float e_x; //エネミー出現位置

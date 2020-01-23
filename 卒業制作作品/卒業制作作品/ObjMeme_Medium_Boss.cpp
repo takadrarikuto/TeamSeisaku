@@ -10,9 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
@@ -38,7 +35,7 @@ void CObjMeme_Medium_Boss::Init()
 	m_hero_hp = 1;
 
 	//移動ベクトル最大値
-	m_mmbv_max = 0.5f;
+	m_mmbv_max = 2.0f;
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 0; //静止フレームを初期にする
@@ -79,8 +76,20 @@ void CObjMeme_Medium_Boss::Action()
 	float h_HitBox = hero->GetHitBox(); //当たり判定
 	bool h_gel = hero->GetDel(); //削除チェック
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//移動処理
 		//主人公が上に居ると上に移動
@@ -192,24 +201,27 @@ void CObjMeme_Medium_Boss::Action()
 		hit_data = hit_mmb->SearchElementHit(ELEMENT_WALL);
 		for (int i = 0; i < hit_mmb->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 88 && r >= 0) || r > 292)
+			if (hit_data[i] != nullptr)
 			{
-				m_mmbvx = -0.15f; //右
-			}
-			if (r > 88 && r < 92)
-			{
-				m_mmbvy = 0.15f;//上
-			}
-			if (r > 92 && r < 268)
-			{
-				m_mmbvx = 0.15f;//左
-			}
-			if (r > 268 && r < 292)
-			{
-				m_mmbvy = -0.15f; //下
-			}
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 88 && r >= 0) || r > 292)
+				{
+					m_mmbvx = -0.15f; //右
+				}
+				if (r > 88 && r < 92)
+				{
+					m_mmbvy = 0.15f;//上
+				}
+				if (r > 92 && r < 268)
+				{
+					m_mmbvx = 0.15f;//左
+				}
+				if (r > 268 && r < 292)
+				{
+					m_mmbvy = -0.15f; //下
+				}
+			}			
 		}
 	}
 
@@ -218,27 +230,30 @@ void CObjMeme_Medium_Boss::Action()
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_mmb->SearchElementHit(ELEMENT_WALL2);
+		hit_data = hit_mmb->SearchElementHit(ELEMENT_WALL2);		
 		for (int i = 0; i < hit_mmb->GetCount(); i++)
 		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 2 && r >= 0) || r > 358)
+			if (hit_data[i] != nullptr)
 			{
-				m_mmbvx = -0.15f; //右
-			}
-			if (r > 2 && r < 178)
-			{
-				m_mmbvy = 0.15f;//上
-			}
-			if (r > 178 && r < 182)
-			{
-				m_mmbvx = 0.15f;//左
-			}
-			if (r > 182 && r < 358)
-			{
-				m_mmbvy = -0.15f; //下
-			}
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 2 && r >= 0) || r > 358)
+				{
+					m_mmbvx = -0.15f; //右
+				}
+				if (r > 2 && r < 178)
+				{
+					m_mmbvy = 0.15f;//上
+				}
+				if (r > 178 && r < 182)
+				{
+					m_mmbvx = 0.15f;//左
+				}
+				if (r > 182 && r < 358)
+				{
+					m_mmbvy = -0.15f; //下
+				}
+			}		
 		}
 	}
 

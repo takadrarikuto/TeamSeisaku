@@ -68,11 +68,11 @@ public:
 	void SetLeftHit(float leh) { m_LeftHit_flg = leh; }	 //左
 	void SetrightHit(float rih) { m_RightHit_flg = rih; } //右
 
-	void SetSG(int sg) { m_sg_pb_me = sg;}	//ショットガン弾セット用
-	void SetAR(int ar) { m_ar_pb_me = ar; }	//アサルトライフル弾セット用
-	void SetSR(int sr) { m_sr_pb_me = sr; }	//スナイパーライフル弾セット用
-	void SetRL(int rl) { m_rl_pb_me = rl; }	//ロケットランチャー弾セット用
-	void SetRG(int rg) { m_rg_pb_me = rg; }	//レールガン弾セット用
+	void SetSG(int sg) { m_sg_pb_me = sg; }	//ショットガンセット用
+	void SetAR(int ar) { m_ar_pb_me = ar; }	//アサルトライフルセット用
+	void SetSR(int sr) { m_sr_pb_me = sr; }	//スナイパーライフルセット用
+	void SetRL(int rl) { m_rl_pb_me = rl; }	//ロケットランチャーセット用
+	void SetRG(int rg) { m_rg_pb_me = rg; }	//レールガンセット用
 	void SetGRE(int gre) { m_gre_pb_me = gre; }	//グレネードセット用
 
 private:
@@ -99,6 +99,9 @@ private:
 
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値
+
+	int m_Footprint_time; //足跡生成タイム
+	bool m_Footprint_flg; //足跡生成フラグ
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
@@ -153,6 +156,7 @@ private:
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 	bool m_Grenade_flg; //グレネード投下処理
 
+	bool m_hg_flg; //ショットガンリロード処理用フラグ
 	bool m_sg_flg; //ショットガンリロード処理用フラグ
 	bool m_ar_flg; //アサルトライフルリロード処理用フラグ
 	bool m_sr_flg; //スナイパーライフルリロード処理用フラグ

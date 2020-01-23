@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjMeme_Neutralization_Device.h"
@@ -12,6 +13,9 @@ using namespace GameL;
 
 //死亡処理
 bool m_Meme_death_flg = false; //死亡フラグ
+
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
 
 //コンストラクタ
 CObjMeme_Neutralization_Device::CObjMeme_Neutralization_Device(float x, float y)
@@ -30,6 +34,9 @@ void CObjMeme_Neutralization_Device::Init()
 	m_dst_size = 50.0f;
 	//HitBoxサイズ
 	Hitbox_size = 50;
+
+	//フォント表示タイム
+	m_Font_time = 0;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Meme_Neu_Devx, m_Meme_Neu_Devy, Hitbox_size, Hitbox_size, ELEMENT_FIELD, OBJ_MEME_NEUTRALIZATION_DEVICE, 7);
@@ -52,6 +59,27 @@ void CObjMeme_Neutralization_Device::Action()
 	bool TStart_flg = time->GetTStart();
 	bool MND = time->GetMNDFlg();
 
+	//イベント情報取得 
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　5
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_end->SetPos(m_Meme_Neu_Devx, m_Meme_Neu_Devy); //当たり判定の位置更新
@@ -59,13 +87,26 @@ void CObjMeme_Neutralization_Device::Action()
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& MND == true)
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			m_Meme_death_flg = true;
-			time->SetTStart(TStart_flg);
-		}
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true)
+			{
+				//ミーム実態イベントor故障イベント時クリア判定
+				if (MND == true || (App_Rand > 80 && App_Rand <= 100 && Tool_Box_flg == true))
+				{
+					TStart_flg = true;
+					m_Meme_death_flg = true;
+					m_EveSuccess_flg = true;
+					MND = false;
+					Tool_Box_flg = false;
+					Aitem_Font->SetTool_Box(Tool_Box_flg);
+					time->SetTStart(TStart_flg);	
+					Event->SetApp_Rand(0);
+					Audio::Start(19);
+				}
+			}
+		}		
 	}
 	else
 	{
@@ -76,6 +117,15 @@ void CObjMeme_Neutralization_Device::Action()
 	m_Meme_Neu_Devx -= hvx;
 	m_Meme_Neu_Devy -= hvy;
 
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
+	{
+		//フォント表示時間減少
+		if (m_Font_time > 0)
+		{
+			m_Font_time--;
+		}
+	}	
 }
 
 //ドロー
@@ -85,9 +135,20 @@ void CObjMeme_Neutralization_Device::Draw()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool END = time->GetENDFlg();
 
+	//イベント情報取得 
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); 
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.7f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Meme_Neu_Devx -20, m_Meme_Neu_Devy - 30, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;
@@ -114,7 +175,7 @@ void CObjMeme_Neutralization_Device::Draw()
 	dst_cpu.m_left = 0.0f + m_Meme_Neu_Devx - 10;
 	dst_cpu.m_right = (m_dst_size + 10) + m_Meme_Neu_Devx - 10;
 	dst_cpu.m_bottom = (m_dst_size + 10) + m_Meme_Neu_Devy - 20;
-	if (END == true)
+	if (END == true || (App_Rand > 80 && App_Rand <= 100))
 	{		
 		Draw::Draw(7, &src_cpu, &dst_cpu, c, 0.0f);
 		Draw::Draw(7, &src, &dst, c, 0.0f);

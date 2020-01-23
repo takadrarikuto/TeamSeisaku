@@ -3,15 +3,13 @@
 #include "GameL\WinInputs.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\UserData.h"
+#include "GameL\Audio.h"
 
 #include "GameHead.h"
 #include "ObjBat_Enemy.h"
 
 //使用するネームスペース
 using namespace GameL;
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
 
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
@@ -57,15 +55,6 @@ void CObjBat_Enemy::Init()
 	//攻撃頻度最大値
 	m_at_max = 5;
 
-	//ダメージ量
-	((UserData*)Save::GetData())->Gun_Attack;
-	((UserData*)Save::GetData())->SHG_Attack;
-	((UserData*)Save::GetData())->AR_Attack;
-	((UserData*)Save::GetData())->SR_Attack;
-	((UserData*)Save::GetData())->RL_Attack;
-	((UserData*)Save::GetData())->RG_Attack;
-	((UserData*)Save::GetData())->GRE_Attack;
-
 	//ダメージ点滅時間用
 	m_time_d = 0;
 
@@ -83,11 +72,6 @@ void CObjBat_Enemy::Init()
 //アクション
 void CObjBat_Enemy::Action()
 {
-	//上下左右別当たり判定確認フラグ初期化
-	m_UpHit_flg = false;    //上
-	m_DownHit_flg = false;	 //下
-	m_LeftHit_flg = false;	 //左
-	m_RightHit_flg = false; //右
 
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
@@ -98,6 +82,24 @@ void CObjBat_Enemy::Action()
 	float hpx = hero->GetPX() - m_bex; //位置更新
 	float hpy = hero->GetPY() - m_bey;
 
+	//ボス
+	CObjBoss* boss = (CObjBoss*)Objs::GetObj(OBJ_BOSS);
+
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//アイテムドロップ情報取得
+	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
+
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
 	int EXPDamage;
@@ -106,8 +108,8 @@ void CObjBat_Enemy::Action()
 		EXPDamage = EXPAttack->GetEXP();
 	}
 
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
 	{
 		//移動処理	
 		m_ani_time += 1;
@@ -208,150 +210,133 @@ void CObjBat_Enemy::Action()
 	}
 
 	//HitBoxの内容を更新
-	CHitBox* hit_ze = Hits::GetHitBox(this); //当たり判定情報取得
-	hit_ze->SetPos(m_bex, m_bey); //当たり判定の位置更新
+	CHitBox* hit_be = Hits::GetHitBox(this); //当たり判定情報取得
+	hit_be->SetPos(m_bex, m_bey); //当たり判定の位置更新
 
-								  //当たり判定処理
-	if (hit_ze->CheckElementHit(ELEMENT_WALL) == true)
+	//当たり判定処理
+	if (hit_be->CheckElementHit(ELEMENT_WALL) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 88 && r >= 0) || r > 292)
-			{
-				m_bevx = -0.15f; //右
-			}
-			if (r > 88 && r < 92)
-			{
-				m_bevy = 0.15f;//上
-			}
-			if (r > 92 && r < 268)
-			{
-				m_bevx = 0.15f;//左
-			}
-			if (r > 268 && r < 292)
-			{
-				m_bevy = -0.15f; //下
-			}
-		}
-	}
-
-	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_WALL2) == true)
-	{
-		//主人公と障害物がどの角度で当たっているか調べる
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_WALL2);
-		for (int i = 0; i < hit_ze->GetCount(); i++)
-		{
-			float r = hit_data[i]->r;
-			//角度で上下左右を判定
-			if ((r < 2 && r >= 0) || r > 358)
-			{
-				m_bevx = -0.15f; //右
-			}
-			if (r > 2 && r < 178)
-			{
-				m_bevy = 0.15f;//上
-			}
-			if (r > 178 && r < 182)
-			{
-				m_bevx = 0.15f;//左
-			}
-			if (r > 182 && r < 358)
-			{
-				m_bevy = -0.15f; //下
-			}
-		}
-	}
-
-	//敵がステージの当たり判定に当たった時の処理（全ステージ対応）
-	if (hit_ze->CheckElementHit(ELEMENT_FIELD) == true)
-	{
-		HIT_DATA** hit_data;
-		hit_data = hit_ze->SearchElementHit(ELEMENT_FIELD);
-
-		float r = 0;
-
-		for (int i = 0; i < 10; i++)
+		hit_data = hit_be->SearchElementHit(ELEMENT_WALL);
+		for (int i = 0; i < hit_be->GetCount(); i++)
 		{
 			if (hit_data[i] != nullptr)
 			{
-				r = hit_data[i]->r;
-
+				float r = hit_data[i]->r;
 				//角度で上下左右を判定
-				if ((r < 4 && r >= 0) || r > 356)
+				if ((r < 88 && r >= 0) || r > 292)
 				{
-					m_bevx = m_bevx - m_bev_max;
+					m_bevx = -0.15f; //右
 				}
-				else if (r > 2 && r < 178)
+				if (r > 88 && r < 92)
 				{
-					m_bevy = m_bevy + m_bev_max;
+					m_bevy = 0.15f;//上
 				}
-				else if (r > 176 && r < 184)
+				if (r > 92 && r < 268)
 				{
-					m_bevx = m_bevx + m_bev_max;
+					m_bevx = 0.15f;//左
 				}
-				else if (r > 182 && r < 358)
+				if (r > 268 && r < 292)
 				{
-					m_bevy = m_bevy - m_bev_max;
+					m_bevy = -0.15f; //下
 				}
 			}
 		}
 	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
+	//主人公がステージの当たり判定に当たった時の処理（全ステージ対応）
+	if (hit_be->CheckElementHit(ELEMENT_WALL2) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_be->SearchElementHit(ELEMENT_WALL2);
+		for (int i = 0; i < hit_be->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				//角度で上下左右を判定
+				if ((r < 2 && r >= 0) || r > 358)
+				{
+					m_bevx = -0.15f; //右
+				}
+				if (r > 2 && r < 178)
+				{
+					m_bevy = 0.15f;//上
+				}
+				if (r > 178 && r < 182)
+				{
+					m_bevx = 0.15f;//左
+				}
+				if (r > 182 && r < 358)
+				{
+					m_bevy = -0.15f; //下
+				}
+			}
+		}
+	}
+	else
+	{
+		//上下左右別当たり判定確認フラグ初期化
+		m_UpHit_flg = false;    //上
+		m_DownHit_flg = false;	 //下
+		m_LeftHit_flg = false;	 //左
+		m_RightHit_flg = false; //右
+	}
 
 	//主人公弾・爆発オブジェクトと接触したら敵ダメージ、無敵時間開始
-	//ハンドガン
-	if (hit_ze->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+	if (m_time_d == 0)
 	{
-		m_hero_hp -= ((UserData*)Save::GetData())->Gun_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ショットガン
-	else if (hit_ze->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SHG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//アサルトライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->AR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//スナイパーライフル
-	else if (hit_ze->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->SR_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//ロケットランチャー
-	else if (hit_ze->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RL_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//レールガン
-	else if (hit_ze->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->RG_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//グレネード
-	else if (hit_ze->CheckObjNameHit(OBJ_GRENADEATTACK) != nullptr)
-	{
-		m_hero_hp -= ((UserData*)Save::GetData())->GRE_Attack;
-		m_time_d = 30;		//点滅時間をセット
-	}
-	//爆発
-	else if (hit_ze->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
-	{
-		m_hero_hp -= EXPDamage;
-	}
+		//ハンドガン
+		if (hit_be->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
+		{
+			m_hero_hp -= Gun_Attack;
+			m_time_d = 1;		//点滅時間をセット
+		}
+		//ショットガン
+		else if (hit_be->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= SHG_Attack;
+			m_time_d = 1;		//点滅時間をセット
+		}
+		//アサルトライフル
+		else if (hit_be->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
+		{
+			m_hero_hp -= AR_Attack;
+			m_time_d = 1;		//点滅時間をセット
+		}
+		//スナイパーライフル
+		else if (hit_be->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
+		{
+			m_hero_hp -= SR_Attack;
+			m_time_d = 1;		//点滅時間をセット
+		}
+		//ロケットランチャー
+		else if (hit_be->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
+		{
+			m_hero_hp -= RL_Attack;
+			m_time_d = 1;		//点滅時間をセット
+		}
+		//レールガン
+		else if (hit_be->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
+		{
+			m_hero_hp -= RG_Attack;
+			m_time_d = 1;		//点滅時間をセット
+		}
+		//爆発
+		else if (hit_be->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)
+		{
+			m_hero_hp -= EXPDamage;
+		}
+	}	
 
 	if (m_time_d > 0)
 	{
@@ -364,9 +349,14 @@ void CObjBat_Enemy::Action()
 
 	if (m_hero_hp <= 0)
 	{
+		AitemDrop->SetAitemDrop(true);
+		AitemDrop->SetBatDrop(true);
+		boss->SetBR(1);
+
 		//血しぶきオブジェクト作成
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_bex, m_bey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
+		Audio::Start(15);
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

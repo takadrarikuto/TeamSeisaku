@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //HP ONOFFフラグ
 extern bool Hp_flg;
 
@@ -42,12 +39,12 @@ void CObjGrenadeAttack::Init()
 	//耐久力フラグがオンの時
 	if (En_flg == true)
 	{
-		((UserData*)Save::GetData())->GRE_Attack = 50; //爆発
+		m_EXPDameg_num = 50; //爆発ダメージ
 	}
 	//体力フラグがオンの時
 	if (Hp_flg == true)
 	{
-		((UserData*)Save::GetData())->GRE_Attack = 100; //爆発
+		m_EXPDameg_num = 100; //爆発ダメージ
 	}
 
 	//爆破時間
@@ -61,6 +58,9 @@ void CObjGrenadeAttack::Init()
 	//爆発・血しぶき用描画サイズ
 	m_exp_blood_dst_size = 192.0f;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Grex, m_Grey, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_ROCKETLAUNCHERATTACK, 2);
 
@@ -69,14 +69,15 @@ void CObjGrenadeAttack::Init()
 //アクション
 void CObjGrenadeAttack::Action()
 {
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}	
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
-	//メニューを開くと行動停止
+	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
 		//主人公位置取得
@@ -102,42 +103,65 @@ void CObjGrenadeAttack::Action()
 		//主人公から離れるとオブジェクト移動停止
 		if (m_Grex < hx - 64 * Stop_max || m_Grex > hx + 32 + 64 * Stop_max
 			|| m_Grey < hy - 64 * Stop_max || m_Grey > hy + 32 + 64 * Stop_max 
-			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true
-			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true || 
-			hit_gre->CheckElementHit(ELEMENT_WALL2) == true)
+			|| hit_gre->CheckElementHit(ELEMENT_FIELD) == true || hit_gre->CheckElementHit(ELEMENT_FIELD2) == true
+			|| hit_gre->CheckElementHit(ELEMENT_WALL) == true  || hit_gre->CheckElementHit(ELEMENT_WALL2) == true
+			|| hit_gre->CheckElementHit(ELEMENT_NET_S) == true || hit_gre->CheckElementHit(ELEMENT_NET_V) == true
+			|| hit_gre->CheckElementHit(ELEMENT_BARBED_V) == true)
 		{
-			//移動停止
-			m_Grevx = 0.0f;
-			m_Grevy = 0.0f;
+			//フィールドエレメント、壁エレメントと接触すると削除
+			if (hit_gre->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ARMOR) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_HEAL) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_gre->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+				|| hit_gre->CheckObjNameHit(OBJ_TOOLBOX) != nullptr || hit_gre->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
+			{
+				; //アイテム系　小さい有刺鉄線には当たらない
+			}
+			else
+			{
+				//移動停止
+				m_Grevx = 0.0f;
+				m_Grevy = 0.0f;				
+			}	
 		}		
 		if (EXP_time >= 180)
 		{
 			//爆発オブジェクト作成
-			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+			CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, m_EXPDameg_num);
 			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
 
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 
 		//敵オブジェクトと接触するとオブジェクト破棄
 		if (hit_gre->CheckElementHit(ELEMENT_ENEMY) == true)
 		{
 			if (hit_gre->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_gre->CheckObjNameHit(OBJ_BOSS) != nullptr
-				|| hit_gre->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+				|| hit_gre->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr 
+				|| hit_gre->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 			{
-				; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+				; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
 			}
 			else
 			{
 				//爆発オブジェクト作成
-				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, ((UserData*)Save::GetData())->GRE_Attack);
+				CObjExplosion* obj_bs = new CObjExplosion(m_Grex - 80, m_Grey - 90, m_exp_blood_dst_size, m_EXPDameg_num);
 				Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+				Audio::Start(9);
 
-				this->SetStatus(false); //オブジェクト破棄
-				Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+				m_HitBox_Delete = true;
 			}
 		}
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
+	{
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 

@@ -3,6 +3,7 @@
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
 #include "GameL\WinInputs.h"
+#include "GameL\DrawFont.h"
 
 #include "GameHead.h"
 #include "ObjGenerator.h"
@@ -10,7 +11,8 @@
 //使用するネームスペース
 using namespace GameL;
 
-bool m_Time_GenEve_CutBack_flg = false; //タイム減少フラグ
+//イベント成功フラグ
+extern bool m_EveSuccess_flg;
 
 //コンストラクタ
 CObjGenerator::CObjGenerator(float x, float y)
@@ -25,8 +27,8 @@ CObjGenerator::CObjGenerator(float x, float y)
 void CObjGenerator::Init()
 {
 	//初期化
-	m_Genvx = 0.0f; //位置更新
-	m_Genvy = 0.0f;
+	//フォント表示タイム
+	m_Font_time = 0;
 
 	//描画サイズ
 	m_dst_size = 100.0f; 
@@ -56,6 +58,28 @@ void CObjGenerator::Action()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 	bool GEN = time->GetGenFlg();
+	bool Rep_flg = time->GetRepFlg();
+
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); //対応数　1
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
@@ -63,24 +87,42 @@ void CObjGenerator::Action()
 
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
-	{
-		if (Input::GetVKey(VK_RETURN) == true && TStop_flg == true
-			&& GEN == true)
+	{	
+		if (TStop_flg == true)
 		{
-			TStart_flg = true;
-			m_Time_GenEve_CutBack_flg = true;
-			time->SetTStart(TStart_flg);
-		}
-	}
-	else
-	{
-		m_Time_GenEve_CutBack_flg = false;
+			m_Font_time = 90; //フォント表示タイム設定
+			if (Input::GetVKey(VK_RETURN) == true)
+			{
+				//発電機イベントor修理イベント時クリア判定
+				if (GEN == true ||( App_Rand > 0 && App_Rand <= 20 && Tool_Box_flg == true))
+				{
+					TStart_flg = true;
+					m_EveSuccess_flg = true;
+					GEN = false;
+					Tool_Box_flg = false;
+					Aitem_Font->SetTool_Box(Tool_Box_flg);
+					time->SetTStart(TStart_flg);		
+					Event->SetApp_Rand(0);
+					Audio::Start(19);
+				}
+			}
+		}		
 	}
 
 	//主人公の移動に合わせる
 	m_Genx -= hvx;
 	m_Geny -= hvy;
 
+	//メニューを開く、イベント情報表示中は行動停止
+	if (Menu_flg == false && Eve_Ins == 0)
+	{
+		//フォント表示時間減少
+		if (m_Font_time > 0)
+		{
+			m_Font_time--;
+		}
+	}
+	
 }
 
 //ドロー
@@ -90,9 +132,20 @@ void CObjGenerator::Draw()
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool GEN = time->GetGenFlg();
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand(); 
+
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float cD[4] = { 1.0f,1.0f, 1.0f, 0.8f };
+	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
+
+	//主人公に当たるとフォント表示
+	if (m_Font_time > 0)
+	{
+		Font::StrDraw(L"エンターキーで起動", m_Genx - 20, m_Geny - 20, 15, blk);
+	}
 
 	RECT_F src;
 	RECT_F dst;
@@ -108,7 +161,7 @@ void CObjGenerator::Draw()
 	dst.m_left = 0.0f + m_Genx;
 	dst.m_right = m_dst_size + m_Genx;
 	dst.m_bottom = m_dst_size + m_Geny;
-	if (GEN == true)
+	if (GEN == true || (App_Rand > 0 && App_Rand <= 20))
 	{
 		Draw::Draw(6, &src, &dst, c, 0.0f);
 	}

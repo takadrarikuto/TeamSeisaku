@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjRailGunItem.h"
@@ -13,23 +14,23 @@ using namespace GameL;
 CObjRailGunItem::CObjRailGunItem(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_RG_Item_x = 600;
-	m_RG_Item_y = 100;
+	m_RG_Item_x = x;
+	m_RG_Item_y = y;
 }
 
 //イニシャライズ
 void CObjRailGunItem::Init()
 {
 	//初期化
-	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 60;
 	m_YHitbox_size = 32;
 
+	m_RG_num_max = 1; //レールガン回復量
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_RG_Item_x, m_RG_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_RAILGUN_ITEM, 7);
-
+	
 }
 
 //アクション
@@ -39,6 +40,9 @@ void CObjRailGunItem::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//主人公の移動に合わせる
 	m_RG_Item_x -= hvx;
@@ -50,7 +54,10 @@ void CObjRailGunItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetRG(1);		//主人公に当たると弾補充
+		((UserData*)Save::GetData())->RG_load += m_RG_num_max;//レールガン弾数回復	
+		aitemfont->SetAGF(5); //フォント表示
+		aitemfont->SetAitemNum(m_RG_num_max); //弾数表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

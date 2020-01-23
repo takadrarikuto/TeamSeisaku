@@ -40,9 +40,7 @@ void CSceneED::InitScene()
 	Objs::InsertObj(back, OBJ_ED, 3);
 
 	//音楽読み込み
-	Audio::LoadAudio(0, L"エンディング.wav", BACK_MUSIC);
-	//ボリュームを1.0に戻す
-	float v = Audio::VolumeMaster(1.5);
+	Audio::LoadAudio(0, L"EDBGM.wav", BACK_MUSIC);
 
 	//音楽スタート
 	Audio::Start(0);

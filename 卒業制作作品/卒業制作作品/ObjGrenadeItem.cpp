@@ -2,6 +2,7 @@
 #include "GameL\DrawTexture.h"
 #include "GameL\HitBoxManager.h"
 #include "GameL\Audio.h"
+#include "GameL\UserData.h"
 
 #include "GameHead.h"
 #include "ObjGrenadeItem.h"
@@ -13,23 +14,24 @@ using namespace GameL;
 CObjGrenadeItem::CObjGrenadeItem(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_GRE_Item_x = 700;
-	m_GRE_Item_y = 100;
+	m_GRE_Item_x = x;
+	m_GRE_Item_y = y;
 }
 
 //イニシャライズ
 void CObjGrenadeItem::Init()
 {
 	//初期化
-	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 38;
 	m_YHitbox_size = 36;
 
+	//グレネード回復量
+	m_GRE_num_max = 0; 
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_GRE_Item_x, m_GRE_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_GRENADE_ITEM, 7);
-
+	
 }
 
 //アクション
@@ -39,6 +41,9 @@ void CObjGrenadeItem::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//アイテムフォント情報取得
+	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
 	//主人公の移動に合わせる
 	m_GRE_Item_x -= hvx;
@@ -50,7 +55,26 @@ void CObjGrenadeItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetGRE(3);		//主人公に当たると弾補充
+		if (((UserData*)Save::GetData())->choose == 0)
+		{
+			m_GRE_num_max = 3; //グレネード回復量変更
+			((UserData*)Save::GetData())->GRE_load += 3; //グレネード補充		
+			aitemfont->SetAitemNum(3); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 1)
+		{
+			m_GRE_num_max = 2; //グレネード回復量変更
+			((UserData*)Save::GetData())->GRE_load += m_GRE_num_max; //グレネード補充		
+			aitemfont->SetAitemNum(m_GRE_num_max); //グレネード数表示
+		}
+		else if (((UserData*)Save::GetData())->choose == 2)
+		{
+			m_GRE_num_max = 1; //グレネード回復量変更
+			((UserData*)Save::GetData())->GRE_load += m_GRE_num_max; //グレネード補充			
+			aitemfont->SetAitemNum(m_GRE_num_max); //グレネード数表示
+		}
+		aitemfont->SetAGF(6); //フォント表示
+		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する
 	}

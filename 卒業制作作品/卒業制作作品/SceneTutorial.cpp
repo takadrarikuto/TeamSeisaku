@@ -15,9 +15,6 @@ using namespace GameL;
 #include "SceneTutorial.h"
 #include "ObjTutorial.h"
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //チュートリアルONOFFフラグ
 extern bool Tuto_flg;
 
@@ -36,16 +33,6 @@ CSceneTutorial::~CSceneTutorial()
 //ゲームメイン初期化メソッド
 void CSceneTutorial::InitScene()
 {
-	//エネミー出現タイム初期化
-	e_time = 0;
-	//アイテム出現タイム初期化
-	i_time = 0;
-	//アイテム出現位置初期化
-	i_x = 0.0f;
-	//アイテム出現位置
-	i_x = 0.0f;
-	i_y = 0.0f;
-
 	m_tuto_time = 0;
 
 	//グラフィック読み込み
@@ -53,7 +40,7 @@ void CSceneTutorial::InitScene()
 	Draw::LoadImage(L"銃弾まとめ.png", 2, TEX_SIZE_512);
 	Draw::LoadImage(L"血の池.png", 3, TEX_SIZE_512);
 	Draw::LoadImage(L"エネミーまとめ.png", 4, TEX_SIZE_512);
-	//中ボス用に5は空ける
+	
 	Draw::LoadImage(L"装置・設置物.png", 6, TEX_SIZE_512);
 	Draw::LoadImage(L"アイテム・設置物.png", 7, TEX_SIZE_512);
 	Draw::LoadImage(L"兵士・軍人.png", 8, TEX_SIZE_512);
@@ -73,7 +60,7 @@ void CSceneTutorial::InitScene()
 
 	//チュートリアルオブジェクト作成
 	CObjTutorial* tuto = new CObjTutorial();
-	Objs::InsertObj(tuto, OBJ_TUTORIAL, 13);
+	Objs::InsertObj(tuto, OBJ_TUTORIAL, 20);
 
 	//主人公機オブジェクト作成(チュートリアル用)
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
@@ -106,27 +93,38 @@ void CSceneTutorial::InitScene()
 	Objs::InsertObj(tu_Wall4, OBJ_WALL, 4);
 	
 	//音楽情報の読み込み
-	Audio::LoadAudio(0, L"選択音.wav", EFFECT);
-	Audio::LoadAudio(1, L"決定音.wav", EFFECT);
-	Audio::LoadAudio(2, L"チュートリアルBGM.wav", SOUND_TYPE::BACK_MUSIC);
+	Audio::LoadAudio(0, L"チュートリアルBGM.wav", SOUND_TYPE::BACK_MUSIC);
+	//音楽情報の読み込み
+	Audio::LoadAudio(1, L"選択音.wav", EFFECT);
+	Audio::LoadAudio(2, L"決定音.wav", EFFECT);
+	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
+	Audio::LoadAudio(4, L"ショットガン銃声.wav", EFFECT);
+	Audio::LoadAudio(5, L"スナイパーライフル銃声.wav", EFFECT);
+	Audio::LoadAudio(6, L"ロケットランチャー.wav", EFFECT);
+	Audio::LoadAudio(7, L"レールガン.wav", EFFECT);
+	Audio::LoadAudio(8, L"アイテム補充音.wav", EFFECT);
+	Audio::LoadAudio(9, L"爆発音.wav", EFFECT);
+	Audio::LoadAudio(10, L"弾切れ.wav", EFFECT);
+	Audio::LoadAudio(11, L"ゾンビ1.wav", EFFECT);
+	Audio::LoadAudio(12, L"アイテム獲得音.wav", EFFECT);
+	Audio::LoadAudio(13, L"リロード音.wav", EFFECT);
+	Audio::LoadAudio(14, L"ダメージ音.wav", EFFECT);
+	Audio::LoadAudio(15, L"血しぶき音.wav", EFFECT);
+	Audio::LoadAudio(18, L"成功音.wav", EFFECT);//チュートリアル用
 
 	//バックミュージックスタート
-	float Volume = Audio::VolumeMaster(-0.1);
-	Audio::Start(2);    //音楽スタート
+	//float Volume = Audio::VolumeMaster(-0.1);
+	Audio::Start(0);    //音楽スタート
 	
 }
 
 //ゲームメイン実行中メソッド
 void CSceneTutorial::Scene()
 {
-	//メニューを開くと行動停止
-	if (Menu_flg == false)
-	{
-		m_tuto_time++;
-	}
+	m_tuto_time++;
 
 	//敵機オブジェクト作成(チュートリアル用)
-	if (m_tuto_time == 2000)
+	if (m_tuto_time == 1250)
 	{
 		CObjTutoZombieEnemy* obj_ze_tu;
 		obj_ze_tu = new CObjTutoZombieEnemy(550.0f, 400.0f);
@@ -148,7 +146,6 @@ void CSceneTutorial::Scene()
 		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
 
 		Tuto_flg = true;
+		Audio::Start(11);
 	}
-
-	
 }

@@ -13,8 +13,8 @@ using namespace GameL;
 CObjBarbedWireSmall::CObjBarbedWireSmall(float x, float y)
 {
 	//位置情報登録(数値=位置調整)
-	m_BarbedSx = 600;
-	m_BarbedSy = 515;
+	m_BarbedSx = x;
+	m_BarbedSy = y;
 }
 
 //イニシャライズ
@@ -28,7 +28,7 @@ void CObjBarbedWireSmall::Init()
 	m_YHitbox_size = 53;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_BarbedSx, m_BarbedSy, m_XHitbox_size, m_YHitbox_size, ELEMENT_ENEMY, OBJ_BARBED_WIRE_SMALL, 7);
+	Hits::SetHitBox(this, m_BarbedSx, m_BarbedSy, m_XHitbox_size, m_YHitbox_size, ELEMENT_MAGIC, OBJ_BARBED_WIRE_SMALL, 7);
 }
 
 //アクション

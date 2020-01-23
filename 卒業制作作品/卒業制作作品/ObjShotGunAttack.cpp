@@ -10,9 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjShotGunAttack::CObjShotGunAttack(float x, float y, float vx, float vy, float r)
 {
@@ -41,6 +38,9 @@ void CObjShotGunAttack::Init()
 	//当たり判定サイズ
 	Hitbox_size = 10;
 
+	//HitBox削除フラグ
+	m_HitBox_Delete = false;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_SGx, m_SGy, Hitbox_size, Hitbox_size, ELEMENT_RED, OBJ_SHOTGUNATTACK, 2);
 
@@ -49,36 +49,37 @@ void CObjShotGunAttack::Init()
 //アクション
 void CObjShotGunAttack::Action()
 {
-	//メニューを開くと停止
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
-	//斜め移動修正処理
-	float r = 0.0f;
-	r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
-	r = sqrt(r); //ルートを求める
+		//斜め移動修正処理
+		float r = 0.0f;
+		r = m_SGvx * m_SGvx + m_SGvy * m_SGvy;
+		r = sqrt(r); //ルートを求める
 
-	//斜めベクトルを求める
-	if (r == 0.0f)
-	{
-		; //0なら何もしない
-	}
-	else
-	{
-		m_SGvx = 5.0f / r * m_SGvx;
-		m_SGvy = 5.0f / r * m_SGvy;
-	}
+		//斜めベクトルを求める
+		if (r == 0.0f)
+		{
+			; //0なら何もしない
+		}
+		else
+		{
+			m_SGvx = 5.0f / r * m_SGvx;
+			m_SGvy = 5.0f / r * m_SGvy;
+		}
 
-	//位置更新
-	m_SGx += m_SGvx;
-	m_SGy += m_SGvy;
+		//位置更新
+		m_SGx += m_SGvx;
+		m_SGy += m_SGvy;
 	}
-
-	////SE処理
-	//if (Attack_flg == true)
-	//{
-	//	Audio::Start(1); //音楽スタート
-	//	Attack_flg = false; //Attackフラグfalse
-	//}
 
 
 	//主人公位置取得
@@ -96,23 +97,19 @@ void CObjShotGunAttack::Action()
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_SGx < hx - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_SGx > hx + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		if (m_SGy < hy - 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 		else if (m_SGy > hy + 32 + 64 * m_Distance_max)
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	
@@ -121,26 +118,47 @@ void CObjShotGunAttack::Action()
 	if (hit_sg->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
 		if (hit_sg->CheckObjNameHit(OBJ_FIRE_BIRD) != nullptr || hit_sg->CheckObjNameHit(OBJ_BOSS) != nullptr
-			|| hit_sg->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr)
+			|| hit_sg->CheckObjNameHit(OBJ_MEME_MEDIUM_BOSS) != nullptr
+			|| hit_sg->CheckObjNameHit(OBJ_BARBED_WIRE_SMALL) != nullptr)
 		{
-			; //火の鳥、ミーム実態(中ボス)、ボスには当たらない
+			; //火の鳥、ミーム実態(中ボス)、ボス、小さい有刺鉄線には当たらない
 		}
 		else
 		{
-			this->SetStatus(false); //オブジェクト破棄
-			Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+			m_HitBox_Delete = true;
 		}
 	}
 	//壁オブジェクトと接触するとオブジェクト破棄
-	if (hit_sg->CheckElementHit(ELEMENT_WALL) == true || hit_sg->CheckElementHit(ELEMENT_WALL2) == true)
+	if (hit_sg->CheckElementHit(ELEMENT_WALL) == true || hit_sg->CheckElementHit(ELEMENT_WALL2) == true
+		|| hit_sg->CheckElementHit(ELEMENT_NET_S) == true || hit_sg->CheckElementHit(ELEMENT_NET_V) == true
+		|| hit_sg->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+		m_HitBox_Delete = true;
 	}
-	if (hit_sg->CheckElementHit(ELEMENT_FIELD) == true)
+	//フィールドエレメントと接触すると削除
+	if (hit_sg->CheckElementHit(ELEMENT_FIELD) == true || hit_sg->CheckElementHit(ELEMENT_FIELD2) == true)
+	{
+		if (hit_sg->CheckObjNameHit(OBJ_AR_ITEM) != nullptr || hit_sg->CheckObjNameHit(OBJ_ARMOR) != nullptr
+			|| hit_sg->CheckObjNameHit(OBJ_GRENADE_ITEM) != nullptr || hit_sg->CheckObjNameHit(OBJ_HEAL) != nullptr
+			|| hit_sg->CheckObjNameHit(OBJ_RAILGUN_ITEM) != nullptr || hit_sg->CheckObjNameHit(OBJ_ROCKETLAUNCHER_ITEM) != nullptr
+			|| hit_sg->CheckObjNameHit(OBJ_SHOTGUN_ITEM) != nullptr || hit_sg->CheckObjNameHit(OBJ_SNIPERRIFLE_ITEM) != nullptr
+			|| hit_sg->CheckObjNameHit(OBJ_TOOLBOX) != nullptr)
+		{
+			; //アイテム系には当たらない
+		}
+		else
+		{
+			m_HitBox_Delete = true;
+		}
+	}
+
+	//削除処理
+	if (m_HitBox_Delete == true)
 	{
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+
+		m_HitBox_Delete = false; //初期化
 	}
 }
 
