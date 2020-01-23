@@ -54,6 +54,10 @@ void CSceneTutorial::InitScene()
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
 
+	//メニューオブジェクト作成
+	CObjMenu* obj_m = new CObjMenu();
+	Objs::InsertObj(obj_m, OBJ_MENU, 21);
+
 	//背景オブジェクト作成(チュートリアル用)
 	CObjTutoBg * back_tu = new CObjTutoBg();
 	Objs::InsertObj(back_tu, OBJ_BACKGROUND, 1);
@@ -113,7 +117,7 @@ void CSceneTutorial::InitScene()
 	Audio::LoadAudio(18, L"成功音.wav", EFFECT);//チュートリアル用
 
 	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(-0.1);
+	float Volume = Audio::VolumeMaster(-0.1);
 	Audio::Start(0);    //音楽スタート
 	
 }

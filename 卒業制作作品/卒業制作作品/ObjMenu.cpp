@@ -47,27 +47,45 @@ void CObjMenu::Action()
 	//メニューを出す処理
 	if (Menu_flg == true)
 	{
-		//上キーで上に移動
-		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
+		
+		if (m_time > 0) 
 		{
-			--choose;
-			Audio::Start(1);
-			m_time = 10;
-		}
-		//下キーで下に移動
-		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
-		{
-			++choose;
-			Audio::Start(1);
-			m_time = 10;
-		}
-		if (m_time > 0) {
 			m_time--;
-			if (m_time <= 0) {
-				m_time = 0;
+		}
+		else if (m_time <= 0) 
+		{
+			m_time = 0;
+			//上キーで上に移動
+			if (Input::GetVKey(VK_UP) == true)
+			{
+				//周回選択処理
+				if (choose == 1)
+				{
+					--choose;
+				}	
+				else if (choose == 0)
+				{
+					++choose;
+				}
+				Audio::Start(1);
+				m_time = 10;
+			}
+			//下キーで下に移動
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
+				//周回選択処理
+				if (choose == 0)
+				{
+					++choose;
+				}
+				else if (choose == 1)
+				{
+					--choose;
+				}
+				Audio::Start(1);
+				m_time = 10;
 			}
 		}
-
 		//Enterキーで決定
 		if (choose == 0)
 		{
@@ -113,11 +131,10 @@ void CObjMenu::Action()
 				m_andf = false;
 				Menu_flg = false;
 				m_key_flag_menu = true;
-				this->SetStatus(false);		//画像の削除
 			}
 		}
 		//タイトルに戻る処理
-		if (m_andf2 == true)
+		else if (m_andf2 == true)
 		{
 			m_and -= 0.03f;
 			if (m_and <= 0.0f)
@@ -131,12 +148,12 @@ void CObjMenu::Action()
 				Scene::SetScene(new CSceneTitle());
 			}
 		}
-		Audio::Stop(0); //音楽ストップ
+		else if (m_andf == false && m_andf2 == false)
+		{
+			m_and = 1.0f;
+		}
 	}
-	if (Menu_flg == false)
-	{
-		Audio::Start(0); //音楽スタート
-	}
+	
 }
 
 //ドロー
