@@ -14,13 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-bool check = false;
-bool m_c = true;
-
-int g_hero_max_hp = 0;	//敵の撃破時のHP増加
-
-int g_zombie_count_tu = 0; //チュートリアル敵撃破数用
-
 //イニシャライズ
 void CObjTitle::Init()
 {

@@ -101,10 +101,7 @@ void CObjStage::Action()
 			m_Heal_Item_Restriction += m_Heal_Item_co_num; //回復アイテム生成カウント
 		}
 	}
-	else
-	{
-		Audio::Start(0); //音楽スタート
-	}
+	
 }
 
 //ドロー

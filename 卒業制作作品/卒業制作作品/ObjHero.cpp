@@ -1498,7 +1498,6 @@ void CObjHero::Action()
 			{
 				Scene::SetScene(new CSceneOver());
 				m_time_dead = 0;
-				g_zombie_count_tu = 0; //チュートリアル敵撃破数用
 				Dead_flg = false;
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する
