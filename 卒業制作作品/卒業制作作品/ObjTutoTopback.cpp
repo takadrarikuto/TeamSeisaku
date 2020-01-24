@@ -34,6 +34,10 @@ void CObjTutoTopback::Draw()
 	rg_pb_e = hero->GetRG_E();	//レールガン
 	ws_num = hero->GetWS();
 
+	//チュートリアル情報取得
+	CObjTutorial* Tuto = (CObjTutorial*)Objs::GetObj(OBJ_TUTORIAL);
+	int TuZo_Co = Tuto->GetZoCoTu();
+
 	//描画カラー情報　R=RED  G=Green  B=Blue A=alpha(透過情報)
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };//白
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
@@ -154,7 +158,7 @@ void CObjTutoTopback::Draw()
 	dst.m_right = 750.0f;
 	dst.m_bottom = 570.0f;
 
-	if (g_zombie_count_tu >= 6)
+	if (TuZo_Co >= 6)
 	{
 		Draw::Draw(31, &src, &dst, a2, 0.0f);
 	}
@@ -175,7 +179,7 @@ void CObjTutoTopback::Draw()
 	//チュートリアル文字表示
 	Font::StrDraw(L"チュートリアル", 17, 70, 33, y);
 
-	if (g_zombie_count_tu >= 6)
+	if (TuZo_Co >= 6)
 	{
 		Font::StrDraw(L"チュートリアルクリア！", 70, 150, 30, r);
 		Font::StrDraw(L"◆Enterでゲームスタート", 400, 520, 27, c);
@@ -248,9 +252,6 @@ void CObjTutoTopback::Draw()
 		dst.m_bottom = 395.0f;
 		Draw::Draw(7, &src, &dst, c, 0.0f);
 		Font::StrDraw(L"ツールボックス", 560, 410, 23, blk);
-		
-
-		//Audio::Start(18);
 	}
 	else
 	{
