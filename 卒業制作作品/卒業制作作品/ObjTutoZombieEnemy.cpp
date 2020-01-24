@@ -56,8 +56,8 @@ void CObjTutoZombieEnemy::Action()
 	float hvy = hero->GetVY();
 	bool h_gel = hero->GetDel(); //削除チェック
 
-	//チュートリアル情報取得
-	CObjTutorial* Tuto = (CObjTutorial*)Objs::GetObj(OBJ_TUTORIAL);
+	//チュートリアル背景情報取得
+	CObjTutoTopback* TuTo = (CObjTutoTopback*)Objs::GetObj(OBJ_TOPBACK);
 
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
@@ -124,7 +124,7 @@ void CObjTutoZombieEnemy::Action()
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 		Audio::Start(15);
 
-		Tuto->SetZoCoTu(1); //チュートリアルゾンビ撃破カウント
+		TuTo->SetZoCoTu(1); //チュートリアルゾンビ撃破カウント
 
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する

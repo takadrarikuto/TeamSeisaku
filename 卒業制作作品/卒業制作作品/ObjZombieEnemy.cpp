@@ -129,40 +129,32 @@ void CObjZombieEnemy::Action()
 		//主人公が上に居ると上に移動
 		if (hy < m_zey)
 		{				
-			if (m_UpHit_flg == false)
-			{
-				m_zevy = -m_zev_max;
-			}			
+			if (m_UpHit_flg == false) //上にオブジェクトがない時
+				m_zevy = -m_zev_max;		
 			m_ani_time += 1;
 			m_UDani_frame = 6;
 		}
 		//主人公が下に居ると下移動
 		else if (hy > m_zey)
 		{
-			if (m_DownHit_flg == false)
-			{
-				m_zevy = m_zev_max;
-			}		
+			if (m_DownHit_flg == false)  //下にオブジェクトがない時
+				m_zevy = m_zev_max;		
 			m_ani_time += 1;
 			m_UDani_frame = 2;
 		}
 		//主人公が左に居ると左に移動
 		if (hx < m_zex)
 		{
-			if (m_LeftHit_flg == false)
-			{
-				m_zevx = -m_zev_max;
-			}			
+			if (m_LeftHit_flg == false)  //左にオブジェクトがない時
+				m_zevx = -m_zev_max;		
 			m_ani_time += 1;
 			m_UDani_frame = 0;
 		}
 		//主人公が右に居ると右に移動
 		else if (hx > m_zex)
 		{
-			if (m_RightHit_flg == false)
-			{
-				m_zevx = m_zev_max;
-			}			
+			if (m_RightHit_flg == false)  //右にオブジェクトがない時
+				m_zevx = m_zev_max;		
 			m_ani_time += 1;
 			m_UDani_frame = 4;
 		}
@@ -173,19 +165,15 @@ void CObjZombieEnemy::Action()
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
-				if (m_UpHit_flg == false)
-				{
+				if (m_UpHit_flg == false)  //上にオブジェクトがない時		
 					m_zevy = -m_zev_max;
-				}
 				m_UDani_frame = 6;
 			}
 			//主人公が下に居ると下移動
 			else if (hy > m_zey)
 			{
-				if (m_DownHit_flg == false)
-				{
-					m_zevy = m_zev_max;
-				}
+				if (m_DownHit_flg == false)	//下にオブジェクトがない時		
+					m_zevy = m_zev_max;				
 				m_UDani_frame = 2;
 			}
 		}
@@ -196,19 +184,15 @@ void CObjZombieEnemy::Action()
 			//主人公が左に居ると左に移動
 			if (hx < m_zex)
 			{
-				if (m_LeftHit_flg == false)
-				{
-					m_zevx = -m_zev_max;
-				}
+				if (m_LeftHit_flg == false)  //左にオブジェクトがない時		
+					m_zevx = -m_zev_max;				
 				m_UDani_frame = 0;
 			}
 			//主人公が右に居ると右に移動
 			else if (hx > m_zex)
 			{
-				if (m_RightHit_flg == false)
-				{
-					m_zevx = m_zev_max;
-				}
+				if (m_RightHit_flg == false)  //右にオブジェクトがない時		
+					m_zevx = m_zev_max;				
 				m_UDani_frame = 4;
 			}
 		}		
@@ -264,19 +248,19 @@ void CObjZombieEnemy::Action()
 				//角度で上下左右を判定
 				if ((r < 88 && r >= 0) || r > 292)
 				{
-					m_zevx = -m_zev_max; //右
+					m_zevx = -HitBox_V; //右
 				}
 				if (r > 88 && r < 92)
 				{
-					m_zevy = m_zev_max;//上
+					m_zevy = HitBox_V;//上
 				}
 				if (r > 92 && r < 268)
 				{
-					m_zevx = m_zev_max;//左
+					m_zevx = HitBox_V;//左
 				}
 				if (r > 268 && r < 292)
 				{
-					m_zevy = -m_zev_max; //下
+					m_zevy = -HitBox_V; //下
 				}
 			}
 		}		
@@ -296,19 +280,19 @@ void CObjZombieEnemy::Action()
 				//角度で上下左右を判定
 				if ((r < 2 && r >= 0) || r > 358)
 				{
-					m_zevx = -m_zev_max; //右
+					m_zevx = -HitBox_V; //右
 				}
 				if (r > 2 && r < 178)
 				{
-					m_zevy = m_zev_max;//上
+					m_zevy = HitBox_V;//上
 				}
 				if (r > 178 && r < 182)
 				{
-					m_zevx = m_zev_max;//左
+					m_zevx = HitBox_V;//左
 				}
 				if (r > 182 && r < 358)
 				{
-					m_zevy = -m_zev_max; //下
+					m_zevy = -HitBox_V; //下
 				}
 			}
 		}		
@@ -375,33 +359,7 @@ void CObjZombieEnemy::Action()
 						m_DownHit_flg = true;	 //下
 						m_zevy = -HitBox_V;
 					}
-				}
-				//有刺鉄線の壁
-				if (hit_ze->CheckObjNameHit(OBJ_BARBED_WIRE) != nullptr)
-				{
-					float r = hit_data[i]->r;
-					//角度で上下左右を判定
-					if ((r > 0 && r < 30) || r >= 330)
-					{
-						m_RightHit_flg = true; //右
-						m_zevx = -HitBox_V;
-					}
-					else if (r >= 30 && r < 150)
-					{
-						m_UpHit_flg = true;    //上
-						m_zevy = HitBox_V;
-					}
-					else if (r >= 150 && r <= 210)
-					{
-						m_LeftHit_flg = true;	 //左
-						m_zevx = HitBox_V;
-					}
-					else if (r > 210 && r < 330)
-					{
-						m_DownHit_flg = true;	 //下
-						m_zevy = -HitBox_V;
-					}
-				}
+				}			
 			}
 		}
 		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
@@ -448,49 +406,47 @@ void CObjZombieEnemy::Action()
 		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
 	}
 	
+	//ネット(縦)
 	if (hit_ze->CheckElementHit(ELEMENT_NET_S) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
 		HIT_DATA** hit_data;
 		hit_data = hit_ze->SearchElementHit(ELEMENT_NET_S);
 		if (hit_data != nullptr)
-		{
-			//ネット(縦)
-			//if (hit_ze->CheckObjNameHit(OBJ_NET_V) != nullptr)
+		{			
+			for (int i = 0; i < hit_ze->GetCount(); i++)
 			{
-				for (int i = 0; i < hit_ze->GetCount(); i++)
+				if (hit_data[i] != nullptr)
 				{
-					if (hit_data[i] != nullptr)
+					float r = hit_data[i]->r;						
+					//角度で上下左右を判定
+					if ((r > 0 && r < 65) || r >= 295)
 					{
-						float r = hit_data[i]->r;						
-						//角度で上下左右を判定
-						if ((r > 0 && r < 65) || r >= 295)
-						{
-							m_RightHit_flg = true; //右
-							m_zevx = -HitBox_V;
-						}
-						else if (r >= 65 && r < 115)
-						{
-							m_UpHit_flg = true;    //上
-							m_zevy = HitBox_V;
-						}
-						else if (r >= 115 && r <= 245)
-						{
-							m_LeftHit_flg = true;	 //左
-							m_zevx = HitBox_V;
-						}
-						else if (r > 245 && r < 295)
-						{
-							m_DownHit_flg = true;	 //下
-							m_zevy = -HitBox_V;
-						}
+						m_RightHit_flg = true; //右
+						m_zevx = -HitBox_V;
 					}
-				}
+					else if (r >= 65 && r < 115)
+					{
+						m_UpHit_flg = true;    //上
+						m_zevy = HitBox_V;
+					}
+					else if (r >= 115 && r <= 245)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_zevx = HitBox_V;
+					}
+					else if (r > 245 && r < 295)
+					{
+						m_DownHit_flg = true;	 //下
+						m_zevy = -HitBox_V;
+					}
+				}			
 			}
 		}		
 		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
 	}
 	
+	//ネット(横)
 	if (hit_ze->CheckElementHit(ELEMENT_NET_V) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -498,43 +454,39 @@ void CObjZombieEnemy::Action()
 		hit_data = hit_ze->SearchElementHit(ELEMENT_NET_V);
 		if (hit_data != nullptr)
 		{
-			//ネット(横)
-			//if (hit_ze->CheckObjNameHit(OBJ_NET) != nullptr)
+			for (int i = 0; i < hit_ze->GetCount(); i++)
 			{
-				for (int i = 0; i < hit_ze->GetCount(); i++)
+				if (hit_data[i] != nullptr)
 				{
-					if (hit_data[i] != nullptr)
+					float r = hit_data[i]->r;							
+					//角度で上下左右を判定
+					if ((r > 0 && r < 25) || r >= 335)
 					{
-						float r = hit_data[i]->r;							
-						//角度で上下左右を判定
-						if ((r > 0 && r < 25) || r >= 335)
-						{
-							m_RightHit_flg = true; //右
-							m_zevx = -HitBox_V;
-						}
-						else if (r >= 25 && r < 155)
-						{
-							m_UpHit_flg = true;    //上
-							m_zevy = HitBox_V;
-						}
-						else if (r >= 155 && r <= 205)
-						{
-							m_LeftHit_flg = true;	 //左
-							m_zevx = HitBox_V;
-						}
-						else if (r > 205 && r < 335)
-						{
-							m_DownHit_flg = true;	 //下
-							m_zevy = -HitBox_V;
-						}
+						m_RightHit_flg = true; //右
+						m_zevx = -HitBox_V;
+					}
+					else if (r >= 25 && r < 155)
+					{
+						m_UpHit_flg = true;    //上
+						m_zevy = HitBox_V;
+					}
+					else if (r >= 155 && r <= 205)
+					{
+						m_LeftHit_flg = true;	 //左
+						m_zevx = HitBox_V;
+					}
+					else if (r > 205 && r < 335)
+					{
+						m_DownHit_flg = true;	 //下
+						m_zevy = -HitBox_V;
 					}
 				}
-			}
+			}		
 		}
 		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
 	}
 	
-	//有刺鉄線の壁
+	//有刺鉄線の壁(縦)
 	if (hit_ze->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		//主人公と障害物がどの角度で当たっているか調べる
@@ -571,6 +523,44 @@ void CObjZombieEnemy::Action()
 		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
 	}
 	
+	//有刺鉄線の壁(横)
+	if (hit_ze->CheckElementHit(ELEMENT_BARBED_S) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchElementHit(ELEMENT_BARBED_S);
+		for (int i = 0; i < hit_ze->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				
+				//角度で上下左右を判定
+				if ((r > 0 && r < 30) || r >= 330)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -HitBox_V;
+				}
+				else if (r >= 30 && r < 150)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = HitBox_V;
+				}
+				else if (r >= 150 && r <= 210)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = HitBox_V;
+				}
+				else if (r > 210 && r < 330)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -HitBox_V;
+				}				
+			}
+		}
+		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
+	}
+
 	//上下左右別当たり判定確認フラグ初期化処理
 	if (m_HitBoxFlg_time > 0)
 	{

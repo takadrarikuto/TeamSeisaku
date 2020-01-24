@@ -31,53 +31,41 @@ void CObjTutorial::Init()
 	//描画フレーム
 	m_ani_frame = 0;
 
-	//チュートリアル敵撃破数用
-	g_zombie_count_tu = 0; 
-	//チュートリアル敵撃破数増加用
-	g_zombie_count_tu_increase = 0;
-
 }
 
 //アクション
 void CObjTutorial::Action()
 {
-	if (g_zombie_count_tu_increase > 0)
+	
+	//Enterキーで決定
+	if (Input::GetVKey(VK_RETURN) == true)
 	{
-		g_zombie_count_tu += g_zombie_count_tu_increase;
-		g_zombie_count_tu_increase = 0;
-	}
-
-	if (g_zombie_count_tu >= 6)
-	{
-		//Enterキーで決定
-		if (Input::GetVKey(VK_RETURN) == true)
+		if (m_key_flag == true)
 		{
-			if (m_key_flag == true)
-			{
-				m_andf = true;
-				Audio::Start(12);
-				m_key_flag = false;
-			}
-		}
-		else
-		{
-			m_key_flag = true;
-		}
-
-		//ステージに移動
-		if (m_andf == true)
-		{
-			m_and -= 0.03f;
-			if (m_and <= 0.0f)
-			{
-				m_and = 0.0f;
-				m_andf = false;
-				Tuto_flg = false;
-				g_zombie_count_tu = 0;
-				Scene::SetScene(new CSceneStage());
-			}
+			m_andf = true;
+			Audio::Start(12);
+			m_key_flag = false;
 		}
 	}
+	else
+	{
+		m_key_flag = true;
+	}
+
+	//ステージに移動
+	if (m_andf == true)
+	{
+		m_and -= 0.03f;
+		if (m_and <= 0.0f)
+		{
+			m_and = 0.0f;
+			m_andf = false;
+			Tuto_flg = false;
+			
+			Scene::SetScene(new CSceneStage());
+		}
+	}
+	
 	
 }
 
