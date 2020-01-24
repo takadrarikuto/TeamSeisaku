@@ -200,58 +200,58 @@ void CObjBoss::Action()
 			m_Zombie_Generation = 0;
 		}
 		//蝙蝠
-		if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
-		{
-			if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
-			{
-				for (int i = 1; i <= m_Bat_Enemy_co_num; i++)
-				{
-					//蝙蝠オブジェクト作成
-					CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
-					Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
+		//if (m_Bat_Enemy_Generation >= m_Bat_Enemy_time_max)
+		//{
+		//	if (m_Bat_Enemy_Restriction < m_Bat_Enemy_Restriction_max)
+		//	{
+		//		for (int i = 1; i <= m_Bat_Enemy_co_num; i++)
+		//		{
+		//			//蝙蝠オブジェクト作成
+		//			CObjBat_Enemy* obj_be = new CObjBat_Enemy(e_x + m_Bat_Enemy_x, e_y + m_Bat_Enemy_y);
+		//			Objs::InsertObj(obj_be, OBJ_BAT_ENEMY, 5);
 
-					if (i % 2 == 0 && i != 0)
-					{
-						m_Bat_Enemy_x += 50.0f; //x位置修正
-					}
-					else if (i % 2 != 0)
-					{
-						m_Bat_Enemy_y += 30.0f; //y位置修正
-					}		
+		//			if (i % 2 == 0 && i != 0)
+		//			{
+		//				m_Bat_Enemy_x += 50.0f; //x位置修正
+		//			}
+		//			else if (i % 2 != 0)
+		//			{
+		//				m_Bat_Enemy_y += 30.0f; //y位置修正
+		//			}		
 
-					
-				}	
-				Audio::Start(20);
-				m_Bat_Enemy_Restriction += 3; //蝙蝠生成カウント
-			}				
-			m_Bat_Enemy_Generation = 0;
-		}
-		//火トカゲ
-		if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max)
-		{
-			if (m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
-			{
-				//火トカゲオブジェクト作成 
-				CObjFire_Lizard* obj_fl = new CObjFire_Lizard(e_x, e_y);
-				Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 5);
+		//			
+		//		}	
+		//		Audio::Start(20);
+		//		m_Bat_Enemy_Restriction += 3; //蝙蝠生成カウント
+		//	}				
+		//	m_Bat_Enemy_Generation = 0;
+		//}
+		////火トカゲ
+		//if (m_Frie_Lizard_Generation >= m_Frie_Lizard_time_max)
+		//{
+		//	if (m_Frie_Lizard_Restriction < m_Frie_Lizard_Restriction_max)
+		//	{
+		//		//火トカゲオブジェクト作成 
+		//		CObjFire_Lizard* obj_fl = new CObjFire_Lizard(e_x, e_y);
+		//		Objs::InsertObj(obj_fl, OBJ_FIRE_LIZARD, 5);
 
-				m_Frie_Lizard_Restriction++; //火トカゲ生成カウント	
-			}			
-			m_Frie_Lizard_Generation = 0;
-		}
-		//火の鳥
-		if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max)
-		{
-			if (m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
-			{
-				//火の鳥オブジェクト作成
-				CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
-				Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 5);
+		//		m_Frie_Lizard_Restriction++; //火トカゲ生成カウント	
+		//	}			
+		//	m_Frie_Lizard_Generation = 0;
+		//}
+		////火の鳥
+		//if (m_Frie_Bird_Generation >= m_Frie_Bird_time_max)
+		//{
+		//	if (m_Frie_Bird_Restriction < m_Frie_Bird_Restriction_max)
+		//	{
+		//		//火の鳥オブジェクト作成
+		//		CObjFire_Bird* obj_fb = new CObjFire_Bird(e_x, e_y);
+		//		Objs::InsertObj(obj_fb, OBJ_FIRE_BIRD, 5);
 
-				m_Frie_Bird_Restriction++; //火の鳥生成カウント
-			}			
-			m_Frie_Bird_Generation = 0;
-		}
+		//		m_Frie_Bird_Restriction++; //火の鳥生成カウント
+		//	}			
+		//	m_Frie_Bird_Generation = 0;
+		//}
 
 		//敵無力化イベント時敵生成
 		if ((END_flg == true || Eve_Rep_E == true) && m_Sphere_Type_Enemy_Restriction_Stop_flg == false)
