@@ -17,6 +17,9 @@ public:
 	float GetEndHitX() { return m_Enemy_Neu_Dev2_HitSize_x; }  //HitBox xサイズ取得用
 	float GetEndHitY() { return m_Enemy_Neu_Dev2_HitSize_y; }  //HitBox yサイズ取得用
 	
+	bool Get_Deat2() { return m_END2_death_flg; } //死亡フラグ取得用
+
+	void Set_Deat2(bool end2_d) { m_END2_death_flg = end2_d; } //死亡フラグ設定用
 private:
 	float m_Enemy_Neu_Dev2x; //位置情報
 	float m_Enemy_Neu_Dev2y;
@@ -25,4 +28,7 @@ private:
 	float m_Enemy_Neu_Dev2_HitSize_y;
 
 	int m_Font_time; //フォント表示タイム
+
+	bool m_END2_death_flg; //死亡フラグ
+
 };
