@@ -22,11 +22,12 @@ CObjGrenadeItem::CObjGrenadeItem(float x, float y)
 void CObjGrenadeItem::Init()
 {
 	//初期化
-	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 38;
 	m_YHitbox_size = 36;
+
+	//グレネード回復量
+	m_GRE_num_max = 0; 
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_GRE_Item_x, m_GRE_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_GRENADE_ITEM, 7);
@@ -56,18 +57,21 @@ void CObjGrenadeItem::Action()
 	{
 		if (((UserData*)Save::GetData())->choose == 0)
 		{
+			m_GRE_num_max = 3; //グレネード回復量変更
 			((UserData*)Save::GetData())->GRE_load += 3; //グレネード補充		
 			aitemfont->SetAitemNum(3); //グレネード数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 1)
 		{
-			((UserData*)Save::GetData())->GRE_load += 2; //グレネード補充		
-			aitemfont->SetAitemNum(2); //グレネード数表示
+			m_GRE_num_max = 2; //グレネード回復量変更
+			((UserData*)Save::GetData())->GRE_load += m_GRE_num_max; //グレネード補充		
+			aitemfont->SetAitemNum(m_GRE_num_max); //グレネード数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 2)
 		{
-			((UserData*)Save::GetData())->GRE_load += 1; //グレネード補充			
-			aitemfont->SetAitemNum(1); //グレネード数表示
+			m_GRE_num_max = 1; //グレネード回復量変更
+			((UserData*)Save::GetData())->GRE_load += m_GRE_num_max; //グレネード補充			
+			aitemfont->SetAitemNum(m_GRE_num_max); //グレネード数表示
 		}
 		aitemfont->SetAGF(6); //フォント表示
 		Audio::Start(12); //効果音再生

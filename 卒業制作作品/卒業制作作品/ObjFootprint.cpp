@@ -8,9 +8,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjFootprint::CObjFootprint(float x, float y,float r)
 {
@@ -44,6 +41,14 @@ void CObjFootprint::Action()
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)

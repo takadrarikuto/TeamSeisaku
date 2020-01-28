@@ -30,11 +30,13 @@ void CObjTutorial::Init()
 	//初期化
 	//描画フレーム
 	m_ani_frame = 0;
+
 }
 
 //アクション
 void CObjTutorial::Action()
 {
+	
 	//Enterキーで決定
 	if (Input::GetVKey(VK_RETURN) == true)
 	{
@@ -59,10 +61,12 @@ void CObjTutorial::Action()
 			m_and = 0.0f;
 			m_andf = false;
 			Tuto_flg = false;
-			g_zombie_count_tu = 0;
+			
 			Scene::SetScene(new CSceneStage());
 		}
 	}
+	
+	
 }
 
 //ドロー

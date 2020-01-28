@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
@@ -466,7 +463,6 @@ void CObjTutoHero::Action()
 						CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
 					}
-					//Attack_flg = true; //Attackフラグtrue
 					Audio::Start(3);
 				}
 				//攻撃間隔
@@ -527,7 +523,6 @@ void CObjTutoHero::Action()
 						obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max / 3, 300.0f);
 						Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
 					}
-					//Attack_flg = true; //Attackフラグtrue
 					Audio::Start(4);
 				}
 				//攻撃間隔
@@ -571,7 +566,7 @@ void CObjTutoHero::Action()
 						CObjARAttack* obj_ara = new CObjARAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
 						Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
 					}
-					//Attack_flg = true; //Attackフラグtrue
+					Audio::Start(3);
 				}
 				//攻撃間隔
 				else if (m_bt == m_bt_max)
@@ -590,31 +585,30 @@ void CObjTutoHero::Action()
 					if (m_UDani_frame == 0)
 					{
 						//スナイパーアタックオブジェクト作成
-						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
+						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max * 2, 0.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//スナイパーアタックオブジェクト作成
-						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
+						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max * 2, 0, 270.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//スナイパーアタックオブジェクト作成
-						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
+						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max * 2, 180.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//スナイパーアタックオブジェクト作成
-						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
+						CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max * 2, 0, 90.0f);
 						Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
 					}
-					//Attack_flg = true; //Attackフラグtrue
 					Audio::Start(5);
 				}
 				//攻撃間隔
@@ -658,7 +652,7 @@ void CObjTutoHero::Action()
 						CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 90.0f);
 						Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
 					}
-					//Attack_flg = true; //Attackフラグtrue
+					Audio::Start(6);
 				}
 				//攻撃間隔
 				else if (m_bt == m_bt_max)
@@ -677,31 +671,31 @@ void CObjTutoHero::Action()
 					if (m_UDani_frame == 0)
 					{
 						//レールガンアタックオブジェクト作成
-						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
+						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max * 2, 0.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
 					//右
 					else if (m_UDani_frame == 2)
 					{
 						//レールガンアタックオブジェクト作成
-						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
+						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max * 2, 0, 270.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
 					//下
 					else if (m_UDani_frame == 4)
 					{
 						//レールガンアタックオブジェクト作成
-						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
+						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max * 2, 180.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
 					//左
 					else if (m_UDani_frame == 6)
 					{
 						//レールガンアタックオブジェクト作成
-						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
+						CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max * 2, 0, 90.0f);
 						Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
 					}
-					//Attack_flg = true; //Attackフラグtrue
+					Audio::Start(7);
 				}
 				//攻撃間隔
 				else if (m_bt == m_bt_max)
@@ -926,7 +920,6 @@ void CObjTutoHero::Action()
 			m_rg_pb_cc = 0;
 		}
 	}
-
 }
 
 //ドロー

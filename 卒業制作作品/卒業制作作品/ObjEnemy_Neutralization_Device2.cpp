@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//死亡処理
-bool m_END2_death_flg = false; //死亡フラグ
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //イベント成功フラグ
 extern bool m_EveSuccess_flg;
 
@@ -38,6 +32,8 @@ void CObjEnemy_Neutralization_Device2::Init()
 
 	//フォント表示タイム
 	m_Font_time = 0;
+
+	m_END2_death_flg = false; //死亡フラグ
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Enemy_Neu_Dev2x, m_Enemy_Neu_Dev2y, m_Enemy_Neu_Dev2_HitSize_x, m_Enemy_Neu_Dev2_HitSize_y, ELEMENT_FIELD2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 6);
@@ -65,6 +61,14 @@ void CObjEnemy_Neutralization_Device2::Action()
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int App_Rand = Event->GetApp_Rand(); //対応数　4
 	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//アイテムフォント情報取得
 	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
@@ -101,10 +105,6 @@ void CObjEnemy_Neutralization_Device2::Action()
 				}
 			}
 		}		
-	}
-	else
-	{
-		m_END2_death_flg = false;
 	}
 
 	//主人公の移動に合わせる

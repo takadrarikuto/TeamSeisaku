@@ -43,8 +43,6 @@ void CSceneDifficulty_Level::InitScene()
 	Audio::LoadAudio(2, L"タイトルBGM.wav", BACK_MUSIC);
 
 	//バックミュージックスタート
-	//ボリュームを-0.3にする
-	//float v = Audio::VolumeMaster(-0.3);
 	Audio::Start(2);    //音楽スタート
 
 }

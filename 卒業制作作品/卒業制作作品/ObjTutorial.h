@@ -26,6 +26,7 @@ class CObjTutorial :public CObj
 		void Init();    //イニシャライズ
 		void Action();  //アクション
 		void Draw();    //ドロー
+
 	private:
 		int max_hp;	//HP最大値
 		float m_px;			//プレイヤーの座標X
@@ -61,4 +62,6 @@ class CObjTutorial :public CObj
 		int rl_pb;
 		int rg_pb;
 		int gre_pb;
+
+		
 };

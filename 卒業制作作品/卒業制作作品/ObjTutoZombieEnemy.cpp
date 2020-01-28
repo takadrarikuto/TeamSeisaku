@@ -14,9 +14,6 @@ using namespace GameL;
 //チュートリアルONOFFフラグ
 bool Tuto_flg = false;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
@@ -58,6 +55,9 @@ void CObjTutoZombieEnemy::Action()
 	float hvx = hero->GetVX(); //移動ベクトル
 	float hvy = hero->GetVY();
 	bool h_gel = hero->GetDel(); //削除チェック
+
+	//チュートリアル背景情報取得
+	CObjTutoTopback* TuTo = (CObjTutoTopback*)Objs::GetObj(OBJ_TOPBACK);
 
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
@@ -123,10 +123,11 @@ void CObjTutoZombieEnemy::Action()
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 		Audio::Start(15);
+
+		TuTo->SetZoCoTu(1); //チュートリアルゾンビ撃破カウント
+
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-
-		g_zombie_count_tu += 1;
 	}
 
 	if (m_time_d > 0)

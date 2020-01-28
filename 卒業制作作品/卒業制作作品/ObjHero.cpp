@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
@@ -168,6 +165,15 @@ void CObjHero::Action()
 
 	m_speed_power = 0.5f;
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();		
+	}
+	
 	//inputフラグがオンの場合入力を可能にする
 	if (m_inputf == true)
 	{
@@ -175,12 +181,10 @@ void CObjHero::Action()
 		if (m_key_flag_menu == true)
 		{
 			if (Input::GetVKey('E') == true)
-			{
+			{				
 				Menu_flg = true;
-				m_key_flag_menu = false;
-				//メニューオブジェクト作成
-				CObjMenu* obj_m = new CObjMenu();
-				Objs::InsertObj(obj_m, OBJ_MENU, 21);
+				Menu->SetMenu(true);
+				m_key_flag_menu = false;				
 			}
 		}
 	}
@@ -1494,7 +1498,6 @@ void CObjHero::Action()
 			{
 				Scene::SetScene(new CSceneOver());
 				m_time_dead = 0;
-				g_zombie_count_tu = 0; //チュートリアル敵撃破数用
 				Dead_flg = false;
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する

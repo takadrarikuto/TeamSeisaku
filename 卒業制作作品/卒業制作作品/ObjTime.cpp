@@ -13,12 +13,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//イベント用タイムONOFFフラグ
-//bool m_Evetime_flg = false;
-
 //イニシャライズ
 void CObjTime::Init()
 {
@@ -50,6 +44,19 @@ void CObjTime::Action()
 	bool Time_Pena = Event->GetEveTimPena();
 	int Eve_Ins = Event->GetEveIns();
 
+	//敵無力化装置情報取得
+	CObjEnemy_Neutralization_Device* END_Deat = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	//敵無力化装置2情報取得
+	CObjEnemy_Neutralization_Device2* END2_Deat = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
 	//制限時間カウントダウン
 	if (Menu_flg == false && m_Stop_flg == false)
 	{
@@ -71,26 +78,33 @@ void CObjTime::Action()
 		{
 			m_Event_Rand_num = rand() % 100;
 			//イベントランダム選択処理
-			////発電機イベント
-			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100/*50*/)
+			//発電機イベント
+			/*if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 50)
 			{
 				m_Gen_flg = true;
 			}
-			////敵無力化イベント
-			//if (m_Event_Rand_num > 50 && m_Event_Rand_num <= 65)
-			//{
-			//	m_END_flg = true;
-			//}
-			////ミーム実態無力化イベント
-			//if (m_Event_Rand_num > 65 && m_Event_Rand_num <= 80)
-			//{
-			//	m_MND_flg = true;
-			//}
+			//敵無力化イベント
+			if (m_Event_Rand_num > 50 && m_Event_Rand_num <= 65)
+			{
+				m_END_flg = true;
+			}
+			//ミーム実態無力化イベント
+			if (m_Event_Rand_num > 65 && m_Event_Rand_num <= 80)
+			{
+				m_MND_flg = true;
+			}
 			//修理イベント
-			/*if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100)
+			if (m_Event_Rand_num > 80 && m_Event_Rand_num <= 100)
 			{
 				m_Repairing_flg = true;
 			}*/
+			//敵無力化イベント
+			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100)
+			{
+				m_END_flg = true;
+				END_Deat->Set_Deat(false); //敵無力化処理初期化
+				END2_Deat->Set_Deat2(false); //敵無力化2処理初期化
+			}
 			m_Stop_flg = true;
 		}		
 	}

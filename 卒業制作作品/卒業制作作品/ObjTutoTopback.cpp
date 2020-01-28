@@ -12,12 +12,21 @@ using namespace GameL;
 //イニシャライズ
 void CObjTutoTopback::Init()
 {
-
+	//チュートリアル敵撃破数用
+	g_zombie_count_tu = 0;
+	//チュートリアル敵撃破数増加用
+	g_zombie_count_tu_increase = 0;
 }
 
 //アクション
 void CObjTutoTopback::Action()
 {
+	//チュートリアルゾンビ撃退カウント処理
+	if (g_zombie_count_tu_increase > 0)
+	{
+		g_zombie_count_tu += g_zombie_count_tu_increase;
+		g_zombie_count_tu_increase = 0;
+	}
 
 }
 
@@ -248,9 +257,6 @@ void CObjTutoTopback::Draw()
 		dst.m_bottom = 395.0f;
 		Draw::Draw(7, &src, &dst, c, 0.0f);
 		Font::StrDraw(L"ツールボックス", 560, 410, 23, blk);
-		
-
-		//Audio::Start(18);
 	}
 	else
 	{
