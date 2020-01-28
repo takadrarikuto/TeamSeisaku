@@ -14,9 +14,6 @@ using namespace GameL;
 //イベント失敗フラグ
 bool m_EveMiss_flg = false;
 
-//イベント成功フラグ
-bool m_EveSuccess_flg = false;
-
 //イニシャライズ
 void CObjEvent::Init()
 {
@@ -41,6 +38,8 @@ void CObjEvent::Init()
 	//イベント指示表示タイム
 	m_Event_Instruction_time = 0;  
 
+	//イベント成功フラグ
+	m_EveSuccess_flg = false;
 }
 
 //アクション
