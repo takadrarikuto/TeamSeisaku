@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //コンストラクタ
 CObjGenerator::CObjGenerator(float x, float y)
 {
@@ -97,7 +94,7 @@ void CObjGenerator::Action()
 				if (GEN == true ||( App_Rand > 0 && App_Rand <= 20 && Tool_Box_flg == true))
 				{
 					TStart_flg = true;
-					m_EveSuccess_flg = true;
+					Event->SetEveSuc(true);
 					GEN = false;
 					Tool_Box_flg = false;
 					Aitem_Font->SetTool_Box(Tool_Box_flg);

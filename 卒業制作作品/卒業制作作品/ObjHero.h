@@ -3,6 +3,8 @@
 
 using namespace GameL;
 
+
+
 class CObjHero : public CObj, public CBaseStatus
 {
 public:
@@ -108,6 +110,8 @@ private:
 	bool m_DownHit_flg;	 //下
 	bool m_LeftHit_flg;	 //左
 	bool m_RightHit_flg; //右
+
+	float m_Hit_Vec; //反発ベクトル
 
 	int m_hg_pb;//ハンドガン現在弾数用(上部表示用)
 	int m_sg_pb;//ショットガン現在弾数用(上部表示用)

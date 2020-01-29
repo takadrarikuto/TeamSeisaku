@@ -21,9 +21,6 @@ extern bool Rep_flg;
 //イベント失敗フラグ
 extern bool m_EveMiss_flg;
 
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //イニシャライズ
 void CObjTopback::Init()
 {
@@ -69,10 +66,12 @@ void CObjTopback::Draw()
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_time;
 	bool EveMiss_flg;
+	bool EveSuccess_flg;
 	if (Event != nullptr)
 	{
 		Eve_time = Event->GetEveIns();
 		EveMiss_flg = Event->GetEveMiss();
+		EveSuccess_flg = Event->GetEveSuc();
 	}
 
 	//設置型アイテムオブジェクト
@@ -229,7 +228,7 @@ void CObjTopback::Draw()
 	}
 
 	//イベント成功時
-	if (Menu_flg == false && m_EveSuccess_flg == true)
+	if (Menu_flg == false && EveSuccess_flg == true)
 	{
 		//切り取り位置の設定
 		src.m_top = 0.0f;
@@ -253,14 +252,15 @@ void CObjTopback::Draw()
 			}
 			if (evesuc_time > 200)
 			{
-				m_EveSuccess_flg = false;
-				m_EveSuccess_flg = false;
+				EveSuccess_flg = false;
+				Event->SetEveSuc(EveSuccess_flg);
 				evesuc_time = 0;
 			}
 		}		
 		else
 		{
-			m_EveSuccess_flg = false;
+			EveSuccess_flg = false;
+			Event->SetEveSuc(EveSuccess_flg);
 			evesuc_time = 0;
 		}
 	}
