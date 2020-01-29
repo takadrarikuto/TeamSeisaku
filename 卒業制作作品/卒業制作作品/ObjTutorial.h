@@ -27,6 +27,8 @@ class CObjTutorial :public CObj
 		void Action();  //アクション
 		void Draw();    //ドロー
 
+		bool GetTuto_flg() { return Tuto_flg; } //チュートリアルONOFFフラグ取得用
+
 	private:
 		int max_hp;	//HP最大値
 		float m_px;			//プレイヤーの座標X
@@ -63,5 +65,5 @@ class CObjTutorial :public CObj
 		int rg_pb;
 		int gre_pb;
 
-		
+		bool Tuto_flg; //チュートリアルONOFFフラグ
 };

@@ -74,7 +74,7 @@ void CObjARAttack::Action()
 		float hx = hero->GetX();
 		float hy = hero->GetY();
 
-		//主人公から離れるor画面端に行くとオブジェクト削除
+		//主人公から離れるとオブジェクト削除
 		if (m_ARx < hx - 64 * m_Distance_max)
 		{
 			m_HitBox_Delete = true;
