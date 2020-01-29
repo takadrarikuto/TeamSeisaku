@@ -100,7 +100,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 					Aitem_Font->SetTool_Box(Tool_Box_flg);
 					time->SetTStart(TStart_flg);
 					Event->SetApp_Rand(0);
-					m_EveSuccess_flg = true;
+					Event->SetEveSuc(true);
 					Audio::Start(19);
 				}
 			}

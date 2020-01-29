@@ -15,7 +15,7 @@ public:
 	void Draw(); //ドロー
 
 	bool GetEveMiss() { return m_EveMiss_flg; } //時間停止フラグ取得用
-	bool GetEveSuc() { return m_EveSuccess_flg; } //測定開始フラグ取得用
+	bool GetEveSuc() { return m_EveSuccess_flg; } //イベント成功フラグ取得用
 
 	bool GetEveTimPena() { return m_Event_TimePenalty; } //イベントタイムペナルティ取得用
 	bool GetEvePena_Enemy() { return m_EventPenalty_Enemy_flg; } //イベントペナルティ(球体型敵)フラグ取得用
@@ -30,12 +30,13 @@ public:
 	void SetEvePena_Meme(bool P_M) { m_EventPenalty_Meme_flg = P_M; } //イベントペナルティ(ミーム実態)フラグ設定用
 
 	void SetEveMiss(bool EveMiss) { m_EveMiss_flg = EveMiss; } //時間停止フラグ設定用
+	void SetEveSuc(bool EveSucc) { m_EveSuccess_flg = EveSucc; } //イベント成功フラグ設定用
 private:
 	int m_Event_time;	//イベント時間
 	bool m_Event_TimePenalty; //イベントタイムペナルティ
 	bool m_Event_time_flg; //イベントフラグ
 	bool m_EveMiss_flg;
-	bool m_EveSuccess_flg;
+	bool m_EveSuccess_flg; //イベント成功フラグ
 	int m_Event_Instruction_time; //イベント指示表示タイム
 
 	bool m_EventPenalty_Enemy_flg; //イベントペナルティ(球体型敵)フラグ

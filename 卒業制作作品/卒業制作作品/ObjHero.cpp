@@ -65,6 +65,8 @@ void CObjHero::Init()
 	m_LeftHit_flg = false;	 //左
 	m_RightHit_flg = false; //右
 
+	m_Hit_Vec = 0.65f; //反発ベクトル
+
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
@@ -319,22 +321,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 30) || r >= 330)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 30 && r < 150)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 150 && r <= 210)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 210 && r < 330)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -355,22 +357,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 45) || r >= 315)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 45 && r < 135)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 135 && r <= 225)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 225 && r < 315)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -391,22 +393,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 45) || r >= 315)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 45 && r < 135)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 135 && r <= 225)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 225 && r < 315)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -426,19 +428,19 @@ void CObjHero::Action()
 						//角度で上下左右を判定
 						if ((r < 89 && r >= 0) || r > 271)
 						{
-							m_vx = -0.65f; //右
+							m_vx = -m_Hit_Vec; //右
 						}
 						if (r > 89 && r < 91)
 						{
-							m_vy = 0.65f;//上
+							m_vy = m_Hit_Vec;//上
 						}
 						if (r > 91 && r < 269)
 						{
-							m_vx = 0.65f;//左
+							m_vx = m_Hit_Vec;//左
 						}
 						if (r > 269 && r < 271)
 						{
-							m_vy = -0.65f; //下
+							m_vy = -m_Hit_Vec; //下
 						}
 					}
 				}
@@ -458,19 +460,19 @@ void CObjHero::Action()
 						//角度で上下左右を判定
 						if ((r < 2 && r >= 0) || r > 358)
 						{
-							m_vx = -0.65f; //右
+							m_vx = -m_Hit_Vec; //右
 						}
 						if (r > 2 && r < 178)
 						{
-							m_vy = 0.65f;//上
+							m_vy = m_Hit_Vec;//上
 						}
 						if (r > 178 && r < 182)
 						{
-							m_vx = 0.65f;//左
+							m_vx = m_Hit_Vec;//左
 						}
 						if (r > 182 && r < 358)
 						{
-							m_vy = -0.65f; //下
+							m_vy = -m_Hit_Vec; //下
 						}
 					}
 				}
@@ -491,22 +493,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 25) || r >= 335)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 25 && r < 155)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 155 && r <= 205)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 205 && r < 335)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -527,22 +529,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 65) || r >= 295)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 65 && r < 115)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 115 && r <= 245)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 245 && r < 295)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -563,22 +565,59 @@ void CObjHero::Action()
 						if ((r > 0 && r < 65) || r >= 295)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 65 && r < 115)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 115 && r <= 245)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 245 && r < 295)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
+						}
+					}
+				}
+			}
+
+			//有刺鉄線の壁(横)
+			if (hit_h->CheckElementHit(ELEMENT_BARBED_S) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_BARBED_S);
+				for (int i = 0; i < hit_h->GetCount(); i++)
+				{
+					if (hit_data[i] != nullptr)
+					{
+						float r = hit_data[i]->r;
+
+						//角度で上下左右を判定
+						if ((r > 0 && r < 30) || r >= 330)
+						{
+							m_RightHit_flg = true; //右
+							m_vx = -m_Hit_Vec;
+						}
+						else if (r >= 30 && r < 150)
+						{
+							m_UpHit_flg = true;    //上
+							m_vy = m_Hit_Vec;
+						}
+						else if (r >= 150 && r <= 210)
+						{
+							m_LeftHit_flg = true;	 //左
+							m_vx = m_Hit_Vec;
+						}
+						else if (r > 210 && r < 330)
+						{
+							m_DownHit_flg = true;	 //下
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}

@@ -87,6 +87,8 @@ void CObjTime::Action()
 			if (m_Event_Rand_num > 50 && m_Event_Rand_num <= 65)
 			{
 				m_END_flg = true;
+				END_Deat->Set_Deat(false); //敵無力化処理初期化
+				END2_Deat->Set_Deat2(false); //敵無力化2処理初期化
 			}
 			//ミーム実態無力化イベント
 			if (m_Event_Rand_num > 65 && m_Event_Rand_num <= 80)
@@ -98,12 +100,10 @@ void CObjTime::Action()
 			{
 				m_Repairing_flg = true;
 			}*/
-			//敵無力化イベント
+			//発電機イベント
 			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100)
 			{
-				m_END_flg = true;
-				END_Deat->Set_Deat(false); //敵無力化処理初期化
-				END2_Deat->Set_Deat2(false); //敵無力化2処理初期化
+				m_Gen_flg = true;
 			}
 			m_Stop_flg = true;
 		}		

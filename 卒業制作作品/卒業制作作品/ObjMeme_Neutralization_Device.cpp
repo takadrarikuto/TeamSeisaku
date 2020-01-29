@@ -14,9 +14,6 @@ using namespace GameL;
 //死亡処理
 bool m_Meme_death_flg = false; //死亡フラグ
 
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //コンストラクタ
 CObjMeme_Neutralization_Device::CObjMeme_Neutralization_Device(float x, float y)
 {
@@ -97,7 +94,7 @@ void CObjMeme_Neutralization_Device::Action()
 				{
 					TStart_flg = true;
 					m_Meme_death_flg = true;
-					m_EveSuccess_flg = true;
+					Event->SetEveSuc(true);
 					MND = false;
 					Tool_Box_flg = false;
 					Aitem_Font->SetTool_Box(Tool_Box_flg);
