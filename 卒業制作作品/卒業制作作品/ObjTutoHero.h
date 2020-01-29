@@ -21,8 +21,8 @@ public:
 	float GetVY() { return m_vy; }
 	float GetHitBox() { return m_dst_size; }
 
-	//int GetWS() { return m_Weapon_switching; }
-	//int GetHP() { return m_hero_hp; }	//主人公のHPを取得
+	int GetWS() { return m_Weapon_switching; }
+	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
 	bool GetDel() { return m_del; } //削除チェック
 
@@ -32,13 +32,13 @@ public:
 	bool GetLH() { return m_LeftHit_flg; }	 //左
 	bool GetRH() { return m_RightHit_flg; } //右
 
-	//int GetHG_E() { return m_hg_pb; }	//ハンドガンの残り弾数を取得(装備分)
-	//int GetSG_E() { return m_sg_pb; }	//ショットガンの残り弾数を取得(装備分)
-	//int GetAR_E() { return m_ar_pb; }	//アサルトライフルの残り弾数を取得(装備分)
-	//int GetSR_E() { return m_sr_pb; }	//スナイパーライフルの残り弾数を取得(装備分)
-	//int GetRL_E() { return m_rl_pb; }	//ロケットランチャーの残り弾数を取得(装備分)
-	//int GetRG_E() { return m_rg_pb; }	//レールガンの残り弾数を取得(装備分)
-	//int GetGRE_E() { return m_gre_pb; }	//グレネードの残り弾数を取得(装備分)
+	int GetHG_E() { return m_hg_pb; }	//ハンドガンの残り弾数を取得(装備分)
+	int GetSG_E() { return m_sg_pb; }	//ショットガンの残り弾数を取得(装備分)
+	int GetAR_E() { return m_ar_pb; }	//アサルトライフルの残り弾数を取得(装備分)
+	int GetSR_E() { return m_sr_pb; }	//スナイパーライフルの残り弾数を取得(装備分)
+	int GetRL_E() { return m_rl_pb; }	//ロケットランチャーの残り弾数を取得(装備分)
+	int GetRG_E() { return m_rg_pb; }	//レールガンの残り弾数を取得(装備分)
+	int GetGRE_E() { return m_gre_pb; }	//グレネードの残り弾数を取得(装備分)
 
 	int GetSG() { return m_sg_pb_me; }	//ショットガンの残り弾数を取得(全体所持弾用)
 	int GetAR() { return m_ar_pb_me; }	//アサルトライフルの残り弾数を取得(全体所持弾用)
