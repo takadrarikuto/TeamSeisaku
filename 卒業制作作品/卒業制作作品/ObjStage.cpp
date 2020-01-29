@@ -24,6 +24,10 @@ void CObjStage::Init()
 	//描画フレーム
 	m_ani_frame = 0;
 
+	WS = 0; //武器切り替え変数取得
+	hvx = 0.0f; //移動ベクトル
+	hvy = 0.0f;
+
 	//エネミー出現位置
 	e_x = 200.0f;
 	e_y = 200.0f;
@@ -48,12 +52,24 @@ void CObjStage::Init()
 //アクション
 void CObjStage::Action()
 {
-	//武器切り替え変数取得
+	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	int WS = hero->GetWS();
-	float hvx = hero->GetVX();
-	float hvy = hero->GetVY();
-
+	if (hero != nullptr)
+	{
+		WS = hero->GetWS(); //武器切り替え変数取得
+		hvx = hero->GetVX(); //移動ベクトル
+		hvy = hero->GetVY();
+	}
+	
+	//チュートリアル主人公情報取得
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (tuhero != nullptr)
+	{
+		WS = tuhero->GetWS(); //武器切り替え変数取得
+		hvx = tuhero->GetVX(); //移動ベクトル
+		hvy = tuhero->GetVY();
+	}
+	
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
 	bool Menu_flg;
@@ -84,22 +100,22 @@ void CObjStage::Action()
 		e_x -= hvx;
 		e_y -= hvy;
 
-		//アイテム生成処理
-		//回復
-		if (m_Heal_Generation >= m_Heal_Item_time_max && m_Heal_Item_Restriction < m_Heal_Item_Restriction_max)
-		{
-			srand(time(NULL)); // ランダム情報を初期化
-			m_Heal_Item_co_num = rand() % 3;
-			for (int i = 0; i > m_Heal_Item_co_num; i++)
-			{
-				//回復
-				CObjHeal* Heal = new CObjHeal(e_x, e_y);
-				Objs::InsertObj(Heal, OBJ_HEAL, 7);
-			}
+		////アイテム生成処理
+		////回復
+		//if (m_Heal_Generation >= m_Heal_Item_time_max && m_Heal_Item_Restriction < m_Heal_Item_Restriction_max)
+		//{
+		//	srand(time(NULL)); // ランダム情報を初期化
+		//	m_Heal_Item_co_num = rand() % 3;
+		//	for (int i = 0; i > m_Heal_Item_co_num; i++)
+		//	{
+		//		//回復
+		//		CObjHeal* Heal = new CObjHeal(e_x, e_y);
+		//		Objs::InsertObj(Heal, OBJ_HEAL, 7);
+		//	}
 
-			m_Heal_Generation = 0;
-			m_Heal_Item_Restriction += m_Heal_Item_co_num; //回復アイテム生成カウント
-		}
+		//	m_Heal_Generation = 0;
+		//	m_Heal_Item_Restriction += m_Heal_Item_co_num; //回復アイテム生成カウント
+		//}
 	}
 	
 }
@@ -108,29 +124,52 @@ void CObjStage::Action()
 void CObjStage::Draw()
 {
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	//hero_hp = hero->GetHP();	//主人公からHPの情報を取得
-	//hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
+	if (hero != nullptr)
+	{
+		hero_hp = hero->GetHP();	//主人公からHPの情報を取得
+		hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
+
+		//各残り弾数情報を取得(装備分)
+		hg_pb_e = hero->GetHG_E();	//ハンドガン
+		sg_pb_e = hero->GetSG_E();	//ショットガン
+		ar_pb_e = hero->GetAR_E();	//アサルトライフル
+		sr_pb_e = hero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = hero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = hero->GetRG_E();	//レールガン
+		gre_pb_e = hero->GetGRE_E();//グレネード
+
+		//各残り弾数情報を取得(全体)
+		sg_pb = hero->GetSG();	//ショットガン
+		ar_pb = hero->GetAR();	//アサルトライフル
+		sr_pb = hero->GetSR();	//スナイパーライフル
+		rl_pb = hero->GetRL();	//ロケットランチャー
+		rg_pb = hero->GetRG();	//レールガン
+		gre_pb = hero->GetGRE();//グレネード
+	}	
 
 	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
-	hero_hp = hero->GetHP();	//主人公からHPの情報を取得
-	hero_en = hero->GetEN();	//主人公から耐久力の情報を取得
+	if (tuhero != nullptr)
+	{
+		hero_hp = tuhero->GetHP();	//主人公からHPの情報を取得
+		hero_en = 0;	//耐久力設定
 
-	//各残り弾数情報を取得(装備分)
-	hg_pb_e = hero->GetHG_E();	//ハンドガン
-	sg_pb_e = hero->GetSG_E();	//ショットガン
-	ar_pb_e = hero->GetAR_E();	//アサルトライフル
-	sr_pb_e = hero->GetSR_E();	//スナイパーライフル
-	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
-	rg_pb_e = hero->GetRG_E();	//レールガン
-	gre_pb_e = hero->GetGRE_E();//グレネード
+		//各残り弾数情報を取得(装備分)
+		hg_pb_e = tuhero->GetHG_E();	//ハンドガン
+		sg_pb_e = tuhero->GetSG_E();	//ショットガン
+		ar_pb_e = tuhero->GetAR_E();	//アサルトライフル
+		sr_pb_e = tuhero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = tuhero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = tuhero->GetRG_E();	//レールガン
+		gre_pb_e = tuhero->GetGRE_E();//グレネード
 
-	//各残り弾数情報を取得(全体)
-	sg_pb = hero->GetSG();	//ショットガン
-	ar_pb = hero->GetAR();	//アサルトライフル
-	sr_pb = hero->GetSR();	//スナイパーライフル
-	rl_pb = hero->GetRL();	//ロケットランチャー
-	rg_pb = hero->GetRG();	//レールガン
-	gre_pb = hero->GetGRE();//グレネード
+		//各残り弾数情報を取得(全体)
+		sg_pb = tuhero->GetSG();	//ショットガン
+		ar_pb = tuhero->GetAR();	//アサルトライフル
+		sr_pb = tuhero->GetSR();	//スナイパーライフル
+		rl_pb = tuhero->GetRL();	//ロケットランチャー
+		rg_pb = tuhero->GetRG();	//レールガン
+		gre_pb = tuhero->GetGRE();//グレネード
+	}	
 
 	//モーション
 	int AniData[6] =
