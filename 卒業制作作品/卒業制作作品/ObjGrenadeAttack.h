@@ -21,6 +21,11 @@ private:
 	int Stop_max; //停止位置
 	int EXP_time; //爆破時間
 
+	float hx; //主人公位置取得用
+	float hy;
+	float hvx; //主人公ベクトル取得用
+	float hvy;
+
 	int m_EXPDameg_num; //爆発ダメージ
 
 	bool m_HitBox_Delete; //HitBox削除フラグ

@@ -75,59 +75,55 @@ void CObjGunAttack::Action()
 	hit_ga->SetPos(m_gax + 11, m_gay + 11); //当たり判定の位置更新
 
 	//主人公、チュートリアル主人公のどちらかが生成されている時
-	if (hero != nullptr || Tuhero != nullptr)
+	//主人公用
+	if (hero != nullptr)
 	{
-		//主人公用
-		if (hero != nullptr)
-		{
-			hx = hero->GetX();
-			hy = hero->GetY();
+		hx = hero->GetX();
+		hy = hero->GetY();
 
-			//主人公から離れるor画面端に行くとオブジェクト削除
-			if (m_gax < hx - 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-			else if (m_gax > hx + 32 + 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-			if (m_gay < hy - 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-			else if (m_gay > hy + 32 + 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
+		//主人公から離れるor画面端に行くとオブジェクト削除
+		if (m_gax < hx - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
 		}
-		//チュートリアル主人公用
-		if (Tuhero != nullptr)
+		else if (m_gax > hx + 32 + 64 * m_Distance_max)
 		{
-			hx = Tuhero->GetX();
-			hy = Tuhero->GetY();
-
-			//主人公から離れるor画面端に行くとオブジェクト削除
-			if (m_gax < hx - 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-			else if (m_gax > hx + 32 + 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-			if (m_gay < hy - 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-			else if (m_gay > hy + 32 + 64 * m_Distance_max)
-			{
-				m_HitBox_Delete = true;
-			}
-		}	
+			m_HitBox_Delete = true;
+		}
+		if (m_gay < hy - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_gay > hy + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
 	}
-	
+	//チュートリアル主人公用
+	if (Tuhero != nullptr)
+	{
+		hx = Tuhero->GetX();
+		hy = Tuhero->GetY();
 
+		//主人公から離れるor画面端に行くとオブジェクト削除
+		if (m_gax < hx - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_gax > hx + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		if (m_gay < hy - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_gay > hy + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+	}	
+	
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_ga->CheckElementHit(ELEMENT_ENEMY) == true)
 	{
