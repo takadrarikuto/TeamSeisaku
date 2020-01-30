@@ -15,6 +15,7 @@ public:
 	float GetToolX() { return m_Healx; } //X位置取得取得用
 	float GetToolY() { return m_Healy; } //Y位置取得取得用
 
+	
 private:
 	float m_Healx; //位置情報
 	float m_Healy;

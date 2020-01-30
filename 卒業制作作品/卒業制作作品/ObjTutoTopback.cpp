@@ -12,27 +12,39 @@ using namespace GameL;
 //イニシャライズ
 void CObjTutoTopback::Init()
 {
-
+	//チュートリアル敵撃破数用
+	g_zombie_count_tu = 0;
+	//チュートリアル敵撃破数増加用
+	g_zombie_count_tu_increase = 0;
 }
 
 //アクション
 void CObjTutoTopback::Action()
 {
+	//チュートリアルゾンビ撃退カウント処理
+	if (g_zombie_count_tu_increase > 0)
+	{
+		g_zombie_count_tu += g_zombie_count_tu_increase;
+		g_zombie_count_tu_increase = 0;
+	}
 
 }
 
 //ドロー
 void CObjTutoTopback::Draw()
 {
-	//主人公から各残り弾数情報を取得(装備分)
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	hg_pb_e = hero->GetHG_E();	//ハンドガン
-	sg_pb_e = hero->GetSG_E();	//ショットガン
-	ar_pb_e = hero->GetAR_E();	//アサルトライフル
-	sr_pb_e = hero->GetSR_E();	//スナイパーライフル
-	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
-	rg_pb_e = hero->GetRG_E();	//レールガン
-	ws_num = hero->GetWS();
+	//チュートリアル主人公情報取得
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (tuhero != nullptr)
+	{
+		//各残り弾数情報を取得(装備分)
+		hg_pb_e = tuhero->GetHG_E();	//ハンドガン
+		sg_pb_e = tuhero->GetSG_E();	//ショットガン
+		ar_pb_e = tuhero->GetAR_E();	//アサルトライフル
+		sr_pb_e = tuhero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = tuhero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = tuhero->GetRG_E();	//レールガン
+	}
 
 	//描画カラー情報　R=RED  G=Green  B=Blue A=alpha(透過情報)
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };//白
@@ -248,9 +260,6 @@ void CObjTutoTopback::Draw()
 		dst.m_bottom = 395.0f;
 		Draw::Draw(7, &src, &dst, c, 0.0f);
 		Font::StrDraw(L"ツールボックス", 560, 410, 23, blk);
-		
-
-		//Audio::Start(18);
 	}
 	else
 	{

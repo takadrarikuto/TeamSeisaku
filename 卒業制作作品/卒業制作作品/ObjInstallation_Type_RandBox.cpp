@@ -79,8 +79,8 @@ void CObjInstallation_Type_RandBox::Action()
 			if (m_Rand_aitem_num >= 0 && m_Rand_aitem_num <= 30)
 			{
 				aitemfont->SetAGF(7);
-				aitemfont->SetAitemNum(100);
-				hero->SetHP(100); //体力
+				aitemfont->SetAitemNum(200);
+				hero->SetHP(200); //体力
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 30 && m_Rand_aitem_num <= 60)
@@ -95,7 +95,7 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(4);
 				aitemfont->SetAitemNum(2);
 				hero->SetRL(2);
-				//((UserData*)Save::GetData())->RL_Ammunition += 2;//ロケットランチャー
+				((UserData*)Save::GetData())->RL_load += 2;//ロケットランチャー
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 80 && m_Rand_aitem_num <= 85)
@@ -103,7 +103,7 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(5);
 				aitemfont->SetAitemNum(1);
 				hero->SetRG(1);
-				//((UserData*)Save::GetData())->RG_Ammunition += 1;//レールガン
+				((UserData*)Save::GetData())->RG_load += 1;//レールガン弾数回復
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 85 && m_Rand_aitem_num <= 99)

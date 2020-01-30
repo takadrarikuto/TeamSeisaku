@@ -10,6 +10,7 @@ enum OBJ_NAME
 	OBJ_PER_DECISION,
 	OBJ_FOOTPRINT,
 	OBJ_TIME,
+	OBJ_AIMING, //照準
 	//銃
 	OBJ_GUNATTACK,
 	OBJ_SHOTGUNATTACK,
@@ -37,21 +38,33 @@ enum OBJ_NAME
 	//血しぶき、爆発エフェクト
 	OBJ_BLOOD_SPLASH,
 	OBJ_EXPLOSION,
-	OBJ_OBJECT,
-	OBJ_TUTORIAL,
+	//ステージ、設置物
+	OBJ_OBJECT,	
 	OBJ_STAGE,
+	OBJ_NET,
+	OBJ_NET_V,
+	OBJ_ARMOR,
+	OBJ_WALL,
+	OBJ_BARBED_WIRE,
+	OBJ_BARBED_WIRE_V,
+	OBJ_BARBED_WIRE_SMALL,
+	//タイトル
 	OBJ_TITLE,
+	//難易度設定
 	OBJ_LEVEL,
+	//あらすじ
 	OBJ_OP,
+	//操作説明
 	OBJ_OPERATION,
+	//クリア
 	OBJ_CLEAR,
+	//ゲームオーバー
 	OBJ_OVER,
+	//エンディング
 	OBJ_ED,
+	//メニュー
 	OBJ_MENU,
-	OBJ_TOPBACK,
-	OBJ_BACKGROUND,
-	OBJ_AIMING,
-	OBJ_HEAL,
+	//イベント
 	OBJ_EVENT,
 	//ドロップアイテム
 	OBJ_SHOTGUN_ITEM,
@@ -61,19 +74,18 @@ enum OBJ_NAME
 	OBJ_RAILGUN_ITEM,
 	OBJ_GRENADE_ITEM,
 	OBJ_AITEMDROP,
+	OBJ_HEAL,
 	//設置型アイテム
 	OBJ_INSTALL_TYPE_SHG,
 	OBJ_INSTALL_TYPE_AR,
 	OBJ_INSTALL_TYPE_SR,
 	OBJ_INSTALL_TYPE_RANDBOX,
-	OBJ_BARBED_WIRE,
-	OBJ_BARBED_WIRE_V,
-	OBJ_BARBED_WIRE_SMALL,
-	OBJ_NET,
-	OBJ_NET_V,
-	OBJ_ARMOR,
-	OBJ_WALL,
+	//チュートリアル系
 	OBJ_TUTO_HERO,
+	OBJ_TUTORIAL,
+	OBJ_TOPBACK,
+	//背景、フォント
+	OBJ_BACKGROUND,
 	OBJ_TOOLBOX,
 	OBJ_AITEM_FONT,
 };
@@ -102,6 +114,7 @@ enum HIT_ELEMENTS
 	ELEMENT_NET_V,
 	ELEMENT_NET_S,
 	ELEMENT_BARBED_V,
+	ELEMENT_BARBED_S,
 };
 //------------------------------------------------
 
@@ -113,18 +126,7 @@ struct UserData
 
 	//レベル別タイム設定
 	int Level_Time = 0;
-	//武器別所持弾数(装備分)
-	int SHG_Number_of_Ammunition = 0; //ショットガン
-	int AR_Number_of_Ammunition = 0; //アサルトライフル
-	int SR_Number_of_Ammunition = 0; //スナイパーライフル
-	int RL_Number_of_Ammunition = 0; //ロケットランチャー
-	int RG_Number_of_Ammunition = 0; //レールガン
-	//武器別残り弾数
-	int SHG_Ammunition = 0;	//ショットガン
-	int AR_Ammunition = 0; //アサルトライフル
-	int SR_Ammunition = 0; //スナイパーライフル
-	int RL_Ammunition = 0; //ロケットランチャー
-	int RG_Ammunition = 0; //レールガン
+
 	//武器装填
 	int SHG_load = 0;	//ショットガン
 	int AR_load = 0; //アサルトライフル
@@ -142,8 +144,11 @@ struct UserData
 
 
 //ゲーム内で使用されるグローバル変数・定数・列挙--
+//HitBox接触後のベクトル変化
+#define HitBox_V 0.15
 
-extern int g_zombie_count_tu;//チュートリアル敵撃破数用
+//HitBoxFlg初期化タイム
+#define HitBoxFlg_TIME 20; 
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------
@@ -318,7 +323,4 @@ extern int g_zombie_count_tu;//チュートリアル敵撃破数用
 //シーンスタートクラス---------------------------
 //ゲーム開始時のシーンクラス登録
 
-//#define SET_GAME_START  CSceneTitle
-#define SET_GAME_START  CSceneClear
-//#define SET_GAME_START  CSceneStage
-//#define SET_GAME_START  CSceneDifficulty_Level
+#define SET_GAME_START  CSceneTitle

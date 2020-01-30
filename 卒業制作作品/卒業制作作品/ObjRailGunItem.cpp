@@ -22,11 +22,11 @@ CObjRailGunItem::CObjRailGunItem(float x, float y)
 void CObjRailGunItem::Init()
 {
 	//初期化
-	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 60;
 	m_YHitbox_size = 32;
+
+	m_RG_num_max = 1; //レールガン回復量
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_RG_Item_x, m_RG_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_RAILGUN_ITEM, 7);
@@ -54,9 +54,9 @@ void CObjRailGunItem::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		((UserData*)Save::GetData())->RG_load += 1;//レールガン		
+		((UserData*)Save::GetData())->RG_load += m_RG_num_max;//レールガン弾数回復	
 		aitemfont->SetAGF(5); //フォント表示
-		aitemfont->SetAitemNum(1); //弾数表示
+		aitemfont->SetAitemNum(m_RG_num_max); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

@@ -10,9 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjARAttack::CObjARAttack(float x, float y, float vx, float vy, float r)
 {
@@ -49,6 +46,14 @@ void CObjARAttack::Init()
 //アクション
 void CObjARAttack::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
@@ -69,7 +74,7 @@ void CObjARAttack::Action()
 		float hx = hero->GetX();
 		float hy = hero->GetY();
 
-		//主人公から離れるor画面端に行くとオブジェクト削除
+		//主人公から離れるとオブジェクト削除
 		if (m_ARx < hx - 64 * m_Distance_max)
 		{
 			m_HitBox_Delete = true;

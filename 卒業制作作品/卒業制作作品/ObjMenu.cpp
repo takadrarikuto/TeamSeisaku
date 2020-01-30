@@ -11,13 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//難易度フラグ
-//extern bool Usually_flg; //普通
-//extern bool Difficult_flg; //難しい
-
-//メニューONOFFフラグ
-bool Menu_flg = false;
-
 //メニューキー制御用フラグ
 bool m_key_flag_menu = true;
 
@@ -30,13 +23,12 @@ bool Hp_flg = true;
 //耐久力ONOFFフラグ
 bool En_flg = false;
 
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //イニシャライズ
 void CObjMenu::Init()
 {
-	//初期化
+	//初期化	
+	Menu_flg = false; //メニューONOFFフラグ
+
 	choose = 0;
 	m_time = 10;
 	m_and = 1.0f;
@@ -52,27 +44,45 @@ void CObjMenu::Action()
 	//メニューを出す処理
 	if (Menu_flg == true)
 	{
-		//上キーで上に移動
-		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
+		
+		if (m_time > 0) 
 		{
-			--choose;
-			Audio::Start(1);
-			m_time = 10;
-		}
-		//下キーで下に移動
-		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
-		{
-			++choose;
-			Audio::Start(1);
-			m_time = 10;
-		}
-		if (m_time > 0) {
 			m_time--;
-			if (m_time <= 0) {
-				m_time = 0;
+		}
+		else if (m_time <= 0) 
+		{
+			m_time = 0;
+			//上キーで上に移動
+			if (Input::GetVKey(VK_UP) == true)
+			{
+				//周回選択処理
+				if (choose == 1)
+				{
+					--choose;
+				}	
+				else if (choose == 0)
+				{
+					++choose;
+				}
+				Audio::Start(1);
+				m_time = 10;
+			}
+			//下キーで下に移動
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
+				//周回選択処理
+				if (choose == 0)
+				{
+					++choose;
+				}
+				else if (choose == 1)
+				{
+					--choose;
+				}
+				Audio::Start(1);
+				m_time = 10;
 			}
 		}
-
 		//Enterキーで決定
 		if (choose == 0)
 		{
@@ -84,7 +94,6 @@ void CObjMenu::Action()
 					m_andf = true;
 					m_key_flag = false;
 					Audio::Start(2);
-					//g_hero_max_hp = 0;
 				}
 			}
 			else
@@ -99,7 +108,6 @@ void CObjMenu::Action()
 				if (m_key_flag == true)
 				{
 					m_andf2 = true;
-					//g_hero_max_hp = 0;
 					Audio::Start(2);
 					m_key_flag = false;
 				}
@@ -120,11 +128,10 @@ void CObjMenu::Action()
 				m_andf = false;
 				Menu_flg = false;
 				m_key_flag_menu = true;
-				this->SetStatus(false);		//画像の削除
 			}
 		}
 		//タイトルに戻る処理
-		if (m_andf2 == true)
+		else if (m_andf2 == true)
 		{
 			m_and -= 0.03f;
 			if (m_and <= 0.0f)
@@ -138,12 +145,12 @@ void CObjMenu::Action()
 				Scene::SetScene(new CSceneTitle());
 			}
 		}
-		Audio::Stop(0); //音楽ストップ
+		else if (m_andf == false && m_andf2 == false)
+		{
+			m_and = 1.0f;
+		}
 	}
-	if (Menu_flg == false)
-	{
-		Audio::Start(0); //音楽スタート
-	}
+	
 }
 
 //ドロー
@@ -178,7 +185,6 @@ void CObjMenu::Draw()
 	RECT_F dst;//描写先表示位置
 
 	wchar_t str[128];
-	//wchar_t sga[128];
 
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)

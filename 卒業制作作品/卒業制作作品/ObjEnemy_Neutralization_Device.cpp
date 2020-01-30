@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//死亡処理
-bool m_END_death_flg = false; //死亡フラグ
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //コンストラクタ
 CObjEnemy_Neutralization_Device::CObjEnemy_Neutralization_Device(float x, float y)
 {
@@ -38,6 +29,8 @@ void CObjEnemy_Neutralization_Device::Init()
 
 	//フォント表示タイム
 	m_Font_time = 0;
+	
+	m_END_death_flg = false; //死亡フラグ
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Enemy_Neu_Devx, m_Enemy_Neu_Devy, m_Enemy_Neu_Dev_HitSize_x, m_Enemy_Neu_Dev_HitSize_y, ELEMENT_FIELD2, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 6);
@@ -61,14 +54,31 @@ void CObjEnemy_Neutralization_Device::Action()
 	bool END = time->GetENDFlg();
 	bool Rep_flg = time->GetRepFlg();
 
+	//イベント情報取得
+	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
+	int App_Rand = Event->GetApp_Rand();
+	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+	
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_end = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_end->SetPos(m_Enemy_Neu_Devx, m_Enemy_Neu_Devy); //当たり判定の位置更新
-
-	//イベント情報取得
-	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int App_Rand = Event->GetApp_Rand(); //対応数　3
-	int Eve_Ins = Event->GetEveIns();
 
 	//主人公接触判定処理
 	if (hit_end->CheckObjNameHit(OBJ_HERO) != nullptr)
@@ -79,20 +89,20 @@ void CObjEnemy_Neutralization_Device::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//敵無力化イベントor故障イベント時クリア判定
-				if (END == true || (App_Rand > 40 && App_Rand <= 60))
+				if (END == true || (App_Rand > 40 && App_Rand <= 60 && Tool_Box_flg == true))
 				{
 					TStart_flg = true;
 					m_END_death_flg = true;
+					END = false;
+					Tool_Box_flg = false;
+					Aitem_Font->SetTool_Box(Tool_Box_flg);
 					time->SetTStart(TStart_flg);
-					m_EveSuccess_flg = true;
+					Event->SetApp_Rand(0);
+					Event->SetEveSuc(true);
 					Audio::Start(19);
 				}
 			}
 		}		
-	}
-	else
-	{
-		m_END_death_flg = false;
 	}
 
 	//主人公の移動に合わせる
@@ -120,7 +130,7 @@ void CObjEnemy_Neutralization_Device::Draw()
 
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int App_Rand = Event->GetApp_Rand(); //対応数　3
+	int App_Rand = Event->GetApp_Rand(); 
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

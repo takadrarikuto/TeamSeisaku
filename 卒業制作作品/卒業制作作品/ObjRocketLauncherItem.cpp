@@ -22,11 +22,12 @@ CObjRocketLauncherItem::CObjRocketLauncherItem(float x, float y)
 void CObjRocketLauncherItem::Init()
 {
 	//初期化
-	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 64;
 	m_YHitbox_size = 30;
+
+	//ロケットランチャー回復量
+	m_RL_num_max = 1; 
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_RL_Item_x, m_RL_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_ROCKETLAUNCHER_ITEM, 7);
@@ -55,9 +56,9 @@ void CObjRocketLauncherItem::Action()
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
 		//主人公に当たると弾補充
-		((UserData*)Save::GetData())->RL_load += 1;//ロケットランチャー		
+		((UserData*)Save::GetData())->RL_load += m_RL_num_max;//ロケットランチャー弾数回復		
 		aitemfont->SetAGF(4); //フォント表示
-		aitemfont->SetAitemNum(2); //弾数表示
+		aitemfont->SetAitemNum(m_RL_num_max); //弾数表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //所有するHitBoxを削除する

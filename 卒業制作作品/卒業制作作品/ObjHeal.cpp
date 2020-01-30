@@ -54,7 +54,7 @@ void CObjHeal::Action()
 
 	if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
-		hero->SetHP(100);
+		hero->SetHP(200);
 		aitemfont->SetAGF(7); //フォント表示
 		Audio::Start(12); //効果音再生
 		this->SetStatus(false); //オブジェクト破棄

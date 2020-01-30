@@ -16,9 +16,6 @@ using namespace GameL;
 extern float g_px;
 extern float g_py;
 
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //イニシャライズ
 void CObjOver::Init()
 {
@@ -53,6 +50,10 @@ void CObjOver::Action()
 		}
 	}
 
+	//チュートリアル情報取得
+	CObjTutorial* Tuto = (CObjTutorial*)Objs::GetObj(OBJ_TUTORIAL);
+	bool Tuto_flg = Tuto->GetTuto_flg();
+
 	//Enterキーで決定
 	if (choose == 0)
 	{
@@ -64,7 +65,6 @@ void CObjOver::Action()
 				m_andf = true;
 				m_key_flag = false;
 				Audio::Start(1);
-				//g_hero_max_hp = 0;
 			}
 		}
 		else
@@ -79,7 +79,6 @@ void CObjOver::Action()
 			if (m_key_flag == true)
 			{
 				m_andf2 = true;
-				//g_hero_max_hp = 0;
 				Audio::Start(1);
 				m_key_flag = false;
 			}

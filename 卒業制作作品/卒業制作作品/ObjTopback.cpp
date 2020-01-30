@@ -9,15 +9,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//計測停止フラグ
-//extern bool m_Stop_flg;
-
-//イベント用タイムONOFFフラグ
-//extern bool m_Evetime_flg;
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //タイムストップフラグ
 extern bool TStop_flg;
 
@@ -29,9 +20,6 @@ extern bool Rep_flg;
 
 //イベント失敗フラグ
 extern bool m_EveMiss_flg;
-
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
 
 //イニシャライズ
 void CObjTopback::Init()
@@ -66,16 +54,25 @@ void CObjTopback::Draw()
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
 	//イベント
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_time;
 	bool EveMiss_flg;
+	bool EveSuccess_flg;
 	if (Event != nullptr)
 	{
 		Eve_time = Event->GetEveIns();
 		EveMiss_flg = Event->GetEveMiss();
+		EveSuccess_flg = Event->GetEveSuc();
 	}
-	//bool EveSuccess_flg = eve->GetEveSuc();
 
 	//設置型アイテムオブジェクト
 	CObjInstallation_Type_ShotGun* IT_SHG = (CObjInstallation_Type_ShotGun*)Objs::GetObj(OBJ_INSTALL_TYPE_SHG);
@@ -178,10 +175,10 @@ void CObjTopback::Draw()
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
 	//描画
-	dst.m_top = 120.0f;//63
-	dst.m_left = 0.0f;//0
-	dst.m_right = 675.0f;//115
-	dst.m_bottom = 180.0f;//115
+	dst.m_top = 120.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 675.0f;
+	dst.m_bottom = 180.0f;
 
 	//タイムストップフラグオンでイベント用背景表示
 	if (Menu_flg == false && TStop_flg == true)
@@ -198,10 +195,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//描画
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//主人公のHPが0になると表示停止
 		if (h_hp > 0)
@@ -219,16 +216,19 @@ void CObjTopback::Draw()
 			if (evemiss_time > 200)
 			{
 				EveMiss_flg = false;
+				Event->SetEveMiss(EveMiss_flg);
+				evemiss_time = 0;
 			}
 		}
 		else
 		{
-			m_EveSuccess_flg = false;
+			EveMiss_flg = false;
+			evemiss_time = 0;
 		}
 	}
 
 	//イベント成功時
-	if (Menu_flg == false && m_EveSuccess_flg == true)
+	if (Menu_flg == false && EveSuccess_flg == true)
 	{
 		//切り取り位置の設定
 		src.m_top = 0.0f;
@@ -236,10 +236,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//描画
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//主人公のHPが0になると表示停止
 		if (h_hp > 0)
@@ -252,18 +252,19 @@ void CObjTopback::Draw()
 			}
 			if (evesuc_time > 200)
 			{
-				m_EveSuccess_flg = false;
+				EveSuccess_flg = false;
+				Event->SetEveSuc(EveSuccess_flg);
+				evesuc_time = 0;
 			}
 		}		
 		else
 		{
-			m_EveSuccess_flg = false;
+			EveSuccess_flg = false;
+			Event->SetEveSuc(EveSuccess_flg);
+			evesuc_time = 0;
 		}
 	}
-	if (m_EveSuccess_flg == false)
-	{
-		evesuc_time = 0;
-	}
+	
 
 	//------------------------------------------------------------------
 

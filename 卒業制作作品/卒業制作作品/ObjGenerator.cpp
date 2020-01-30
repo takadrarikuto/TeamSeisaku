@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //コンストラクタ
 CObjGenerator::CObjGenerator(float x, float y)
 {
@@ -68,6 +62,22 @@ void CObjGenerator::Action()
 	int App_Rand = Event->GetApp_Rand(); //対応数　1
 	int Eve_Ins = Event->GetEveIns();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
+
+	//アイテムフォント情報取得
+	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
+	bool Tool_Box_flg;
+	if (Aitem_Font != nullptr)
+	{
+		Tool_Box_flg = Aitem_Font->GetTool_Box();
+	}
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_gen = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_gen->SetPos(m_Genx, m_Geny); //当たり判定の位置更新
@@ -81,11 +91,15 @@ void CObjGenerator::Action()
 			if (Input::GetVKey(VK_RETURN) == true)
 			{
 				//発電機イベントor修理イベント時クリア判定
-				if (GEN == true || App_Rand <= 20)
+				if (GEN == true ||( App_Rand > 0 && App_Rand <= 20 && Tool_Box_flg == true))
 				{
 					TStart_flg = true;
-					time->SetTStart(TStart_flg);
-					m_EveSuccess_flg = true;
+					Event->SetEveSuc(true);
+					GEN = false;
+					Tool_Box_flg = false;
+					Aitem_Font->SetTool_Box(Tool_Box_flg);
+					time->SetTStart(TStart_flg);		
+					Event->SetApp_Rand(0);
 					Audio::Start(19);
 				}
 			}
@@ -117,7 +131,7 @@ void CObjGenerator::Draw()
 
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
-	int App_Rand = Event->GetApp_Rand(); //対応数　1
+	int App_Rand = Event->GetApp_Rand(); 
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

@@ -14,6 +14,9 @@ using namespace GameL;
 //有刺鉄線
 #define BarbedWireSmall_Attack  2;
 
+//移動確認タイム
+#define Move_Time 30
+
 class CObjZombieEnemy : public CObj, public CBaseStatus
 {
 public:
@@ -42,6 +45,8 @@ private:
 	bool m_ze_x_flg; //移動フラグ
 	bool m_ze_y_flg;
 
+	int m_ze_move_time; //移動確認タイム
+
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
 	bool m_DownHit_flg;	 //下
@@ -49,6 +54,8 @@ private:
 	bool m_RightHit_flg; //右
 
 	int m_ze_hp; //体力
+
+	int m_HitBoxFlg_time; //HitBoxFlg初期化タイム
 
 	//上下左右別
 	int m_UDani_frame;	//描画フレーム
