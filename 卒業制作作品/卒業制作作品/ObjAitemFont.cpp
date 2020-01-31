@@ -100,5 +100,25 @@ void CObjAitemFont::Draw()
 		Font::StrDraw(str, m_Aitem_Font_x, m_Aitem_Font_y, 30, c); //アイテム取得でフォント表示
 	}	
 	
-
+	//再補充
+	/*if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
+	{
+		swprintf_s(str, L"アサルトライフルの弾が再補充されました。");
+		Font::StrDraw(str, 0, 570, 30, c);
+	}
+	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
+	{
+		swprintf_s(str, L"ランダムで資材が再補充されました。");
+		Font::StrDraw(str, 0, 570, 30, c);
+	}
+	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
+	{
+		swprintf_s(str, L"ショットガンの弾が再補充されました。");
+		Font::StrDraw(str, 0, 570, 30, c);
+	}
+	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
+	{
+		swprintf_s(str, L"スナイパーライフルの弾が再補充されました。");
+		Font::StrDraw(str, 0, 570, 30, c);
+	}*/
 }
