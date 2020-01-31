@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューキー制御用フラグ
-extern bool m_key_flag_menu;
-
 //死亡時動き停止フラグ
 extern bool Dead_flg;
 
@@ -170,23 +167,25 @@ void CObjHero::Action()
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
 	bool Menu_flg;
+	bool MenuKey_flg;
 
 	if (Menu != nullptr)
 	{
 		Menu_flg = Menu->GetMenu();		
+		MenuKey_flg = Menu->GetMenuKey();
 	}
 	
 	//inputフラグがオンの場合入力を可能にする
 	if (m_inputf == true)
 	{
 		//Eキーを押すとメニューを開く
-		if (m_key_flag_menu == true)
+		if (MenuKey_flg == true)
 		{
 			if (Input::GetVKey('E') == true)
 			{				
 				Menu_flg = true;
-				Menu->SetMenu(true);
-				m_key_flag_menu = false;				
+				Menu->SetMenuKey(true);
+				MenuKey_flg = false;
 			}
 		}
 	}
