@@ -37,8 +37,13 @@ void CObjNet::Action()
 {
 	//ålŒöˆÊ’uæ“¾
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX();
-	float hvy = hero->GetVY();
+	float hvx;
+	float hvy;
+	if (hero != nullptr)
+	{
+		hvx = hero->GetVX();
+		hvy = hero->GetVY();
+	}
 
 	//ålŒö‚ÌˆÚ“®‚É‡‚í‚¹‚é
 	m_Netx -= hvx;

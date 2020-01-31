@@ -27,6 +27,10 @@ void CObjBlood_splash::Init()
 	//描画フレーム
 	m_ani_flame = 1;
 
+	//主人公位置取得用
+	hvx =  0.0f;
+	hvy =  0.0f;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_bspx, m_bspy, m_exp_blood_dst_size, m_exp_blood_dst_size, ELEMENT_RED, OBJ_BLOOD_SPLASH, 10);
 
@@ -59,8 +63,18 @@ void CObjBlood_splash::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX();
-	float hvy = hero->GetVY();
+	if (hero != nullptr)
+	{
+		hvx = hero->GetVX();
+		hvy = hero->GetVY();
+	}
+	//チュートリアル主人公情報取得
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (tuhero != nullptr)
+	{
+		hvx = tuhero->GetVX();
+		hvy = tuhero->GetVY();
+	}
 
 	//主人公の移動に合わせる
 	m_bspx -= hvx;

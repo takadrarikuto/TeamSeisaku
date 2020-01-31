@@ -19,4 +19,9 @@ private:
 
 	int m_Aiming_Distance_max; //削除距離最大値
 
+	float hx; //主人公位置取得
+	float hy;
+	int h_ws; //武器切り替え変数取得
+	int h_af; //上下アニメーション
+
 };

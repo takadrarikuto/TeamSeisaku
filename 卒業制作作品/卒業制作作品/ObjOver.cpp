@@ -16,9 +16,6 @@ using namespace GameL;
 extern float g_px;
 extern float g_py;
 
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //イニシャライズ
 void CObjOver::Init()
 {
@@ -52,6 +49,10 @@ void CObjOver::Action()
 			m_time = 0;
 		}
 	}
+
+	//チュートリアル情報取得
+	CObjTutorial* Tuto = (CObjTutorial*)Objs::GetObj(OBJ_TUTORIAL);
+	bool Tuto_flg = Tuto->GetTuto_flg();
 
 	//Enterキーで決定
 	if (choose == 0)

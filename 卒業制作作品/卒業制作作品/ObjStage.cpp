@@ -14,9 +14,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //イニシャライズ
 void CObjStage::Init()
 {
@@ -28,14 +25,6 @@ void CObjStage::Init()
 	hvx = 0.0f; //移動ベクトル
 	hvy = 0.0f;
 
-	//エネミー出現位置
-	e_x = 200.0f;
-	e_y = 200.0f;
-	//ゾンビ生成座標記録
-	m_Item_Generation_x = 0.0f;
-	m_Item_Generation_y = 0.0f;
-
-	//敵生成頻度
 	m_Heal_Generation = 0; //回復アイテム生成頻度
 
 	//回復アイテム
@@ -78,9 +67,6 @@ void CObjStage::Action()
 		Menu_flg = Menu->GetMenu();
 	}
 
-	//武器切り替え変数をアニメーションに同期
-	m_ani_frame = WS;
-
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
@@ -92,15 +78,9 @@ void CObjStage::Action()
 		m_bx -= m_bvx;
 		m_by -= m_bvy;
 
-		m_Heal_Generation++; //回復アイテム生成頻度
+		//m_Heal_Generation++; //回復アイテム生成頻度
 
-		e_x = rand() % 192 + m_bx;
-		e_y = rand() % 64 + m_by;
-
-		e_x -= hvx;
-		e_y -= hvy;
-
-		////アイテム生成処理
+		//アイテム生成処理
 		////回復
 		//if (m_Heal_Generation >= m_Heal_Item_time_max && m_Heal_Item_Restriction < m_Heal_Item_Restriction_max)
 		//{
@@ -123,6 +103,7 @@ void CObjStage::Action()
 //ドロー
 void CObjStage::Draw()
 {
+	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 	if (hero != nullptr)
 	{
@@ -147,6 +128,7 @@ void CObjStage::Draw()
 		gre_pb = hero->GetGRE();//グレネード
 	}	
 
+	//チュートリアル主人公情報取得
 	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 	if (tuhero != nullptr)
 	{
@@ -171,12 +153,6 @@ void CObjStage::Draw()
 		gre_pb = tuhero->GetGRE();//グレネード
 	}	
 
-	//モーション
-	int AniData[6] =
-	{
-		0,1,2,3,4,5,
-	};
-
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };
 
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
@@ -197,8 +173,8 @@ void CObjStage::Draw()
 	//画面上部のメニュー画面
 	//切り取り位置の設定
 	src.m_top = 0.0f;
-	src.m_left = 0.0f + AniData[m_ani_frame] * 60;
-	src.m_right = 60.0f + AniData[m_ani_frame] * 60;
+	src.m_left = 0.0f + (WS * 60);
+	src.m_right = 60.0f + (WS * 60);
 	src.m_bottom = 20.0f;
 
 	//表示位置の設定
@@ -215,19 +191,19 @@ void CObjStage::Draw()
 	if (hero_hp < 100 && hero_hp >= 10)
 	{
 		//HP100以下の場合の表示
-		swprintf_s(HP, L"HP: %d/100", hero_hp, 15);
+		swprintf_s(HP, L"HP: %d/200", hero_hp, 15);
 		Font::StrDraw(HP, 130, 5, 26, c);
 	}
 	if (hero_hp < 10)
 	{
 		//HP10以下の場合の表示
-		swprintf_s(HP, L"HP:  %d/100", hero_hp, 15);
+		swprintf_s(HP, L"HP:  %d/200", hero_hp, 15);
 		Font::StrDraw(HP, 130, 5, 26, c);
 	}
-	if (hero_hp == 100)
+	if (hero_hp <= 200 && hero_hp >=100)
 	{
 		//それ以外
-		swprintf_s(HP, L"HP:%d/100", hero_hp, 15);
+		swprintf_s(HP, L"HP:%d/200", hero_hp, 15);
 		Font::StrDraw(HP, 130, 5, 26, c);
 	}
 	
@@ -255,7 +231,7 @@ void CObjStage::Draw()
 
 	//武器使用可数を表示
 	//ハンドガン
-	if (AniData[m_ani_frame] == 0)
+	if (WS == 0)
 	{
 		swprintf_s(str, L"×%d", hg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
@@ -267,7 +243,7 @@ void CObjStage::Draw()
 		}
 	}
 	//ショットガン
-	if (AniData[m_ani_frame] == 1)
+	if (WS == 1)
 	{
 		swprintf_s(str, L"×%d", sg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
@@ -285,7 +261,7 @@ void CObjStage::Draw()
 		}
 	}
 	//アサルトライフル
-	if (AniData[m_ani_frame] == 2)
+	if (WS == 2)
 	{
 		swprintf_s(str, L"×%d", ar_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
@@ -303,7 +279,7 @@ void CObjStage::Draw()
 		}
 	}
 	//スナイパーライフル
-	if (AniData[m_ani_frame] == 3)
+	if (WS == 3)
 	{
 		swprintf_s(str, L"×%d", sr_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
@@ -321,7 +297,7 @@ void CObjStage::Draw()
 		}
 	}
 	//ロケットランチャー
-	if (AniData[m_ani_frame] == 4)
+	if (WS == 4)
 	{
 		swprintf_s(str, L"×%d", rl_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);
@@ -339,7 +315,7 @@ void CObjStage::Draw()
 		}
 	}
 	//レールガン
-	if (AniData[m_ani_frame] == 5)
+	if (WS == 5)
 	{
 		swprintf_s(str, L"×%d", rg_pb_e, 15);
 		Font::StrDraw(str, 359, 15, 37, c);

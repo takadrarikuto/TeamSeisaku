@@ -15,9 +15,6 @@ using namespace GameL;
 #include "SceneTutorial.h"
 #include "ObjTutorial.h"
 
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //コンストラクタ
 CSceneTutorial::CSceneTutorial()
 {
@@ -54,9 +51,7 @@ void CSceneTutorial::InitScene()
 	Draw::LoadImage(L"image3.png", 32, TEX_SIZE_512);
 	Draw::LoadImage(L"操作説明.png", 33, TEX_SIZE_1024);
 
-	//メニューオブジェクト作成
-	CObjMenu* obj_m = new CObjMenu();
-	Objs::InsertObj(obj_m, OBJ_MENU, 21);
+	
 
 	//背景オブジェクト作成(チュートリアル用)
 	CObjTutoBg * back_tu = new CObjTutoBg();
@@ -68,7 +63,7 @@ void CSceneTutorial::InitScene()
 
 	//主人公機オブジェクト作成(チュートリアル用)
 	CObjTutoHero* obj_h_tu = new CObjTutoHero(350.0f, 280.0f);
-	Objs::InsertObj(obj_h_tu, OBJ_HERO, 8);
+	Objs::InsertObj(obj_h_tu, OBJ_TUTO_HERO, 8);
 
 	//照準オブジェクト作成
 	CObjAiming* obj_ai = new CObjAiming();
@@ -149,7 +144,6 @@ void CSceneTutorial::Scene()
 		obj_ze_tu = new CObjTutoZombieEnemy(360.0f, 100.0f);
 		Objs::InsertObj(obj_ze_tu, OBJ_ENEMY, 4);
 
-		Tuto_flg = true;
 		Audio::Start(11);
 	}
 }

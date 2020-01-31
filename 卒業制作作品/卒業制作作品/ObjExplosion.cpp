@@ -24,6 +24,10 @@ CObjExplosion::CObjExplosion(float x, float y, float size, int Damage)
 void CObjExplosion::Init()
 {
 	//初期化
+	//主人公位置情報
+	hvx = 0.0f;
+	hvy = 0.0f;
+
 	//アニメーション間隔
 	m_ani_time = 0;
 	//描画フレーム
@@ -52,8 +56,22 @@ void CObjExplosion::Action()
 	{
 		//主人公位置取得
 		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-		float hvx = hero->GetVX();
-		float hvy = hero->GetVY();
+		//チュートリアル主人公情報取得
+		CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+
+		//主人公、チュートリアル主人公のどちらかが生成されている時
+		//主人公用
+		if (hero != nullptr)
+		{
+			hvx = hero->GetVX();
+			hvy = hero->GetVY();
+		}
+		//チュートリアル主人公用
+		if (Tuhero != nullptr)
+		{
+			hvx = Tuhero->GetVX();
+			hvy = Tuhero->GetVY();
+		}
 
 		//主人公の移動に合わせる
 		m_Expx -= hvx;

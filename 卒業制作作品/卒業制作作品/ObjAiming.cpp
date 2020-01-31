@@ -26,6 +26,11 @@ void CObjAiming::Init()
 	//削除距離最大値
 	m_Aiming_Distance_max = 3;
 
+	hx = 0.0f; //主人公位置取得
+	hy = 0.0f;
+	h_ws = 0; //武器切り替え変数取得
+	h_af = 4; //上下アニメーション
+
 }
 
 //アクション
@@ -33,10 +38,23 @@ void CObjAiming::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hx = hero->GetX();
-	float hy = hero->GetY();
-	int h_ws = hero->GetWS();
-	int h_af = hero->GetUDAF();
+	if (hero != nullptr)
+	{
+		hx = hero->GetX();
+		hy = hero->GetY();
+		h_ws = hero->GetWS();
+		h_af = hero->GetUDAF();
+	}
+	
+	//チュートリアル主人公情報取得
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (tuhero != nullptr)
+	{
+		hx = tuhero->GetX();
+		hy = tuhero->GetY();
+		h_ws = tuhero->GetWS();
+		h_af = tuhero->GetUDAF();
+	}
 
 	//ハンドガン
 	if (h_ws == 0)
@@ -101,7 +119,18 @@ void CObjAiming::Draw()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	int h_ws = hero->GetWS();
+	if (hero != nullptr)
+	{
+		h_ws = hero->GetWS();
+	}
+
+	//チュートリアル主人公情報取得
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (tuhero != nullptr)
+	{
+		h_ws = tuhero->GetWS();
+	}
+	
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

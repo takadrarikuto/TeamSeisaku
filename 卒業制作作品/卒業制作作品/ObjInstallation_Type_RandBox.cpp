@@ -79,8 +79,8 @@ void CObjInstallation_Type_RandBox::Action()
 			if (m_Rand_aitem_num >= 0 && m_Rand_aitem_num <= 30)
 			{
 				aitemfont->SetAGF(7);
-				aitemfont->SetAitemNum(100);
-				hero->SetHP(100); //‘Ì—Í
+				aitemfont->SetAitemNum(200);
+				hero->SetHP(200); //‘Ì—Í
 				Audio::Start(12); //Œø‰Ê‰¹Ä¶
 			}
 			else if (m_Rand_aitem_num > 30 && m_Rand_aitem_num <= 60)

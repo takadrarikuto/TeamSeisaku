@@ -27,6 +27,10 @@ CObjShotGunAttack::CObjShotGunAttack(float x, float y, float vx, float vy, float
 void CObjShotGunAttack::Init()
 {
 	//初期化
+	//主人公位置取得用
+	hy = 0.0f;
+	hx = 0.0f;
+
 	//削除距離最大値
 	m_Distance_max = 2;
 
@@ -85,14 +89,19 @@ void CObjShotGunAttack::Action()
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
 
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+
 	//HitBoxの内容を更新 
 	CHitBox* hit_sg = Hits::GetHitBox(this); //当たり判定情報取得
 	hit_sg->SetPos(m_SGx + 11, m_SGy + 11); //当たり判定の位置更新
 		
+	//主人公、チュートリアル主人公のどちらかが生成されている時
+	//主人公用
 	if (hero != nullptr)
 	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
+		hx = hero->GetX();
+		hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_SGx < hx - 64 * m_Distance_max)
@@ -112,7 +121,30 @@ void CObjShotGunAttack::Action()
 			m_HitBox_Delete = true;
 		}
 	}
-	
+	//チュートリアル主人公用
+	if (Tuhero != nullptr)
+	{
+		hx = Tuhero->GetX();
+		hy = Tuhero->GetY();
+
+		//主人公から離れるor画面端に行くとオブジェクト削除
+		if (m_SGx < hx - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_SGx > hx + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		if (m_SGy < hy - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_SGy > hy + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+	}
 
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_sg->CheckElementHit(ELEMENT_ENEMY) == true)
