@@ -32,6 +32,13 @@ CObjGrenadeAttack::CObjGrenadeAttack(float x, float y, float vx, float vy)
 void CObjGrenadeAttack::Init()
 {
 	//初期化
+	//主人公位置取得用
+	hy = 0.0f;
+	hx = 0.0f;
+	//主人公ベクトル取得用
+	hvx = 0.0f;
+	hvy = 0.0f;
+
 	//停止位置
 	Stop_max = 3; 
 
@@ -76,24 +83,38 @@ void CObjGrenadeAttack::Action()
 	{
 		Menu_flg = Menu->GetMenu();
 	}
+	//主人公位置取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
-		//主人公位置取得
-		CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-		float hx = hero->GetX();
-		float hy = hero->GetY();
-		float hvx = hero->GetVX();
-		float hvy = hero->GetVY();
-		
+		//主人公、チュートリアル主人公のどちらかが生成されている時
+		//主人公用
+		if (hero != nullptr)
+		{
+			hx = hero->GetX();
+			hy = hero->GetY();
+			hvx = hero->GetVX();
+			hvy = hero->GetVY();	
+		}
+		//チュートリアル主人公用
+		if (Tuhero != nullptr)
+		{
+			hx = Tuhero->GetX();
+			hy = Tuhero->GetY();
+			hvx = Tuhero->GetVX();
+			hvy = Tuhero->GetVY();
+		}
 		//爆破処理
 		EXP_time++;
+
 		//位置更新
 		//主人公の移動に合わせる
 		m_Grex += (-hvx) + m_Grevx;
 		m_Grey += (-hvy) + m_Grevy;
-
 
 		//HitBoxの内容を更新 
 		CHitBox* hit_gre = Hits::GetHitBox(this); //当たり判定情報取得

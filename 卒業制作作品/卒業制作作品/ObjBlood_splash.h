@@ -19,4 +19,6 @@ private:
 	int m_ani_time; //アニメーション間隔
 	int m_ani_flame; //描画フレーム
 
+	float hvx; //主人公位置取得用
+	float hvy; 
 };

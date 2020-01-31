@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//チュートリアルONOFFフラグ
-bool Tuto_flg = false;
-
 //メニューキー制御用フラグ
 extern bool m_key_flag_menu;
 
@@ -50,11 +47,15 @@ void CObjTutoZombieEnemy::Init()
 //アクション
 void CObjTutoZombieEnemy::Action()
 {
-	//主人公情報取得
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX(); //移動ベクトル
-	float hvy = hero->GetVY();
-	bool h_gel = hero->GetDel(); //削除チェック
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	float hvx; 
+	float hvy;
+	if (Tuhero != nullptr)
+	{
+		hvx = Tuhero->GetVX(); //移動ベクトル
+		hvy = Tuhero->GetVY();
+	}
 
 	//チュートリアル背景情報取得
 	CObjTutoTopback* TuTo = (CObjTutoTopback*)Objs::GetObj(OBJ_TOPBACK);

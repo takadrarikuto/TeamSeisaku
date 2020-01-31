@@ -23,9 +23,6 @@ bool Hp_flg = true;
 //耐久力ONOFFフラグ
 bool En_flg = false;
 
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //イニシャライズ
 void CObjMenu::Init()
 {
@@ -188,7 +185,6 @@ void CObjMenu::Draw()
 	RECT_F dst;//描写先表示位置
 
 	wchar_t str[128];
-	//wchar_t sga[128];
 
 	//メニューフラグがオンになった時フォント表示
 	if (Menu_flg == true)

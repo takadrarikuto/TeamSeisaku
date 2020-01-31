@@ -43,7 +43,7 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//‘Ì—Í
-	m_hero_hp = 100;
+	m_hero_hp = 200;
 
 	//‘Ï‹v—Í
 	m_hero_en = 0;
@@ -1522,7 +1522,6 @@ void CObjHero::Action()
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 			Audio::Start(15);
-			//m_time_dead = 120;			
 		}
 		
 		if (m_del == true)
