@@ -24,6 +24,9 @@ private:
 	int m_ani_frame; //描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 
+	float hx; //主人公位置取得用
+	float hy;
+
 	int m_Distance_max; //削除距離最大値
 
 	int m_EXPDameg_num; //爆発ダメージ

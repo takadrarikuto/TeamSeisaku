@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューキー制御用フラグ
-extern bool m_key_flag_menu;
-
 //コンストラクタ
 CObjTutoZombieEnemy::CObjTutoZombieEnemy(float x, float y)
 {

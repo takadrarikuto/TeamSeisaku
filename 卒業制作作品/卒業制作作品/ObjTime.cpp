@@ -100,10 +100,10 @@ void CObjTime::Action()
 			{
 				m_Repairing_flg = true;
 			}*/
-			//発電機イベント
+			//ミーム実態無力化イベント
 			if (m_Event_Rand_num > 0 && m_Event_Rand_num <= 100)
 			{
-				m_Gen_flg = true;
+				m_MND_flg = true;
 			}
 			m_Stop_flg = true;
 		}		

@@ -34,6 +34,10 @@ CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, f
 void CObjRocketLauncherAttack::Init()
 {
 //初期化
+	//主人公位置取得用
+	hy = 0.0f;
+	hx = 0.0f;
+
 	//描画フレーム
 	m_ani_frame = 0;
 	//アニメーションフレーム動作間隔
@@ -109,6 +113,8 @@ void CObjRocketLauncherAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 
 	//主人公の移動に合わせる
 
@@ -123,10 +129,12 @@ void CObjRocketLauncherAttack::Action()
 		hit_rl->SetPos(m_RLx - 20.0f, m_RLy + 19.0f); //当たり判定の位置更新
 	}
 
+	//主人公、チュートリアル主人公のどちらかが生成されている時	
+	//主人公用
 	if (hero != nullptr)
 	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
+		hx = hero->GetX();
+		hy = hero->GetY();
 
 		//主人公から離れるとオブジェクト削除
 		if (m_RLx < hx - 64 * m_Distance_max)
@@ -166,6 +174,52 @@ void CObjRocketLauncherAttack::Action()
 			m_HitBox_Delete = true;
 		}
 	}
+	//チュートリアル主人公用
+	if (Tuhero != nullptr)
+	{
+		hx = Tuhero->GetX();
+		hy = Tuhero->GetY();
+
+		//主人公から離れるとオブジェクト削除
+		if (m_RLx < hx - 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+		else if (m_RLx > hx + 32 + 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+		if (m_RLy < hy - 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+		else if (m_RLy > hy + 32 + 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+	}
+	
+	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_rl->CheckElementHit(ELEMENT_ENEMY) == true)

@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューキー制御用フラグ
-extern bool m_key_flag_menu;
-
 //コンストラクタ
 CObjBat_Enemy::CObjBat_Enemy(float bex, float bey)
 {
@@ -95,8 +92,8 @@ void CObjBat_Enemy::Action()
 	if (Menu != nullptr)
 	{
 		Menu_flg = Menu->GetMenu();
-	}
-
+	}	
+	
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 

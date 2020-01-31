@@ -14,10 +14,12 @@ public:
 	void Draw(); //ドロー
 
 	bool GetMenu() { return Menu_flg; } //メニューONOFFフラグ取得用
+	bool GetMenuKey() { return m_key_flag_menu; } //メニューキー制御用フラグ取得用
 
 	void BackDraw(float top, float left, float right, float bottom, float c[]);
 
 	void SetMenu(bool m_f) { Menu_flg = m_f; } //メニューONOFFフラグ設定用
+	void SetMenuKey(bool m_mk) { m_key_flag_menu = m_mk; } //メニューキー制御用フラグ設定用
 
 private:
 	
@@ -47,5 +49,7 @@ private:
 	float m_and;		//透明度処理用
 	bool m_andf;		//透明度処理用フラグ
 	bool m_andf2;		//透明度処理用フラグ
-	bool m_Scene_flg; //シーン移動フラグ
+	bool m_Scene_flg; //シーン移動フラグ					  
+	bool m_key_flag_menu; //メニューキー制御用フラグ
+
 };

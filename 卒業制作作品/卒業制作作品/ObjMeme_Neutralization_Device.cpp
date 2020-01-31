@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//死亡処理
-bool m_Meme_death_flg = false; //死亡フラグ
-
 //コンストラクタ
 CObjMeme_Neutralization_Device::CObjMeme_Neutralization_Device(float x, float y)
 {
@@ -34,6 +31,8 @@ void CObjMeme_Neutralization_Device::Init()
 
 	//フォント表示タイム
 	m_Font_time = 0;
+
+	m_Meme_death_flg = false; //死亡フラグ
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_Meme_Neu_Devx, m_Meme_Neu_Devy, Hitbox_size, Hitbox_size, ELEMENT_FIELD, OBJ_MEME_NEUTRALIZATION_DEVICE, 7);
