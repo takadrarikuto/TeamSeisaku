@@ -41,11 +41,7 @@ void CObjBlood_splash::Action()
 {
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg;
-	if (Menu != nullptr)
-	{
-		Menu_flg = Menu->GetMenu();
-	}
+	bool Menu_flg = Menu->GetMenu();
 
 	//メニューを開くと行動停止
 	if (Menu_flg == false)

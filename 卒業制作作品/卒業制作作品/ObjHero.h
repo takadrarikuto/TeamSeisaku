@@ -27,7 +27,7 @@ public:
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 	int GetEN() { return m_hero_en; }	//主人公の耐久力を取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
-	bool GetDel() { return m_del; } //削除チェック
+	bool GetDel() { return m_del; } //削除チェック取得用
 
 	//上下左右別当たり判定確認フラグ取得用
 	bool GetUH() { return m_UpHit_flg; }  //上
@@ -171,5 +171,6 @@ private:
 	bool m_eff_flag;	//エフェクト用フラグ
 	bool m_inputf;	//死亡用キー入力制御
 	bool m_blood_flg; //血しぶき表示停止フラグ
+	bool Dead_flg; //死亡時動き停止フラグ
 
 };

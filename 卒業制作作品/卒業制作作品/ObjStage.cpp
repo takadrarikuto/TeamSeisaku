@@ -60,7 +60,7 @@ void CObjStage::Action()
 	}
 	
 	//メニュー情報取得
-	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);	
 	bool Menu_flg;
 	if (Menu != nullptr)
 	{
@@ -77,25 +77,6 @@ void CObjStage::Action()
 		//移動処理
 		m_bx -= m_bvx;
 		m_by -= m_bvy;
-
-		//m_Heal_Generation++; //回復アイテム生成頻度
-
-		//アイテム生成処理
-		////回復
-		//if (m_Heal_Generation >= m_Heal_Item_time_max && m_Heal_Item_Restriction < m_Heal_Item_Restriction_max)
-		//{
-		//	srand(time(NULL)); // ランダム情報を初期化
-		//	m_Heal_Item_co_num = rand() % 3;
-		//	for (int i = 0; i > m_Heal_Item_co_num; i++)
-		//	{
-		//		//回復
-		//		CObjHeal* Heal = new CObjHeal(e_x, e_y);
-		//		Objs::InsertObj(Heal, OBJ_HEAL, 7);
-		//	}
-
-		//	m_Heal_Generation = 0;
-		//	m_Heal_Item_Restriction += m_Heal_Item_co_num; //回復アイテム生成カウント
-		//}
 	}
 	
 }
