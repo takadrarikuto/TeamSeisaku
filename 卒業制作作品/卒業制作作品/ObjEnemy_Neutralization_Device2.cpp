@@ -64,11 +64,7 @@ void CObjEnemy_Neutralization_Device2::Action()
 
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg;
-	if (Menu != nullptr)
-	{
-		Menu_flg = Menu->GetMenu();
-	}
+	bool Menu_flg = Menu->GetMenu();
 
 	//アイテムフォント情報取得
 	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);

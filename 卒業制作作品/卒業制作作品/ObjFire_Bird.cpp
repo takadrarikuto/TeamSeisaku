@@ -116,11 +116,7 @@ void CObjFire_Bird::Action()
 
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg;
-	if (Menu != nullptr)
-	{
-		Menu_flg = Menu->GetMenu();
-	}
+	bool Menu_flg = Menu->GetMenu();
 
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);

@@ -24,8 +24,9 @@ public:
 private:
 	
 	bool Menu_flg; //メニューONOFFフラグ
-
+	bool m_key_flag_menu; //メニューキー制御用フラグ
 	bool m_key_flag;//キーフラグ
+
 	int choose;
 	int m_time;
 	int m_time_s;
@@ -50,6 +51,5 @@ private:
 	bool m_andf;		//透明度処理用フラグ
 	bool m_andf2;		//透明度処理用フラグ
 	bool m_Scene_flg; //シーン移動フラグ					  
-	bool m_key_flag_menu; //メニューキー制御用フラグ
 
 };
