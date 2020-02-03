@@ -113,6 +113,8 @@ private:
 
 	bool Hp_flg; //HP ONOFFフラグ
 	bool En_flg; //耐久力ONOFFフラグ
+	int m_HP_num; //HP減少変数
+	int m_EN_num; //耐久力減少変数
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
