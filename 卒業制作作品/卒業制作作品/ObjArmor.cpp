@@ -9,12 +9,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjArmor::CObjArmor(float x, float y)
 {
@@ -63,8 +57,8 @@ void CObjArmor::Action()
 		hero->SetEN(150);
 		aitemfont->SetAGF(8); //フォント表示
 		Audio::Start(12); //効果音再生
-		Hp_flg = false;
-		En_flg = true;
+		hero->SetHP_F(false);
+		hero->SetEN_F(true); //アーマー回復確認
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
 	}

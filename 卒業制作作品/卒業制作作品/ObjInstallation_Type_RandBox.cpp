@@ -92,6 +92,8 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(8);
 				aitemfont->SetAitemNum(150);
 				hero->SetEN(150); //アーマー
+				hero->SetHP_F(false);
+				hero->SetEN_F(true); //アーマー回復確認
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 60 && m_Rand_aitem_num <= 80)

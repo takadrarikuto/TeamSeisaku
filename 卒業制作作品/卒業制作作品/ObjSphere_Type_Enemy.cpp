@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
-//死亡処理
-extern bool m_END2_death_flg; //死亡フラグ
-
 //コンストラクタ
 CObjSphere_Type_Enemy::CObjSphere_Type_Enemy(float st_ex, float st_ey)
 {
@@ -58,13 +49,17 @@ void CObjSphere_Type_Enemy::Init()
 	m_at_max = 5;
 
 	//ダメージ
+	//主人公情報取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	bool Hp_f = hero->GetHP_F();
+	bool En_f = hero->GetEN_F();
 	//耐久力フラグがオンの時
-	if (En_flg == true)
+	if (En_f == true)
 	{
 		m_EXPDameg_num  = 25; //爆発ダメージ
 	}
 	//体力フラグがオンの時
-	if (Hp_flg == true)
+	if (Hp_f == true)
 	{
 		m_EXPDameg_num = 50; //爆発ダメージ
 	}

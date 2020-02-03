@@ -51,5 +51,6 @@ private:
 	bool m_andf;		//透明度処理用フラグ
 	bool m_andf2;		//透明度処理用フラグ
 	bool m_Scene_flg; //シーン移動フラグ					  
-
+					  
+	
 };

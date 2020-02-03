@@ -12,10 +12,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-
-extern float g_px;
-extern float g_py;
-
 //イニシャライズ
 void CObjOver::Init()
 {

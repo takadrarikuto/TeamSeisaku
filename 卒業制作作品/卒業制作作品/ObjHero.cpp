@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -38,9 +32,11 @@ void CObjHero::Init()
 
 	//体力
 	m_hero_hp = 200;
-
 	//耐久力
 	m_hero_en = 0;
+
+	Hp_flg = true; //HP ONOFFフラグ
+	En_flg = false; //耐久力ONOFFフラグ
 
 	//移動ベクトル最大値
 	m_v_max = 4.0f;
@@ -1497,8 +1493,7 @@ void CObjHero::Action()
 						Hp_flg = true;
 						En_flg = false;
 					}
-				}
-				
+				}			
 			}
 		}
 		if (m_time_d > 0)
