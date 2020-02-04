@@ -34,18 +34,19 @@ void CObjTutoTopback::Action()
 void CObjTutoTopback::Draw()
 {
 	//チュートリアル主人公情報取得
-	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
-	if (tuhero != nullptr)
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (Tuhero != nullptr)
 	{
 		//各残り弾数情報を取得(装備分)
-		hg_pb_e = tuhero->GetHG_E();	//ハンドガン
-		sg_pb_e = tuhero->GetSG_E();	//ショットガン
-		ar_pb_e = tuhero->GetAR_E();	//アサルトライフル
-		sr_pb_e = tuhero->GetSR_E();	//スナイパーライフル
-		rl_pb_e = tuhero->GetRL_E();	//ロケットランチャー
-		rg_pb_e = tuhero->GetRG_E();	//レールガン
+		hg_pb_e = Tuhero->GetHG_E();	//ハンドガン
+		sg_pb_e = Tuhero->GetSG_E();	//ショットガン
+		ar_pb_e = Tuhero->GetAR_E();	//アサルトライフル
+		sr_pb_e = Tuhero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = Tuhero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = Tuhero->GetRG_E();	//レールガン
+		ws_num = Tuhero->GetWS();
 	}
-
+	
 	//描画カラー情報　R=RED  G=Green  B=Blue A=alpha(透過情報)
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };//白
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤

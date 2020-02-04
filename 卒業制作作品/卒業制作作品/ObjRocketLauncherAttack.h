@@ -28,8 +28,11 @@ private:
 	float hy;
 
 	int m_Distance_max; //削除距離最大値
-
+	
 	int m_EXPDameg_num; //爆発ダメージ
+
+	bool Hp_f; //HP減少フラグ
+	bool En_f; //耐久力減少フラグ
 
 	bool m_HitBox_Delete; //HitBox削除フラグ
 };

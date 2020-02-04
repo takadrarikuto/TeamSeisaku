@@ -39,8 +39,12 @@ void CObjGrenadeAttack::Init()
 	//ダメージ量
 	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	bool Hp_f = hero->GetHP_F();
-	bool En_f = hero->GetEN_F();
+	if (hero != nullptr)
+	{
+		Hp_f = hero->GetHP_F();
+		En_f = hero->GetEN_F();
+	}
+	
 	//耐久力フラグがオンの時
 	if (En_f == true)
 	{
