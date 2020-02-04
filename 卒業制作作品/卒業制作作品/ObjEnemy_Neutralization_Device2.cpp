@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //コンストラクタ
 CObjEnemy_Neutralization_Device2::CObjEnemy_Neutralization_Device2(float x, float y)
 {

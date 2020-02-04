@@ -12,15 +12,6 @@ using namespace GameL;
 //タイムストップフラグ
 extern bool TStop_flg;
 
-//イベントフラグ
-extern bool Gen_flg;
-extern bool END_flg;
-extern bool MND_flg;
-extern bool Rep_flg;
-
-//イベント失敗フラグ
-extern bool m_EveMiss_flg;
-
 //イニシャライズ
 void CObjTopback::Init()
 {

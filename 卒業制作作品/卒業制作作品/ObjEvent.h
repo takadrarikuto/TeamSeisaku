@@ -35,8 +35,9 @@ private:
 	int m_Event_time;	//イベント時間
 	bool m_Event_TimePenalty; //イベントタイムペナルティ
 	bool m_Event_time_flg; //イベントフラグ
-	bool m_EveMiss_flg;
-	bool m_EveSuccess_flg; //イベント成功フラグ
+	bool m_EveSuccess_flg; //イベント成功フラグ						   
+	bool m_EveMiss_flg; //イベント失敗フラグ
+
 	int m_Event_Instruction_time; //イベント指示表示タイム
 
 	bool m_EventPenalty_Enemy_flg; //イベントペナルティ(球体型敵)フラグ

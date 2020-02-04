@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -38,9 +32,14 @@ void CObjHero::Init()
 
 	//体力
 	m_hero_hp = 200;
-
 	//耐久力
 	m_hero_en = 0;
+
+	m_HP_num = 0; //HP減少変数
+	m_EN_num = 0; //耐久力減少変数
+
+	Hp_flg = true; //HP ONOFFフラグ
+	En_flg = false; //耐久力ONOFFフラグ
 
 	//移動ベクトル最大値
 	m_v_max = 4.0f;
@@ -1478,6 +1477,30 @@ void CObjHero::Action()
 							m_time_d = 30;		//無敵時間をセット
 						}
 					}
+					//HP、耐久力減少処理
+					//HP
+					if (m_HP_num > 0)
+					{
+						m_hero_hp -= m_HP_num; //HP - HP減少					
+						m_HP_num = 0; //HP減少変数初期化
+					}
+					//耐久力
+					if (m_EN_num > 0)
+					{
+						//耐久力が減少用より多い時
+						if (m_hero_en >= m_EN_num)
+						{
+							m_hero_en -= m_EN_num; //耐久力 - 耐久力減少
+						}
+						//耐久力が減少用より少ない時
+						else if (m_hero_en >= m_EN_num)
+						{
+							m_EN_num -= m_hero_en; //耐久力減少 - 耐久力
+							m_HP_num = m_EN_num; //HP減少にコピー
+						}
+						m_EN_num = 0; //耐久力減少変数初期化
+					}					
+
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
 						m_hero_hp = 0;	//HPを0にする
@@ -1497,8 +1520,7 @@ void CObjHero::Action()
 						Hp_flg = true;
 						En_flg = false;
 					}
-				}
-				
+				}			
 			}
 		}
 		if (m_time_d > 0)

@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjGrenadeAttack::CObjGrenadeAttack(float x, float y, float vx, float vy)
 {
@@ -43,13 +37,17 @@ void CObjGrenadeAttack::Init()
 	Stop_max = 3; 
 
 	//ダメージ量
+	//主人公情報取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	bool Hp_f = hero->GetHP_F();
+	bool En_f = hero->GetEN_F();
 	//耐久力フラグがオンの時
-	if (En_flg == true)
+	if (En_f == true)
 	{
 		m_EXPDameg_num = 50; //爆発ダメージ
 	}
 	//体力フラグがオンの時
-	if (Hp_flg == true)
+	if (Hp_f == true)
 	{
 		m_EXPDameg_num = 100; //爆発ダメージ
 	}

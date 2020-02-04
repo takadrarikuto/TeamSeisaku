@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//イベント失敗フラグ
-bool m_EveMiss_flg = false;
-
 //イニシャライズ
 void CObjEvent::Init()
 {
@@ -37,9 +34,9 @@ void CObjEvent::Init()
 	m_EventPenalty_Meme_flg = false;
 	//イベント指示表示タイム
 	m_Event_Instruction_time = 0;  
-
-	//イベント成功フラグ
-	m_EveSuccess_flg = false;
+	
+	m_EveSuccess_flg = false; //イベント成功フラグ
+	m_EveMiss_flg = false; //イベント失敗フラグ
 }
 
 //アクション
