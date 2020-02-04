@@ -46,10 +46,6 @@ void CObjOver::Action()
 		}
 	}
 
-	//チュートリアル情報取得
-	CObjTutorial* Tuto = (CObjTutorial*)Objs::GetObj(OBJ_TUTORIAL);
-	bool Tuto_flg = Tuto->GetTuto_flg();
-
 	//Enterキーで決定
 	if (choose == 0)
 	{
@@ -93,15 +89,7 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			if (Tuto_flg == true)
-			{
-				Tuto_flg = false;
-				Scene::SetScene(new CSceneTutorial());
-			}
-			else
-			{
-				Scene::SetScene(new CSceneStage());
-			}
+			Scene::SetScene(new CSceneStage());			
 		}
 	}
 	//タイトルに戻る処理
@@ -112,7 +100,6 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf2 = false;
-			Tuto_flg = false;
 			Scene::SetScene(new CSceneTitle());
 		}
 	}
