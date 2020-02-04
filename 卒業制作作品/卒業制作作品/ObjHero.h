@@ -23,11 +23,14 @@ public:
 	float GetVY() { return m_vy; }
 	float GetHitBox() { return m_dst_size; }
 
+	bool GetHP_F() { return Hp_flg; } //HP ONOFFフラグ取得用
+	bool GetEN_F() { return En_flg; } //耐久力ONOFFフラグ取得用
+
 	int GetWS() { return m_Weapon_switching; }
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 	int GetEN() { return m_hero_en; }	//主人公の耐久力を取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
-	bool GetDel() { return m_del; } //削除チェック
+	bool GetDel() { return m_del; } //削除チェック取得用
 
 	//上下左右別当たり判定確認フラグ取得用
 	bool GetUH() { return m_UpHit_flg; }  //上
@@ -63,6 +66,9 @@ public:
 	void SetVY(float vy) { m_vy = vy; }
 	void SetHP(int hp) { m_hero_hp = hp; }
 	void SetEN(int en) { m_hero_en = en; }
+
+	void SetHP_F(bool m_hp) { Hp_flg = m_hp; } //HP ONOFFフラグ設定用
+	void SetEN_F(bool m_en) { En_flg = m_en; } //耐久力ONOFFフラグ設定用
 
 	//上下左右別当たり判定確認フラグ設定用
 	void SetUpHit(float uh) { m_UpHit_flg = uh; }    //上
@@ -104,6 +110,11 @@ private:
 
 	int m_Footprint_time; //足跡生成タイム
 	bool m_Footprint_flg; //足跡生成フラグ
+
+	bool Hp_flg; //HP ONOFFフラグ
+	bool En_flg; //耐久力ONOFFフラグ
+	int m_HP_num; //HP減少変数
+	int m_EN_num; //耐久力減少変数
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
@@ -171,5 +182,6 @@ private:
 	bool m_eff_flag;	//エフェクト用フラグ
 	bool m_inputf;	//死亡用キー入力制御
 	bool m_blood_flg; //血しぶき表示停止フラグ
+	bool Dead_flg; //死亡時動き停止フラグ
 
 };

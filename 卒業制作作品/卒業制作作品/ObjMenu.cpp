@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//死亡時動き停止フラグ
-bool Dead_flg = false;
-
-//HP ONOFFフラグ
-bool Hp_flg = true;
-
-//耐久力ONOFFフラグ
-bool En_flg = false;
-
 //イニシャライズ
 void CObjMenu::Init()
 {
@@ -35,7 +26,6 @@ void CObjMenu::Init()
 	m_Scene_flg = false;
 	//メニューキー制御用フラグ
 	m_key_flag_menu = true;
-
 }
 
 //アクション

@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//死亡時動き停止フラグ
-extern bool Dead_flg;
-
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -41,9 +32,14 @@ void CObjHero::Init()
 
 	//体力
 	m_hero_hp = 200;
-
 	//耐久力
 	m_hero_en = 0;
+
+	m_HP_num = 0; //HP減少変数
+	m_EN_num = 0; //耐久力減少変数
+
+	Hp_flg = true; //HP ONOFFフラグ
+	En_flg = false; //耐久力ONOFFフラグ
 
 	//移動ベクトル最大値
 	m_v_max = 4.0f;
@@ -144,6 +140,8 @@ void CObjHero::Init()
 
 	m_time_dead = 100;
 	
+	Dead_flg = false; //死亡時動き停止フラグ
+
 	//無敵時間
 	m_time_d = 0;
 
@@ -166,26 +164,21 @@ void CObjHero::Action()
 
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg;
-	bool MenuKey_flg;
-
-	if (Menu != nullptr)
-	{
-		Menu_flg = Menu->GetMenu();		
-		MenuKey_flg = Menu->GetMenuKey();
-	}
+	bool Menu_flg = Menu->GetMenu();
+	bool MenuKey_flg = Menu->GetMenuKey();
 	
-	//inputフラグがオンの場合入力を可能にする
-	if (m_inputf == true)
+	//inputフラグがオンの場合、主人公が死亡していない時に入力を可能にする
+	if (m_inputf == true && Dead_flg == false)
 	{
 		//Eキーを押すとメニューを開く
 		if (MenuKey_flg == true)
 		{
 			if (Input::GetVKey('E') == true)
 			{				
-				Menu_flg = true;
-				Menu->SetMenuKey(true);
-				MenuKey_flg = false;
+				Menu_flg = true; //メニュー表示フラグtrue
+				Menu->SetMenu(Menu_flg); //メニュー表示フラグ設定
+				MenuKey_flg = false; //メニュー制御フラグfalse
+				Menu->SetMenuKey(MenuKey_flg); //メニュー制御フラグ設定
 			}
 		}
 	}
@@ -1484,6 +1477,30 @@ void CObjHero::Action()
 							m_time_d = 30;		//無敵時間をセット
 						}
 					}
+					//HP、耐久力減少処理
+					//HP
+					if (m_HP_num > 0)
+					{
+						m_hero_hp -= m_HP_num; //HP - HP減少					
+						m_HP_num = 0; //HP減少変数初期化
+					}
+					//耐久力
+					if (m_EN_num > 0)
+					{
+						//耐久力が減少用より多い時
+						if (m_hero_en >= m_EN_num)
+						{
+							m_hero_en -= m_EN_num; //耐久力 - 耐久力減少
+						}
+						//耐久力が減少用より少ない時
+						else if (m_hero_en >= m_EN_num)
+						{
+							m_EN_num -= m_hero_en; //耐久力減少 - 耐久力
+							m_HP_num = m_EN_num; //HP減少にコピー
+						}
+						m_EN_num = 0; //耐久力減少変数初期化
+					}					
+
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
 						m_hero_hp = 0;	//HPを0にする
@@ -1503,8 +1520,7 @@ void CObjHero::Action()
 						Hp_flg = true;
 						En_flg = false;
 					}
-				}
-				
+				}			
 			}
 		}
 		if (m_time_d > 0)

@@ -12,15 +12,6 @@ using namespace GameL;
 //タイムストップフラグ
 extern bool TStop_flg;
 
-//イベントフラグ
-extern bool Gen_flg;
-extern bool END_flg;
-extern bool MND_flg;
-extern bool Rep_flg;
-
-//イベント失敗フラグ
-extern bool m_EveMiss_flg;
-
 //イニシャライズ
 void CObjTopback::Init()
 {
@@ -56,11 +47,7 @@ void CObjTopback::Draw()
 
 	//メニュー情報取得
 	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
-	bool Menu_flg;
-	if (Menu != nullptr)
-	{
-		Menu_flg = Menu->GetMenu();
-	}
+	bool Menu_flg = Menu->GetMenu();
 
 	//イベント
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
