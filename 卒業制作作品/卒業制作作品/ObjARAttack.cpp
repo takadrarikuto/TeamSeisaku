@@ -136,9 +136,8 @@ void CObjARAttack::Action()
 			m_HitBox_Delete = true;
 		}
 	}
-	//壁オブジェクト、有刺鉄線オブジェクトと接触するとオブジェクト破棄ELEMENT_BARBED_V
+	//壁オブジェクト、有刺鉄線オブジェクトと接触するとオブジェクト破棄
 	if (hit_ar->CheckElementHit(ELEMENT_WALL) == true || hit_ar->CheckElementHit(ELEMENT_WALL2) == true
-		|| hit_ar->CheckElementHit(ELEMENT_NET_S) == true || hit_ar->CheckElementHit(ELEMENT_NET_V) == true
 		|| hit_ar->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		m_HitBox_Delete = true;

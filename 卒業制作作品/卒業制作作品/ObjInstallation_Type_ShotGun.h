@@ -28,6 +28,8 @@ private:
 	float m_IT_SHGvx; //位置更新
 	float m_IT_SHGvy;
 
+	int m_Font_time; //フォント表示タイム
+
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;
 
