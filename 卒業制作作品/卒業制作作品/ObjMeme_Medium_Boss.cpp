@@ -10,12 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//死亡処理
-extern bool m_Meme_death_flg; //死亡フラグ
-
 //コンストラクタ
 CObjMeme_Medium_Boss::CObjMeme_Medium_Boss(float mmbx, float mmby)
 {
@@ -79,6 +73,14 @@ void CObjMeme_Medium_Boss::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
+
+	//ミーム実態無力化装置情報取得
+	CObjMeme_Neutralization_Device* MND = (CObjMeme_Neutralization_Device*)Objs::GetObj(OBJ_MEME_NEUTRALIZATION_DEVICE);
+	bool Meme_death = MND->GetMeme_death();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
@@ -249,8 +251,10 @@ void CObjMeme_Medium_Boss::Action()
 		}
 	}
 
-	if (m_Meme_death_flg == true)
+	if (Meme_death == true)
 	{
+		Meme_death = false; //死亡判定初期化
+		MND->SetMeme_death(Meme_death); //死亡判定操作
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

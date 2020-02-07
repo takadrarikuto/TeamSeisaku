@@ -3,19 +3,7 @@
 
 using namespace GameL;
 
-#define HG_E 10//ハンドガンの残り弾数(上部表示用)
-#define SG_E 6//ショットガンの残り弾数(上部表示用)
-#define AR_E 20//アサルトライフルの残り弾数(上部表示用)
-#define SR_E 5//スナイパーライフルの残り弾数(上部表示用)
-#define RL_E 1//ロケットランチャーの残り弾数(上部表示用)
-#define RG_E 1//レールガンの残り弾数(上部表示用)
 
-#define SG_R 60 //ショットガンの残り弾数(メニュー表示用)
-#define AR_R 200 //アサルトライフルの残り弾数(メニュー表示用)
-#define SR_R 30 //スナイパーライフルの残り弾数(メニュー表示用)
-#define RL_R 2 //ロケットランチャーの残り弾数(メニュー表示用)
-#define RG_R 1 //レールガンの残り弾数(メニュー表示用)
-#define GRE_R 3//グレネードの残り数(メニュー表示用)
 
 class CObjHero : public CObj, public CBaseStatus
 {
@@ -35,11 +23,14 @@ public:
 	float GetVY() { return m_vy; }
 	float GetHitBox() { return m_dst_size; }
 
+	bool GetHP_F() { return Hp_flg; } //HP ONOFFフラグ取得用
+	bool GetEN_F() { return En_flg; } //耐久力ONOFFフラグ取得用
+
 	int GetWS() { return m_Weapon_switching; }
 	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 	int GetEN() { return m_hero_en; }	//主人公の耐久力を取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
-	bool GetDel() { return m_del; } //削除チェック
+	bool GetDel() { return m_del; } //削除チェック取得用
 
 	//上下左右別当たり判定確認フラグ取得用
 	bool GetUH() { return m_UpHit_flg; }  //上
@@ -75,6 +66,9 @@ public:
 	void SetVY(float vy) { m_vy = vy; }
 	void SetHP(int hp) { m_hero_hp = hp; }
 	void SetEN(int en) { m_hero_en = en; }
+
+	void SetHP_F(bool m_hp) { Hp_flg = m_hp; } //HP ONOFFフラグ設定用
+	void SetEN_F(bool m_en) { En_flg = m_en; } //耐久力ONOFFフラグ設定用
 
 	//上下左右別当たり判定確認フラグ設定用
 	void SetUpHit(float uh) { m_UpHit_flg = uh; }    //上
@@ -117,11 +111,18 @@ private:
 	int m_Footprint_time; //足跡生成タイム
 	bool m_Footprint_flg; //足跡生成フラグ
 
+	bool Hp_flg; //HP ONOFFフラグ
+	bool En_flg; //耐久力ONOFFフラグ
+	int m_HP_num; //HP減少変数
+	int m_EN_num; //耐久力減少変数
+
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
 	bool m_DownHit_flg;	 //下
 	bool m_LeftHit_flg;	 //左
 	bool m_RightHit_flg; //右
+
+	float m_Hit_Vec; //反発ベクトル
 
 	int m_hg_pb;//ハンドガン現在弾数用(上部表示用)
 	int m_sg_pb;//ショットガン現在弾数用(上部表示用)
@@ -159,6 +160,13 @@ private:
 	int m_rg_pb_r;//レールガン　リロード用
 	int m_gre_pb_r;//グレネード　リロード用
 
+	int m_sg_pb_num;//ショットガン残り弾数
+	int m_ar_pb_num;//アサルトライフル残り弾数
+	int m_sr_pb_num;//スナイパーライフル残り弾数
+	int m_rl_pb_num;//ロケットランチャー残り弾数
+	int m_rg_pb_num;//レールガン残り弾数
+	int m_gre_pb_num;//グレネード残り弾数
+
 	int m_Weapon_switching; //武器切り替え
 	bool m_Weapon_switching_flg; //武器切り替えフラグ
 	bool m_Grenade_flg; //グレネード投下処理
@@ -174,5 +182,6 @@ private:
 	bool m_eff_flag;	//エフェクト用フラグ
 	bool m_inputf;	//死亡用キー入力制御
 	bool m_blood_flg; //血しぶき表示停止フラグ
+	bool Dead_flg; //死亡時動き停止フラグ
 
 };

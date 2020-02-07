@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjBat_Enemy::CObjBat_Enemy(float bex, float bey)
 {
@@ -88,6 +85,10 @@ void CObjBat_Enemy::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
@@ -291,7 +292,7 @@ void CObjBat_Enemy::Action()
 		if (hit_be->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= Gun_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_be->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
@@ -303,25 +304,25 @@ void CObjBat_Enemy::Action()
 		else if (hit_be->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= AR_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_be->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= SR_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_be->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= RL_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_be->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= RG_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_be->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)

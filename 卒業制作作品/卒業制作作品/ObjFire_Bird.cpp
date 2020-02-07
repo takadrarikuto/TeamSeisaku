@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjFire_Bird::CObjFire_Bird(float fbx, float fby)
 {
@@ -68,13 +59,17 @@ void CObjFire_Bird::Init()
 	m_fb_Flashing_flg = false; //点滅フラグ
 
 	//ダメージ
+	//主人公情報取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	bool Hp_f = hero->GetHP_F();
+	bool En_f = hero->GetEN_F();
 	//耐久力フラグがオンの時
-	if (En_flg == true)
+	if (En_f == true)
 	{
 		m_EXPDameg_num = 25; //爆発ダメージ
 	}
 	//体力フラグがオンの時
-	if (Hp_flg == true)
+	if (Hp_f == true)
 	{
 		m_EXPDameg_num = 50; //爆発ダメージ
 	}
@@ -116,6 +111,10 @@ void CObjFire_Bird::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);

@@ -13,9 +13,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjBoss::CObjBoss(float bx, float by)
 {
@@ -109,6 +106,13 @@ void CObjBoss::Action()
 	int Eve_Ins = Event->GetEveIns();
 	bool Eve_Rep_E = Event->GetEvePena_Enemy();
 	bool Eve_Rep_M = Event->GetEvePena_Meme();
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg;
+	if (Menu != nullptr)
+	{
+		Menu_flg = Menu->GetMenu();
+	}
 
 	//移動停止
 	m_bvx = 0.0f;

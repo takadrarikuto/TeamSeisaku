@@ -17,6 +17,10 @@ public:
 	float GetMndHitX() { return m_Meme_Neu_Dev_HitSize_x; }  //HitBox xサイズ取得用
 	float GetMndHitY() { return m_Meme_Neu_Dev_HitSize_y; }  //HitBox yサイズ取得用
 
+	bool GetMeme_death() { return m_Meme_death_flg; } //死亡フラグ取得用
+
+	void SetMeme_death(bool m_md) { m_Meme_death_flg = m_md; } //死亡フラグ設定用
+
 private:
 	float m_Meme_Neu_Devx; //位置情報
 	float m_Meme_Neu_Devy;
@@ -25,4 +29,6 @@ private:
 	float m_Meme_Neu_Dev_HitSize_y;
 
 	int m_Font_time; //フォント表示タイム
+
+	bool m_Meme_death_flg; //死亡フラグ
 };

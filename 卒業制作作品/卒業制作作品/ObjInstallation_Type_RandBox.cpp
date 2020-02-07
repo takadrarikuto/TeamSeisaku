@@ -61,6 +61,10 @@ void CObjInstallation_Type_RandBox::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
@@ -79,8 +83,8 @@ void CObjInstallation_Type_RandBox::Action()
 			if (m_Rand_aitem_num >= 0 && m_Rand_aitem_num <= 30)
 			{
 				aitemfont->SetAGF(7);
-				aitemfont->SetAitemNum(100);
-				hero->SetHP(100); //体力
+				aitemfont->SetAitemNum(200);
+				hero->SetHP(200); //体力
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 30 && m_Rand_aitem_num <= 60)
@@ -88,6 +92,8 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(8);
 				aitemfont->SetAitemNum(150);
 				hero->SetEN(150); //アーマー
+				hero->SetHP_F(false);
+				hero->SetEN_F(true); //アーマー回復確認
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 60 && m_Rand_aitem_num <= 80)
@@ -95,7 +101,7 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(4);
 				aitemfont->SetAitemNum(2);
 				hero->SetRL(2);
-				//((UserData*)Save::GetData())->RL_Ammunition += 2;//ロケットランチャー
+				((UserData*)Save::GetData())->RL_load += 2;//ロケットランチャー
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 80 && m_Rand_aitem_num <= 85)
@@ -103,7 +109,7 @@ void CObjInstallation_Type_RandBox::Action()
 				aitemfont->SetAGF(5);
 				aitemfont->SetAitemNum(1);
 				hero->SetRG(1);
-				//((UserData*)Save::GetData())->RG_Ammunition += 1;//レールガン
+				((UserData*)Save::GetData())->RG_load += 1;//レールガン弾数回復
 				Audio::Start(12); //効果音再生
 			}
 			else if (m_Rand_aitem_num > 85 && m_Rand_aitem_num <= 99)
@@ -134,31 +140,35 @@ void CObjInstallation_Type_RandBox::Action()
 	m_IT_Rand_Box_x -= hvx;
 	m_IT_Rand_Box_y -= hvy;
 
-	//再補充タイム
-	if (m_Replenishment_time > 0)
+	if (Menu_flg == false)
 	{
-		m_Replenishment_time--;
-	}
-	else if (m_Replenishment_time == 0)
-	{
-		//再補充完了フォント表示タイム減少処理
-		if (m_Replenishment_Font_time > 0)
+		//再補充タイム
+		if (m_Replenishment_time > 0)
 		{
-			//効果音再生
-			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+			m_Replenishment_time--;
+		}
+		else if (m_Replenishment_time == 0)
+		{
+			//再補充完了フォント表示タイム減少処理
+			if (m_Replenishment_Font_time > 0)
 			{
-				m_Replenishment_Font_flg = true; //再補充完了フォント表示
-				Audio::Start(8);
-			}
+				//効果音再生
+				if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+				{
+					m_Replenishment_Font_flg = true; //再補充完了フォント表示
+					Audio::Start(8);
+				}
 
-			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
-		}
-		else if (m_Replenishment_Font_time == 0)
-		{
-			//再補充完了フォント表示フラグ初期化
-			m_Replenishment_Font_flg = false;
+				m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
+			}
+			else if (m_Replenishment_Font_time == 0)
+			{
+				//再補充完了フォント表示フラグ初期化
+				m_Replenishment_Font_flg = false;
+			}
 		}
 	}
+	
 }
 
 //ドロー

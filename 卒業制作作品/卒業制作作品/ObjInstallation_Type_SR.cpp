@@ -32,6 +32,9 @@ void CObjInstallation_Type_SR::Init()
 	m_HitSize_x = 34;
 	m_HitSize_y = 66;
 
+	//設置型スナイパーライフルの弾数回復量最大値
+	m_IT_SR_num_max = 0; 
+
 	//補充フラグ
 	m_Replenishment_flg = false;
 	//再補充タイム
@@ -57,6 +60,10 @@ void CObjInstallation_Type_SR::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
@@ -72,18 +79,21 @@ void CObjInstallation_Type_SR::Action()
 		{
 			if (((UserData*)Save::GetData())->choose == 0)
 			{
-				((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル		
-				aitemfont->SetAitemNum(20); //グレネード数表示
+				m_IT_SR_num_max = 20; //設置型スナイパーライフル弾数回復量変更
+				((UserData*)Save::GetData())->SR_load += m_IT_SR_num_max; //スナイパーライフル弾数回復	
+				aitemfont->SetAitemNum(m_IT_SR_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 1)
 			{
-				((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル	
-				aitemfont->SetAitemNum(15); //グレネード数表示
+				m_IT_SR_num_max = 15;
+				((UserData*)Save::GetData())->SR_load += m_IT_SR_num_max; //スナイパーライフル弾数回復
+				aitemfont->SetAitemNum(m_IT_SR_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 2)
 			{
-				((UserData*)Save::GetData())->SR_load += 10; //スナイパーライフル	
-				aitemfont->SetAitemNum(10); //グレネード数表示
+				m_IT_SR_num_max = 10;
+				((UserData*)Save::GetData())->SR_load += m_IT_SR_num_max; //スナイパーライフル弾数回復	
+				aitemfont->SetAitemNum(m_IT_SR_num_max); //弾数表示
 			}
 			aitemfont->SetAGF(3);
 			Audio::Start(12); //効果音再生
@@ -104,31 +114,35 @@ void CObjInstallation_Type_SR::Action()
 	m_IT_SRx -= hvx;
 	m_IT_SRy -= hvy;
 
-	//再補充タイム
-	if (m_Replenishment_time > 0)
+	if (Menu_flg == false)
 	{
-		m_Replenishment_time--;
-	}
-	else if (m_Replenishment_time == 0)
-	{
-		//再補充完了フォント表示タイム減少処理
-		if (m_Replenishment_Font_time > 0)
+		//再補充タイム
+		if (m_Replenishment_time > 0)
 		{
-			//効果音再生
-			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+			m_Replenishment_time--;
+		}
+		else if (m_Replenishment_time == 0)
+		{
+			//再補充完了フォント表示タイム減少処理
+			if (m_Replenishment_Font_time > 0)
 			{
-				m_Replenishment_Font_flg = true; //再補充完了フォント表示
-				Audio::Start(8);
-			}
+				//効果音再生
+				if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+				{
+					m_Replenishment_Font_flg = true; //再補充完了フォント表示
+					Audio::Start(8);
+				}
 
-			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
-		}
-		else if (m_Replenishment_Font_time == 0)
-		{
-			//再補充完了フォント表示フラグ初期化
-			m_Replenishment_Font_flg = false;
+				m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
+			}
+			else if (m_Replenishment_Font_time == 0)
+			{
+				//再補充完了フォント表示フラグ初期化
+				m_Replenishment_Font_flg = false;
+			}
 		}
 	}
+	
 }
 
 //ドロー

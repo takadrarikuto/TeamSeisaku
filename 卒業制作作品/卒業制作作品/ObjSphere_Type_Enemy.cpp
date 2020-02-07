@@ -11,19 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
-//死亡処理
-extern bool m_END_death_flg; //死亡フラグ
-extern bool m_END2_death_flg; //死亡フラグ
-
 //コンストラクタ
 CObjSphere_Type_Enemy::CObjSphere_Type_Enemy(float st_ex, float st_ey)
 {
@@ -62,13 +49,17 @@ void CObjSphere_Type_Enemy::Init()
 	m_at_max = 5;
 
 	//ダメージ
+	//主人公情報取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	bool Hp_f = hero->GetHP_F();
+	bool En_f = hero->GetEN_F();
 	//耐久力フラグがオンの時
-	if (En_flg == true)
+	if (En_f == true)
 	{
 		m_EXPDameg_num  = 25; //爆発ダメージ
 	}
 	//体力フラグがオンの時
-	if (Hp_flg == true)
+	if (Hp_f == true)
 	{
 		m_EXPDameg_num = 50; //爆発ダメージ
 	}
@@ -107,6 +98,17 @@ void CObjSphere_Type_Enemy::Action()
 	//イベント情報取得
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
+
+	//敵無力化装置情報取得
+	CObjEnemy_Neutralization_Device* END_Deat = (CObjEnemy_Neutralization_Device*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE);
+	bool Deat_flg = END_Deat->Get_Deat();
+	//敵無力化装置2情報取得
+	CObjEnemy_Neutralization_Device2* END2_Deat = (CObjEnemy_Neutralization_Device2*)Objs::GetObj(OBJ_ENEMY_NEUTRALIZATION_DEVICE2);
+	bool Deat2_flg = END2_Deat->Get_Deat2();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
@@ -258,13 +260,24 @@ void CObjSphere_Type_Enemy::Action()
 	}
 
 	//爆発処理
-	//主人公に当たる、体力が0になる、敵無力化装置を起動すると自身の座標に合わせて爆発する
-	if (m_hero_hp < 0 || m_END_death_flg == true || m_END2_death_flg == true || hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
+	//主人公に当たると主人公に座標に合わせて爆発する
+	if (hit_st_e->CheckObjNameHit(OBJ_HERO) != nullptr)
+	{
+		//爆発オブジェクト作成
+		CObjExplosion* obj_bs = new CObjExplosion(hx - 64, hy - 64, m_exp_blood_dst_size, m_EXPDameg_num);
+		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+		Audio::Start(9);
+		this->SetStatus(false); //オブジェクト破棄
+		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
+	}	
+	//体力が0になる、敵無力化装置を起動すると自身の座標に合わせて爆発する
+	if (m_hero_hp < 0 || Deat_flg == true || Deat2_flg == true)
 	{
 		//爆発オブジェクト作成
 		CObjExplosion* obj_bs = new CObjExplosion(m_st_ex - 64, m_st_ey - 64, m_exp_blood_dst_size, m_EXPDameg_num);
 		Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
 		Audio::Start(9);
+
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
 	}

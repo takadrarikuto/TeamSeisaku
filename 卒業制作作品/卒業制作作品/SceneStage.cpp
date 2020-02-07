@@ -7,14 +7,12 @@
 #include "GameL\UserData.h"
 #include"GameL\DrawFont.h"
 #include "GameL\Audio.h"
+#include "GameL\WinInputs.h"
 
 #include <time.h>
 
 #include "GameHead.h"
 #include "SceneStage.h"
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
 
 //コンストラクタ
 CSceneStage::CSceneStage()
@@ -53,7 +51,6 @@ void CSceneStage::InitScene()
 
 	//音楽情報読み込み 
 	Audio::LoadAudio(0, L"ステージBGM.wav", SOUND_TYPE::BACK_MUSIC);
-	//音楽情報の読み込み
 	Audio::LoadAudio(1, L"選択音.wav", EFFECT);
 	Audio::LoadAudio(2, L"決定音.wav", EFFECT);
 	Audio::LoadAudio(3, L"ハンドガン銃声.wav", EFFECT);
@@ -76,8 +73,11 @@ void CSceneStage::InitScene()
 	Audio::LoadAudio(21, L"カウントダウン.wav", EFFECT);
 
 	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(-0.3);
 	Audio::Start(0); //音楽スタート
+
+	//メニューオブジェクト作成
+	CObjMenu* obj_m = new CObjMenu();
+	Objs::InsertObj(obj_m, OBJ_MENU, 21);
 
 	//主人公機オブジェクト作成
 	CObjHero* obj_h = new CObjHero(368.0f, 268.0f);
@@ -103,10 +103,10 @@ void CSceneStage::InitScene()
 	Objs::InsertObj(Gen2, OBJ_GENERATOR2, 2);
 
 	//敵無力化装置オブジェクト作成
-	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);//(400,200)
+	CObjEnemy_Neutralization_Device* END = new CObjEnemy_Neutralization_Device(1100, -400);
 	Objs::InsertObj(END, OBJ_ENEMY_NEUTRALIZATION_DEVICE, 2);
 
-	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);//(700,200)
+	CObjEnemy_Neutralization_Device2* END2 = new CObjEnemy_Neutralization_Device2(-300, 900);
 	Objs::InsertObj(END2, OBJ_ENEMY_NEUTRALIZATION_DEVICE2, 2);
 
 	//ミーム実態無力化装置オブジェクト作成
@@ -279,6 +279,7 @@ void CSceneStage::InitScene()
 	CObjAitemDrop* obj_ad = new CObjAitemDrop();
 	Objs::InsertObj(obj_ad, OBJ_AITEMDROP, 8);
 
+	//障害--------------------------
 	//設置型ショットガン弾補充
 	CObjInstallation_Type_ShotGun* obj_it_shg = new CObjInstallation_Type_ShotGun(-300, -640);
 	Objs::InsertObj(obj_it_shg, OBJ_INSTALL_TYPE_SHG, 8);
@@ -291,6 +292,7 @@ void CSceneStage::InitScene()
 	//設置型ランダムアイテムボックス
 	CObjInstallation_Type_RandBox* obj_it_rb = new CObjInstallation_Type_RandBox(1130, 720);
 	Objs::InsertObj(obj_it_rb, OBJ_INSTALL_TYPE_RANDBOX, 8);
+	//-------------------------------
 
 	//壁オブジェクト作成
 	//左
@@ -326,10 +328,11 @@ void CSceneStage::InitScene()
 	//イベントタイムオブジェクト作成
 	CObjEvent*objev = new CObjEvent();
 	Objs::InsertObj(objev, OBJ_EVENT, 20);
-	
+
+	Audio::Start(0); //音楽スタート
 }
 
 void CSceneStage::Scene()
 {
-
+	
 }

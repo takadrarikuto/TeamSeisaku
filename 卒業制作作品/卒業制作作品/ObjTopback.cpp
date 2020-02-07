@@ -9,23 +9,8 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //タイムストップフラグ
 extern bool TStop_flg;
-
-//イベントフラグ
-extern bool Gen_flg;
-extern bool END_flg;
-extern bool MND_flg;
-extern bool Rep_flg;
-
-//イベント失敗フラグ
-extern bool m_EveMiss_flg;
-
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
 
 //イニシャライズ
 void CObjTopback::Init()
@@ -45,29 +30,39 @@ void CObjTopback::Draw()
 {
 	//主人公から各残り弾数情報を取得(装備分)
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	int h_hp = hero->GetHP();
+	int h_hp;
+	if (hero != nullptr)
+	{
+		h_hp = hero->GetHP();
+		hg_pb_e = hero->GetHG_E();	//ハンドガン
+		sg_pb_e = hero->GetSG_E();	//ショットガン
+		ar_pb_e = hero->GetAR_E();	//アサルトライフル
+		sr_pb_e = hero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = hero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = hero->GetRG_E();	//レールガン
+		ws_num = hero->GetWS();
+	}
 	
-	hg_pb_e = hero->GetHG_E();	//ハンドガン
-	sg_pb_e = hero->GetSG_E();	//ショットガン
-	ar_pb_e = hero->GetAR_E();	//アサルトライフル
-	sr_pb_e = hero->GetSR_E();	//スナイパーライフル
-	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
-	rg_pb_e = hero->GetRG_E();	//レールガン
-	ws_num = hero->GetWS();
 
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
 	bool TStop_flg = time->GetTStop();
 	bool TStart_flg = time->GetTStart();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//イベント
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_time;
 	bool EveMiss_flg;
+	bool EveSuccess_flg;
 	if (Event != nullptr)
 	{
 		Eve_time = Event->GetEveIns();
 		EveMiss_flg = Event->GetEveMiss();
+		EveSuccess_flg = Event->GetEveSuc();
 	}
 
 	//設置型アイテムオブジェクト
@@ -108,7 +103,6 @@ void CObjTopback::Draw()
 	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
 	//上部用背景--------------------------------------------------
-	//左側帯状背景
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -121,7 +115,6 @@ void CObjTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 	
-	//武器表示背景
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -135,7 +128,6 @@ void CObjTopback::Draw()
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 
 	//切り取り位置の設定
-	//右側帯状背景
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
 	src.m_right = 100.0f;
@@ -174,10 +166,10 @@ void CObjTopback::Draw()
 	src.m_right = 100.0f;
 	src.m_bottom = 100.0f;
 	//描画
-	dst.m_top = 120.0f;//63
-	dst.m_left = 0.0f;//0
-	dst.m_right = 675.0f;//115
-	dst.m_bottom = 180.0f;//115
+	dst.m_top = 120.0f;
+	dst.m_left = 0.0f;
+	dst.m_right = 675.0f;
+	dst.m_bottom = 180.0f;
 
 	//タイムストップフラグオンでイベント用背景表示
 	if (Menu_flg == false && TStop_flg == true)
@@ -194,10 +186,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//描画
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//主人公のHPが0になると表示停止
 		if (h_hp > 0)
@@ -227,7 +219,7 @@ void CObjTopback::Draw()
 	}
 
 	//イベント成功時
-	if (Menu_flg == false && m_EveSuccess_flg == true)
+	if (Menu_flg == false && EveSuccess_flg == true)
 	{
 		//切り取り位置の設定
 		src.m_top = 0.0f;
@@ -235,10 +227,10 @@ void CObjTopback::Draw()
 		src.m_right = 100.0f;
 		src.m_bottom = 100.0f;
 		//描画
-		dst.m_top = 120.0f;//63
-		dst.m_left = 0.0f;//0
-		dst.m_right = 270.0f;//115
-		dst.m_bottom = 180.0f;//115
+		dst.m_top = 120.0f;
+		dst.m_left = 0.0f;
+		dst.m_right = 270.0f;
+		dst.m_bottom = 180.0f;
 
 		//主人公のHPが0になると表示停止
 		if (h_hp > 0)
@@ -251,14 +243,15 @@ void CObjTopback::Draw()
 			}
 			if (evesuc_time > 200)
 			{
-				m_EveSuccess_flg = false;
-				m_EveSuccess_flg = false;
+				EveSuccess_flg = false;
+				Event->SetEveSuc(EveSuccess_flg);
 				evesuc_time = 0;
 			}
 		}		
 		else
 		{
-			m_EveSuccess_flg = false;
+			EveSuccess_flg = false;
+			Event->SetEveSuc(EveSuccess_flg);
 			evesuc_time = 0;
 		}
 	}

@@ -30,6 +30,8 @@ private:
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;
 
+
+
 	bool m_Replenishment_flg; //補充フラグ
 	int m_Replenishment_time; //再補充タイム
 	int m_Rand_aitem_num; //アイテムランダム選択変数 

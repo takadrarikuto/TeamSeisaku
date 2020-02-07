@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//イベント成功フラグ
-extern bool m_EveSuccess_flg;
-
 //コンストラクタ
 CObjGenerator::CObjGenerator(float x, float y)
 {
@@ -68,6 +62,10 @@ void CObjGenerator::Action()
 	int App_Rand = Event->GetApp_Rand(); //対応数　1
 	int Eve_Ins = Event->GetEveIns();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//アイテムフォント情報取得
 	CObjAitemFont* Aitem_Font = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 	bool Tool_Box_flg;
@@ -92,7 +90,7 @@ void CObjGenerator::Action()
 				if (GEN == true ||( App_Rand > 0 && App_Rand <= 20 && Tool_Box_flg == true))
 				{
 					TStart_flg = true;
-					m_EveSuccess_flg = true;
+					Event->SetEveSuc(true);
 					GEN = false;
 					Tool_Box_flg = false;
 					Aitem_Font->SetTool_Box(Tool_Box_flg);

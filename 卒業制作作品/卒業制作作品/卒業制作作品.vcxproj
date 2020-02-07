@@ -138,7 +138,6 @@
     <ClInclude Include="ObjNetV.h" />
     <ClInclude Include="ObjSphere_Type_Enemy.h" />
     <ClInclude Include="ObjToolBox.h" />
-    <ClInclude Include="ObjTutoAiming.h" />
     <ClInclude Include="ObjTutoWall.h" />
     <ClInclude Include="ObjTutoWall2.h" />
     <ClInclude Include="ObjTutoWall3.h" />
@@ -235,7 +234,6 @@
     <ClCompile Include="ObjNetV.cpp" />
     <ClCompile Include="ObjSphere_Type_Enemy.cpp" />
     <ClCompile Include="ObjToolBox.cpp" />
-    <ClCompile Include="ObjTutoAiming.cpp" />
     <ClCompile Include="ObjTutoWall.cpp" />
     <ClCompile Include="ObjTutoWall2.cpp" />
     <ClCompile Include="ObjTutoWall3.cpp" />
