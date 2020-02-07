@@ -146,13 +146,28 @@ void CObjMenu::Action()
 //ドロー
 void CObjMenu::Draw()
 {
+	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	sg_pb_me = hero->GetSG();	//各残り弾数情報を取得(全体)
-	ar_pb_me = hero->GetAR();
-	sr_pb_me = hero->GetSR();
-	rl_pb_me = hero->GetRL();
-	rg_pb_me = hero->GetRG();
-	gre_pb_me = hero->GetGRE();
+	if (hero != nullptr)
+	{
+		sg_pb_me = hero->GetSG();	//各残り弾数情報を取得(全体)
+		ar_pb_me = hero->GetAR();
+		sr_pb_me = hero->GetSR();
+		rl_pb_me = hero->GetRL();
+		rg_pb_me = hero->GetRG();
+		gre_pb_me = hero->GetGRE();
+	}
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (Tuhero != nullptr)
+	{
+		sg_pb_me = Tuhero->GetSG();	//各残り弾数情報を取得(全体)
+		ar_pb_me = Tuhero->GetAR();
+		sr_pb_me = Tuhero->GetSR();
+		rl_pb_me = Tuhero->GetRL();
+		rg_pb_me = Tuhero->GetRG();
+		gre_pb_me = Tuhero->GetGRE();
+	}
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };

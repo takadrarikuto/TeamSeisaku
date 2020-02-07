@@ -27,6 +27,8 @@ private:
 	float hvy;
 
 	int m_EXPDameg_num; //爆発ダメージ
+	bool Hp_f; //HP減少フラグ
+	bool En_f; //耐久力減少フラグ
 
 	bool m_HitBox_Delete; //HitBox削除フラグ
 };

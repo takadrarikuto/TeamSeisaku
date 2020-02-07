@@ -30,15 +30,19 @@ void CObjTopback::Draw()
 {
 	//主人公から各残り弾数情報を取得(装備分)
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	int h_hp = hero->GetHP();
+	int h_hp;
+	if (hero != nullptr)
+	{
+		h_hp = hero->GetHP();
+		hg_pb_e = hero->GetHG_E();	//ハンドガン
+		sg_pb_e = hero->GetSG_E();	//ショットガン
+		ar_pb_e = hero->GetAR_E();	//アサルトライフル
+		sr_pb_e = hero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = hero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = hero->GetRG_E();	//レールガン
+		ws_num = hero->GetWS();
+	}
 	
-	hg_pb_e = hero->GetHG_E();	//ハンドガン
-	sg_pb_e = hero->GetSG_E();	//ショットガン
-	ar_pb_e = hero->GetAR_E();	//アサルトライフル
-	sr_pb_e = hero->GetSR_E();	//スナイパーライフル
-	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
-	rg_pb_e = hero->GetRG_E();	//レールガン
-	ws_num = hero->GetWS();
 
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);

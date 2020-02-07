@@ -196,6 +196,15 @@ void CObjTutoHero::Action()
 			m_LRani_frame = 0;
 		}
 	}
+	else
+	{
+		//ˆÊ’uŒÅ’è
+		m_x = 368.0f;
+		m_y = 268.0f;
+		//ˆÚ“®’â~
+		m_vx = 0.0f;
+		m_vy = 0.0f;
+	}
 
 	//‘«Õ¶¬ˆ—
 	if (m_Footprint_flg == true)
