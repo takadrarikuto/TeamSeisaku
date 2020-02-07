@@ -36,14 +36,14 @@ void CObjTutoWall3::Init()
 //アクション
 void CObjTutoWall3::Action()
 {
-	//主人公位置取得
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//チュートリアル主人公位置取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 	float hvx;
 	float hvy;
-	if (hero != nullptr)
+	if (Tuhero != nullptr)
 	{
-		hvx = hero->GetVX();
-		hvy = hero->GetVY();
+		hvx = Tuhero->GetVX();
+		hvy = Tuhero->GetVY();
 	}
 
 	//主人公の移動に合わせる
