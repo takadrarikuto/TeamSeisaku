@@ -38,6 +38,9 @@ void CObjInstallation_Type_AR::Init()
 	//設置型アサルトライフルの弾数回復量最大値
 	m_IT_AR_num_max = 0; 
 
+	//フォント表示タイム
+	m_Font_time = 0; 
+
 	//補充フラグ
 	m_Replenishment_flg = false;
 	//再補充タイム
@@ -77,6 +80,7 @@ void CObjInstallation_Type_AR::Action()
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
+		m_Font_time = 90; //フォント表示タイム設定
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
@@ -118,6 +122,13 @@ void CObjInstallation_Type_AR::Action()
 	m_IT_ARx -= hvx;
 	m_IT_ARy -= hvy;
 
+	//フォント表示タイム減少処理
+	//0になるまで減少
+	if (m_Font_time > 0)
+	{
+		m_Font_time--;
+	}
+
 	if (Menu_flg == false)
 	{
 		//再補充タイム
@@ -158,11 +169,18 @@ void CObjInstallation_Type_AR::Draw()
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	wchar_t str[256];
+	wchar_t str_f[256];
 
+	//フォント表示処理
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		swprintf_s(str, L"アサルトライフルの弾が再補充されました。");
+		swprintf_s(str, L"アサルトライフルの弾が再補充されました。"); //再補充フォント表示
 		Font::StrDraw(str, 0, 570, 30, c);
+	}
+	if (m_Font_time > 0)
+	{
+		swprintf_s(str_f, L"エンターキーでアイテム補充"); //操作説明フォント表示
+		Font::StrDraw(str_f, m_IT_ARx - 45, m_IT_ARy - 12, 15, blk);
 	}
 
 	RECT_F src;

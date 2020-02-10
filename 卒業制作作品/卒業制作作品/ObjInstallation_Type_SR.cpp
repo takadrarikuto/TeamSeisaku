@@ -35,6 +35,9 @@ void CObjInstallation_Type_SR::Init()
 	//設置型スナイパーライフルの弾数回復量最大値
 	m_IT_SR_num_max = 0; 
 
+	//フォント表示タイム
+	m_Font_time = 0;
+
 	//補充フラグ
 	m_Replenishment_flg = false;
 	//再補充タイム
@@ -74,6 +77,7 @@ void CObjInstallation_Type_SR::Action()
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
+		m_Font_time = 90; //フォント表示タイム設定
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
@@ -113,6 +117,13 @@ void CObjInstallation_Type_SR::Action()
 	//主人公の移動に合わせる
 	m_IT_SRx -= hvx;
 	m_IT_SRy -= hvy;
+
+	//フォント表示タイム減少処理
+	//0になるまで減少
+	if (m_Font_time > 0)
+	{
+		m_Font_time--;
+	}
 
 	if (Menu_flg == false)
 	{
@@ -154,11 +165,18 @@ void CObjInstallation_Type_SR::Draw()
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	wchar_t str[256];
+	wchar_t str_f[256];
 
+	//フォント表示処理
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		swprintf_s(str, L"スナイパーライフルの弾が再補充されました。");
+		swprintf_s(str, L"スナイパーライフルの弾が再補充されました。"); //再補充フォント表示
 		Font::StrDraw(str, 0, 570, 30, c);
+	}
+	if (m_Font_time > 0)
+	{
+		swprintf_s(str_f, L"エンターキーでアイテム補充"); //操作説明フォント表示
+		Font::StrDraw(str_f, m_IT_SRx - 80, m_IT_SRy - 40, 15, blk);
 	}
 
 	RECT_F src;

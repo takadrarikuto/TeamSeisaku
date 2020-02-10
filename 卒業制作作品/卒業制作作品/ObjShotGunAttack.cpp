@@ -158,7 +158,6 @@ void CObjShotGunAttack::Action()
 	}
 	//壁オブジェクトと接触するとオブジェクト破棄
 	if (hit_sg->CheckElementHit(ELEMENT_WALL) == true || hit_sg->CheckElementHit(ELEMENT_WALL2) == true
-		|| hit_sg->CheckElementHit(ELEMENT_NET_S) == true || hit_sg->CheckElementHit(ELEMENT_NET_V) == true
 		|| hit_sg->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		m_HitBox_Delete = true;
