@@ -554,6 +554,44 @@ void CObjZombieEnemy::Action()
 		}
 		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
 	}
+	
+	//有刺鉄線の壁(横)
+	if (hit_ze->CheckElementHit(ELEMENT_BARBED_S) == true)
+	{
+		//主人公と障害物がどの角度で当たっているか調べる
+		HIT_DATA** hit_data;
+		hit_data = hit_ze->SearchElementHit(ELEMENT_BARBED_S);
+		for (int i = 0; i < hit_ze->GetCount(); i++)
+		{
+			if (hit_data[i] != nullptr)
+			{
+				float r = hit_data[i]->r;
+				
+				//角度で上下左右を判定
+				if ((r > 0 && r < 30) || r >= 330)
+				{
+					m_RightHit_flg = true; //右
+					m_zevx = -HitBox_V;
+				}
+				else if (r >= 30 && r < 150)
+				{
+					m_UpHit_flg = true;    //上
+					m_zevy = HitBox_V;
+				}
+				else if (r >= 150 && r <= 210)
+				{
+					m_LeftHit_flg = true;	 //左
+					m_zevx = HitBox_V;
+				}
+				else if (r > 210 && r < 330)
+				{
+					m_DownHit_flg = true;	 //下
+					m_zevy = -HitBox_V;
+				}				
+			}
+		}
+		m_HitBoxFlg_time = HitBoxFlg_TIME; //上下左右別当たり判定確認フラグ無効化
+	}
 
 	//上下左右別当たり判定確認フラグ初期化処理
 	if (m_HitBoxFlg_time > 0)
