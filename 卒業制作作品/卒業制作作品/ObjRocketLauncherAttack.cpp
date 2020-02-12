@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, float vy, float r)
 {
@@ -37,6 +28,10 @@ CObjRocketLauncherAttack::CObjRocketLauncherAttack(float x, float y, float vx, f
 void CObjRocketLauncherAttack::Init()
 {
 //初期化
+	//主人公位置取得用
+	hy = 0.0f;
+	hx = 0.0f;
+
 	//描画フレーム
 	m_ani_frame = 0;
 	//アニメーションフレーム動作間隔
@@ -46,13 +41,20 @@ void CObjRocketLauncherAttack::Init()
 	m_Distance_max = 5;
 
 	//ダメージ量
+	//主人公情報取得
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	if (hero != nullptr)
+	{
+		Hp_f = hero->GetHP_F();
+		En_f = hero->GetEN_F();
+	}	
 	//耐久力フラグがオンの時
-	if (En_flg == true)
+	if (En_f == true)
 	{
 		m_EXPDameg_num = 75; //爆発ダメージ
 	}
 	//体力フラグがオンの時
-	if (Hp_flg == true)
+	if (Hp_f == true)
 	{
 		m_EXPDameg_num = 150; //爆発ダメージ
 	}
@@ -79,6 +81,10 @@ void CObjRocketLauncherAttack::Init()
 //アクション
 void CObjRocketLauncherAttack::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
@@ -104,6 +110,8 @@ void CObjRocketLauncherAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 
 	//主人公の移動に合わせる
 
@@ -118,10 +126,12 @@ void CObjRocketLauncherAttack::Action()
 		hit_rl->SetPos(m_RLx - 20.0f, m_RLy + 19.0f); //当たり判定の位置更新
 	}
 
+	//主人公、チュートリアル主人公のどちらかが生成されている時	
+	//主人公用
 	if (hero != nullptr)
 	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
+		hx = hero->GetX();
+		hy = hero->GetY();
 
 		//主人公から離れるとオブジェクト削除
 		if (m_RLx < hx - 64 * m_Distance_max)
@@ -161,6 +171,52 @@ void CObjRocketLauncherAttack::Action()
 			m_HitBox_Delete = true;
 		}
 	}
+	//チュートリアル主人公用
+	if (Tuhero != nullptr)
+	{
+		hx = Tuhero->GetX();
+		hy = Tuhero->GetY();
+
+		//主人公から離れるとオブジェクト削除
+		if (m_RLx < hx - 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+		else if (m_RLx > hx + 32 + 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+		if (m_RLy < hy - 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+		else if (m_RLy > hy + 32 + 64 * m_Distance_max)
+		{
+			//爆発オブジェクト作成
+			CObjExplosion* obj_bs = new CObjExplosion(m_RLx - 128, m_RLy - 128, m_exp_blood_dst_size, m_EXPDameg_num);
+			Objs::InsertObj(obj_bs, OBJ_EXPLOSION, 9);
+			Audio::Start(9);
+
+			m_HitBox_Delete = true;
+		}
+	}
+	
+	
 
 	//敵オブジェクトと接触するとオブジェクト破棄
 	if (hit_rl->CheckElementHit(ELEMENT_ENEMY) == true)

@@ -12,13 +12,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-
-extern float g_px;
-extern float g_py;
-
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //イニシャライズ
 void CObjOver::Init()
 {
@@ -64,7 +57,6 @@ void CObjOver::Action()
 				m_andf = true;
 				m_key_flag = false;
 				Audio::Start(1);
-				//g_hero_max_hp = 0;
 			}
 		}
 		else
@@ -79,7 +71,6 @@ void CObjOver::Action()
 			if (m_key_flag == true)
 			{
 				m_andf2 = true;
-				//g_hero_max_hp = 0;
 				Audio::Start(1);
 				m_key_flag = false;
 			}
@@ -98,15 +89,7 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf = false;
-			if (Tuto_flg == true)
-			{
-				Tuto_flg = false;
-				Scene::SetScene(new CSceneTutorial());
-			}
-			else
-			{
-				Scene::SetScene(new CSceneStage());
-			}
+			Scene::SetScene(new CSceneStage());			
 		}
 	}
 	//タイトルに戻る処理
@@ -117,7 +100,6 @@ void CObjOver::Action()
 		{
 			m_and = 0.0f;
 			m_andf2 = false;
-			Tuto_flg = false;
 			Scene::SetScene(new CSceneTitle());
 		}
 	}

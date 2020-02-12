@@ -21,6 +21,9 @@ private:
 	float m_SRvy;
 	float m_SRr; //画像角度調整
 
+	float hx; //主人公位置取得用
+	float hy;
+
 	int m_Distance_max; //削除距離最大値
 
 	bool m_HitBox_Delete; //HitBox削除フラグ

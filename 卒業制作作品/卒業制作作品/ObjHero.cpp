@@ -11,18 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//死亡時動き停止フラグ
-extern bool Dead_flg;
-
-//HP ONOFFフラグ
-extern bool Hp_flg;
-
-//耐久力ONOFFフラグ
-extern bool En_flg;
-
 //コンストラクタ
 CObjHero::CObjHero(float x, float y)
 {
@@ -43,10 +31,15 @@ void CObjHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	m_hero_hp = 100;
-
+	m_hero_hp = 200;
 	//耐久力
 	m_hero_en = 0;
+
+	m_HP_num = 0; //HP減少変数
+	m_EN_num = 0; //耐久力減少変数
+
+	Hp_flg = true; //HP ONOFFフラグ
+	En_flg = false; //耐久力ONOFFフラグ
 
 	//移動ベクトル最大値
 	m_v_max = 4.0f;
@@ -65,6 +58,8 @@ void CObjHero::Init()
 	m_LeftHit_flg = false;	 //左
 	m_RightHit_flg = false; //右
 
+	m_Hit_Vec = 0.65f; //反発ベクトル
+
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 4; //静止フレームを初期にする
 	m_LRani_frame = 1; //静止フレームを初期にする
@@ -81,19 +76,19 @@ void CObjHero::Init()
 	m_Grenade_flg = false;
 
 	//所持弾数(装備分)
-	m_hg_pb = HG_E;//ハンドガン現在弾数用(上部表示用)
-	m_sg_pb = SG_E;//ショットガン現在弾数用(上部表示用)
-	m_ar_pb = AR_E;//アサルトライフル現在弾数用(上部表示用)
-	m_sr_pb = SR_E;//スナイパーライフル現在弾数用(上部表示用)
-	m_rl_pb = RL_E;//ロケットランチャー現在弾数用(上部表示用)
-	m_rg_pb = RG_E;//レールガン現在弾数用(上部表示用)	
-		
+	m_hg_pb = 10;//ハンドガン現在弾数用(上部表示用)
+	m_sg_pb = 6;//ショットガン現在弾数用(上部表示用)
+	m_ar_pb = 20;//アサルトライフル現在弾数用(上部表示用)
+	m_sr_pb = 5;//スナイパーライフル現在弾数用(上部表示用)
+	m_rl_pb = 1;//ロケットランチャー現在弾数用(上部表示用)
+	m_rg_pb = 1;//レールガン現在弾数用(上部表示用)
+
 	//所持弾数(計算用)
-	m_sg_pb_c = SG_E;//ショットガン現在弾数用
-	m_ar_pb_c = AR_E;//アサルトライフル現在弾数用
-	m_sr_pb_c = SR_E;//スナイパーライフル現在弾数用
-	m_rl_pb_c = RL_E;//ロケットランチャー現在弾数用
-	m_rg_pb_c = RG_E;//レールガン現在弾数用
+	m_sg_pb_c = 6;//ショットガン現在弾数用
+	m_ar_pb_c = 20;//アサルトライフル現在弾数用
+	m_sr_pb_c = 5;//スナイパーライフル現在弾数用
+	m_rl_pb_c = 1;//ロケットランチャー現在弾数用
+	m_rg_pb_c = 1;//レールガン現在弾数用
 
 	m_sg_pb_cc = 0;//ショットガン現在弾数用
 	m_ar_pb_cc = 0;//アサルトライフル現在弾数用
@@ -102,12 +97,12 @@ void CObjHero::Init()
 	m_rg_pb_cc = 0;//レールガン現在弾数用
 
 	//メニュー表示用
-	m_sg_pb_me = SG_R;//ショットガン
-	m_ar_pb_me = AR_R;//アサルトライフル
-	m_sr_pb_me = SR_R;//スナイパーライフル
-	m_rl_pb_me = RL_R;//ロケットランチャー
-	m_rg_pb_me = RG_R;//レールガン
-	m_gre_pb_me = GRE_R;//グレネード
+	m_sg_pb_me = 60;//ショットガン
+	m_ar_pb_me = 200;//アサルトライフル
+	m_sr_pb_me = 30;//スナイパーライフル
+	m_rl_pb_me = 2;//ロケットランチャー
+	m_rg_pb_me = 1;//レールガン
+	m_gre_pb_me = 3;//グレネード
 
 	//リロード用
 	m_sg_pb_r = 0;//ショットガン
@@ -116,6 +111,16 @@ void CObjHero::Init()
 	m_rl_pb_r = 0;//ロケットランチャー
 	m_rg_pb_r = 0;//レールガン
 	m_gre_pb_r = 0;//グレネード
+
+	//------------------------------------------(未使用)
+	//最大所持弾数
+	m_sg_pb_num = 80; //ショットガン(70)
+	m_ar_pb_num = 300;//アサルトライフル(300)
+	m_sr_pb_num = 50;//スナイパーライフル(50)
+	m_rl_pb_num = 2;//ロケットランチャー(2)
+	m_rg_pb_num = 1;//レールガン(1)
+	m_gre_pb_num = 3;//グレネード(3)
+	//------------------------------------------
 
 	//描画サイズ
 	m_dst_size = 64.0f;
@@ -135,6 +140,8 @@ void CObjHero::Init()
 
 	m_time_dead = 100;
 	
+	Dead_flg = false; //死亡時動き停止フラグ
+
 	//無敵時間
 	m_time_d = 0;
 
@@ -155,17 +162,25 @@ void CObjHero::Action()
 
 	m_speed_power = 0.5f;
 
-	//inputフラグがオンの場合入力を可能にする
-	if (m_inputf == true)
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+	bool MenuKey_flg = Menu->GetMenuKey();
+	
+	//inputフラグがオンの場合、主人公が死亡していない時に入力を可能にする
+	if (m_inputf == true && Dead_flg == false)
 	{
 		//Eキーを押すとメニューを開く
-		if (Input::GetVKey('E') == true)
+		if (MenuKey_flg == true)
 		{
-			Menu_flg = true;
-			//メニューオブジェクト作成
-			CObjMenu* obj_m = new CObjMenu();
-			Objs::InsertObj(obj_m, OBJ_MENU, 21);
-		}		
+			if (Input::GetVKey('E') == true)
+			{				
+				Menu_flg = true; //メニュー表示フラグtrue
+				Menu->SetMenu(Menu_flg); //メニュー表示フラグ設定
+				MenuKey_flg = false; //メニュー制御フラグfalse
+				Menu->SetMenuKey(MenuKey_flg); //メニュー制御フラグ設定
+			}
+		}
 	}
 
 	//位置固定
@@ -298,22 +313,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 30) || r >= 330)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 30 && r < 150)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 150 && r <= 210)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 210 && r < 330)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -334,22 +349,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 45) || r >= 315)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 45 && r < 135)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 135 && r <= 225)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 225 && r < 315)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -370,22 +385,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 45) || r >= 315)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 45 && r < 135)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 135 && r <= 225)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 225 && r < 315)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -405,19 +420,19 @@ void CObjHero::Action()
 						//角度で上下左右を判定
 						if ((r < 89 && r >= 0) || r > 271)
 						{
-							m_vx = -0.65f; //右
+							m_vx = -m_Hit_Vec; //右
 						}
 						if (r > 89 && r < 91)
 						{
-							m_vy = 0.65f;//上
+							m_vy = m_Hit_Vec;//上
 						}
 						if (r > 91 && r < 269)
 						{
-							m_vx = 0.65f;//左
+							m_vx = m_Hit_Vec;//左
 						}
 						if (r > 269 && r < 271)
 						{
-							m_vy = -0.65f; //下
+							m_vy = -m_Hit_Vec; //下
 						}
 					}
 				}
@@ -437,19 +452,19 @@ void CObjHero::Action()
 						//角度で上下左右を判定
 						if ((r < 2 && r >= 0) || r > 358)
 						{
-							m_vx = -0.65f; //右
+							m_vx = -m_Hit_Vec; //右
 						}
 						if (r > 2 && r < 178)
 						{
-							m_vy = 0.65f;//上
+							m_vy = m_Hit_Vec;//上
 						}
 						if (r > 178 && r < 182)
 						{
-							m_vx = 0.65f;//左
+							m_vx = m_Hit_Vec;//左
 						}
 						if (r > 182 && r < 358)
 						{
-							m_vy = -0.65f; //下
+							m_vy = -m_Hit_Vec; //下
 						}
 					}
 				}
@@ -470,22 +485,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 25) || r >= 335)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 25 && r < 155)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 155 && r <= 205)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 205 && r < 335)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -506,22 +521,22 @@ void CObjHero::Action()
 						if ((r > 0 && r < 65) || r >= 295)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 65 && r < 115)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 115 && r <= 245)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 245 && r < 295)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -542,22 +557,59 @@ void CObjHero::Action()
 						if ((r > 0 && r < 65) || r >= 295)
 						{
 							m_RightHit_flg = true; //右
-							m_vx = -0.65f;
+							m_vx = -m_Hit_Vec;
 						}
 						else if (r >= 65 && r < 115)
 						{
 							m_UpHit_flg = true;    //上
-							m_vy = 0.65f;
+							m_vy = m_Hit_Vec;
 						}
 						else if (r >= 115 && r <= 245)
 						{
 							m_LeftHit_flg = true;	 //左
-							m_vx = 0.65f;
+							m_vx = m_Hit_Vec;
 						}
 						else if (r > 245 && r < 295)
 						{
 							m_DownHit_flg = true;	 //下
-							m_vy = -0.65f;
+							m_vy = -m_Hit_Vec;
+						}
+					}
+				}
+			}
+
+			//有刺鉄線の壁(横)
+			if (hit_h->CheckElementHit(ELEMENT_BARBED_S) == true)
+			{
+				//主人公と障害物がどの角度で当たっているか調べる
+				HIT_DATA** hit_data;
+				hit_data = hit_h->SearchElementHit(ELEMENT_BARBED_S);
+				for (int i = 0; i < hit_h->GetCount(); i++)
+				{
+					if (hit_data[i] != nullptr)
+					{
+						float r = hit_data[i]->r;
+
+						//角度で上下左右を判定
+						if ((r > 0 && r < 30) || r >= 330)
+						{
+							m_RightHit_flg = true; //右
+							m_vx = -m_Hit_Vec;
+						}
+						else if (r >= 30 && r < 150)
+						{
+							m_UpHit_flg = true;    //上
+							m_vy = m_Hit_Vec;
+						}
+						else if (r >= 150 && r <= 210)
+						{
+							m_LeftHit_flg = true;	 //左
+							m_vx = m_Hit_Vec;
+						}
+						else if (r > 210 && r < 330)
+						{
+							m_DownHit_flg = true;	 //下
+							m_vy = -m_Hit_Vec;
 						}
 					}
 				}
@@ -957,13 +1009,11 @@ void CObjHero::Action()
 				//弾切れの時に弾切れ効果音を鳴らす
 				if (m_bt == 1)
 				{
-					if ((m_Weapon_switching == 0 || m_Weapon_switching == 1
-						|| m_Weapon_switching == 2 || m_Weapon_switching == 3
-						|| m_Weapon_switching == 4 || m_Weapon_switching == 5) && m_hg_pb <= 0)
+					if (m_Weapon_switching == 0 && m_hg_pb <= 0)
 					{
 						Audio::Start(10);
 					}
-					/*if (m_Weapon_switching == 1 && m_sg_pb <= 0)
+					if (m_Weapon_switching == 1 && m_sg_pb <= 0)
 					{
 						Audio::Start(10);
 					}
@@ -982,7 +1032,7 @@ void CObjHero::Action()
 					if (m_Weapon_switching == 5 && m_rg_pb <= 0)
 					{
 						Audio::Start(10);
-					}*/
+					}
 				}
 			}
 			else
@@ -1003,6 +1053,10 @@ void CObjHero::Action()
 						m_hg_flg = false;
 					}
 				}
+
+			}						
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
 				//ショットガン
 				if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
 				{
@@ -1026,13 +1080,16 @@ void CObjHero::Action()
 							m_sg_pb_cc = m_sg_pb_me; //打った数と全体初期弾数を合わせる							
 							m_sg_pb_me = 0; //全体初期弾数を0にする
 						}
-
+							
 						//計算後 = 現在残り弾数 + 打った数
 						m_sg_pb = m_sg_pb + m_sg_pb_cc;
 						Audio::Start(13);
 						m_sg_flg = false;
 					}
 				}
+			}
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
 				//アサルト
 				if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 				{
@@ -1063,6 +1120,9 @@ void CObjHero::Action()
 						m_ar_flg = false;
 					}
 				}
+			}		
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
 				//スナイパー
 				if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 				{
@@ -1092,7 +1152,10 @@ void CObjHero::Action()
 						Audio::Start(13);
 						m_sr_flg = false;
 					}
-				}
+				}			
+			}			
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
 				//ロケットランチャー
 				if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 				{
@@ -1116,7 +1179,10 @@ void CObjHero::Action()
 						Audio::Start(13);
 						m_rl_flg = false;
 					}
-				}
+				}				
+			}
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
 				//レールガン
 				if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 				{
@@ -1125,7 +1191,7 @@ void CObjHero::Action()
 						//【計算1】
 						//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
 						m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
-
+					
 						//全体初期弾数が打った数より大きいと計算2へ
 						if (m_rg_pb_me > m_ar_pb_cc)
 						{
@@ -1133,14 +1199,15 @@ void CObjHero::Action()
 							//計算後 = 全体初期弾数 - 打った数
 							m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
 						}
-
+						
 						//計算後 = 現在残り弾数 + 打った数
 						m_rg_pb = m_rg_pb + m_rg_pb_cc;
 						Audio::Start(13);
 						m_rg_flg = false;
 					}
 				}
-			}	
+			
+			}
 			else
 			{
 				m_hg_flg = true;
@@ -1155,16 +1222,16 @@ void CObjHero::Action()
 				m_rl_pb_cc = 0;
 				m_rg_pb_cc = 0;
 			}
-						
+			
 			//弾の回復処理
 			//ショットガン
 			if (((UserData*)Save::GetData())->SHG_load > 0)
 			{
 				m_sg_pb_me += ((UserData*)Save::GetData())->SHG_load;
 				//弾を回復した時上限を超えないようにする
-				if (m_sg_pb_me > SG_R)
+				if (m_sg_pb_me > 60)
 				{
-					m_sg_pb_me = SG_R;
+					m_sg_pb_me = 60;
 				}				
 				((UserData*)Save::GetData())->SHG_load = 0; //弾獲得数初期化
 			}
@@ -1173,9 +1240,9 @@ void CObjHero::Action()
 			{
 				m_ar_pb_me += ((UserData*)Save::GetData())->AR_load;
 				//弾を回復した時上限を超えないようにする
-				if (m_ar_pb_me > AR_R)
+				if (m_ar_pb_me > 200)
 				{
-					m_ar_pb_me = AR_R;
+					m_ar_pb_me = 200;
 				}
 				((UserData*)Save::GetData())->AR_load = 0; //弾獲得数初期化
 			}
@@ -1184,9 +1251,9 @@ void CObjHero::Action()
 			{
 				m_sr_pb_me += ((UserData*)Save::GetData())->SR_load;
 				//弾を回復した時上限を超えないようにする
-				if (m_sr_pb_me > SR_R)
+				if (m_sr_pb_me > 30)
 				{
-					m_sr_pb_me = SR_R;
+					m_sr_pb_me = 30;
 				}
 				((UserData*)Save::GetData())->SR_load = 0; //弾獲得数初期化
 			}
@@ -1195,9 +1262,9 @@ void CObjHero::Action()
 			{
 				m_rl_pb_me += ((UserData*)Save::GetData())->RL_load;
 				//弾を回復した時上限を超えないようにする
-				if (m_rl_pb_me > RL_R)
+				if (m_rl_pb_me > 2)
 				{
-					m_rl_pb_me = RL_R;
+					m_rl_pb_me = 2;
 				}
 				((UserData*)Save::GetData())->RL_load = 0; //弾獲得数初期化
 			}
@@ -1206,9 +1273,9 @@ void CObjHero::Action()
 			{
 				m_rg_pb_me += ((UserData*)Save::GetData())->RG_load;
 				//弾を回復した時上限を超えないようにする
-				if (m_rg_pb_me > RG_R)
+				if (m_rg_pb_me > 1)
 				{
-					m_rg_pb_me = RG_R;
+					m_rg_pb_me = 1;
 				}
 				((UserData*)Save::GetData())->RG_load = 0; //弾獲得数初期化
 			}
@@ -1217,9 +1284,9 @@ void CObjHero::Action()
 			{
 				m_gre_pb_me += ((UserData*)Save::GetData())->GRE_load;
 				//グレネードを回復した時上限を超えないようにする
-				if (m_gre_pb_me > GRE_R)
+				if (m_gre_pb_me > 3)
 				{
-					m_gre_pb_me = GRE_R;
+					m_gre_pb_me = 3;
 				}
 				((UserData*)Save::GetData())->GRE_load = 0; //グレネード獲得数初期化
 			}
@@ -1410,6 +1477,30 @@ void CObjHero::Action()
 							m_time_d = 30;		//無敵時間をセット
 						}
 					}
+					//HP、耐久力減少処理
+					//HP
+					if (m_HP_num > 0)
+					{
+						m_hero_hp -= m_HP_num; //HP - HP減少					
+						m_HP_num = 0; //HP減少変数初期化
+					}
+					//耐久力
+					if (m_EN_num > 0)
+					{
+						//耐久力が減少用より多い時
+						if (m_hero_en >= m_EN_num)
+						{
+							m_hero_en -= m_EN_num; //耐久力 - 耐久力減少
+						}
+						//耐久力が減少用より少ない時
+						else if (m_hero_en >= m_EN_num)
+						{
+							m_EN_num -= m_hero_en; //耐久力減少 - 耐久力
+							m_HP_num = m_EN_num; //HP減少にコピー
+						}
+						m_EN_num = 0; //耐久力減少変数初期化
+					}					
+
 					//敵の攻撃によってHPが0以下になった場合
 					if (m_hero_hp <= 0)
 						m_hero_hp = 0;	//HPを0にする
@@ -1429,8 +1520,7 @@ void CObjHero::Action()
 						Hp_flg = true;
 						En_flg = false;
 					}
-				}
-				
+				}			
 			}
 		}
 		if (m_time_d > 0)
@@ -1447,7 +1537,6 @@ void CObjHero::Action()
 			CObjBlood_splash* obj_bs = new CObjBlood_splash(m_x, m_y, m_exp_blood_dst_size);
 			Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 			Audio::Start(15);
-			//m_time_dead = 120;			
 		}
 		
 		if (m_del == true)
@@ -1462,7 +1551,6 @@ void CObjHero::Action()
 			{
 				Scene::SetScene(new CSceneOver());
 				m_time_dead = 0;
-				g_zombie_count_tu = 0; //チュートリアル敵撃破数用
 				Dead_flg = false;
 				this->SetStatus(false); //オブジェクト破棄
 				Hits::DeleteHitBox(this); //主人公が所有するHitBoxを削除する

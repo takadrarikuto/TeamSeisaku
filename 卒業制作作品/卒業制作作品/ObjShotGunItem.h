@@ -18,4 +18,6 @@ private:
 	float m_XHitbox_size; //XY当たり判定サイズ
 	float m_YHitbox_size;
 
+	int m_SG_num_max; //ショットガン回復量
+
 };

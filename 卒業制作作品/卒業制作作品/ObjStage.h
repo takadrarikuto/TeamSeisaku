@@ -79,12 +79,12 @@ private:
 	float m_bvx; //ボス移動ベクトル
 	float m_bvy;
 
+	int WS; //武器切り替え変数取得
+	float hvx; //移動ベクトル
+	float hvy;
+
 	//敵生成頻度
 	int m_Heal_Generation; //回復アイテム生成頻度
-	//int m_Bat_Enemy_Generation; //蝙蝠生成頻度
-	//int m_Frie_Lizard_Generation; //火トカゲ敵生成頻度
-	//int m_Frie_Bird_Generation; //火の鳥敵生成頻度
-	//int m_Sphere_Type_Enemy_Generation; //球体型敵敵生成頻度
 
 	int m_Heal_Item_time_max; //回復アイテム生成タイム最大値
 	int m_Heal_Item_Restriction; //回復アイテム生成数制限

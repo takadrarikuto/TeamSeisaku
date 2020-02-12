@@ -11,25 +11,12 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-bool Menu_flg = false;
-
-//死亡時動き停止フラグ
-bool Dead_flg = false;
-
-//HP ONOFFフラグ
-bool Hp_flg = true;
-
-//耐久力ONOFFフラグ
-bool En_flg = false;
-
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //イニシャライズ
 void CObjMenu::Init()
 {
-	//初期化
+	//初期化	
+	Menu_flg = false; //メニューONOFFフラグ
+
 	choose = 0;
 	m_time = 10;
 	m_and = 1.0f;
@@ -37,6 +24,8 @@ void CObjMenu::Init()
 	m_andf2 = false;
 	//シーン移動フラグ
 	m_Scene_flg = false;
+	//メニューキー制御用フラグ
+	m_key_flag_menu = true;
 }
 
 //アクション
@@ -45,27 +34,45 @@ void CObjMenu::Action()
 	//メニューを出す処理
 	if (Menu_flg == true)
 	{
-		//上キーで上に移動
-		if (Input::GetVKey(VK_UP) == true && choose > 0 && m_time == 0)
+		
+		if (m_time > 0) 
 		{
-			--choose;
-			Audio::Start(1);
-			m_time = 10;
-		}
-		//下キーで下に移動
-		if (Input::GetVKey(VK_DOWN) == true && choose < 1 && m_time == 0)
-		{
-			++choose;
-			Audio::Start(1);
-			m_time = 10;
-		}
-		if (m_time > 0) {
 			m_time--;
-			if (m_time <= 0) {
-				m_time = 0;
+		}
+		else if (m_time <= 0) 
+		{
+			m_time = 0;
+			//上キーで上に移動
+			if (Input::GetVKey(VK_UP) == true)
+			{
+				//周回選択処理
+				if (choose == 1)
+				{
+					--choose;
+				}	
+				else if (choose == 0)
+				{
+					++choose;
+				}
+				Audio::Start(1);
+				m_time = 10;
+			}
+			//下キーで下に移動
+			if (Input::GetVKey(VK_DOWN) == true)
+			{
+				//周回選択処理
+				if (choose == 0)
+				{
+					++choose;
+				}
+				else if (choose == 1)
+				{
+					--choose;
+				}
+				Audio::Start(1);
+				m_time = 10;
 			}
 		}
-
 		//Enterキーで決定
 		if (choose == 0)
 		{
@@ -77,7 +84,6 @@ void CObjMenu::Action()
 					m_andf = true;
 					m_key_flag = false;
 					Audio::Start(2);
-					//g_hero_max_hp = 0;
 				}
 			}
 			else
@@ -92,7 +98,6 @@ void CObjMenu::Action()
 				if (m_key_flag == true)
 				{
 					m_andf2 = true;
-					//g_hero_max_hp = 0;
 					Audio::Start(2);
 					m_key_flag = false;
 				}
@@ -112,11 +117,11 @@ void CObjMenu::Action()
 				m_and = 0.0f;
 				m_andf = false;
 				Menu_flg = false;
-				this->SetStatus(false);		//画像の削除
+				m_key_flag_menu = true;
 			}
 		}
 		//タイトルに戻る処理
-		if (m_andf2 == true)
+		else if (m_andf2 == true)
 		{
 			m_and -= 0.03f;
 			if (m_and <= 0.0f)
@@ -125,28 +130,44 @@ void CObjMenu::Action()
 				m_and = 0.0f;
 				m_andf2 = false;
 				Menu_flg = false;
+				m_key_flag_menu = true;
 				this->SetStatus(false);		//画像の削除
 				Scene::SetScene(new CSceneTitle());
 			}
 		}
-		Audio::Stop(0); //音楽ストップ
+		else if (m_andf == false && m_andf2 == false)
+		{
+			m_and = 1.0f;
+		}
 	}
-	if (Menu_flg == false)
-	{
-		Audio::Start(0); //音楽スタート
-	}
+	
 }
 
 //ドロー
 void CObjMenu::Draw()
 {
+	//主人公情報取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	sg_pb_me = hero->GetSG();	//各残り弾数情報を取得(全体)
-	ar_pb_me = hero->GetAR();
-	sr_pb_me = hero->GetSR();
-	rl_pb_me = hero->GetRL();
-	rg_pb_me = hero->GetRG();
-	gre_pb_me = hero->GetGRE();
+	if (hero != nullptr)
+	{
+		sg_pb_me = hero->GetSG();	//各残り弾数情報を取得(全体)
+		ar_pb_me = hero->GetAR();
+		sr_pb_me = hero->GetSR();
+		rl_pb_me = hero->GetRL();
+		rg_pb_me = hero->GetRG();
+		gre_pb_me = hero->GetGRE();
+	}
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (Tuhero != nullptr)
+	{
+		sg_pb_me = Tuhero->GetSG();	//各残り弾数情報を取得(全体)
+		ar_pb_me = Tuhero->GetAR();
+		sr_pb_me = Tuhero->GetSR();
+		rl_pb_me = Tuhero->GetRL();
+		rg_pb_me = Tuhero->GetRG();
+		gre_pb_me = Tuhero->GetGRE();
+	}
 
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
@@ -319,21 +340,6 @@ void CObjMenu::Draw()
 		Font::StrDraw(str, 125, 440, 25, c);
 		swprintf_s(str, L"決定：Enterキー", 15);
 		Font::StrDraw(str, 125, 480, 25, c);
-
-		//操作説明メニュー用
-		////切り取り位置の設定
-		//src.m_top = 75.0f;
-		//src.m_left = 0.0f;
-		//src.m_right = 800.0f;
-		//src.m_bottom = 490.0f;
-
-		////表示位置の設定
-		//dst.m_top = 415.0f;
-		//dst.m_left = 75.0f;
-		//dst.m_right = 375.0f;
-		//dst.m_bottom = 565.0f;
-		////0番目に登録したグラフィックをsrc・dst・ｃの情報を元に描写
-		//Draw::Draw(33, &src, &dst, c, 0.0f);
 
 		//-------------------------------------------------------------------
 

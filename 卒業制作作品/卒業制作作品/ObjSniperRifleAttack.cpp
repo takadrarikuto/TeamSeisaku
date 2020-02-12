@@ -10,9 +10,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjSniperRifleAttack::CObjSniperRifleAttack(float x, float y, float vx, float vy, float r)
 {
@@ -30,6 +27,10 @@ CObjSniperRifleAttack::CObjSniperRifleAttack(float x, float y, float vx, float v
 void CObjSniperRifleAttack::Init()
 {
 //初期化
+	//主人公位置取得用
+	hy = 0.0f;
+	hx = 0.0f;
+
 	//削除距離最大値
 	m_Distance_max = 4;
 
@@ -53,6 +54,10 @@ void CObjSniperRifleAttack::Init()
 //アクション
 void CObjSniperRifleAttack::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false)
 	{
@@ -63,6 +68,8 @@ void CObjSniperRifleAttack::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
 
 	//HitBoxの内容を更新 
 	CHitBox* hit_sr = Hits::GetHitBox(this); //当たり判定情報取得
@@ -75,10 +82,12 @@ void CObjSniperRifleAttack::Action()
 		hit_sr->SetPos(m_SRx - 10.0f, m_SRy + 10.0f); //当たり判定の位置更新
 	}
 
+	//主人公、チュートリアル主人公のどちらかが生成されている時
+	//主人公用
 	if (hero != nullptr)
 	{
-		float hx = hero->GetX();
-		float hy = hero->GetY();
+		hx = hero->GetX();
+		hy = hero->GetY();
 
 		//主人公から離れるor画面端に行くとオブジェクト削除
 		if (m_SRx < hx - 64 * m_Distance_max)
@@ -98,10 +107,33 @@ void CObjSniperRifleAttack::Action()
 			m_HitBox_Delete = true;
 		}
 	}
+	//チュートリアル主人公用
+	if (Tuhero != nullptr)
+	{
+		hx = Tuhero->GetX();
+		hy = Tuhero->GetY();
+
+		//主人公から離れるor画面端に行くとオブジェクト削除
+		if (m_SRx < hx - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_SRx > hx + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		if (m_SRy < hy - 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+		else if (m_SRy > hy + 32 + 64 * m_Distance_max)
+		{
+			m_HitBox_Delete = true;
+		}
+	}	
 
 	//壁オブジェクトと接触するとオブジェクト破棄
 	if (hit_sr->CheckElementHit(ELEMENT_WALL) == true || hit_sr->CheckElementHit(ELEMENT_WALL2) == true
-		|| hit_sr->CheckElementHit(ELEMENT_NET_S) == true || hit_sr->CheckElementHit(ELEMENT_NET_V) == true
 		|| hit_sr->CheckElementHit(ELEMENT_BARBED_V) == true)
 	{
 		m_HitBox_Delete = true;

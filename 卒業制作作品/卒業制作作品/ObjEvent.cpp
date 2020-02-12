@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//イベント失敗フラグ
-bool m_EveMiss_flg = false;
-
-//イベント成功フラグ
-bool m_EveSuccess_flg = false;
-
 //イニシャライズ
 void CObjEvent::Init()
 {
@@ -43,7 +34,9 @@ void CObjEvent::Init()
 	m_EventPenalty_Meme_flg = false;
 	//イベント指示表示タイム
 	m_Event_Instruction_time = 0;  
-
+	
+	m_EveSuccess_flg = false; //イベント成功フラグ
+	m_EveMiss_flg = false; //イベント失敗フラグ
 }
 
 //アクション
@@ -64,6 +57,10 @@ void CObjEvent::Action()
 	bool END_flg = time->GetENDFlg();
 	bool MND_flg = time->GetMNDFlg();
 	bool Rep_flg = time->GetRepFlg();
+
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
 
 	//ツールボックス情報取得
 	CObjToolBox* Tool = (CObjToolBox*)Objs::GetObj(OBJ_TOOLBOX);
@@ -114,7 +111,6 @@ void CObjEvent::Action()
 			{
 				m_Event_time = 5450; //5450 ＝ 90秒
 				m_App_Rand_Flg = rand() % 101; //装置故障イベント時の装置ランダム選択
-				m_App_Rand_Flg = 10;
 				if (m_App_Rand_Flg == 0)
 				{
 					m_App_Rand_Flg = 1; //装置故障イベント時の装置ランダム選択が0のままになった時1にする

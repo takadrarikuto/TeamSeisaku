@@ -27,7 +27,7 @@ void CObjBarbedWire::Init()
 	m_YHitbox_size = 72;
 
 	//当たり判定用HitBoxを作成
-	Hits::SetHitBox(this, m_Barbedx, m_Barbedy, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_BARBED_WIRE, 7);
+	Hits::SetHitBox(this, m_Barbedx, m_Barbedy, m_XHitbox_size, m_YHitbox_size, ELEMENT_BARBED_S, OBJ_BARBED_WIRE, 7);
 }
 
 //アクション
@@ -35,8 +35,13 @@ void CObjBarbedWire::Action()
 {
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX();
-	float hvy = hero->GetVY();
+	float hvx;
+	float hvy;
+	if (hero != nullptr)
+	{
+		hvx = hero->GetVX();
+		hvy = hero->GetVY();
+	}	
 
 	//主人公の移動に合わせる
 	m_Barbedx -= hvx;

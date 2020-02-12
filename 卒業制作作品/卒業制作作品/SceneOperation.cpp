@@ -41,9 +41,6 @@ void CSceneOperation::InitScene()
 	
 	//音楽情報の読み込み
 	Audio::LoadAudio(0, L"決定音.wav", EFFECT);
-
-	//バックミュージックスタート
-	//float Volume = Audio::VolumeMaster(0.5);
 	
 }
 
