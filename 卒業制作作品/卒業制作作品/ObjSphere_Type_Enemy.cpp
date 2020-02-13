@@ -116,13 +116,14 @@ void CObjSphere_Type_Enemy::Action()
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
 	{
+		m_st_evx = 0.0f; //x移動ベクトル初期化
+		m_st_evy = 0.0f; //y移動ベクトル初期化
 		m_move_time += 1; //移動方向確認タイム進行
 
 		//移動処理
 		//上下移動開始
 		if (m_move_time < Y_Move)
-		{
-			m_st_evx = 0.0f;
+		{		
 			//主人公が上に居ると上に移動
 			if (hy < m_st_ey)
 			{
@@ -136,8 +137,7 @@ void CObjSphere_Type_Enemy::Action()
 		}
 		//左右移動開始
 		else if (m_move_time >= Y_Move && m_move_time < X_Move)
-		{
-			m_st_evy = 0.0f;
+		{			
 			//主人公が左に居ると左に移動
 			if (hx < m_st_ex)
 			{
@@ -152,37 +152,6 @@ void CObjSphere_Type_Enemy::Action()
 		else if (m_move_time == X_Move)
 		{
 			m_move_time = 0; //移動方向確認タイム初期化
-		}
-
-		//xの座標が主人公と一緒の時
-		if (hx == m_st_ex)
-		{
-			m_st_evx = 0.0f;
-			//主人公が上に居ると上に移動
-			if (hy < m_st_ey)
-			{
-				m_st_evy = -m_st_ev_max;
-			}
-			//主人公が下に居ると下移動
-			else if (hy > m_st_ey)
-			{
-				m_st_evy = m_st_ev_max;
-			}
-		}
-		//yの座標が主人公と一緒の時
-		else if (hy == m_st_ey)
-		{
-			m_st_evy = 0.0f;
-			//主人公が左に居ると左に移動
-			if (hx < m_st_ex)
-			{
-				m_st_evx = -m_st_ev_max;
-			}
-			//主人公が右に居ると右に移動
-			else if (hx > m_st_ex)
-			{
-				m_st_evx = m_st_ev_max;
-			}
 		}
 
 		//位置更新

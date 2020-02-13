@@ -25,6 +25,10 @@ void CObjMeme_Medium_Boss::Init()
 	//移動ベクトル
 	m_mmbvx = 0.0f;
 	m_mmbvy = 0.0f;
+
+	//移動方向確認タイム
+	m_move_time = 0;
+
 	//体力
 	m_hero_hp = 1;
 
@@ -85,35 +89,15 @@ void CObjMeme_Medium_Boss::Action()
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
 	{
+		m_mmbvx = 0.0f; //x移動ベクトル初期化
+		m_mmbvy = 0.0f; //y移動ベクトル初期化
+		m_ani_time += 1; //アニメーション進行	
+		m_move_time += 1; //移動方向確認タイム進行
+
 		//移動処理
-		//主人公が上に居ると上に移動
-		if (hy < m_mmby)
-		{
-			m_mmbvy = -m_mmbv_max;
-			m_ani_time += 1;
-		}
-		//主人公が下に居ると下移動
-		else if (hy > m_mmby)
-		{
-			m_mmbvy = m_mmbv_max;
-			m_ani_time += 1;
-		}
-		//主人公が左に居ると左に移動
-		if (hx < m_mmbx)
-		{
-			m_mmbvx = -m_mmbv_max;
-			m_ani_time += 1;
-		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_mmbx)
-		{
-			m_mmbvx = m_mmbv_max;
-			m_ani_time += 1;
-		}
-		if (hx == m_mmbx)
-		{
-			m_mmbvx = 0.0f;
-			m_ani_time += 1;
+		//上下移動開始
+		if (m_move_time < Y_Move)
+		{			
 			//主人公が上に居ると上に移動
 			if (hy < m_mmby)
 			{
@@ -125,10 +109,9 @@ void CObjMeme_Medium_Boss::Action()
 				m_mmbvy = m_mmbv_max;
 			}
 		}
-		else if (hy == m_mmby)
-		{
-			m_mmbvy = 0.0f;
-			m_ani_time += 1;
+		//左右移動開始
+		else if (m_move_time >= Y_Move && m_move_time < X_Move)
+		{			
 			//主人公が左に居ると左に移動
 			if (hx < m_mmbx)
 			{
@@ -140,21 +123,9 @@ void CObjMeme_Medium_Boss::Action()
 				m_mmbvx = m_mmbv_max;
 			}
 		}
-
-		//斜め移動修正処理
-		float r = 0.0f;
-		r = m_mmbvx * m_mmbvx + m_mmbvy * m_mmbvy;
-		r = sqrt(r); //ルートを求める
-
-		//斜めベクトルを求める
-		if (r == 0.0f)
+		else if (m_move_time == X_Move)
 		{
-			; //0なら何もしない
-		}
-		else
-		{
-			m_mmbvx = m_mmbv_max / r * m_mmbvx;
-			m_mmbvy = m_mmbv_max / r * m_mmbvy;
+			m_move_time = 0; //移動方向確認タイム初期化
 		}
 
 		//位置更新
