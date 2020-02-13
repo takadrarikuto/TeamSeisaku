@@ -148,7 +148,13 @@ struct UserData
 #define HitBox_V 0.15
 
 //HitBoxFlg初期化タイム
-#define HitBoxFlg_TIME 20; 
+#define HitBoxFlg_TIME 1; 
+
+//移動確認タイム
+//x軸
+#define X_Move 60
+//y軸
+#define Y_Move 30
 
 //------------------------------------------------
 //ゲーム内で使用するクラスヘッダ------------------

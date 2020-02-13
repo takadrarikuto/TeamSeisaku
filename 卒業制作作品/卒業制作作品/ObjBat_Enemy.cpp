@@ -27,6 +27,9 @@ void CObjBat_Enemy::Init()
 	m_bevx = 0.0f;
 	m_bevy = 0.0f;
 
+	//移動方向確認タイム
+	m_move_time = 0;
+
 	//体力
 	m_hero_hp = 10;
 
@@ -103,41 +106,16 @@ void CObjBat_Enemy::Action()
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
-	{
-		//移動処理	
-		m_ani_time += 1;
-		//主人公が上に居ると上に移動
-		if (hy < m_bey)
-		{
-			m_bevy = -m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 0;
-		}
-		//主人公が下に居ると下移動
-		else if (hy > m_bey)
-		{
-			m_bevy = m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 2;
-		}
-		//主人公が左に居ると左に移動
-		if (hx < m_bex)
-		{
-			m_bevx = -m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 3;
-		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_bex)
-		{
-			m_bevx = m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 1;
-		}
-		if (hx == m_bex)
-		{
-			m_bevx = 0.0f;
-			m_ani_time += 1;
+	{	
+		m_bevx = 0.0f; //x移動ベクトル初期化
+		m_bevy = 0.0f; //y移動ベクトル初期化
+		m_ani_time += 1; //アニメーション進行	
+		m_move_time += 1; //移動方向確認タイム進行
+
+		//移動処理
+		//上下移動開始
+		if (m_move_time < Y_Move)
+		{			
 			//主人公が上に居ると上に移動
 			if (hy < m_bey)
 			{
@@ -151,10 +129,9 @@ void CObjBat_Enemy::Action()
 				m_UDani_frame = 2;
 			}
 		}
-		else if (hy == m_bey)
-		{
-			m_bevy = 0.0f;
-			m_ani_time += 1;
+		//左右移動開始
+		else if (m_move_time >= Y_Move && m_move_time < X_Move)
+		{			
 			//主人公が左に居ると左に移動
 			if (hx < m_bex)
 			{
@@ -168,22 +145,11 @@ void CObjBat_Enemy::Action()
 				m_UDani_frame = 1;
 			}
 		}
-
-		//斜め移動修正処理
-		float r = 0.0f;
-		r = m_bevy * m_bevy + m_bevx * m_bevx;
-		r = sqrt(r); //ルートを求める
-
-		//斜めベクトルを求める
-		if (r == 0.0f)
+		else if (m_move_time == X_Move)
 		{
-			; //0なら何もしない
+			m_move_time = 0; //移動方向確認タイム初期化
 		}
-		else
-		{
-			m_bevx = m_bev_max / r * m_bevx;
-			m_bevy = m_bev_max / r * m_bevy;
-		}
+
 		//位置更新
 		//主人公の移動を適応する
 		m_bex += (-hvx) + m_bevx;

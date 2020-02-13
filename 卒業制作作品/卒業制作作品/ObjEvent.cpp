@@ -111,7 +111,6 @@ void CObjEvent::Action()
 			{
 				m_Event_time = 5450; //5450 ＝ 90秒
 				m_App_Rand_Flg = rand() % 101; //装置故障イベント時の装置ランダム選択
-				m_App_Rand_Flg = 10;
 				if (m_App_Rand_Flg == 0)
 				{
 					m_App_Rand_Flg = 1; //装置故障イベント時の装置ランダム選択が0のままになった時1にする

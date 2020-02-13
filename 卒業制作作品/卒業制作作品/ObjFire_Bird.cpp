@@ -27,6 +27,9 @@ void CObjFire_Bird::Init()
 	m_fbvx = 0.0f;
 	m_fbvy = 0.0f;
 
+	//移動方向確認タイム
+	m_move_time = 0;
+
 	//体力
 	m_hero_hp = 1;
 
@@ -121,43 +124,17 @@ void CObjFire_Bird::Action()
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
-	{
-		//死亡タイム更新
-		m_fb_death_time++;
+	{		
+		m_fbvx = 0.0f; //x移動ベクトル初期化
+		m_fbvy = 0.0f; //y移動ベクトル初期化
+		m_fb_death_time++; //死亡タイム更新
+		m_ani_time += 1; //アニメーション進行	
+		m_move_time += 1; //移動方向確認タイム進行
 
 		//移動処理
-		//主人公が上に居ると上に移動
-		if (hy < m_fby)
-		{
-			m_fbvy = -m_fbv_max;
-			m_ani_time += 1;
-			m_UDani_frame = 0;
-		}
-		//主人公が下に居ると下移動
-		else if (hy > m_fby)
-		{
-			m_fbvy = m_fbv_max;
-			m_ani_time += 1;
-			m_UDani_frame = 2;
-		}
-		//主人公が左に居ると左に移動
-		if (hx < m_fbx)
-		{
-			m_fbvx = -m_fbv_max;
-			m_ani_time += 1;
-			m_UDani_frame = 3;
-		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_fbx)
-		{
-			m_fbvx = m_fbv_max;
-			m_ani_time += 1;			
-			m_UDani_frame = 1;
-		}
-		if (hx == m_fbx)
-		{
-			m_fbvx = 0.0f;
-			m_ani_time += 1;
+		//上下移動開始
+		if (m_move_time < Y_Move)
+		{			
 			//主人公が上に居ると上に移動
 			if (hy < m_fby)
 			{
@@ -171,10 +148,9 @@ void CObjFire_Bird::Action()
 				m_UDani_frame = 2;
 			}
 		}
-		else if (hy == m_fby)
-		{
-			m_fbvy = 0.0f;
-			m_ani_time += 1;
+		//左右移動開始
+		else if (m_move_time >= Y_Move && m_move_time < X_Move)
+		{			
 			//主人公が左に居ると左に移動
 			if (hx < m_fbx)
 			{
@@ -184,25 +160,13 @@ void CObjFire_Bird::Action()
 			//主人公が右に居ると右に移動
 			else if (hx > m_fbx)
 			{
-				m_fbvx = m_fbv_max;				
+				m_fbvx = m_fbv_max;
 				m_UDani_frame = 1;
 			}
 		}
-
-		//斜め移動修正処理
-		float r = 0.0f;
-		r = m_fbvx * m_fbvx + m_fbvy * m_fbvy;
-		r = sqrt(r); //ルートを求める
-
-		//斜めベクトルを求める
-		if (r == 0.0f)
+		else if (m_move_time == X_Move)
 		{
-			; //0なら何もしない
-		}
-		else
-		{
-			m_fbvx = m_fbv_max / r * m_fbvx;
-			m_fbvy = m_fbv_max / r * m_fbvy;
+			m_move_time = 0; //移動方向確認タイム初期化
 		}
 
 		//位置更新

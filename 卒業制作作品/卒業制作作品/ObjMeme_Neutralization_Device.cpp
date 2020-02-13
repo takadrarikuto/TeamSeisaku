@@ -125,7 +125,7 @@ void CObjMeme_Neutralization_Device::Draw()
 {
 	//タイム情報取得
 	CObjTime* time = (CObjTime*)Objs::GetObj(OBJ_TIME);
-	bool END = time->GetENDFlg();
+	bool END = time->GetMNDFlg();
 
 	//イベント情報取得 
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);

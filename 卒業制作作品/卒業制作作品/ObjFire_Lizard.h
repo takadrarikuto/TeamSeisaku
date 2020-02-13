@@ -38,6 +38,8 @@ private:
 
 	int m_HitBoxFlg_time; //HitBoxFlg初期化タイム
 
+	int m_move_time; //移動方向確認タイム
+
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上
 	bool m_DownHit_flg;	 //下

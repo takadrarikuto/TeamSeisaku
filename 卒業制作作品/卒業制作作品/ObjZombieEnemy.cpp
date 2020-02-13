@@ -33,11 +33,21 @@ void CObjZombieEnemy::Init()
 	m_zevx = 0.0f;
 	m_zevy = 0.0f;
 
+	//移動方向確認タイム
+	m_move_time = 0; 
+
 	//体力
 	m_ze_hp = 50; 
 
-	//移動ベクトル最大値
-	m_zev_max = 0.0f;
+	if (m_ani_frame_flg == true)
+	{
+		m_zev_max = 1.5f;
+	}
+	//直立状態
+	else if (m_ani_frame_flg == false)
+	{
+		m_zev_max = 2.0f;
+	}
 
 	m_ani_time = 0; //アニメーションフレーム動作間隔
 	m_UDani_frame = 2; //静止フレームを初期にする
@@ -105,102 +115,55 @@ void CObjZombieEnemy::Action()
 		EXPDamage = EXPAttack->GetEXP();
 	}
 
-	if (m_ani_frame_flg == true)
-	{
-		m_zev_max = 1.5f;
-	}
-	//直立状態
-	else if (m_ani_frame_flg == false)
-	{
-		m_zev_max = 2.0f;
-	}
-
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
 	{		
-		m_ani_time += 1; //アニメーション進行		
+		m_zevx = 0.0f; //x移動ベクトル初期化
+		m_zevy = 0.0f; //y移動ベクトル初期化
+		m_ani_time += 1; //アニメーション進行	
+		m_move_time += 1; //移動方向確認タイム進行
+		
 		//移動処理
-		//主人公が上に居ると上に移動
-		if (hy < m_zey)
-		{
-			if (m_UpHit_flg == false) //上にオブジェクトがない時
-				m_zevy = -m_zev_max;
-			m_UDani_frame = 6;
-		}
-		//主人公が下に居ると下移動
-		else if (hy > m_zey)
-		{
-			if (m_DownHit_flg == false)  //下にオブジェクトがない時
-				m_zevy = m_zev_max;
-			m_UDani_frame = 2;
-		}
-		//主人公が左に居ると左に移動
-		if (hx < m_zex)
-		{
-			if (m_LeftHit_flg == false)  //左にオブジェクトがない時
-				m_zevx = -m_zev_max;
-			m_UDani_frame = 0;
-		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_zex)
-		{
-			if (m_RightHit_flg == false)  //右にオブジェクトがない時
-				m_zevx = m_zev_max;
-			m_UDani_frame = 4;
-		}		
-
-		if (hx == m_zex)
-		{
-			m_zevx = 0.0f;
+		//上下移動開始
+		if (m_move_time < Y_Move)
+		{		
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
-				if (m_UpHit_flg == false)  //上にオブジェクトがない時		
+				if (m_UpHit_flg == false) //上にオブジェクトがない時
 					m_zevy = -m_zev_max;
-				m_UDani_frame = 6;
+				m_UDani_frame = 2;
 			}
 			//主人公が下に居ると下移動
 			else if (hy > m_zey)
 			{
-				if (m_DownHit_flg == false)	//下にオブジェクトがない時		
+				if (m_DownHit_flg == false)  //下にオブジェクトがない時
 					m_zevy = m_zev_max;				
-				m_UDani_frame = 2;
+				m_UDani_frame = 6;
 			}
 		}
-		else if (hy == m_zey)
+		//左右移動開始
+		else if (m_move_time >= Y_Move && m_move_time < X_Move)
 		{
-			m_zevy = 0.0f;
 			//主人公が左に居ると左に移動
 			if (hx < m_zex)
 			{
-				if (m_LeftHit_flg == false)  //左にオブジェクトがない時		
-					m_zevx = -m_zev_max;				
-				m_UDani_frame = 0;
+				if (m_LeftHit_flg == false)  //左にオブジェクトがない時
+					m_zevx = -m_zev_max;
+				m_UDani_frame = 4;
 			}
 			//主人公が右に居ると右に移動
 			else if (hx > m_zex)
 			{
-				if (m_RightHit_flg == false)  //右にオブジェクトがない時		
+				if (m_RightHit_flg == false)  //右にオブジェクトがない時
 					m_zevx = m_zev_max;				
-				m_UDani_frame = 4;
+				m_UDani_frame = 0;
 			}
 		}		
-		
-		//斜め移動修正処理
-		float r = 0.0f;
-		r = m_zevx * m_zevx + m_zevy * m_zevy;
-		r = sqrt(r); //ルートを求める
-
-		//斜めベクトルを求める
-		if (r == 0.0f)
+		else if (m_move_time == X_Move)
 		{
-			; //0なら何もしない
-		}
-		else
-		{
-			m_zevx = m_zev_max / r * m_zevx;
-			m_zevy = m_zev_max / r * m_zevy;
-		}
+			m_move_time = 0; //移動方向確認タイム初期化
+		}				
 
 		//位置更新
 		//主人公の移動を適応する
