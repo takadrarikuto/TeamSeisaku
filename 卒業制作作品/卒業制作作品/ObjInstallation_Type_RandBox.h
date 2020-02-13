@@ -27,8 +27,12 @@ private:
 	float m_IT_Rand_Box_vx; //位置更新
 	float m_IT_Rand_Box_vy;
 
+	int m_Font_time; //フォント表示タイム
+
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;
+
+
 
 	bool m_Replenishment_flg; //補充フラグ
 	int m_Replenishment_time; //再補充タイム

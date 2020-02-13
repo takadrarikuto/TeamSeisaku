@@ -49,13 +49,6 @@ void CObjWall::Action()
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_exp->SetPos(m_Wallx + 1, m_Wally + 1); //当たり判定の位置更新
 
-	/*if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
-	{
-		hero->SetHP(100);
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
-	}*/
-
 }
 
 //ドロー

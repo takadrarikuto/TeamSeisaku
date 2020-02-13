@@ -11,9 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjBat_Enemy::CObjBat_Enemy(float bex, float bey)
 {
@@ -29,6 +26,9 @@ void CObjBat_Enemy::Init()
 	//移動ベクトル
 	m_bevx = 0.0f;
 	m_bevy = 0.0f;
+
+	//移動方向確認タイム
+	m_move_time = 0;
 
 	//体力
 	m_hero_hp = 10;
@@ -89,6 +89,10 @@ void CObjBat_Enemy::Action()
 	CObjEvent* Event = (CObjEvent*)Objs::GetObj(OBJ_EVENT);
 	int Eve_Ins = Event->GetEveIns();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//アイテムドロップ情報取得
 	CObjAitemDrop* AitemDrop = (CObjAitemDrop*)Objs::GetObj(OBJ_AITEMDROP);
 
@@ -102,41 +106,14 @@ void CObjBat_Enemy::Action()
 
 	//メニューを開く、イベント情報表示中は行動停止
 	if (Menu_flg == false && Eve_Ins == 0)
-	{
-		//移動処理	
-		m_ani_time += 1;
-		//主人公が上に居ると上に移動
-		if (hy < m_bey)
+	{	
+		m_ani_time += 1; //アニメーション進行	
+		m_move_time += 1; //移動方向確認タイム進行
+
+		//移動処理
+		//上下移動開始
+		if (m_move_time < Y_Move)
 		{
-			m_bevy = -m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 0;
-		}
-		//主人公が下に居ると下移動
-		else if (hy > m_bey)
-		{
-			m_bevy = m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 2;
-		}
-		//主人公が左に居ると左に移動
-		if (hx < m_bex)
-		{
-			m_bevx = -m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 3;
-		}
-		//主人公が右に居ると右に移動
-		else if (hx > m_bex)
-		{
-			m_bevx = m_bev_max;
-			m_ani_time += 1;
-			m_UDani_frame = 1;
-		}
-		if (hx == m_bex)
-		{
-			m_bevx = 0.0f;
-			m_ani_time += 1;
 			//主人公が上に居ると上に移動
 			if (hy < m_bey)
 			{
@@ -150,10 +127,48 @@ void CObjBat_Enemy::Action()
 				m_UDani_frame = 2;
 			}
 		}
+		//左右移動開始
+		else if (m_move_time >= Y_Move && m_move_time < X_Move)
+		{
+			//主人公が左に居ると左に移動
+			if (hx < m_bex)
+			{
+				m_bevx = -m_bev_max;
+				m_UDani_frame = 3;
+			}
+			//主人公が右に居ると右に移動
+			else if (hx > m_bex)
+			{
+				m_bevx = m_bev_max;
+				m_UDani_frame = 1;
+			}
+		}
+		else if (m_move_time == X_Move)
+		{
+			m_move_time = 0; //移動方向確認タイム初期化
+		}
+
+		//xの座標が主人公と一緒の時
+		if (hx == m_bex)
+		{
+			m_bevx = 0.0f;
+			//主人公が上に居ると上に移動
+			if (hy < m_bey)
+			{
+				m_bevy = -m_bev_max;
+				m_UDani_frame = 0;
+			}
+			//主人公が下に居ると下移動
+			else if (hy > m_bey)
+			{
+				m_bevy = m_bev_max;
+				m_UDani_frame = 2;
+			}
+		}
+		//yの座標が主人公と一緒の時
 		else if (hy == m_bey)
 		{
 			m_bevy = 0.0f;
-			m_ani_time += 1;
 			//主人公が左に居ると左に移動
 			if (hx < m_bex)
 			{
@@ -168,21 +183,6 @@ void CObjBat_Enemy::Action()
 			}
 		}
 
-		//斜め移動修正処理
-		float r = 0.0f;
-		r = m_bevy * m_bevy + m_bevx * m_bevx;
-		r = sqrt(r); //ルートを求める
-
-		//斜めベクトルを求める
-		if (r == 0.0f)
-		{
-			; //0なら何もしない
-		}
-		else
-		{
-			m_bevx = m_bev_max / r * m_bevx;
-			m_bevy = m_bev_max / r * m_bevy;
-		}
 		//位置更新
 		//主人公の移動を適応する
 		m_bex += (-hvx) + m_bevx;
@@ -291,7 +291,7 @@ void CObjBat_Enemy::Action()
 		if (hit_be->CheckObjNameHit(OBJ_GUNATTACK) != nullptr)
 		{
 			m_hero_hp -= Gun_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ショットガン
 		else if (hit_be->CheckObjNameHit(OBJ_SHOTGUNATTACK) != nullptr)
@@ -303,25 +303,25 @@ void CObjBat_Enemy::Action()
 		else if (hit_be->CheckObjNameHit(OBJ_ARATTACK) != nullptr)
 		{
 			m_hero_hp -= AR_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//スナイパーライフル
 		else if (hit_be->CheckObjNameHit(OBJ_SNIPERRIFLEATTACK) != nullptr)
 		{
 			m_hero_hp -= SR_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//ロケットランチャー
 		else if (hit_be->CheckObjNameHit(OBJ_ROCKETLAUNCHERATTACK) != nullptr)
 		{
 			m_hero_hp -= RL_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//レールガン
 		else if (hit_be->CheckObjNameHit(OBJ_RAILGUNATTACK) != nullptr)
 		{
 			m_hero_hp -= RG_Attack;
-			m_time_d = TIME_D;		//点滅時間をセット
+			m_time_d = 1;		//点滅時間をセット
 		}
 		//爆発
 		else if (hit_be->CheckObjNameHit(OBJ_EXPLOSION) != nullptr)

@@ -11,15 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
-//死亡時動き停止フラグ
-extern bool Dead_flg;
-
-//チュートリアルONOFFフラグ
-extern bool Tuto_flg;
-
 //コンストラクタ
 CObjTutoHero::CObjTutoHero(float x, float y)
 {
@@ -40,7 +31,7 @@ void CObjTutoHero::Init()
 	m_vy = 0.0f;
 
 	//体力
-	m_hero_hp = 100;
+	m_hero_hp = 200;
 
 	//耐久力
 	m_hero_en = 0;
@@ -113,10 +104,27 @@ void CObjTutoHero::Init()
 	m_rg_pb_r = 0;//レールガン
 	m_gre_pb_r = 0;//グレネード
 
+	//------------------------------------------(未使用)
+	//最大所持弾数
+	m_sg_pb_num = 80; //ショットガン(70)
+	m_ar_pb_num = 300;//アサルトライフル(300)
+	m_sr_pb_num = 50;//スナイパーライフル(50)
+	m_rl_pb_num = 2;//ロケットランチャー(2)
+	m_rg_pb_num = 1;//レールガン(1)
+	m_gre_pb_num = 3;//グレネード(3)
+	//------------------------------------------
+
 	//描画サイズ
 	m_dst_size = 64.0f;
 	//当たり判定サイズ
 	Hitbox_size = 64;
+	//爆発用描画サイズ
+	m_exp_blood_dst_size = 64;
+
+	m_speed_power = 0.5f;//通常速度
+
+	//無敵時間
+	m_time_d = 0;
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_x, m_y, Hitbox_size, Hitbox_size, ELEMENT_PLAYER, OBJ_TUTO_HERO, 8);
@@ -125,6 +133,10 @@ void CObjTutoHero::Init()
 //アクション
 void CObjTutoHero::Action()
 {
+	//チュートリアル情報取得
+	CObjTutorial* Tuto = (CObjTutorial*)Objs::GetObj(OBJ_TUTORIAL);
+	bool Tuto_flg = Tuto->GetTuto_flg();
+
 	m_speed_power = 0.5f;
 
 	//位置固定
@@ -183,6 +195,15 @@ void CObjTutoHero::Action()
 			m_ani_time = 0.0f;
 			m_LRani_frame = 0;
 		}
+	}
+	else
+	{
+		//位置固定
+		m_x = 368.0f;
+		m_y = 268.0f;
+		//移動停止
+		m_vx = 0.0f;
+		m_vy = 0.0f;
 	}
 
 	//足跡生成処理
@@ -357,28 +378,28 @@ void CObjTutoHero::Action()
 			{
 				//グレネードオブジェクト作成
 				CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y - 10, 0, -m_ga_vy_max);
-				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 			}
 			//右
 			else if (m_UDani_frame == 2)
 			{
 				//グレネードオブジェクト作成
 				CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 32, m_y + 30, m_ga_vx_max, 0);
-				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 			}
 			//下
 			else if (m_UDani_frame == 4)
 			{
 				//グレネードオブジェクト作成
 				CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x + 24, m_y + 32, 0, m_ga_vy_max);
-				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 			}
 			//左
 			else if (m_UDani_frame == 6)
 			{
 				//グレネードオブジェクト作成
 				CObjGrenadeAttack* obj_gre = new CObjGrenadeAttack(m_x, m_y + 30, -m_ga_vx_max, 0);
-				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 3);
+				Objs::InsertObj(obj_gre, OBJ_GRENADEATTACK, 7);
 			}
 			m_Grenade_flg = false;
 		}
@@ -403,28 +424,28 @@ void CObjTutoHero::Action()
 				{
 					//ハンドガンアタックオブジェクト作成
 					CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 0.0f);
-					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//ハンドガンアタックオブジェクト作成
 					CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//ハンドガンアタックオブジェクト作成
 					CObjGunAttack* obj_ga = new CObjGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 180.0f);
-					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//ハンドガンアタックオブジェクト作成
 					CObjGunAttack* obj_ga = new CObjGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 3);
+					Objs::InsertObj(obj_ga, OBJ_GUNATTACK, 5);
 				}
 				Audio::Start(3);
 			}
@@ -447,44 +468,44 @@ void CObjTutoHero::Action()
 				{
 					//ショットガンアタックオブジェクト作成
 					CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, -m_ga_vx_max / 3, -m_ga_vy_max, 150.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 180.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x + 14, m_y - 10, m_ga_vx_max / 3, -m_ga_vy_max, 210.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//ショットガンアタックオブジェクト作成
 					CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, -m_ga_vy_max / 3, 60.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x + 32, m_y + 20, m_ga_vx_max, m_ga_vy_max / 3, 120.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//ショットガンアタックオブジェクト作成
 					CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, -m_ga_vx_max / 3, m_ga_vy_max, -30.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 0.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x + 16, m_y + 32, m_ga_vx_max / 3, m_ga_vy_max, 30.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//ショットガンアタックオブジェクト作成
 					CObjShotGunAttack* obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, m_ga_vy_max / 3, 240.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 					obj_sga = new CObjShotGunAttack(m_x, m_y + 20, -m_ga_vx_max, -m_ga_vy_max / 3, 300.0f);
-					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 3);
+					Objs::InsertObj(obj_sga, OBJ_SHOTGUNATTACK, 5);
 				}
 				Audio::Start(4);
 			}
@@ -506,28 +527,28 @@ void CObjTutoHero::Action()
 				{
 					//アサルトアタックオブジェクト作成
 					CObjARAttack* obj_ara = new CObjARAttack(m_x + 14, m_y - 10, 0, -m_ga_vy_max, 0.0f);
-					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//アサルトアタックオブジェクト作成
 					CObjARAttack* obj_ara = new CObjARAttack(m_x + 32, m_y + 20, m_ga_vx_max, 0, 90.0f);
-					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//アサルトアタックオブジェクト作成
 					CObjARAttack* obj_ara = new CObjARAttack(m_x + 16, m_y + 32, 0, m_ga_vy_max, 180.0f);
-					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//アサルトアタックオブジェクト作成
 					CObjARAttack* obj_ara = new CObjARAttack(m_x, m_y + 20, -m_ga_vx_max, 0, 270.0f);
-					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 3);
+					Objs::InsertObj(obj_ara, OBJ_ARATTACK, 5);
 				}
 				Audio::Start(3);
 			}
@@ -548,29 +569,29 @@ void CObjTutoHero::Action()
 				if (m_UDani_frame == 0)
 				{
 					//スナイパーアタックオブジェクト作成
-					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
-					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max * 2, 0.0f);
+					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//スナイパーアタックオブジェクト作成
-					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
-					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 50, m_y + 20, m_ga_vx_max * 2, 0, 270.0f);
+					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//スナイパーアタックオブジェクト作成
-					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
-					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max * 2, 180.0f);
+					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//スナイパーアタックオブジェクト作成
-					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
-					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 3);
+					CObjSniperRifleAttack* obj_sra = new CObjSniperRifleAttack(m_x - 10, m_y + 20, -m_ga_vx_max * 2, 0, 90.0f);
+					Objs::InsertObj(obj_sra, OBJ_SNIPERRIFLEATTACK, 5);
 				}
 				Audio::Start(5);
 			}
@@ -592,28 +613,28 @@ void CObjTutoHero::Action()
 				{
 					//ロケットランチャーアタックオブジェクト作成
 					CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x + 16, m_y, 0, -m_ga_vy_max, 0.0f);
-					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//ロケットランチャーアタックオブジェクト作成
 					CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, m_ga_vx_max, 0, 270.0f);
-					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//ロケットランチャーアタックオブジェクト作成
 					CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x + 16, m_y, 0, m_ga_vy_max, 180.0f);
-					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//ロケットランチャーアタックオブジェクト作成
 					CObjRocketLauncherAttack* obj_rla = new CObjRocketLauncherAttack(m_x, m_y, -m_ga_vx_max, 0, 90.0f);
-					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 3);
+					Objs::InsertObj(obj_rla, OBJ_ROCKETLAUNCHERATTACK, 5);
 				}
 				Audio::Start(6);
 			}
@@ -634,29 +655,29 @@ void CObjTutoHero::Action()
 				if (m_UDani_frame == 0)
 				{
 					//レールガンアタックオブジェクト作成
-					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max, 0.0f);
-					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y - 20, 0, -m_ga_vy_max * 2, 0.0f);
+					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 				}
 				//右
 				else if (m_UDani_frame == 2)
 				{
 					//レールガンアタックオブジェクト作成
-					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max, 0, 270.0f);
-					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 50, m_y + 20, m_ga_vx_max * 2, 0, 270.0f);
+					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 				}
 				//下
 				else if (m_UDani_frame == 4)
 				{
 					//レールガンアタックオブジェクト作成
-					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max, 180.0f);
-					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x + 28, m_y + 40, 0, m_ga_vy_max * 2, 180.0f);
+					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 				}
 				//左
 				else if (m_UDani_frame == 6)
 				{
 					//レールガンアタックオブジェクト作成
-					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max, 0, 90.0f);
-					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 3);
+					CObjRailGunAttack* obj_rga = new CObjRailGunAttack(m_x - 10, m_y + 20, -m_ga_vx_max * 2, 0, 90.0f);
+					Objs::InsertObj(obj_rga, OBJ_RAILGUNATTACK, 5);
 				}
 				Audio::Start(7);
 			}
@@ -712,54 +733,160 @@ void CObjTutoHero::Action()
 				Audio::Start(13);
 				m_hg_flg = false;
 			}
-		}			
+		}
+			
 		//ショットガン
 		else if (m_Weapon_switching == 1 && m_sg_pb >= 0 && m_sg_pb_me != 0)
 		{
 			if (m_sg_flg == true)
-			{										
-				m_sg_pb = 6; //弾数を6増やす
+			{
+				//【計算1】
+				//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+				m_sg_pb_cc = m_sg_pb_c - m_sg_pb;
+
+				//全体初期弾数が打った数より大きいと計算2へ
+				if (m_sg_pb_me > m_sg_pb_cc)
+				{
+					//【計算2】
+					//計算後 = 全体初期弾数 - 打った数
+					m_sg_pb_me = m_sg_pb_me - m_sg_pb_cc;
+				}
+				//全体初期弾数が打った数より小さいと計算3へ
+				else if (m_sg_pb_me <= m_sg_pb_cc)
+				{
+					//【計算3】								
+					m_sg_pb_cc = m_sg_pb_me; //打った数と全体初期弾数を合わせる							
+					m_sg_pb_me = 0; //全体初期弾数を0にする
+				}
+
+				//計算後 = 現在残り弾数 + 打った数
+				m_sg_pb = m_sg_pb + m_sg_pb_cc;
 				Audio::Start(13);
 				m_sg_flg = false;
 			}
-		}			
+		}
+			
 		//アサルト
 		else if (m_Weapon_switching == 2 && m_ar_pb >= 0 && m_ar_pb_me != 0)
 		{
 			if (m_ar_flg == true)
 			{
-					
-				m_ar_pb = 20; //弾数を20増やす
+				//【計算1】
+				//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+				m_ar_pb_cc = m_ar_pb_c - m_ar_pb;
+
+				//全体初期弾数が打った数より大きいと計算2へ
+				if (m_ar_pb_me > m_ar_pb_cc)
+				{
+					//【計算2】
+					//計算後 = 全体初期弾数 - 打った数
+					m_ar_pb_me = m_ar_pb_me - m_ar_pb_cc;
+				}
+				//全体初期弾数が打った数より小さいと計算3へ
+				else if (m_ar_pb_me <= m_ar_pb_cc)
+				{
+					//【計算3】								
+					m_ar_pb_cc = m_ar_pb_me; //打った数と全体初期弾数を合わせる							
+					m_ar_pb_me = 0; //全体初期弾数を0にする
+				}
+
+				//計算後 = 現在残り弾数 + 打った数
+				m_ar_pb = m_ar_pb + m_ar_pb_cc;
 				Audio::Start(13);
 				m_ar_flg = false;
 			}
-		}		
+		}
+			
 		//スナイパー
 		else if (m_Weapon_switching == 3 && m_sr_pb >= 0 && m_sr_pb_me != 0)
 		{
 			if (m_sr_flg == true)
-			{					
-				m_sr_pb = 5; //弾数を5増やす
+			{
+				//【計算1】
+				//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+				m_sr_pb_cc = m_sr_pb_c - m_sr_pb;
+
+				//全体初期弾数が打った数より大きいと計算2へ
+				if (m_sr_pb_me > m_sr_pb_cc)
+				{
+					//【計算2】
+					//計算後 = 全体初期弾数 - 打った数
+					m_sr_pb_me = m_sr_pb_me - m_sr_pb_cc;
+				}
+				//全体初期弾数が打った数より小さいと計算3へ
+				else if (m_sr_pb_me <= m_sr_pb_cc)
+				{
+					//【計算3】								
+					m_sr_pb_cc = m_sr_pb_me; //打った数と全体初期弾数を合わせる
+					m_sr_pb_me = 0; //全体初期弾数を0にする
+				}
+
+				//計算後 = 現在残り弾数 + 打った数
+				m_sr_pb = m_sr_pb + m_sr_pb_cc;
 				Audio::Start(13);
 				m_sr_flg = false;
 			}
-		}			
+		}
+			
 		//ロケットランチャー
 		else if (m_Weapon_switching == 4 && m_rl_pb >= 0 && m_rl_pb_me != 0)
 		{
 			if (m_rl_flg == true)
 			{
-				m_rl_pb = 1; //弾数を1増やす
+				//【計算1】
+				//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+				m_rl_pb_cc = m_rl_pb_c - m_rl_pb;
+
+				//【計算2】
+				//全体初期弾数が打った数より大きいと計算2へ
+				if (m_rl_pb_me > m_rl_pb_cc)
+				{
+					//【計算2】
+					//計算後 = 全体初期弾数 - 打った数
+					m_rl_pb_me = m_rl_pb_me - m_rl_pb_cc;
+				}
+				else if (m_rl_pb_me <= m_sr_pb_cc)
+				{
+					//【計算3】							
+					m_rl_pb_cc = m_rl_pb_me; //打った数と全体初期弾数を合わせる
+					m_rl_pb_me = 0; //全体初期弾数を0にする
+				}
+
+				//計算後 = 現在残り弾数 + 打った数
+				m_rl_pb = m_rl_pb + m_rl_pb_cc;
 				Audio::Start(13);
 				m_rl_flg = false;
 			}
-		}			
+		}
+			
 		//レールガン
 		else if (m_Weapon_switching == 5 && m_rg_pb >= 0 && m_rg_pb_me != 0)
 		{
-			m_rg_pb = 1; //弾数を1増やす
-			Audio::Start(13);
-			m_rg_flg = false;
+			if (m_rg_flg == true)
+			{
+				//【計算1】
+				//打った数 = 初期弾数(リロード分) - 現在残り弾数(リロード分)
+				m_rg_pb_cc = m_rg_pb_c - m_rg_pb;
+
+				//全体初期弾数が打った数より大きいと計算2へ
+				if (m_rg_pb_me > m_ar_pb_cc)
+				{
+					//【計算2】
+					//計算後 = 全体初期弾数 - 打った数
+					m_rg_pb_me = m_rg_pb_me - m_rg_pb_cc;
+				}
+				//全体初期弾数が打った数より小さいと計算3へ
+				else if (m_rg_pb_me <= m_rg_pb_cc)
+				{
+					//【計算3】								
+					m_rg_pb_cc = m_rg_pb_me; //打った数と全体初期弾数を合わせる							
+					m_rg_pb_me = 0; //全体初期弾数を0にする
+				}
+				//計算後 = 現在残り弾数 + 打った数
+				m_rg_pb = m_rg_pb + m_rg_pb_cc;
+				Audio::Start(13);
+				m_rg_flg = false;
+			}
 		}
 	}
 	else
@@ -769,8 +896,14 @@ void CObjTutoHero::Action()
 		m_ar_flg = true;
 		m_sr_flg = true;
 		m_rl_flg = true;
-		m_rg_flg = true;			
+		m_rg_flg = true;
+		m_sg_pb_cc = 0;
+		m_ar_pb_cc = 0;
+		m_sr_pb_cc = 0;
+		m_rl_pb_cc = 0;
+		m_rg_pb_cc = 0;
 	}
+	
 }
 
 //ドロー
@@ -778,7 +911,6 @@ void CObjTutoHero::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
-	float a[4] = { 10.0f,0.6f,0.6f,0.7f };
 
 	//モーション
 	int LRAniData[3] =

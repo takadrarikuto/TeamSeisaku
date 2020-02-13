@@ -36,10 +36,15 @@ void CObjTutoWall::Init()
 //アクション
 void CObjTutoWall::Action()
 {
-	//主人公位置取得
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX();
-	float hvy = hero->GetVY();
+	//チュートリアル主人公位置取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	float hvx;
+	float hvy;
+	if (Tuhero != nullptr)
+	{
+		hvx = Tuhero->GetVX();
+		hvy = Tuhero->GetVY();
+	}
 
 	//主人公の移動に合わせる
 	m_Wallx -= hvx;
@@ -48,14 +53,6 @@ void CObjTutoWall::Action()
 	//HitBoxの内容を更新 
 	CHitBox* hit_exp = Hits::GetHitBox(this); //当たり判定情報取得 
 	hit_exp->SetPos(m_Wallx + 1, m_Wally + 1); //当たり判定の位置更新
-
-	/*if (hit_exp->CheckObjNameHit(OBJ_HERO) != nullptr)
-	{
-		hero->SetHP(100);
-		this->SetStatus(false); //オブジェクト破棄
-		Hits::DeleteHitBox(this); //回復箱が所有するHitBoxを削除する
-	}*/
-
 }
 
 //ドロー

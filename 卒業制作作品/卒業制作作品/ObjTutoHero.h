@@ -22,6 +22,7 @@ public:
 	float GetHitBox() { return m_dst_size; }
 
 	int GetWS() { return m_Weapon_switching; }
+	int GetHP() { return m_hero_hp; }	//主人公のHPを取得
 	int GetUDAF() { return m_UDani_frame; } //上下アニメーション取得用
 
 	//上下左右別当たり判定確認フラグ取得用
@@ -87,6 +88,11 @@ private:
 	int m_UDani_frame;	//描画フレーム
 	int m_ani_time;	//アニメーションフレーム動作間隔	
 	int m_LRani_frame;
+
+	int m_damage;	//主人公が受けるダメージ用
+
+	int m_time_d;	//ダメージ無敵時間用
+	int m_time_dead;	//死亡用
 
 	int m_bt; //攻撃頻度
 	int m_bt_max; //攻撃頻度最大値

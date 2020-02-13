@@ -12,28 +12,41 @@ using namespace GameL;
 //イニシャライズ
 void CObjTutoTopback::Init()
 {
-
+	//チュートリアル敵撃破数用
+	g_zombie_count_tu = 0;
+	//チュートリアル敵撃破数増加用
+	g_zombie_count_tu_increase = 0;
 }
 
 //アクション
 void CObjTutoTopback::Action()
 {
+	//チュートリアルゾンビ撃退カウント処理
+	if (g_zombie_count_tu_increase > 0)
+	{
+		g_zombie_count_tu += g_zombie_count_tu_increase;
+		g_zombie_count_tu_increase = 0;
+	}
 
 }
 
 //ドロー
 void CObjTutoTopback::Draw()
 {
-	//主人公から各残り弾数情報を取得(装備分)
-	CObjTutoHero* hero = (CObjTutoHero*)Objs::GetObj(OBJ_HERO);
-	hg_pb_e = hero->GetHG_E();	//ハンドガン
-	sg_pb_e = hero->GetSG_E();	//ショットガン
-	ar_pb_e = hero->GetAR_E();	//アサルトライフル
-	sr_pb_e = hero->GetSR_E();	//スナイパーライフル
-	rl_pb_e = hero->GetRL_E();	//ロケットランチャー
-	rg_pb_e = hero->GetRG_E();	//レールガン
-	ws_num = hero->GetWS();
-
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (Tuhero != nullptr)
+	{
+		//各残り弾数情報を取得(装備分)
+		hg_pb_e = Tuhero->GetHG_E();	//ハンドガン
+		sg_pb_e = Tuhero->GetSG_E();	//ショットガン
+		ar_pb_e = Tuhero->GetAR_E();	//アサルトライフル
+		sr_pb_e = Tuhero->GetSR_E();	//スナイパーライフル
+		rl_pb_e = Tuhero->GetRL_E();	//ロケットランチャー
+		rg_pb_e = Tuhero->GetRG_E();	//レールガン
+		ws_num = Tuhero->GetWS();
+	}
+	
 	//描画カラー情報　R=RED  G=Green  B=Blue A=alpha(透過情報)
 	float c[4] = { 1.0f,1.0f,1.0f,1.0f };//白
 	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
@@ -62,7 +75,6 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 600.0f;
 	Draw::Draw(30, &src, &dst, a3, 0.0f);
 
-	//左側帯状背景
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -76,7 +88,7 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 
-	//武器表示背景
+
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -90,7 +102,7 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(31, &src, &dst, c, 0.0f);
 
-	//右側帯状背景
+
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;
@@ -104,7 +116,7 @@ void CObjTutoTopback::Draw()
 	dst.m_bottom = 63.0f;
 	Draw::Draw(30, &src, &dst, c, 0.0f);
 
-	//イベントタイム用背景
+
 	//切り取り位置の設定
 	src.m_top = 0.0f;
 	src.m_left = 0.0f;

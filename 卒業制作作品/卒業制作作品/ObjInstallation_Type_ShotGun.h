@@ -28,8 +28,12 @@ private:
 	float m_IT_SHGvx; //位置更新
 	float m_IT_SHGvy;
 
+	int m_Font_time; //フォント表示タイム
+
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;
+
+	int m_IT_SHG_num_max; //設置型ショットガンの弾数回復量最大値
 
 	bool m_Replenishment_flg; //補充フラグ	
 	int m_Replenishment_time; //再補充タイム

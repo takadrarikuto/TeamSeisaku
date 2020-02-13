@@ -16,8 +16,6 @@ public:
 	void Action(); //アクション
 	void Draw(); //ドロー
 
-	//float GetX() { return m_zex; } //エネミー情報取得用
-	//float GetY() { return m_zey; }
 	int GetHP() { return m_hero_hp; }	//エネミーのHPを取得
 																						 
 private:
@@ -30,6 +28,8 @@ private:
 
 	bool m_st_e_x_flg; //移動フラグ
 	bool m_st_e_y_flg;
+
+	int m_move_time; //移動方向確認タイム
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上

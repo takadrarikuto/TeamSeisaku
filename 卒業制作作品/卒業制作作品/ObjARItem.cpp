@@ -23,10 +23,12 @@ void CObjARItem::Init()
 {
 	//初期化
 	//描画サイズ
-	//m_dst_size = 50.0f;
 	//XY当たり判定サイズ
 	m_XHitbox_size = 30;
 	m_YHitbox_size = 24;
+
+	//アサルトライフルの弾数回復量
+	m_AR_num_max = 0; 
 
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_AR_Item_x, m_AR_Item_y, m_XHitbox_size, m_YHitbox_size, ELEMENT_FIELD, OBJ_AR_ITEM, 7);
@@ -57,18 +59,21 @@ void CObjARItem::Action()
 		//主人公に当たると弾補充
 		if (((UserData*)Save::GetData())->choose == 0)
 		{
-			((UserData*)Save::GetData())->AR_load += 60; //アサルトライフル		
-			aitemfont->SetAitemNum(60); //弾数表示
+			m_AR_num_max = 60; //アサルトライフルの弾数回復量変更
+			((UserData*)Save::GetData())->AR_load += m_AR_num_max; //アサルトライフル		
+			aitemfont->SetAitemNum(m_AR_num_max); //弾数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 1)
 		{
-			((UserData*)Save::GetData())->AR_load += 40; //アサルトライフル		
-			aitemfont->SetAitemNum(40); //弾数表示
+			m_AR_num_max = 40; //アサルトライフルの弾数回復量変更
+			((UserData*)Save::GetData())->AR_load += m_AR_num_max; //アサルトライフル		
+			aitemfont->SetAitemNum(m_AR_num_max); //弾数表示
 		}
 		else if (((UserData*)Save::GetData())->choose == 2)
 		{
-			((UserData*)Save::GetData())->AR_load += 20; //アサルトライフル		
-			aitemfont->SetAitemNum(20); //弾数表示
+			m_AR_num_max = 20; //アサルトライフルの弾数回復量変更
+			((UserData*)Save::GetData())->AR_load += m_AR_num_max; //アサルトライフル		
+			aitemfont->SetAitemNum(m_AR_num_max); //弾数表示
 		}
 		aitemfont->SetAGF(2); //フォント表示
 		Audio::Start(12); //効果音再生

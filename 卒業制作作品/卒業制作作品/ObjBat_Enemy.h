@@ -11,9 +11,6 @@ using namespace GameL;
 #define RL_Attack  150;  //ロケットランチャー
 #define RG_Attack  200;  //レールガン
 
-//ダメージ点滅時間用
-#define TIME_D 5
-
 class CObjBat_Enemy : public CObj, public CBaseStatus
 {
 public:
@@ -38,6 +35,8 @@ private:
 
 	bool m_be_x_flg; //移動フラグ
 	bool m_be_y_flg;
+
+	int m_move_time; //移動方向確認タイム
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上

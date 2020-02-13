@@ -32,6 +32,12 @@ void CObjInstallation_Type_SR::Init()
 	m_HitSize_x = 34;
 	m_HitSize_y = 66;
 
+	//設置型スナイパーライフルの弾数回復量最大値
+	m_IT_SR_num_max = 0; 
+
+	//フォント表示タイム
+	m_Font_time = 0;
+
 	//補充フラグ
 	m_Replenishment_flg = false;
 	//再補充タイム
@@ -57,6 +63,10 @@ void CObjInstallation_Type_SR::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
@@ -67,23 +77,27 @@ void CObjInstallation_Type_SR::Action()
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
+		m_Font_time = 90; //フォント表示タイム設定
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
 			if (((UserData*)Save::GetData())->choose == 0)
 			{
-				((UserData*)Save::GetData())->SR_load += 20; //スナイパーライフル		
-				aitemfont->SetAitemNum(20); //グレネード数表示
+				m_IT_SR_num_max = 20; //設置型スナイパーライフル弾数回復量変更
+				((UserData*)Save::GetData())->SR_load += m_IT_SR_num_max; //スナイパーライフル弾数回復	
+				aitemfont->SetAitemNum(m_IT_SR_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 1)
 			{
-				((UserData*)Save::GetData())->SR_load += 15; //スナイパーライフル	
-				aitemfont->SetAitemNum(15); //グレネード数表示
+				m_IT_SR_num_max = 15;
+				((UserData*)Save::GetData())->SR_load += m_IT_SR_num_max; //スナイパーライフル弾数回復
+				aitemfont->SetAitemNum(m_IT_SR_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 2)
 			{
-				((UserData*)Save::GetData())->SR_load += 10; //スナイパーライフル	
-				aitemfont->SetAitemNum(10); //グレネード数表示
+				m_IT_SR_num_max = 10;
+				((UserData*)Save::GetData())->SR_load += m_IT_SR_num_max; //スナイパーライフル弾数回復	
+				aitemfont->SetAitemNum(m_IT_SR_num_max); //弾数表示
 			}
 			aitemfont->SetAGF(3);
 			Audio::Start(12); //効果音再生
@@ -104,31 +118,42 @@ void CObjInstallation_Type_SR::Action()
 	m_IT_SRx -= hvx;
 	m_IT_SRy -= hvy;
 
-	//再補充タイム
-	if (m_Replenishment_time > 0)
+	//フォント表示タイム減少処理
+	//0になるまで減少
+	if (m_Font_time > 0)
 	{
-		m_Replenishment_time--;
+		m_Font_time--;
 	}
-	else if (m_Replenishment_time == 0)
-	{
-		//再補充完了フォント表示タイム減少処理
-		if (m_Replenishment_Font_time > 0)
-		{
-			//効果音再生
-			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
-			{
-				m_Replenishment_Font_flg = true; //再補充完了フォント表示
-				Audio::Start(8);
-			}
 
-			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
-		}
-		else if (m_Replenishment_Font_time == 0)
+	if (Menu_flg == false)
+	{
+		//再補充タイム
+		if (m_Replenishment_time > 0)
 		{
-			//再補充完了フォント表示フラグ初期化
-			m_Replenishment_Font_flg = false;
+			m_Replenishment_time--;
+		}
+		else if (m_Replenishment_time == 0)
+		{
+			//再補充完了フォント表示タイム減少処理
+			if (m_Replenishment_Font_time > 0)
+			{
+				//効果音再生
+				if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+				{
+					m_Replenishment_Font_flg = true; //再補充完了フォント表示
+					Audio::Start(8);
+				}
+
+				m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
+			}
+			else if (m_Replenishment_Font_time == 0)
+			{
+				//再補充完了フォント表示フラグ初期化
+				m_Replenishment_Font_flg = false;
+			}
 		}
 	}
+	
 }
 
 //ドロー
@@ -140,11 +165,18 @@ void CObjInstallation_Type_SR::Draw()
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	wchar_t str[256];
+	wchar_t str_f[256];
 
+	//フォント表示処理
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		swprintf_s(str, L"スナイパーライフルの弾が再補充されました。");
+		swprintf_s(str, L"スナイパーライフルの弾が再補充されました。"); //再補充フォント表示
 		Font::StrDraw(str, 0, 570, 30, c);
+	}
+	if (m_Font_time > 0)
+	{
+		swprintf_s(str_f, L"エンターキーでアイテム補充"); //操作説明フォント表示
+		Font::StrDraw(str_f, m_IT_SRx - 80, m_IT_SRy - 40, 15, blk);
 	}
 
 	RECT_F src;

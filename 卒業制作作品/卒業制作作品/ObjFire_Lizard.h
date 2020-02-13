@@ -14,9 +14,6 @@ using namespace GameL;
 //有刺鉄線
 #define BarbedWireSmall_Attack  2;
 
-//ダメージ点滅時間用
-#define TIME_D 5
-
 class CObjFire_Lizard : public CObj, public CBaseStatus
 {
 public:
@@ -39,8 +36,9 @@ private:
 	float m_flvy;
 	float m_flv_max; //移動ベクトル最大値
 
-	bool m_fl_x_flg; //移動フラグ
-	bool m_fl_y_flg;
+	int m_HitBoxFlg_time; //HitBoxFlg初期化タイム
+
+	int m_move_time; //移動方向確認タイム
 
 	//上下左右別当たり判定確認フラグ
 	bool m_UpHit_flg;    //上

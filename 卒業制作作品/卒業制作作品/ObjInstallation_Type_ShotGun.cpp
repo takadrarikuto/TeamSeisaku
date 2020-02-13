@@ -35,6 +35,12 @@ void CObjInstallation_Type_ShotGun::Init()
 	m_HitSize_x = 100;
 	m_HitSize_y = 60;
 
+	//設置型ショットガンの弾数回復量最大値
+	m_IT_SHG_num_max = 0; 
+
+	//フォント表示タイム
+	m_Font_time = 0;
+
 	//補充フラグ
 	m_Replenishment_flg = false; 
 	//再補充タイム
@@ -61,6 +67,10 @@ void CObjInstallation_Type_ShotGun::Action()
 	float hvx = hero->GetVX();
 	float hvy = hero->GetVY();
 
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//アイテムフォント情報取得
 	CObjAitemFont* aitemfont = (CObjAitemFont*)Objs::GetObj(OBJ_AITEM_FONT);
 
@@ -71,24 +81,28 @@ void CObjInstallation_Type_ShotGun::Action()
 	//主人公接触判定処理
 	if (hit_gen->CheckObjNameHit(OBJ_HERO) != nullptr)
 	{
+		m_Font_time = 90; //フォント表示タイム設定
 		if (Input::GetVKey(VK_RETURN) == true && m_Replenishment_flg == false
 			&& m_Replenishment_time == 0)
 		{
 			//主人公に当たると弾補充
 			if (((UserData*)Save::GetData())->choose == 0)
 			{
-				((UserData*)Save::GetData())->SHG_load += 30;//ショットガン		
-				aitemfont->SetAitemNum(30); //グレネード数表示
+				m_IT_SHG_num_max = 30; //設置型ショットガン弾数回復量変更
+				((UserData*)Save::GetData())->SHG_load += m_IT_SHG_num_max; //ショットガン弾数回復		
+				aitemfont->SetAitemNum(m_IT_SHG_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 1)
 			{
-				((UserData*)Save::GetData())->SHG_load += 24;//ショットガン
-				aitemfont->SetAitemNum(24); //グレネード数表示
+				m_IT_SHG_num_max = 24; //設置型ショットガン弾数回復量変更
+				((UserData*)Save::GetData())->SHG_load += m_IT_SHG_num_max; //ショットガン弾数回復
+				aitemfont->SetAitemNum(m_IT_SHG_num_max); //弾数表示
 			}
 			else if (((UserData*)Save::GetData())->choose == 2)
 			{
-				((UserData*)Save::GetData())->SHG_load += 18;//ショットガン	
-				aitemfont->SetAitemNum(18); //グレネード数表示
+				m_IT_SHG_num_max = 18; //設置型ショットガン弾数回復量変更
+				((UserData*)Save::GetData())->SHG_load += m_IT_SHG_num_max; //ショットガン弾数回復
+				aitemfont->SetAitemNum(m_IT_SHG_num_max); //弾数表示
 			}
 			aitemfont->SetAGF(1); 
 			Audio::Start(12); //効果音再生
@@ -108,31 +122,42 @@ void CObjInstallation_Type_ShotGun::Action()
 	m_IT_SHGx -= hvx;
 	m_IT_SHGy -= hvy;
 
-	//再補充タイム
-	if (m_Replenishment_time > 0)
+	//フォント表示タイム減少処理
+	//0になるまで減少
+	if (m_Font_time > 0)
 	{
-		m_Replenishment_time--;		
+		m_Font_time--;
 	}
-	else if (m_Replenishment_time == 0)
-	{		
-		//再補充完了フォント表示タイム減少処理
-		if (m_Replenishment_Font_time > 0)
-		{
-			//効果音再生
-			if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
-			{
-				m_Replenishment_Font_flg = true; //再補充完了フォント表示
-				Audio::Start(8);
-			}
 
-			m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
-		}
-		else if (m_Replenishment_Font_time == 0)
+	if (Menu_flg == false)
+	{
+		//再補充タイム
+		if (m_Replenishment_time > 0)
 		{
-			//再補充完了フォント表示フラグ初期化
-			m_Replenishment_Font_flg = false;
+			m_Replenishment_time--;
+		}
+		else if (m_Replenishment_time == 0)
+		{
+			//再補充完了フォント表示タイム減少処理
+			if (m_Replenishment_Font_time > 0)
+			{
+				//効果音再生
+				if (m_Replenishment_Font_time == REPLENIShHMENT_FONT_TIME)
+				{
+					m_Replenishment_Font_flg = true; //再補充完了フォント表示
+					Audio::Start(8);
+				}
+
+				m_Replenishment_Font_time--; //再補充完了フォント表示タイム減少									
+			}
+			else if (m_Replenishment_Font_time == 0)
+			{
+				//再補充完了フォント表示フラグ初期化
+				m_Replenishment_Font_flg = false;
+			}
 		}
 	}
+	
 	
 }
 
@@ -141,14 +166,22 @@ void CObjInstallation_Type_ShotGun::Draw()
 {
 	//描画カラー情報
 	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
+	float blk[4] = { 0.0f,0.0f,0.0f,1.0f };//黒
 	float cD[4] = { 1.0f,1.0f, 1.0f, 0.5f };
 
 	wchar_t str[256];
+	wchar_t str_f[256];
 
+	//フォント表示処理
 	if (m_Replenishment_Font_time > 0 && m_Replenishment_Font_flg == true)
 	{
-		swprintf_s(str, L"ショットガンの弾が再補充されました。");
+		swprintf_s(str, L"ショットガンの弾が再補充されました。"); //再補充フォント表示
 		Font::StrDraw(str, 0, 570, 30, c); 
+	}
+	if (m_Font_time > 0)
+	{
+		swprintf_s(str_f, L"エンターキーでアイテム補充"); //操作説明フォント表示
+		Font::StrDraw(str_f, m_IT_SHGx - 45, m_IT_SHGy - 12, 15, blk);
 	}
 	
 	RECT_F src;

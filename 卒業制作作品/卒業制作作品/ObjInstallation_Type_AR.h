@@ -30,6 +30,10 @@ private:
 	float m_HitSize_x; //HitBoxサイズ
 	float m_HitSize_y;
 
+	int m_IT_AR_num_max; //設置型アサルトライフルの弾数回復量最大値
+
+	int m_Font_time; //フォント表示タイム
+
 	bool m_Replenishment_flg; //補充フラグ
 	int m_Replenishment_time; //再補充タイム
 	bool m_Replenishment_Font_flg; //再補充完了フォント表示フラグ

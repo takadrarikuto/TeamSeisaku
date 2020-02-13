@@ -11,12 +11,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//チュートリアルONOFFフラグ
-bool Tuto_flg = false;
-
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjTutoZombieEnemy::CObjTutoZombieEnemy(float x, float y)
 {
@@ -50,11 +44,18 @@ void CObjTutoZombieEnemy::Init()
 //アクション
 void CObjTutoZombieEnemy::Action()
 {
-	//主人公情報取得
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX(); //移動ベクトル
-	float hvy = hero->GetVY();
-	bool h_gel = hero->GetDel(); //削除チェック
+	//チュートリアル主人公情報取得
+	CObjTutoHero* Tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	float hvx; 
+	float hvy;
+	if (Tuhero != nullptr)
+	{
+		hvx = Tuhero->GetVX(); //移動ベクトル
+		hvy = Tuhero->GetVY();
+	}
+
+	//チュートリアル背景情報取得
+	CObjTutoTopback* TuTo = (CObjTutoTopback*)Objs::GetObj(OBJ_TOPBACK);
 
 	//爆発
 	CObjExplosion* EXPAttack = (CObjExplosion*)Objs::GetObj(OBJ_EXPLOSION);
@@ -120,10 +121,11 @@ void CObjTutoZombieEnemy::Action()
 		CObjBlood_splash* obj_bs = new CObjBlood_splash(m_zex, m_zey, m_exp_blood_dst_size);
 		Objs::InsertObj(obj_bs, OBJ_BLOOD_SPLASH, 10);
 		Audio::Start(15);
+
+		TuTo->SetZoCoTu(1); //チュートリアルゾンビ撃破カウント
+
 		this->SetStatus(false); //オブジェクト破棄
 		Hits::DeleteHitBox(this); //弾が所有するHitBoxを削除する
-
-		g_zombie_count_tu += 1;
 	}
 
 	if (m_time_d > 0)

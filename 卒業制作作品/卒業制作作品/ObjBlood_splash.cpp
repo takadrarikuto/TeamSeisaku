@@ -8,9 +8,6 @@
 //使用するネームスペース
 using namespace GameL;
 
-//メニューONOFFフラグ
-extern bool Menu_flg;
-
 //コンストラクタ
 CObjBlood_splash::CObjBlood_splash(float x, float y, float size)
 {
@@ -30,6 +27,10 @@ void CObjBlood_splash::Init()
 	//描画フレーム
 	m_ani_flame = 1;
 
+	//主人公位置取得用
+	hvx =  0.0f;
+	hvy =  0.0f;
+
 	//当たり判定用HitBoxを作成
 	Hits::SetHitBox(this, m_bspx, m_bspy, m_exp_blood_dst_size, m_exp_blood_dst_size, ELEMENT_RED, OBJ_BLOOD_SPLASH, 10);
 
@@ -38,6 +39,10 @@ void CObjBlood_splash::Init()
 //アクション
 void CObjBlood_splash::Action()
 {
+	//メニュー情報取得
+	CObjMenu* Menu = (CObjMenu*)Objs::GetObj(OBJ_MENU);
+	bool Menu_flg = Menu->GetMenu();
+
 	//メニューを開くと行動停止
 	if (Menu_flg == false)
 	{
@@ -54,8 +59,18 @@ void CObjBlood_splash::Action()
 
 	//主人公位置取得
 	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
-	float hvx = hero->GetVX();
-	float hvy = hero->GetVY();
+	if (hero != nullptr)
+	{
+		hvx = hero->GetVX();
+		hvy = hero->GetVY();
+	}
+	//チュートリアル主人公情報取得
+	CObjTutoHero* tuhero = (CObjTutoHero*)Objs::GetObj(OBJ_TUTO_HERO);
+	if (tuhero != nullptr)
+	{
+		hvx = tuhero->GetVX();
+		hvy = tuhero->GetVY();
+	}
 
 	//主人公の移動に合わせる
 	m_bspx -= hvx;
@@ -66,22 +81,7 @@ void CObjBlood_splash::Action()
 	hit_exp->SetPos(m_bspx, m_bspy); //当たり判定の位置更新
 
 	////描画フレームが5になるとSE発生
-	//描画フレームが5になるとアニメーション間隔初期化、オブジェクト破棄
-	if (m_ani_flame == 1)
-	{		
-		//if (Exp_flg == true)
-		//{
-		//	//Audio::Start(4); //音楽スタート
-		//	Exp_flg = false;
-		//}
-		////Boss爆発
-		//if (B_Exp_flg == true)
-		//{
-		//	//Audio::Start(5); //音楽スタート
-		//	B_Exp_flg = false;
-		//}
-	}
-	else if (m_ani_flame == 5)
+	if (m_ani_flame == 5)
 	{
 		m_ani_flame = 5;
 
