@@ -37,7 +37,7 @@ void CObjTutoWall::Init()
 void CObjTutoWall::Action()
 {
 	//ålŒöˆÊ’uæ“¾
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_TUTO_HERO);
 	float hvx;
 	float hvy;
 	if (hero != nullptr)

@@ -37,13 +37,13 @@ void CObjTutoWall3::Init()
 void CObjTutoWall3::Action()
 {
 	//ŽålŒöˆÊ’uŽæ“¾
-	CObjHero* hero = (CObjHero*)Objs::GetObj(OBJ_HERO);
+	CObjHero* Tuhero = (CObjHero*)Objs::GetObj(OBJ_TUTO_HERO);
 	float hvx;
 	float hvy;
-	if (hero != nullptr)
+	if (Tuhero != nullptr)
 	{
-		hvx = hero->GetVX();
-		hvy = hero->GetVY();
+		hvx = Tuhero->GetVX();
+		hvy = Tuhero->GetVY();
 	}
 
 	//ŽålŒö‚ÌˆÚ“®‚É‡‚í‚¹‚é
