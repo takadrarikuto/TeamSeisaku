@@ -126,7 +126,7 @@ void CObjZombieEnemy::Action()
 		//移動処理
 		//上下移動開始
 		if (m_move_time < Y_Move)
-		{		
+		{					
 			//主人公が上に居ると上に移動
 			if (hy < m_zey)
 			{
@@ -140,11 +140,11 @@ void CObjZombieEnemy::Action()
 				if (m_DownHit_flg == false)  //下にオブジェクトがない時
 					m_zevy = m_zev_max;				
 				m_UDani_frame = 6;
-			}
+			}						
 		}
 		//左右移動開始
 		else if (m_move_time >= Y_Move && m_move_time < X_Move)
-		{
+		{		
 			//主人公が左に居ると左に移動
 			if (hx < m_zex)
 			{
@@ -158,7 +158,7 @@ void CObjZombieEnemy::Action()
 				if (m_RightHit_flg == false)  //右にオブジェクトがない時
 					m_zevx = m_zev_max;				
 				m_UDani_frame = 0;
-			}
+			}				
 		}		
 		else if (m_move_time == X_Move)
 		{
