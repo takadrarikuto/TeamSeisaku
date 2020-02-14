@@ -310,6 +310,8 @@ void CObjBat_Enemy::Action()
 	{
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetBatDrop(true);
+		AitemDrop->SetBat_X(m_bex);
+		AitemDrop->SetBat_Y(m_bey);
 		boss->SetBR(1);
 
 		//血しぶきオブジェクト作成

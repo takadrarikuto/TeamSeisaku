@@ -28,8 +28,9 @@ void CObjED::Action()
 void CObjED::Draw()
 {
 	//描写カラー情報
-	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };
-	float bl[4] = { 0.6f,0.6f,0.6f,1.0f };
+	float c[4] = { 1.0f,1.0f,1.0f,1.0f, };//白
+	float bl[4] = { 0.6f,0.6f,0.6f,1.0f };//黒
+	float r[4] = { 1.0f,0.0f,0.0f,1.0f };//赤
 
 	RECT_F src;//描写元切り取り位置
 	RECT_F dst;//描写先表示位置
@@ -85,15 +86,16 @@ void CObjED::Draw()
 			}
 			else if (((UserData*)Save::GetData())->choose < 2)
 			{
-				Font::StrDraw(L"[要レベル4クリアランス]", GAME_ED_X, GAME_ED_Y + m_y + 900, GAME_ED_FONT_SIZE, p);
+				Font::StrDraw(L"[要レベル4クリアランス]", GAME_ED_X, GAME_ED_Y + m_y + 900, GAME_ED_FONT_SIZE, r);
+				Font::StrDraw(L"※ハードステージクリアで閲覧可能", GAME_ED_X, GAME_ED_Y + m_y + 950, GAME_ED_FONT_SIZE, r);
 			}
 		}
 		else if(((UserData*)Save::GetData())->choose < 1)
 		{
-			Font::StrDraw(L"[要レベル3クリアランス]", GAME_ED_X, GAME_ED_Y + m_y + 700, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"※ノーマルステージクリアで閲覧可能", GAME_ED_X, GAME_ED_Y + m_y + 750, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"[要レベル4クリアランス]", GAME_ED_X, GAME_ED_Y + m_y + 900, GAME_ED_FONT_SIZE, p);
-			Font::StrDraw(L"※ハードステージクリアで閲覧可能", GAME_ED_X, GAME_ED_Y + m_y + 950, GAME_ED_FONT_SIZE, p);
+			Font::StrDraw(L"[要レベル3クリアランス]", GAME_ED_X, GAME_ED_Y + m_y + 700, GAME_ED_FONT_SIZE, r);
+			Font::StrDraw(L"※ノーマルステージクリアで閲覧可能", GAME_ED_X, GAME_ED_Y + m_y + 750, GAME_ED_FONT_SIZE, r);
+			Font::StrDraw(L"[要レベル4クリアランス]", GAME_ED_X, GAME_ED_Y + m_y + 900, GAME_ED_FONT_SIZE, r);
+			Font::StrDraw(L"※ハードステージクリアで閲覧可能", GAME_ED_X, GAME_ED_Y + m_y + 950, GAME_ED_FONT_SIZE, r);
 		}
 	}
 	

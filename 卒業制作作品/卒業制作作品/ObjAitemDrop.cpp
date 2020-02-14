@@ -38,34 +38,17 @@ void CObjAitemDrop::Init()
 //アクション
 void CObjAitemDrop::Action()
 {
-	//敵位置取得
-	CObjZombieEnemy* Zombie = (CObjZombieEnemy*)Objs::GetObj(OBJ_ENEMY); //ゾンビ
-	CObjFire_Lizard* Fire_Lizard = (CObjFire_Lizard*)Objs::GetObj(OBJ_FIRE_LIZARD); //火トカゲ
-	CObjBat_Enemy* Bat = (CObjBat_Enemy*)Objs::GetObj(OBJ_BAT_ENEMY); //蝙蝠
-	if (Zombie != nullptr)
-	{
-		Z_X = Zombie->GetX();
-		Z_Y = Zombie->GetY();
-	}
-	if (Fire_Lizard != nullptr)
-	{
-		FL_X = Fire_Lizard->GetX();
-		FL_Y = Fire_Lizard->GetY();
-	}
-	if (Bat != nullptr)
-	{
-		B_X = Bat->GetX();
-		B_Y = Bat->GetY();
-	}
+	m_Aitem_Rand_num = rand() % 100; //ランダム処理
 
+	//アイテムドロップ処理
 	if (m_Aitem_Drop_flg == true)
 	{
-		m_Aitem_Rand_num = rand() % 100;
 		if (m_Aitem_Rand_num < 80)
 		{
 			; //ドロップしない
 		}
-		else if (m_Aitem_Rand_num >= 80 && m_Aitem_Rand_num < 85)
+		//回復ドロップ
+		else if (m_Aitem_Rand_num >= 85 && m_Aitem_Rand_num < 90)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -93,7 +76,8 @@ void CObjAitemDrop::Action()
 			}
 			m_Aitem_Rand_num = 0;
 		}
-		else if (m_Aitem_Rand_num >= 85 && m_Aitem_Rand_num < 90)
+		//アーマードロップ
+		else if (m_Aitem_Rand_num >= 90 && m_Aitem_Rand_num < 95)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -121,7 +105,8 @@ void CObjAitemDrop::Action()
 			}
 			m_Aitem_Rand_num = 0;
 		}
-		else if (m_Aitem_Rand_num >= 90 && m_Aitem_Rand_num < 95)
+		//ショットガンの弾ドロップ
+		else if (m_Aitem_Rand_num >= 95 && m_Aitem_Rand_num < 97)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -149,7 +134,8 @@ void CObjAitemDrop::Action()
 			}
 			m_Aitem_Rand_num = 0;
 		}
-		else if (m_Aitem_Rand_num >= 95 && m_Aitem_Rand_num < 98)
+		//アサルトライフルの弾ドロップ
+		else if (m_Aitem_Rand_num >= 97 && m_Aitem_Rand_num < 99)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -177,7 +163,8 @@ void CObjAitemDrop::Action()
 			}
 			m_Aitem_Rand_num = 0;
 		}
-		else if (m_Aitem_Rand_num >= 98 && m_Aitem_Rand_num < 100)
+		//スナイパーライフルの弾ドロップ
+		else if (m_Aitem_Rand_num >= 99 && m_Aitem_Rand_num <= 100)
 		{
 			if (m_Zombie_Drop_flg == true)
 			{
@@ -207,17 +194,12 @@ void CObjAitemDrop::Action()
 		}
 		m_Aitem_Drop_flg = false;
 	}
-	else if (m_Aitem_Drop_flg == false)
-	{
-		m_Aitem_Rand_num = 0;
-	}
+	
 }
 
 //ドロー
 void CObjAitemDrop::Draw()
 {
-	//描画カラー情報
-	float c[4] = { 1.0f,1.0f, 1.0f, 1.0f };
 
 
 }

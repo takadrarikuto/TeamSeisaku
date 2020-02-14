@@ -159,7 +159,7 @@ void CObjBoss::Action()
 			m_Frie_Bird_Restriction_num = 0;
 		}
 
-		e_x = rand() % 192 + m_bx;
+		e_x = rand() % 160 + m_bx;
 		e_y = rand() % 64 + m_by;
 		
 		e_x -= hvx;

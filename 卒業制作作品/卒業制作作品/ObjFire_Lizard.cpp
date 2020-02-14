@@ -583,6 +583,8 @@ void CObjFire_Lizard::Action()
 	{	
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetFire_LizardDrop(true);
+		AitemDrop->SetFire_Lizard_X(m_flx);
+		AitemDrop->SetFire_Lizard_Y(m_fly);
 		boss->SetFLR(1);
 
 		//血しぶきオブジェクト作成

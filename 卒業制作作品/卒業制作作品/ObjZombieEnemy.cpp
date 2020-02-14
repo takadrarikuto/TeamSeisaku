@@ -584,6 +584,8 @@ void CObjZombieEnemy::Action()
 	{		
 		AitemDrop->SetAitemDrop(true);
 		AitemDrop->SetZombieDrop(true);
+		AitemDrop->SetZombie_X(m_zex);
+		AitemDrop->SetZombie_Y(m_zey);
 		boss->SetZR(1);
 
 		//血しぶきオブジェクト作成
